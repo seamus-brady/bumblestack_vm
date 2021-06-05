@@ -19,3 +19,7 @@
 #include "shell.h"
 #include "slog.h"
 #include "io.h"
+#include "lua.h"
+#include "lualib.h"
+#include "lauxlib.h"
+#include "luajit.h"

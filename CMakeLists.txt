@@ -16,10 +16,14 @@ set(CMAKE_BUILD_TYPE Debug)
 ######################################################################################################################
 ### include directories
 ######################################################################################################################
+find_package(luajit REQUIRED)
 include_directories(src/c)
 include_directories(src/c/system_tests)
 include_directories(src/c/unit_tests)
 include_directories(src/c/test)
+include_directories(src/c/luajit/)
+include_directories(src/c/luajit/src)
+include_directories(/usr/local/lib)
 
 ######################################################################################################################
 ### target for unit tests
@@ -38,10 +42,10 @@ target_link_libraries(unit_tests m)
 ### target for main executable
 ######################################################################################################################
 add_executable(bumblestack
-        /home/seamus/bin/lj2/include/luajit-2.1/luajit.h
-        /home/seamus/bin/lj2/include/luajit-2.1/lua.h
-        /home/seamus/bin/lj2/include/luajit-2.1/lualib.h
-        /home/seamus/bin/lj2/include/luajit-2.1/lauxlib.h
+        src/c/luajit/src/luajit.h
+        src/c/luajit/src/lua.h
+        src/c/luajit/src/lualib.h
+        src/c/luajit/src/lauxlib.h
         src/c/concept.h
         src/c/config.h
         src/c/cycle.c
