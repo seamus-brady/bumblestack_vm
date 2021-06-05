@@ -20,8 +20,6 @@ include_directories(src/c)
 include_directories(src/c/system_tests)
 include_directories(src/c/unit_tests)
 include_directories(src/c/test)
-# luajit
-include_directories(/home/seamus/GitHub/bumblestack-repos/luajit/src)
 
 ######################################################################################################################
 ### target for unit tests
@@ -40,6 +38,10 @@ target_link_libraries(unit_tests m)
 ### target for main executable
 ######################################################################################################################
 add_executable(bumblestack
+        /home/seamus/bin/lj2/include/luajit-2.1/luajit.h
+        /home/seamus/bin/lj2/include/luajit-2.1/lua.h
+        /home/seamus/bin/lj2/include/luajit-2.1/lualib.h
+        /home/seamus/bin/lj2/include/luajit-2.1/lauxlib.h
         src/c/concept.h
         src/c/config.h
         src/c/cycle.c
@@ -95,7 +97,11 @@ add_executable(bumblestack
         src/c/io.h
         src/c/io.c
         src/c/app.h
-        src/c/app.c)
+        src/c/app.c
+        /usr/local/include/luajit-2.1/lua.h
+        /usr/local/include/luajit-2.1/lualib.h
+        /usr/local/include/luajit-2.1/lauxlib.h
+        /usr/local/include/luajit-2.1/luajit.h)
 
 set_target_properties(bumblestack PROPERTIES LINKER_LANGUAGE C)
 target_link_libraries(bumblestack m)
