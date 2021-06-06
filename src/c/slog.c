@@ -42,7 +42,7 @@
 #endif
 #include <sys/time.h>
 
-#ifndef PTHREAD_MUTEX_RECURSIVE 
+#ifndef PTHREAD_MUTEX_RECURSIVE
 #define PTHREAD_MUTEX_RECURSIVE PTHREAD_MUTEX_RECURSIVE_NP
 #endif
 
@@ -75,8 +75,8 @@ static void slog_sync_init(SLogContext *pSlog)
         pthread_mutex_init(&pSlog->mutex, &mutexAttr) ||
         pthread_mutexattr_destroy(&mutexAttr))
     {
-        printf("<%s:%d> %s: [ERROR] Can not initialize mutex: %d\n", 
-            __FILE__, __LINE__, __FUNCTION__, errno);
+        printf("<%s:%d> %s: [ERROR] Can not initialize mutex: %d\n",
+               __FILE__, __LINE__, __FUNCTION__, errno);
 
         exit(EXIT_FAILURE);
     }
@@ -86,8 +86,8 @@ static void slog_lock(SLogContext *pSlog)
 {
     if (pSlog->nTdSafe && pthread_mutex_lock(&pSlog->mutex))
     {
-        printf("<%s:%d> %s: [ERROR] Can not lock mutex: %d\n", 
-            __FILE__, __LINE__, __FUNCTION__, errno);
+        printf("<%s:%d> %s: [ERROR] Can not lock mutex: %d\n",
+               __FILE__, __LINE__, __FUNCTION__, errno);
 
         exit(EXIT_FAILURE);
     }
@@ -97,9 +97,9 @@ static void slog_unlock(SLogContext *pSlog)
 {
     if (pSlog->nTdSafe && pthread_mutex_unlock(&pSlog->mutex))
     {
-        printf("<%s:%d> %s: [ERROR] Can not unlock mutex: %d\n", 
-            __FILE__, __LINE__, __FUNCTION__, errno);
-                
+        printf("<%s:%d> %s: [ERROR] Can not unlock mutex: %d\n",
+               __FILE__, __LINE__, __FUNCTION__, errno);
+
         exit(EXIT_FAILURE);
     }
 }
@@ -145,15 +145,15 @@ static uint8_t slog_get_usec()
     return (uint8_t)(tv.tv_usec / 10000);
 }
 
-static void slog_get_date(SLogDate *pDate) 
+static void slog_get_date(SLogDate *pDate)
 {
     struct tm timeinfo;
     time_t rawtime = time(NULL);
-    #ifdef WIN32
+#ifdef WIN32
     localtime_s(&timeinfo, &rawtime);
-    #else
+#else
     localtime_r(&rawtime, &timeinfo);
-    #endif
+#endif
 
     pDate->nYear = timeinfo.tm_year + 1900;
     pDate->nMonth = timeinfo.tm_mon + 1;
@@ -173,16 +173,15 @@ static void slog_create_tag( char *pOut, size_t nSize, SLOG_FLAGS_E eFlag, const
     else snprintf(pOut, nSize, "%s<%s>%s ", pColor, pTag, SLOG_CLR_RESET);
 }
 
-static uint32_t slog_get_tid()
-{
-    // causes problems with emcc
-    //#if defined(DARWIN) || defined(WIN32)
-    //    return (uint32_t)pthread_self();
-    //#else
-    //    return syscall(__NR_gettid);
-    //#endif
-    return 0;
-}
+// this causes problems with emscripten - removing
+//    static uint32_t slog_get_tid()
+//    {
+//    #if defined(DARWIN) || defined(WIN32)
+//        return (uint32_t)pthread_self();
+//    #else
+//        return syscall(__NR_gettid);
+//    #endif
+//    }
 
 static void slog_display_output(char *pStr, uint8_t nNewLine)
 {
@@ -196,9 +195,9 @@ static void slog_display_output(char *pStr, uint8_t nNewLine)
     const SLogDate *pDate = &g_slog.slogDate;
 
     char sFilePath[SLOG_PATH_MAX + SLOG_NAME_MAX + SLOG_DATE_MAX];
-    snprintf(sFilePath, sizeof(sFilePath), "%s/%s-%04d-%02d-%02d.log", 
-        g_slog.slogConfig.sFilePath, g_slog.slogConfig.sFileName, 
-        pDate->nYear, pDate->nMonth, pDate->nDay);
+    snprintf(sFilePath, sizeof(sFilePath), "%s/%s-%04d-%02d-%02d.log",
+             g_slog.slogConfig.sFilePath, g_slog.slogConfig.sFileName,
+             pDate->nYear, pDate->nMonth, pDate->nDay);
 
     FILE *pFile = fopen(sFilePath, "a");
     if (pFile == NULL) return;
@@ -216,14 +215,14 @@ static void slog_create_output(char* pOut, size_t nSize, const char* pStr, SLOG_
 
     if (pConfig->eDateControl == SLOG_TIME_ONLY)
     {
-        snprintf(sDate, sizeof(sDate), "%02d:%02d:%02d.%02d - ", 
-            pDate->nHour, pDate->nMin, pDate->nSec, pDate->nUsec);
+        snprintf(sDate, sizeof(sDate), "%02d:%02d:%02d.%02d - ",
+                 pDate->nHour, pDate->nMin, pDate->nSec, pDate->nUsec);
     }
     else if (pConfig->eDateControl == SLOG_DATE_FULL)
     {
-        snprintf(sDate, sizeof(sDate), "%04d.%02d.%02d-%02d:%02d:%02d.%02d - ", 
-            pDate->nYear, pDate->nMonth, pDate->nDay, pDate->nHour, pDate->nMin, 
-            pDate->nSec, pDate->nUsec);
+        snprintf(sDate, sizeof(sDate), "%04d.%02d.%02d-%02d:%02d:%02d.%02d - ",
+                 pDate->nYear, pDate->nMonth, pDate->nDay, pDate->nHour, pDate->nMin,
+                 pDate->nSec, pDate->nUsec);
     }
 
     char sTid[SLOG_TAG_MAX];
@@ -233,9 +232,9 @@ static void slog_create_output(char* pOut, size_t nSize, const char* pStr, SLOG_
     const char *pColor = slog_get_color(eFlag);
     slog_create_tag(sTag, sizeof(sTag), eFlag, pColor);
 
-    if (pConfig->nTraceTid) snprintf(sTid, sizeof(sTid), "(%u) ", slog_get_tid());
-    if (pConfig->eColorFormat != SLOG_COLOR_FULL) snprintf(pOut, nSize, "%s%s%s%s", sTid, sDate, sTag, pStr); 
-    else snprintf(pOut, nSize, "%s%s%s%s%s%s", pColor, sTid, sDate, sTag, pStr, SLOG_CLR_RESET); 
+    // if (pConfig->nTraceTid) snprintf(sTid, sizeof(sTid), "(%u) ", slog_get_tid());
+    if (pConfig->eColorFormat != SLOG_COLOR_FULL) snprintf(pOut, nSize, "%s%s%s%s", sTid, sDate, sTag, pStr);
+    else snprintf(pOut, nSize, "%s%s%s%s%s%s", pColor, sTid, sDate, sTag, pStr, SLOG_CLR_RESET);
 }
 
 static void slog_display_heap(SLOG_FLAGS_E eFlag, uint8_t nNewLine, const char *pMsg, va_list args)
@@ -248,8 +247,8 @@ static void slog_display_heap(SLOG_FLAGS_E eFlag, uint8_t nNewLine, const char *
 
     if (pInput == NULL)
     {
-        printf("<%s:%d> %s<error>%s %s: Can not allocate memory for input: errno(%d)\n", 
-            __FILE__, __LINE__, SLOG_CLR_RED, SLOG_CLR_RESET, __FUNCTION__, errno);
+        printf("<%s:%d> %s<error>%s %s: Can not allocate memory for input: errno(%d)\n",
+               __FILE__, __LINE__, SLOG_CLR_RED, SLOG_CLR_RESET, __FUNCTION__, errno);
 
         return;
     }
@@ -259,8 +258,8 @@ static void slog_display_heap(SLOG_FLAGS_E eFlag, uint8_t nNewLine, const char *
 
     if (pOutput == NULL)
     {
-        printf("[%s:%d] %s<error>%s %s: Can not allocate memory for output: errno(%d)\n", 
-            __FILE__, __LINE__, SLOG_CLR_RED, SLOG_CLR_RESET, __FUNCTION__, errno);
+        printf("[%s:%d] %s<error>%s %s: Can not allocate memory for output: errno(%d)\n",
+               __FILE__, __LINE__, SLOG_CLR_RED, SLOG_CLR_RESET, __FUNCTION__, errno);
 
         free(pInput);
         return;
@@ -289,7 +288,7 @@ void slog_display(SLOG_FLAGS_E eFlag, uint8_t nNewLine, const char *pMsg, ...)
     slog_lock(&g_slog);
 
     if ((SLOG_FLAGS_CHECK(g_slog.slogConfig.nFlags, eFlag)) &&
-       (g_slog.slogConfig.nToScreen || g_slog.slogConfig.nToFile))
+        (g_slog.slogConfig.nToScreen || g_slog.slogConfig.nToFile))
     {
         va_list args;
         va_start(args, pMsg);
@@ -308,12 +307,12 @@ const char* slog_version(uint8_t nMin)
     static char sVersion[SLOG_VERSION_MAX];
 
     /* Version short */
-    if (nMin) snprintf(sVersion, sizeof(sVersion), "%d.%d.%d", 
-        SLOG_VERSION_MAJOR, SLOG_VERSION_MINOR, SLOG_BUILD_NUM);
+    if (nMin) snprintf(sVersion, sizeof(sVersion), "%d.%d.%d",
+                       SLOG_VERSION_MAJOR, SLOG_VERSION_MINOR, SLOG_BUILD_NUM);
 
-    /* Version long */
-    else snprintf(sVersion, sizeof(sVersion), "%d.%d build %d (%s)", 
-        SLOG_VERSION_MAJOR, SLOG_VERSION_MINOR, SLOG_BUILD_NUM, __DATE__);
+        /* Version long */
+    else snprintf(sVersion, sizeof(sVersion), "%d.%d build %d (%s)",
+                  SLOG_VERSION_MAJOR, SLOG_VERSION_MINOR, SLOG_BUILD_NUM, __DATE__);
 
     return sVersion;
 }

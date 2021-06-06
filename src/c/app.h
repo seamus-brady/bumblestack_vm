@@ -20,3 +20,4 @@
 #include "slog.h"
 #include "io.h"
 #include "wren/wren.h"
+#include <emscripten.h>

@@ -20,6 +20,7 @@ include_directories(src/c)
 include_directories(src/c/system_tests)
 include_directories(src/c/unit_tests)
 include_directories(src/c/test)
+include_directories(/home/seamus/bin/emsdk/upstream/emscripten/system/include/emscripten)
 
 ######################################################################################################################
 ### target for unit tests
