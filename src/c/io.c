@@ -16,6 +16,63 @@
 
 #include "io.h"
 
+bool diagnosticTestOperationRun = false;
+
+void diagnosticTestOperation(Term term) {
+    slog_info("Diagnostic test operation was run correctly.");
+    diagnosticTestOperationRun = true;
+}
+
+void run_operation_diagnostic() {
+    slog_info("Running operation diagnostic test...");
+    slog_info("Add operation...");
+    NAR_AddOperation(Narsese_AtomicTerm("^op"), diagnosticTestOperation);
+    slog_info("Add belief...");
+    NAR_AddInputBelief(Narsese_AtomicTerm("a"));
+    slog_info("Run 1 inference cycle...");
+    NAR_Cycles(1);
+    slog_info("Add belief...");
+    NAR_AddInputBelief(Narsese_AtomicTerm("^op"));
+    slog_info("Run 1 inference cycle...");
+    NAR_Cycles(1);
+    slog_info("Add belief...");
+    NAR_AddInputBelief(Narsese_AtomicTerm("result"));
+    slog_info("Run 1 inference cycle...");
+    NAR_Cycles(1);
+    slog_info("Add belief...");
+    NAR_AddInputBelief(Narsese_AtomicTerm("a"));
+    slog_info("Run 1 inference cycle...");
+    NAR_Cycles(1);
+    slog_info("Add goal...");
+    NAR_AddInputGoal(Narsese_AtomicTerm("result"));
+    slog_info("Run 1 inference cycle...");
+    NAR_Cycles(1);
+    slog_info("Finished operation diagnostic test.");
+}
+
+void run_ruletable_diagnostic() {
+    slog_info("Running a diagnostic ruletable test...");
+    slog_info("Adding input...");
+    NAR_AddInput(Narsese_Term(
+            "<cat --> animal>"), EVENT_TYPE_BELIEF, NAR_DEFAULT_TRUTH,
+                 true, 0, false);
+    slog_info("Adding input...");
+    NAR_AddInput(Narsese_Term(
+            "<animal --> being>"), EVENT_TYPE_BELIEF, NAR_DEFAULT_TRUTH,
+                 true, 0, false);
+    slog_info("Running 10 inference cycles...");
+    NAR_Cycles(10);
+    assert(currentTime != 0, "Internal cycle time should not be zero.");
+    slog_info("Finished diagnostic ruletable test.");
+}
+
+void run_diagnostics(void) {
+    slog_info("Running diagnostic tests...");
+    run_ruletable_diagnostic();
+    run_operation_diagnostic();
+    slog_info("Completed diagnostic tests...");
+}
+
 void setupLogging() {// Enable all logging levels
     int enabledLevels = SLOG_FLAGS_ALL;
 

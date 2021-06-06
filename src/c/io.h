@@ -24,3 +24,4 @@ void printConcepts();
 void printAtomTable();
 void printCyclingBeliefEvents();
 void printCyclingGoalEvents();
+void run_diagnostics();
