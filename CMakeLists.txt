@@ -10,7 +10,6 @@ project(bumblestack C)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_FLAGS "-lm -mfpmath=sse -msse2 -pthread -lpthread -D_POSIX_C_SOURCE=199506L -pedantic -std=c99 -g3 -O3")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
-set(CTEST_BINARY_DIRECTORY ${PROJECT_BINARY_DIR}/tests)
 set(CMAKE_BUILD_TYPE Debug)
 
 ######################################################################################################################
@@ -38,10 +37,6 @@ target_link_libraries(unit_tests m)
 ### target for main executable
 ######################################################################################################################
 add_executable(bumblestack
-        /home/seamus/bin/lj2/include/luajit-2.1/luajit.h
-        /home/seamus/bin/lj2/include/luajit-2.1/lua.h
-        /home/seamus/bin/lj2/include/luajit-2.1/lualib.h
-        /home/seamus/bin/lj2/include/luajit-2.1/lauxlib.h
         src/c/concept.h
         src/c/config.h
         src/c/cycle.c
@@ -97,11 +92,7 @@ add_executable(bumblestack
         src/c/io.h
         src/c/io.c
         src/c/app.h
-        src/c/app.c
-        /usr/local/include/luajit-2.1/lua.h
-        /usr/local/include/luajit-2.1/lualib.h
-        /usr/local/include/luajit-2.1/lauxlib.h
-        /usr/local/include/luajit-2.1/luajit.h)
+        src/c/app.c)
 
 set_target_properties(bumblestack PROPERTIES LINKER_LANGUAGE C)
 target_link_libraries(bumblestack m)

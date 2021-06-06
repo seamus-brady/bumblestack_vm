@@ -173,14 +173,15 @@ static void slog_create_tag( char *pOut, size_t nSize, SLOG_FLAGS_E eFlag, const
     else snprintf(pOut, nSize, "%s<%s>%s ", pColor, pTag, SLOG_CLR_RESET);
 }
 
-static uint32_t slog_get_tid()
-{
-#if defined(DARWIN) || defined(WIN32)
-    return (uint32_t)pthread_self();
-#else
-    return syscall(__NR_gettid);
-#endif
-}
+// this causes problems with emscripten - removing
+//    static uint32_t slog_get_tid()
+//    {
+//    #if defined(DARWIN) || defined(WIN32)
+//        return (uint32_t)pthread_self();
+//    #else
+//        return syscall(__NR_gettid);
+//    #endif
+//    }
 
 static void slog_display_output(char *pStr, uint8_t nNewLine)
 {
@@ -231,7 +232,7 @@ static void slog_create_output(char* pOut, size_t nSize, const char* pStr, SLOG_
     const char *pColor = slog_get_color(eFlag);
     slog_create_tag(sTag, sizeof(sTag), eFlag, pColor);
 
-    if (pConfig->nTraceTid) snprintf(sTid, sizeof(sTid), "(%u) ", slog_get_tid());
+    // if (pConfig->nTraceTid) snprintf(sTid, sizeof(sTid), "(%u) ", slog_get_tid());
     if (pConfig->eColorFormat != SLOG_COLOR_FULL) snprintf(pOut, nSize, "%s%s%s%s", sTid, sDate, sTag, pStr); 
     else snprintf(pOut, nSize, "%s%s%s%s%s%s", pColor, sTid, sDate, sTag, pStr, SLOG_CLR_RESET); 
 }
