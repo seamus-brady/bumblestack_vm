@@ -62,8 +62,11 @@ void systemInit(){
     printCyclingGoalEvents();
 }
 
+
+
 int main(int argc, char *argv[]) {
     systemInit();
+    run_diagnostics();
     return 0;
 }
 
