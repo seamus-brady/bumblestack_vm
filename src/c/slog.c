@@ -175,11 +175,13 @@ static void slog_create_tag( char *pOut, size_t nSize, SLOG_FLAGS_E eFlag, const
 
 static uint32_t slog_get_tid()
 {
-#if defined(DARWIN) || defined(WIN32)
-    return (uint32_t)pthread_self();
-#else
-    return syscall(__NR_gettid);
-#endif
+    // causes problems with emcc
+    //#if defined(DARWIN) || defined(WIN32)
+    //    return (uint32_t)pthread_self();
+    //#else
+    //    return syscall(__NR_gettid);
+    //#endif
+    return 0;
 }
 
 static void slog_display_output(char *pStr, uint8_t nNewLine)

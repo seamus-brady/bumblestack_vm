@@ -8,7 +8,7 @@ project(bumblestack C)
 ### set values
 ######################################################################################################################
 set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_FLAGS "-lm -mfpmath=sse -msse2 -pthread -lpthread -D_POSIX_C_SOURCE=199506L -pedantic -std=c99 -g3 -O3")
+set(CMAKE_C_FLAGS "-lm -mfpmath=sse -msse2 -pthread -lpthread -D_POSIX_C_SOURCE=199506L -std=c11 -g3 -O3")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 set(CTEST_BINARY_DIRECTORY ${PROJECT_BINARY_DIR}/tests)
 set(CMAKE_BUILD_TYPE Debug)
@@ -38,10 +38,6 @@ target_link_libraries(unit_tests m)
 ### target for main executable
 ######################################################################################################################
 add_executable(bumblestack
-        /home/seamus/bin/lj2/include/luajit-2.1/luajit.h
-        /home/seamus/bin/lj2/include/luajit-2.1/lua.h
-        /home/seamus/bin/lj2/include/luajit-2.1/lualib.h
-        /home/seamus/bin/lj2/include/luajit-2.1/lauxlib.h
         src/c/concept.h
         src/c/config.h
         src/c/cycle.c
@@ -98,10 +94,35 @@ add_executable(bumblestack
         src/c/io.c
         src/c/app.h
         src/c/app.c
-        /usr/local/include/luajit-2.1/lua.h
-        /usr/local/include/luajit-2.1/lualib.h
-        /usr/local/include/luajit-2.1/lauxlib.h
-        /usr/local/include/luajit-2.1/luajit.h)
+        # wren embedded scripting language
+        src/c/wren/wren_common.h
+        src/c/wren/wren_compiler.c
+        src/c/wren/wren_compiler.h
+        src/c/wren/wren_core.c
+        src/c/wren/wren_core.h
+        src/c/wren/wren_core.wren
+        src/c/wren/wren_core.wren.inc
+        src/c/wren/wren_debug.c
+        src/c/wren/wren_debug.h
+        src/c/wren/wren_math.h
+        src/c/wren/wren_opcodes.h
+        src/c/wren/wren_primitive.c
+        src/c/wren/wren_primitive.h
+        src/c/wren/wren_utils.c
+        src/c/wren/wren_utils.h
+        src/c/wren/wren_value.c
+        src/c/wren/wren_value.h
+        src/c/wren/wren_vm.c
+        src/c/wren/wren_vm.h
+        src/c/wren/wren.h
+        src/c/wren/wren_opt_meta.c
+        src/c/wren/wren_opt_meta.h
+        src/c/wren/wren_opt_meta.wren
+        src/c/wren/wren_opt_meta.wren.inc
+        src/c/wren/wren_opt_random.c
+        src/c/wren/wren_opt_random.h
+        src/c/wren/wren_opt_random.wren
+        src/c/wren/wren_opt_random.wren.inc)
 
 set_target_properties(bumblestack PROPERTIES LINKER_LANGUAGE C)
 target_link_libraries(bumblestack m)
