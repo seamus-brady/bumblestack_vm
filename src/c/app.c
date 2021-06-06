@@ -88,9 +88,8 @@ void errorFn(WrenVM* vm, WrenErrorType errorType,
     }
 }
 
-EMSCRIPTEN_KEEPALIVE
-int main(int argc, char *argv[]) {
-    systemInit();
+void runWrenVM(){
+    slog_info("Starting WrenVM.");
     WrenConfiguration config;
     wrenInitConfiguration(&config);
     config.writeFn = &writeFn;
@@ -113,6 +112,12 @@ int main(int argc, char *argv[]) {
     }
 
     wrenFreeVM(vm);
+}
+
+
+int main(int argc, char *argv[]) {
+    systemInit();
+    runWrenVM();
     return 0;
 }
 

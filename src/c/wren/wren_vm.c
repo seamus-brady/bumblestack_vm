@@ -1,6 +1,5 @@
 #include <stdarg.h>
 #include <string.h>
-#include <em_macros.h>
 
 #include "wren.h"
 #include "wren_common.h"
@@ -42,7 +41,6 @@ int wrenGetVersionNumber()
   return WREN_VERSION_NUMBER;
 }
 
-EMSCRIPTEN_KEEPALIVE
 void wrenInitConfiguration(WrenConfiguration* config)
 {
   config->reallocateFn = defaultReallocate;
