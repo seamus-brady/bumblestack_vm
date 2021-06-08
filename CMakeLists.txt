@@ -19,6 +19,14 @@ include_directories(src/c)
 include_directories(src/c/system_tests)
 include_directories(src/c/unit_tests)
 include_directories(src/c/test)
+include_directories(src/c/gravity/compiler)
+include_directories(src/c/gravity/shared)
+include_directories(src/c/gravity/runtime)
+include_directories(src/c/gravity/utils)
+include_directories(src/c/gravity/optionals)
+file(GLOB SRC_FILES
+        ${PROJECT_SOURCE_DIR}/*.h
+        ${PROJECT_SOURCE_DIR}/*.c)
 
 ######################################################################################################################
 ### target for unit tests
@@ -92,7 +100,65 @@ add_executable(bumblestack
         src/c/io.h
         src/c/io.c
         src/c/app.h
-        src/c/app.c)
+        src/c/app.c
+        # gravity lang files
+        src/c/gravity/compiler/debug_macros.h
+        src/c/gravity/compiler/gravity_ast.c
+        src/c/gravity/compiler/gravity_ast.h
+        src/c/gravity/compiler/gravity_codegen.c
+        src/c/gravity/compiler/gravity_codegen.h
+        src/c/gravity/compiler/gravity_compiler.c
+        src/c/gravity/compiler/gravity_compiler.h
+        src/c/gravity/compiler/gravity_ircode.c
+        src/c/gravity/compiler/gravity_ircode.h
+        src/c/gravity/compiler/gravity_lexer.c
+        src/c/gravity/compiler/gravity_lexer.h
+        src/c/gravity/compiler/gravity_optimizer.c
+        src/c/gravity/compiler/gravity_optimizer.h
+        src/c/gravity/compiler/gravity_parser.c
+        src/c/gravity/compiler/gravity_parser.h
+        src/c/gravity/compiler/gravity_semacheck1.c
+        src/c/gravity/compiler/gravity_semacheck1.h
+        src/c/gravity/compiler/gravity_semacheck2.c
+        src/c/gravity/compiler/gravity_semacheck2.h
+        src/c/gravity/compiler/gravity_symboltable.c
+        src/c/gravity/compiler/gravity_symboltable.h
+        src/c/gravity/compiler/gravity_token.c
+        src/c/gravity/compiler/gravity_token.h
+        src/c/gravity/compiler/gravity_visitor.c
+        src/c/gravity/compiler/gravity_visitor.h
+        src/c/gravity/optionals/gravity_opt_env.c
+        src/c/gravity/optionals/gravity_opt_env.h
+        src/c/gravity/optionals/gravity_opt_file.c
+        src/c/gravity/optionals/gravity_opt_file.h
+        src/c/gravity/optionals/gravity_optionals.h
+        src/c/gravity/optionals/gravity_opt_json.c
+        src/c/gravity/optionals/gravity_opt_json.h
+        src/c/gravity/optionals/gravity_opt_math.c
+        src/c/gravity/optionals/gravity_opt_math.h
+        src/c/gravity/runtime/gravity_core.c
+        src/c/gravity/runtime/gravity_core.h
+        src/c/gravity/runtime/gravity_vm.c
+        src/c/gravity/runtime/gravity_vm.h
+        src/c/gravity/runtime/gravity_vmmacros.h
+        src/c/gravity/shared/gravity_array.h
+        src/c/gravity/shared/gravity_config.h
+        src/c/gravity/shared/gravity_delegate.h
+        src/c/gravity/shared/gravity_hash.c
+        src/c/gravity/shared/gravity_hash.h
+        src/c/gravity/shared/gravity_macros.h
+        src/c/gravity/shared/gravity_memory.c
+        src/c/gravity/shared/gravity_memory.h
+        src/c/gravity/shared/gravity_opcodes.h
+        src/c/gravity/shared/gravity_value.c
+        src/c/gravity/shared/gravity_value.h
+        src/c/gravity/utils/gravity_debug.c
+        src/c/gravity/utils/gravity_debug.h
+        src/c/gravity/utils/gravity_json.c
+        src/c/gravity/utils/gravity_json.h
+        src/c/gravity/utils/gravity_utils.c
+        src/c/gravity/utils/gravity_utils.h
+        )
 
 set_target_properties(bumblestack PROPERTIES LINKER_LANGUAGE C)
 target_link_libraries(bumblestack m)
