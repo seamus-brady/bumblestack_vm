@@ -96,34 +96,34 @@ add_executable(bumblestack
         src/c/app.h
         src/c/app.c
         # wren embedded scripting language
-        src/c/wren/wren_common.h
-        src/c/wren/wren_compiler.c
-        src/c/wren/wren_compiler.h
-        src/c/wren/wren_core.c
-        src/c/wren/wren_core.h
-        src/c/wren/wren_core.wren
-        src/c/wren/wren_core.wren.inc
-        src/c/wren/wren_debug.c
-        src/c/wren/wren_debug.h
-        src/c/wren/wren_math.h
-        src/c/wren/wren_opcodes.h
-        src/c/wren/wren_primitive.c
-        src/c/wren/wren_primitive.h
-        src/c/wren/wren_utils.c
-        src/c/wren/wren_utils.h
-        src/c/wren/wren_value.c
-        src/c/wren/wren_value.h
-        src/c/wren/wren_vm.c
-        src/c/wren/wren_vm.h
-        src/c/wren/wren.h
-        src/c/wren/wren_opt_meta.c
-        src/c/wren/wren_opt_meta.h
-        src/c/wren/wren_opt_meta.wren
-        src/c/wren/wren_opt_meta.wren.inc
-        src/c/wren/wren_opt_random.c
-        src/c/wren/wren_opt_random.h
-        src/c/wren/wren_opt_random.wren
-        src/c/wren/wren_opt_random.wren.inc)
+        src/c/wren_common.h
+        src/c/wren_compiler.c
+        src/c/wren_compiler.h
+        src/c/wren_core.c
+        src/c/wren_core.h
+        src/c/wren_core.wren
+        src/c/wren_core.wren.inc
+        src/c/wren_debug.c
+        src/c/wren_debug.h
+        src/c/wren_math.h
+        src/c/wren_opcodes.h
+        src/c/wren_primitive.c
+        src/c/wren_primitive.h
+        src/c/wren_utils.c
+        src/c/wren_utils.h
+        src/c/wren_value.c
+        src/c/wren_value.h
+        src/c/wren_vm.c
+        src/c/wren_vm.h
+        src/c/wren.h
+        src/c/wren_opt_meta.c
+        src/c/wren_opt_meta.h
+        src/c/wren_opt_meta.wren
+        src/c/wren_opt_meta.wren.inc
+        src/c/wren_opt_random.c
+        src/c/wren_opt_random.h
+        src/c/wren_opt_random.wren
+        src/c/wren_opt_random.wren.inc)
 
 set_target_properties(bumblestack PROPERTIES LINKER_LANGUAGE C)
 target_link_libraries(bumblestack m)

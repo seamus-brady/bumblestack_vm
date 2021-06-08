@@ -10,5 +10,5 @@ emcc ~/GitHub/bumblestack-repos/bumblestack/src/c/*.c  -s TOTAL_MEMORY=1024MB \
 -s ERROR_ON_UNDEFINED_SYMBOLS=0 \
 -s EXPORTED_FUNCTIONS="['_main', '_wrenFreeVM']" \
 -s EXPORTED_RUNTIME_METHODS=["cwrap"] \
--Os --closure 1
-# -v
+-Os --closure 1 \
+-v

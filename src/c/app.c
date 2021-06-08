@@ -97,7 +97,17 @@ void runWrenVM(){
     WrenVM* vm = wrenNewVM(&config);
 
     const char* module = "main";
-    const char* script = "System.print(\"I am running in a VM!\")";
+
+    const char* script = "System.print(\"I am running in a VM!\")\n\
+    class Wren {\n\
+            flyTo(city) {\n\
+                System.print(\"Flying to %(city)\")\n\
+            }\n\
+    }\n\
+    var adjectives = Fiber.new {\n\
+        [\"small\", \"clean\", \"fast\"].each {|word| Fiber.yield(word) }\n\
+    }\n\
+    while (!adjectives.isDone) System.print(adjectives.call())";
 
     WrenInterpretResult result = wrenInterpret(vm, module, script);
 
