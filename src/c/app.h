@@ -19,9 +19,9 @@
 #include "shell.h"
 #include "slog.h"
 #include "io.h"
-#include "gravity/compiler/gravity_compiler.h"
-#include "gravity/shared/gravity_macros.h"
-#include "gravity/runtime/gravity_core.h"
-#include "gravity/runtime/gravity_vm.h"
+#include "gravity_compiler.h"
+#include "gravity_macros.h"
+#include "gravity_core.h"
+#include "gravity_vm.h"
 
 #define SOURCE	"func main() {var a = 10; var b=20; return a + b}"
