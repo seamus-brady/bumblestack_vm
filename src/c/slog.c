@@ -1,25 +1,17 @@
 /*
- * The MIT License (MIT)
- *
- *  Copyleft (C) 2015-2020  Sun Dro (f4tb0y@protonmail.com)
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- *  The above copyright notice and this permission notice shall be included in all
- *  copies or substantial portions of the Software.
+ * Copyright 2021 seamus@bumblestack.com, Corvideon Limited.
+ * Portions of this code were originally created by (C) 2015-2020  Sun Dro under the MIT License.
+
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 
 #ifndef _GNU_SOURCE
@@ -108,7 +100,7 @@ static const char* slog_get_tag(SLOG_FLAGS_E eFlag)
 {
     switch (eFlag)
     {
-        case SLOG_NOTE: return "note";
+        case SLOG_JSON: return "json";
         case SLOG_INFO: return "info";
         case SLOG_WARN: return "warn";
         case SLOG_DEBUG: return "debug";
@@ -125,7 +117,7 @@ static const char* slog_get_color(SLOG_FLAGS_E eFlag)
 {
     switch (eFlag)
     {
-        case SLOG_NOTE: return SLOG_CLR_NORMAL;
+        case SLOG_JSON: return SLOG_CLR_NORMAL;
         case SLOG_INFO: return SLOG_CLR_GREEN;
         case SLOG_WARN: return SLOG_CLR_YELLOW;
         case SLOG_DEBUG: return SLOG_CLR_BLUE;

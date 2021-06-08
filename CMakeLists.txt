@@ -92,7 +92,9 @@ add_executable(bumblestack
         src/c/io.h
         src/c/io.c
         src/c/app.h
-        src/c/app.c)
+        src/c/app.c
+        src/c/cJSON.h
+        src/c/cJSON.c)
 
 set_target_properties(bumblestack PROPERTIES LINKER_LANGUAGE C)
 target_link_libraries(bumblestack m)

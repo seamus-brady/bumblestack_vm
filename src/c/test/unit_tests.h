@@ -63,3 +63,5 @@
 #include "../slog.c"
 #include "../io.h"
 #include "../io.c"
+#include "../cJSON.h"
+#include "../cJSON.c"
