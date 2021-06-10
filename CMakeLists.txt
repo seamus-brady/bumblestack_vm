@@ -49,6 +49,8 @@ add_executable(bumblestack
         src/c/event.h
         src/c/fifo.c
         src/c/fifo.h
+        src/c/fs.c
+        src/c/fs.h
         src/c/globals.c
         src/c/globals.h
         src/c/hashtable.c
@@ -95,6 +97,8 @@ add_executable(bumblestack
         src/c/io.c
         src/c/app.h
         src/c/app.c
+        src/c/scripting.h
+        src/c/scripting.c
         # wren embedded scripting language
         src/c/wren_common.h
         src/c/wren_compiler.c

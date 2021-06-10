@@ -13,11 +13,8 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#include <stdbool.h>
-#include <stdlib.h>
-#include "nar.h"
-#include "shell.h"
-#include "slog.h"
-#include "io.h"
-#include "scripting.h"
-#include <emscripten.h>
+
+#include "wren.h"
+#include "fs.h"
+
+void runScript();
