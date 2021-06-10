@@ -43,8 +43,7 @@ void Process_Args(int argc, char *argv[]) {
 }
 
 
-
-void systemInit(){
+void systemInit() {
     // set up random number generator
     mysrand(SEED);
 
@@ -62,43 +61,40 @@ void systemInit(){
     printCyclingGoalEvents();
 }
 
-static void writeFn(WrenVM* vm, const char* text)
-{
+static void writeFn(WrenVM *vm, const char *text) {
     printf("%s", text);
 }
 
-void errorFn(WrenVM* vm, WrenErrorType errorType,
-             const char* module, const int line,
-             const char* msg)
-{
-    switch (errorType)
-    {
-        case WREN_ERROR_COMPILE:
-        {
+void errorFn(WrenVM *vm, WrenErrorType errorType,
+             const char *module, const int line,
+             const char *msg) {
+    switch (errorType) {
+        case WREN_ERROR_COMPILE: {
             printf("[%s line %d] [Error] %s\n", module, line, msg);
-        } break;
-        case WREN_ERROR_STACK_TRACE:
-        {
+        }
+            break;
+        case WREN_ERROR_STACK_TRACE: {
             printf("[%s line %d] in %s\n", module, line, msg);
-        } break;
-        case WREN_ERROR_RUNTIME:
-        {
+        }
+            break;
+        case WREN_ERROR_RUNTIME: {
             printf("[Runtime Error] %s\n", msg);
-        } break;
+        }
+            break;
     }
 }
 
-void runWrenVM(){
+void runWrenVM() {
     slog_info("Starting WrenVM.");
     WrenConfiguration config;
     wrenInitConfiguration(&config);
     config.writeFn = &writeFn;
     config.errorFn = &errorFn;
-    WrenVM* vm = wrenNewVM(&config);
+    WrenVM *vm = wrenNewVM(&config);
 
-    const char* module = "main";
+    const char *module = "main";
 
-    const char* script = "System.print(\"I am running in a VM!\")\n\
+    const char *script = "System.print(\"I am running in a VM!\")\n\
     class Wren {\n\
             flyTo(city) {\n\
                 System.print(\"Flying to %(city)\")\n\
@@ -111,23 +107,96 @@ void runWrenVM(){
 
     WrenInterpretResult result = wrenInterpret(vm, module, script);
 
-    switch (result)
-    {
-        case WREN_RESULT_COMPILE_ERROR:
-        { printf("Compile Error!\n"); } break;
-        case WREN_RESULT_RUNTIME_ERROR:
-        { printf("Runtime Error!\n"); } break;
-        case WREN_RESULT_SUCCESS:
-        { printf("Success!\n"); } break;
+    switch (result) {
+        case WREN_RESULT_COMPILE_ERROR: {
+            printf("Compile Error!\n");
+        }
+            break;
+        case WREN_RESULT_RUNTIME_ERROR: {
+            printf("Runtime Error!\n");
+        }
+            break;
+        case WREN_RESULT_SUCCESS: {
+            printf("Success!\n");
+        }
+            break;
     }
 
     wrenFreeVM(vm);
 }
 
+const char *testWrenSource = "class BumbleEngine {\n" \
+                       "  static update(elapsedTime) {\n" \
+                       "     System.print(elapsedTime)\n" \
+                       "  }\n" \
+                       "}";
+
+void readModuleComplete(WrenVM *vm, const char *module, WrenLoadModuleResult result) {
+    if (result.source) {
+        free((void *) result.source);
+        result.source = NULL;
+    }
+}
+
+#define SIZE 2048
+
+char * getSourceForModule(char *file_name) {
+    FILE *file = fopen(file_name, "r");
+    // Check if there was an error.
+    if (file == NULL) {
+        fprintf(stderr, "Error: Can't open file '%s'.", file_name);
+        exit(EXIT_FAILURE);
+    }
+    // Get the file length
+    fseek(file, 0, SEEK_END);
+    long length = ftell(file);
+    fseek(file, 0, SEEK_SET);
+    // Create the string for the file contents.
+    char *buffer = malloc(sizeof(char) * (length + 1));
+    buffer[length] = '\0';
+    // Set the contents of the string.
+    fread(buffer, sizeof(char), length, file);
+    // Close the file.
+    fclose(file);
+    return buffer;
+}
+
+WrenLoadModuleResult readModule(WrenVM *vm, const char *name) {
+    WrenLoadModuleResult result = {0};
+    result.source = getSourceForModule(name);
+    return result;
+}
+
+static WrenVM *initVM() {
+    WrenConfiguration config;
+    wrenInitConfiguration(&config);
+    config.loadModuleFn = readModule;
+    config.writeFn = &writeFn;
+    config.errorFn = &errorFn;
+    return wrenNewVM(&config);
+}
 
 int main(int argc, char *argv[]) {
     systemInit();
-    runWrenVM();
+    // runWrenVM();
+    puts(getSourceForModule("/home/seamus/GitHub/bumblestack-repos/bumblestack/src/c/test.wren"));
+    WrenConfiguration config;
+    wrenInitConfiguration(&config);
+    WrenVM *otherVM = wrenNewVM(&config);
+    // wrenInterpret(otherVM, "test", testWrenSource);
+    // WrenHandle* method = wrenMakeCallHandle(otherVM, "update(_)");
+    // wrenEnsureSlots(otherVM, 1);
+    // wrenGetVariable(otherVM, "main", "BumbleEngine", 0);
+    // WrenHandle* testClass = wrenGetSlotHandle(otherVM, 0);
+
+    wrenEnsureSlots(otherVM, 2);
+    wrenGetVariable(otherVM, "/home/seamus/GitHub/bumblestack-repos/bumblestack/src/c/test.wren", "BumbleEngine", 0);
+    WrenHandle *method = wrenMakeCallHandle(otherVM, "update(_)");
+    // wrenSetSlotHandle(otherVM, 0, testClass);
+    wrenSetSlotDouble(otherVM, 1, 42); // elapsedTime
+    wrenCall(otherVM, method);
+    double result = wrenGetSlotDouble(otherVM, 0);
+    printf("Result from Wren: %d", result);
     return 0;
 }
 
