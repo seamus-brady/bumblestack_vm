@@ -222,7 +222,7 @@ void test_inverted_atom_index(void) {
 void test_narsese(void) {
     char *narsese = "<<$sth --> (&,[furry,meowing],animal)> =/> <$sth --> [good]>>";
     printf("Narsese: %s\n", narsese);
-    char *preprocessed = Narsese_Expand(narsese);
+    char *preprocessed = narsese_expand(narsese);
     char *expanded = "(  ( $sth :  ( &  ( ' furry meowing )  animal )  )  $  ( $sth :  ( ' good )  )  )";
     TEST_ASSERT_TRUE_MESSAGE(strcmp(preprocessed, expanded),
                              "Expanded string is incorrect");

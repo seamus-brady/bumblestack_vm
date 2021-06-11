@@ -17,4 +17,4 @@
 #include "wren.h"
 #include "fs.h"
 
-void runScript();
+void run_script();

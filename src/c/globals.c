@@ -19,26 +19,32 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void globalsAssert(bool b, char *message) {
-    if (!b) {
-        slog_error(message);
-        slog_error("Test failed. The system will now exit. Sorry!");
-        exit(1);
-    }
+void
+globals_assert(bool b, char *message)
+{
+	if (!b)
+	{
+		slog_error(message);
+		slog_error("Test failed. The system will now exit. Sorry!");
+		exit(1);
+	}
 }
 
-HASH_TYPE Globals_Hash(HASH_TYPE *data, int pieces) {
-    HASH_TYPE hash = 0;
-    for (int i = 0; i < pieces; i++, data++) {
-        hash ^= *data;
-        hash += ~(hash << 15);
-        hash ^= (hash >> 10);
-        hash += (hash << 3);
-        hash ^= (hash >> 6);
-        hash += ~(hash << 11);
-        hash ^= (hash >> 16);
-    }
-    return hash;
+HASH_TYPE
+globals_hash(HASH_TYPE *data, int pieces)
+{
+	HASH_TYPE hash = 0;
+	for (int i = 0; i < pieces; i++, data++)
+	{
+		hash ^= *data;
+		hash += ~(hash << 15);
+		hash ^= (hash >> 10);
+		hash += (hash << 3);
+		hash ^= (hash >> 6);
+		hash += ~(hash << 11);
+		hash ^= (hash >> 16);
+	}
+	return hash;
 }
 
 //rand(): http://man7.org/linux/man-pages/man3/rand.3.html
@@ -46,11 +52,15 @@ HASH_TYPE Globals_Hash(HASH_TYPE *data, int pieces) {
 static unsigned long next = 1;
 
 /* RAND_MAX assumed to be 32767 */
-int myrand(void) {
-    next = next * 1103515245 + 12345;
-    return ((unsigned) (next / 65536) % 32768);
+int
+myrand(void)
+{
+	next = next * 1103515245 + 12345;
+	return ((unsigned) (next / 65536) % 32768);
 }
 
-void mysrand(unsigned int seed) {
-    next = seed;
+void
+mysrand(unsigned int seed)
+{
+	next = seed;
 }

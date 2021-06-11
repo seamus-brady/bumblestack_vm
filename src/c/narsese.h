@@ -45,7 +45,7 @@ extern Atom SELF;
 //Initializes encoder
 void Narsese_INIT();
 //Expands Narsese into by strtok(str," ") tokenizable string with canonical copulas
-char* Narsese_Expand(char *narsese);
+char* narsese_expand(char *narsese);
 //Tokenize expanded Narsese in prefix copula order
 char** Narsese_PrefixTransform(char* narsese_expanded);
 //Parses a Narsese string to a compound term

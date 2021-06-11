@@ -21,3 +21,5 @@
 #include "io.h"
 #include "scripting.h"
 #include <emscripten.h>
+#include "commander.h"
+#include "buffer.h"

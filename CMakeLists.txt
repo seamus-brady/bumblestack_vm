@@ -39,6 +39,10 @@ target_link_libraries(unit_tests m)
 ### target for main executable
 ######################################################################################################################
 add_executable(bumblestack
+        src/c/buffer.c
+        src/c/buffer.h
+        src/c/commander.c
+        src/c/commander.h
         src/c/concept.h
         src/c/config.h
         src/c/cycle.c
@@ -133,10 +137,10 @@ set_target_properties(bumblestack PROPERTIES LINKER_LANGUAGE C)
 target_link_libraries(bumblestack m)
 
 ######################################################################################################################
-### Target for generating ruletable.c
+### Target for generating ruletable.c - disabled
 ######################################################################################################################
-add_executable(generate
-        src/c/generate_ruletable/generate.c)
-
-set_target_properties(generate PROPERTIES LINKER_LANGUAGE C)
-target_link_libraries(generate m)
+#add_executable(generate
+#        src/c/generate_ruletable/generate.c)
+#
+#set_target_properties(generate PROPERTIES LINKER_LANGUAGE C)
+#target_link_libraries(generate m)

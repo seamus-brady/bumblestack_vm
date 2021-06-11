@@ -39,9 +39,9 @@
 #define IS_SYSTEM_IN_DEBUG_MODE(x) {if(DEBUG_MODE){ x } }
 
 //assert, printing message and exiting if b=false
-void globalsAssert(bool b, char *message);
+void globals_assert(bool b, char *message);
 
-#define assert globalsAssert
+#define assert globals_assert
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
 //Number of elements of compile time allocated array:
@@ -49,7 +49,7 @@ void globalsAssert(bool b, char *message);
 //Generic hash function on byte array
 #define HASH_TYPE long
 
-HASH_TYPE Globals_Hash(HASH_TYPE *data, int pieces);
+HASH_TYPE globals_hash(HASH_TYPE *data, int pieces);
 
 //Random number generator for reproducibility across platforms
 int myrand(void);
