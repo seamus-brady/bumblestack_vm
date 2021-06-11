@@ -15,20 +15,20 @@ set(CMAKE_BUILD_TYPE Debug)
 ######################################################################################################################
 ### include directories
 ######################################################################################################################
-include_directories(src/c)
-include_directories(src/c/system_tests)
-include_directories(src/c/unit_tests)
-include_directories(src/c/test)
+include_directories(src/vm)
+include_directories(src/vm/system_tests)
+include_directories(src/vm/unit_tests)
+include_directories(src/vm/test)
 
 ######################################################################################################################
 ### target for unit tests
 ######################################################################################################################
 add_executable(unit_tests
-        src/c/test/unit_tests.c
-        src/c/test/unity/unity.h
-        src/c/test/unity/unity_internals.h
-        src/c/test/unity/unity.c
-        src/c/test/unit_tests.h)
+        src/vm/test/unit_tests.c
+        src/vm/test/unity/unity.h
+        src/vm/test/unity/unity_internals.h
+        src/vm/test/unity/unity.c
+        src/vm/test/unit_tests.h)
 
 set_target_properties(unit_tests PROPERTIES LINKER_LANGUAGE C)
 target_link_libraries(unit_tests m)
@@ -37,71 +37,71 @@ target_link_libraries(unit_tests m)
 ### target for main executable
 ######################################################################################################################
 add_executable(bumblestack
-        src/c/concept.h
-        src/c/config.h
-        src/c/cycle.c
-        src/c/cycle.h
-        src/c/decision.c
-        src/c/decision.h
-        src/c/event.c
-        src/c/event.h
-        src/c/fifo.c
-        src/c/fifo.h
-        src/c/globals.c
-        src/c/globals.h
-        src/c/hashtable.c
-        src/c/hashtable.h
-        src/c/implication.h
-        src/c/inference.c
-        src/c/inference.h
-        src/c/invertedAtomIndex.c
-        src/c/invertedAtomIndex.h
-        src/c/app.c
-        src/c/memory.c
-        src/c/memory.h
-        src/c/nal.c
-        src/c/nal.h
-        src/c/nar.c
-        src/c/nar.h
-        src/c/narsese.c
-        src/c/narsese.h
-        src/c/priorityqueue.c
-        src/c/priorityqueue.h
-        src/c/ruletable.h
-        src/c/ruletable.c
-        src/c/shell.c
-        src/c/shell.h
-        src/c/stack.c
-        src/c/stack.h
-        src/c/stamp.c
-        src/c/stamp.h
-        src/c/stats.c
-        src/c/stats.h
-        src/c/table.c
-        src/c/table.h
-        src/c/term.c
-        src/c/term.h
-        src/c/truth.c
-        src/c/truth.h
-        src/c/usage.c
-        src/c/usage.h
-        src/c/variable.c
-        src/c/variable.h
-        src/c/slog.h
-        src/c/slog.c
-        src/c/io.h
-        src/c/io.c
-        src/c/app.h
-        src/c/app.c)
+        src/vm/nars_concept.h
+        src/vm/nars_config.h
+        src/vm/nars_cycle.c
+        src/vm/nars_cycle.h
+        src/vm/nars_decision.c
+        src/vm/nars_decision.h
+        src/vm/nars_event.c
+        src/vm/nars_event.h
+        src/vm/nars_fifo.c
+        src/vm/nars_fifo.h
+        src/vm/nars_globals.c
+        src/vm/nars_globals.h
+        src/vm/nars_hashtable.c
+        src/vm/nars_hashtable.h
+        src/vm/nars_implication.h
+        src/vm/nars_inference.c
+        src/vm/nars_inference.h
+        src/vm/nars_inverted_atom_index.c
+        src/vm/nars_inverted_atom_index.h
+        src/vm/bumblevm_app.c
+        src/vm/nars_memory.c
+        src/vm/nars_memory.h
+        src/vm/nars_nal.c
+        src/vm/nars_nal.h
+        src/vm/nars_nar.c
+        src/vm/nars_nar.h
+        src/vm/nars_narsese.c
+        src/vm/nars_narsese.h
+        src/vm/nars_priority_queue.c
+        src/vm/nars_priority_queue.h
+        src/vm/nars_ruletable.h
+        src/vm/nars_ruletable.c
+        src/vm/nars_shell.c
+        src/vm/nars_shell.h
+        src/vm/nars_stack.c
+        src/vm/nars_stack.h
+        src/vm/nars_stamp.c
+        src/vm/nars_stamp.h
+        src/vm/nars_stats.c
+        src/vm/nars_stats.h
+        src/vm/nars_table.c
+        src/vm/nars_table.h
+        src/vm/nars_term.c
+        src/vm/nars_term.h
+        src/vm/nars_truth.c
+        src/vm/nars_truth.h
+        src/vm/nars_usage.c
+        src/vm/nars_usage.h
+        src/vm/nars_variable.c
+        src/vm/nars_variable.h
+        src/vm/lib_slog.h
+        src/vm/lib_slog.c
+        src/vm/nars_io.h
+        src/vm/nars_io.c
+        src/vm/bumblevm_app.h
+        src/vm/bumblevm_app.c)
 
 set_target_properties(bumblestack PROPERTIES LINKER_LANGUAGE C)
 target_link_libraries(bumblestack m)
 
 ######################################################################################################################
-### Target for generating ruletable.c
+### Target for generating ruletable.vm
 ######################################################################################################################
 add_executable(generate
-        src/c/generate_ruletable/generate.c)
+        src/vm/generate_ruletable/generate.c)
 
 set_target_properties(generate PROPERTIES LINKER_LANGUAGE C)
 target_link_libraries(generate m)
