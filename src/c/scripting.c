@@ -68,7 +68,7 @@ callOne(WrenVM *vm)
 	// call function
 	wrenEnsureSlots(vm, 2);
 	wrenSetSlotHandle(vm, 0, bumbleEngine);
-	wrenSetSlotDouble(vm, 1, 0); // elapsedTime
+	wrenSetSlotDouble(vm, 1, 1); // elapsedTime
 	wrenCall(vm, updateFn);
 	int result = wrenGetSlotDouble(vm, 0);
 	printf("Result from Wren: %d\n", result);
