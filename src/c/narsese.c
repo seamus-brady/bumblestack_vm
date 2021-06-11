@@ -20,12 +20,14 @@
 
 // Atomic term names:
 char Narsese_atomNames[ATOMS_MAX][ATOMIC_TERM_LEN_MAX];
+
 char Narsese_operatorNames[OPERATIONS_MAX][ATOMIC_TERM_LEN_MAX];
 // upper bound of multplier 3 given by [ becoming "(' " replacement
 #define REPLACEMENT_LEN 3 * NARSESE_LEN_MAX
 // size for the expanded array with spaces for tokenization, has at most 3 times
 // the amount of chars as the replacement array
 #define EXPANSION_LEN REPLACEMENT_LEN * 3
+
 // whether the package is narsese_initialized
 static bool narsese_initialized = false;
 // SELF atom, avoids strcmp for checking operator format
@@ -33,8 +35,7 @@ Atom SELF;
 
 // Replace copulas with canonical single-char copulas, including sets and set
 // elements!
-char *
-replaceWithCanonicalCopulas(char *narsese, int n)
+char *replaceWithCanonicalCopulas(char *narsese, int n)
 {
 	static char narsese_replaced[REPLACEMENT_LEN];
 	memset(narsese_replaced, ' ', REPLACEMENT_LEN);
@@ -44,8 +45,7 @@ replaceWithCanonicalCopulas(char *narsese, int n)
 	       "NARSESE_LEN_MAX too small, consider increasing or split input into "
 	       "multiple statements! \n");
 	int j = 0;
-	for (int i = 0; i < n;)
-	{
+	for (int i = 0; i < n;) {
 		if (narsese[i] == ',') //, becomes " "
 		{
 			narsese_replaced[j] = ' ';
@@ -81,8 +81,7 @@ replaceWithCanonicalCopulas(char *narsese, int n)
 			i++;
 			j++;
 		}
-		else if (i + 1 < n)
-		{
+		else if (i + 1 < n) {
 			if (narsese[i] == '&' && narsese[i + 1] == '/') // &/ becomes +
 			{
 				narsese_replaced[j] = '+';
@@ -126,8 +125,7 @@ replaceWithCanonicalCopulas(char *narsese, int n)
 				i += 2;
 				j++;
 			}
-			else if (i + 2 < n)
-			{
+			else if (i + 2 < n) {
 				if (narsese[i] == '-' && narsese[i + 1] == '-' &&
 					narsese[i + 2] == '>') // --> becomes :
 				{
@@ -163,18 +161,15 @@ replaceWithCanonicalCopulas(char *narsese, int n)
 					i += 3;
 					j++;
 				}
-				else
-				{
+				else {
 					goto DEFAULT;
 				}
 			}
-			else
-			{
+			else {
 				goto DEFAULT;
 			}
 		}
-		else
-		{
+		else {
 			goto DEFAULT;
 		}
 		continue;
@@ -196,21 +191,17 @@ narsese_expand(char *narsese)
 	char *narsese_replaced =
 		replaceWithCanonicalCopulas(narsese, strlen(narsese));
 	int k = 0, n = strlen(narsese_replaced);
-	for (int i = 0; i < n; i++)
-	{
+	for (int i = 0; i < n; i++) {
 		bool opener_closer = false;
-		if (narsese_replaced[i] == '(' || narsese_replaced[i] == ')')
-		{
+		if (narsese_replaced[i] == '(' || narsese_replaced[i] == ')') {
 			k += 1;
 			opener_closer = true;
 		}
 		narsese_expanded[k] = narsese_replaced[i];
-		if (narsese_replaced[i] == 0)
-		{
+		if (narsese_replaced[i] == 0) {
 			break;
 		}
-		if (opener_closer)
-		{
+		if (opener_closer) {
 			k += 1;
 		}
 		k += 1;
@@ -227,18 +218,14 @@ skipCompound(char **tokens, int i, int nt)
 {
 	int parenthesis_cnt = 0; // incremented for each (, decremented for each ),
 	// count will be zero after the compound again
-	for (; i < nt; i++)
-	{
-		if (tokens[i][0] == '(' && tokens[i][1] == 0)
-		{
+	for (; i < nt; i++) {
+		if (tokens[i][0] == '(' && tokens[i][1] == 0) {
 			parenthesis_cnt += 1;
 		}
-		if (tokens[i][0] == ')' && tokens[i][1] == 0)
-		{
+		if (tokens[i][0] == ')' && tokens[i][1] == 0) {
 			parenthesis_cnt -= 1;
 		}
-		if (parenthesis_cnt == 0)
-		{
+		if (parenthesis_cnt == 0) {
 			return i + 1;
 		}
 	}
@@ -255,35 +242,29 @@ Narsese_PrefixTransform(char *narsese_expanded)
 		       sizeof(char *)); // and last one stays NULL for sure
 	char *token = strtok(narsese_expanded, " ");
 	int nt = 0, nc = NUM_ELEMENTS(Naresese_CanonicalCopulas) - 1;
-	while (token)
-	{
+	while (token) {
 		tokens[nt] = token;
 		token = strtok(NULL, " ");
 		nt++;
 	}
-	for (int i = 0; i < nt - 2; i++)
-	{
+	for (int i = 0; i < nt - 2; i++) {
 		if (tokens[i][0] == '(' && tokens[i][1] == 0) // see if it's in prefix form
 		{
-			for (int k = 0; k < nc; k++)
-			{
+			for (int k = 0; k < nc; k++) {
 				if (tokens[i + 1][0] == (int) Naresese_CanonicalCopulas[k] &&
-					tokens[i + 1][1] == 0)
-				{
+					tokens[i + 1][1] == 0) {
 					goto Continue;
 				}
 			}
 			// it's not a copula, so its in infix form, we need to find its copula and
 			// put it before tokens[i+1]
 			int i2 = skipCompound(tokens, i + 1, nt);
-			if (i2 < nt)
-			{
+			if (i2 < nt) {
 				// 1. backup copula token
 				char copula = tokens[i2][0];
 				// 2. shift all tokens forward up to copula position and set the copula
 				// to be at i+1 instead
-				for (int j = i2; j >= i + 2; j--)
-				{
+				for (int j = i2; j >= i + 2; j--) {
 					char *temp = tokens[j];
 					tokens[j] = tokens[j - 1];
 					tokens[j - 1] = temp;
@@ -303,16 +284,13 @@ int
 Narsese_OperatorIndex(char *name)
 {
 	int ret_index = -1;
-	for (int i = 0; i < operator_index; i++)
-	{
-		if (!strcmp(Narsese_operatorNames[i], name))
-		{
+	for (int i = 0; i < operator_index; i++) {
+		if (!strcmp(Narsese_operatorNames[i], name)) {
 			ret_index = i + 1;
 			break;
 		}
 	}
-	if (ret_index == -1)
-	{
+	if (ret_index == -1) {
 		assert(operator_index < OPERATIONS_MAX,
 		       "Too many operators, increase OPERATIONS_MAX!");
 		ret_index = operator_index + 1;
@@ -323,9 +301,13 @@ Narsese_OperatorIndex(char *name)
 }
 
 HashTable HTatoms;
+
 VMItem *HTatoms_storageptrs[ATOMS_MAX];
+
 VMItem HTatoms_storage[ATOMS_MAX];
+
 VMItem *HTatoms_HT[ATOMS_HASHTABLE_BUCKETS];
+
 int term_index = 0;
 
 // Returns the memoized index of an already seen atomic term
@@ -336,16 +318,13 @@ Narsese_AtomicTermIndex(char *name)
 	strncpy(blockname, name, ATOMIC_TERM_LEN_MAX - 1);
 	long ret_index = -1;
 	void *retptr = HashTable_Get(&HTatoms, blockname);
-	if (retptr != NULL)
-	{
+	if (retptr != NULL) {
 		ret_index = (long) retptr; // we got the value
 	}
-	if (name[0] == '^')
-	{
+	if (name[0] == '^') {
 		Narsese_OperatorIndex(name);
 	}
-	if (ret_index == -1)
-	{
+	if (ret_index == -1) {
 		assert(term_index < ATOMS_MAX, "Too many terms for NAR");
 		ret_index = term_index + 1;
 		strncpy(Narsese_atomNames[term_index], name, ATOMIC_TERM_LEN_MAX - 1);
@@ -362,8 +341,7 @@ void
 buildBinaryTree(Term *bintree, char **tokens_prefix, int i1,
                 int tree_index, int nt)
 {
-	if (tokens_prefix[i1][0] == '(' && tokens_prefix[i1][1] == 0)
-	{
+	if (tokens_prefix[i1][0] == '(' && tokens_prefix[i1][1] == 0) {
 		int icop = i1 + 1;
 		// first argument is given by the copula
 		i1 = i1 + 2;
@@ -371,29 +349,24 @@ buildBinaryTree(Term *bintree, char **tokens_prefix, int i1,
 		int i2 = skipCompound(tokens_prefix, i1, nt);
 		bintree->atoms[tree_index - 1] =
 			Narsese_AtomicTermIndex(tokens_prefix[icop]);
-		if (i1 < nt)
-		{
+		if (i1 < nt) {
 			buildBinaryTree(bintree, tokens_prefix, i1, tree_index * 2,
 			                nt); // left child of tree index
 		}
-		if (i2 < nt)
-		{
+		if (i2 < nt) {
 			buildBinaryTree(bintree, tokens_prefix, i2, tree_index * 2 + 1,
 			                nt); // right child of tree index
 		}
 	}
-	else
-	{
+	else {
 		assert(tree_index - 1 < COMPOUND_TERM_SIZE_MAX,
 		       "COMPOUND_TERM_SIZE_MAX too small, consider increasing or split "
 		       "input into multiple statements!");
-		if (!(tokens_prefix[i1][0] == ')' && tokens_prefix[i1][1] == 0))
-		{
+		if (!(tokens_prefix[i1][0] == ')' && tokens_prefix[i1][1] == 0)) {
 			bintree->atoms[tree_index - 1] =
 				Narsese_AtomicTermIndex(tokens_prefix[i1]);
 		}
-		else
-		{
+		else {
 			bintree->atoms[tree_index - 1] = Narsese_AtomicTermIndex(
 				"@"); // just use "@" for second element as terminator, while "." acts
 			// for "deeper" sets than 2
@@ -412,8 +385,7 @@ Narsese_Term(char *narsese)
 	char *narsese_expanded = narsese_expand(narsese);
 	char **tokens_prefix = Narsese_PrefixTransform(narsese_expanded);
 	int nt = 0;
-	for (; tokens_prefix[nt] != NULL; nt++)
-	{
+	for (; tokens_prefix[nt] != NULL; nt++) {
 	}
 	buildBinaryTree(&ret, tokens_prefix, 0, 1, nt);
 	Variable_Normalize(&ret);
@@ -433,14 +405,11 @@ Narsese_Sentence(char *narsese, Term *destTerm, char *punctuation,
 	char dt[10];
 	if (narsese[0] == 'd' && narsese[1] == 't' && narsese[2] == '=') // dt=
 	{
-		for (unsigned int i = 0; i < strlen(narsese); i++)
-		{
-			if (i >= 3)
-			{
+		for (unsigned int i = 0; i < strlen(narsese); i++) {
+			if (i >= 3) {
 				dt[i - 3] = narsese[i];
 			}
-			if (narsese[i] == ' ')
-			{
+			if (narsese[i] == ' ') {
 				dt[i] = 0;
 				narsese = &narsese[i];
 				break;
@@ -459,8 +428,7 @@ Narsese_Sentence(char *narsese, Term *destTerm, char *punctuation,
 	//terminated strings
 	memcpy(narseseInplace, narsese, len);
 	// tv is present if last letter is '}'
-	if (len >= 2 && narseseInplace[len - 1] == '}')
-	{
+	if (len >= 2 && narseseInplace[len - 1] == '}') {
 		// scan for opening '{'
 		int openingIdx;
 		for (openingIdx = len - 2;
@@ -522,51 +490,39 @@ Narsese_AtomicTerm(char *name)
 void
 Narsese_PrintAtom(Atom atom)
 {
-	if (atom)
-	{
-		if (Narsese_copulaEquals(atom, ':'))
-		{
+	if (atom) {
+		if (Narsese_copulaEquals(atom, ':')) {
 			fputs("-->", stdout);
 		}
-		else if (Narsese_copulaEquals(atom, '$'))
-		{
+		else if (Narsese_copulaEquals(atom, '$')) {
 			fputs("=/>", stdout);
 		}
-		else if (Narsese_copulaEquals(atom, '+'))
-		{
+		else if (Narsese_copulaEquals(atom, '+')) {
 			fputs("&/", stdout);
 		}
-		else if (Narsese_copulaEquals(atom, ';'))
-		{
+		else if (Narsese_copulaEquals(atom, ';')) {
 			fputs("&|", stdout);
 		}
-		else if (Narsese_copulaEquals(atom, '='))
-		{
+		else if (Narsese_copulaEquals(atom, '=')) {
 			fputs("<->", stdout);
 		}
-		else if (Narsese_copulaEquals(atom, '/'))
-		{
+		else if (Narsese_copulaEquals(atom, '/')) {
 			fputs("/1", stdout);
 		}
-		else if (Narsese_copulaEquals(atom, '%'))
-		{
+		else if (Narsese_copulaEquals(atom, '%')) {
 			fputs("/2", stdout);
 		}
-		else if (Narsese_copulaEquals(atom, '\\'))
-		{
+		else if (Narsese_copulaEquals(atom, '\\')) {
 			fputs("\\1", stdout);
 		}
-		else if (Narsese_copulaEquals(atom, '#'))
-		{
+		else if (Narsese_copulaEquals(atom, '#')) {
 			fputs("\\2", stdout);
 		}
-		else
-		{
+		else {
 			fputs(Narsese_atomNames[atom - 1], stdout);
 		}
 	}
-	else
-	{
+	else {
 		fputs("@", stdout);
 	}
 }
@@ -576,8 +532,7 @@ Narsese_PrintTermPrettyRecursive(Term *term,
                                  int index) // start with index=1!
 {
 	Atom atom = term->atoms[index - 1];
-	if (!atom)
-	{
+	if (!atom) {
 		return;
 	}
 	int child1 = index * 2;
@@ -593,61 +548,47 @@ Narsese_PrintTermPrettyRecursive(Term *term,
 	bool isStatement = Narsese_copulaEquals(atom, '$') ||
 		Narsese_copulaEquals(atom, ':') ||
 		Narsese_copulaEquals(atom, '=');
-	if (isExtSet)
-	{
+	if (isExtSet) {
 		fputs(hasLeftChild ? "{" : "", stdout);
 	}
-	else if (isIntSet)
-	{
+	else if (isIntSet) {
 		fputs(hasLeftChild ? "[" : "", stdout);
 	}
-	else if (isStatement)
-	{
+	else if (isStatement) {
 		fputs(hasLeftChild ? "<" : "", stdout);
 	}
-	else
-	{
+	else {
 		fputs(hasLeftChild ? "(" : "", stdout);
-		if (isNegation)
-		{
+		if (isNegation) {
 			Narsese_PrintAtom(atom);
 			fputs(" ", stdout);
 		}
 	}
-	if (child1 < COMPOUND_TERM_SIZE_MAX)
-	{
+	if (child1 < COMPOUND_TERM_SIZE_MAX) {
 		Narsese_PrintTermPrettyRecursive(term, child1);
 	}
-	if (hasRightChild)
-	{
+	if (hasRightChild) {
 		fputs(hasLeftChild ? " " : "", stdout);
 	}
-	if (!isExtSet && !isIntSet && !Narsese_copulaEquals(atom, '@'))
-	{
-		if (!isNegation)
-		{
+	if (!isExtSet && !isIntSet && !Narsese_copulaEquals(atom, '@')) {
+		if (!isNegation) {
 			Narsese_PrintAtom(atom);
 			fputs(hasLeftChild ? " " : "", stdout);
 		}
 	}
-	if (child2 < COMPOUND_TERM_SIZE_MAX)
-	{
+	if (child2 < COMPOUND_TERM_SIZE_MAX) {
 		Narsese_PrintTermPrettyRecursive(term, child2);
 	}
-	if (isExtSet)
-	{
+	if (isExtSet) {
 		fputs(hasLeftChild ? "}" : "", stdout);
 	}
-	else if (isIntSet)
-	{
+	else if (isIntSet) {
 		fputs(hasLeftChild ? "]" : "", stdout);
 	}
-	else if (isStatement)
-	{
+	else if (isStatement) {
 		fputs(hasLeftChild ? ">" : "", stdout);
 	}
-	else
-	{
+	else {
 		fputs(hasLeftChild ? ")" : "", stdout);
 	}
 }
@@ -686,18 +627,15 @@ Narsese_INIT()
 	               ATOMS_HASHTABLE_BUCKETS, ATOMS_MAX, (Equal) Narsese_StringEqual,
 	               (Hash) Narsese_StringHash);
 	operator_index = term_index = 0;
-	for (int i = 0; i < ATOMS_MAX; i++)
-	{
+	for (int i = 0; i < ATOMS_MAX; i++) {
 		memset(&Narsese_atomNames[i], 0, ATOMIC_TERM_LEN_MAX);
 	}
-	for (int i = 0; i < OPERATIONS_MAX; i++)
-	{
+	for (int i = 0; i < OPERATIONS_MAX; i++) {
 		memset(&Narsese_operatorNames[i], 0, ATOMIC_TERM_LEN_MAX);
 	}
 	// index variables at first, these atoms come first as also used by
 	// Substitution struct
-	for (int i = 1; i <= 9; i++)
-	{
+	for (int i = 1; i <= 9; i++) {
 		char dep_varname[3] = "#1";
 		char indep_varname[3] = "$1";
 		char query_varname[3] = "?1";
@@ -707,16 +645,14 @@ Narsese_INIT()
 		Narsese_AtomicTerm(query_varname);
 	}
 	// index rule table variables next:
-	for (unsigned int i = 0; i < NUM_ELEMENTS(Narsese_RuleTableVars) - 1; i++)
-	{
+	for (unsigned int i = 0; i < NUM_ELEMENTS(Narsese_RuleTableVars) - 1; i++) {
 		char varname[2] = " ";
 		varname[0] = Narsese_RuleTableVars[i];
 		Narsese_AtomicTerm(varname);
 	}
 	// index the copulas as well, to make sure these will have same index on next
 	// run
-	for (int i = 0; i < (int) strlen(Naresese_CanonicalCopulas); i++)
-	{
+	for (int i = 0; i < (int) strlen(Naresese_CanonicalCopulas); i++) {
 		char cop[2] = {(Naresese_CanonicalCopulas[i]), 0};
 		Narsese_AtomicTermIndex(cop);
 	}
@@ -775,11 +711,9 @@ Narsese_getOperationID(Term *term)
 Term
 Narsese_GetPreconditionWithoutOp(Term *precondition)
 {
-	if (Narsese_copulaEquals(precondition->atoms[0], '+'))
-	{
+	if (Narsese_copulaEquals(precondition->atoms[0], '+')) {
 		Term potential_op = Term_ExtractSubterm(precondition, 2);
-		if (Narsese_isOperation(&potential_op))
-		{
+		if (Narsese_isOperation(&potential_op)) {
 			return Term_ExtractSubterm(precondition, 1);
 		}
 	}
