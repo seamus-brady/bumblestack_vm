@@ -249,7 +249,7 @@ narsese_prefix_transform(char *narsese_expanded)
 	static char *tokens[NARSESE_LEN_MAX + 1]; //there cannot be more tokens than chars
 	memset(tokens, 0, (NARSESE_LEN_MAX + 1) * sizeof(char *)); //and last one stays NULL for sure
 	char *token = strtok(narsese_expanded, " ");
-	int nt = 0, nc = NUM_ELEMENTS(Naresese_CanonicalCopulas) - 1;
+	int nt = 0, nc = NUM_ELEMENTS(NARSESE_CANONICAL_COPULAS) - 1;
 	while (token)
 	{
 		tokens[nt] = token;
@@ -262,7 +262,7 @@ narsese_prefix_transform(char *narsese_expanded)
 		{
 			for (int k = 0; k < nc; k++)
 			{
-				if (tokens[i + 1][0] == (int) Naresese_CanonicalCopulas[k] && tokens[i + 1][1] == 0)
+				if (tokens[i + 1][0] == (int) NARSESE_CANONICAL_COPULAS[k] && tokens[i + 1][1] == 0)
 				{
 					goto Continue;
 				}
@@ -667,16 +667,16 @@ narsese_init()
 		narsese_atomic_term(query_varname);
 	}
 	//index rule table variables next:
-	for (unsigned int i = 0; i < NUM_ELEMENTS(Narsese_RuleTableVars) - 1; i++)
+	for (unsigned int i = 0; i < NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES) - 1; i++)
 	{
 		char varname[2] = " ";
-		varname[0] = Narsese_RuleTableVars[i];
+		varname[0] = NARSESE_RULE_TABLE_VARIABLES[i];
 		narsese_atomic_term(varname);
 	}
 	//index the copulas as well, to make sure these will have same index on next run
-	for (int i = 0; i < (int) strlen(Naresese_CanonicalCopulas); i++)
+	for (int i = 0; i < (int) strlen(NARSESE_CANONICAL_COPULAS); i++)
 	{
-		char cop[2] = {(Naresese_CanonicalCopulas[i]), 0};
+		char cop[2] = {(NARSESE_CANONICAL_COPULAS[i]), 0};
 		narsese_atomic_term_index(cop);
 	}
 	g_Self = narsese_atomic_term_index("g_Self");

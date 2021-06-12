@@ -39,8 +39,8 @@ extern char g_narsese_atomNames[ATOMS_MAX][ATOMIC_TERM_LEN_MAX];
 extern char g_narsese_operatorNames[OPERATIONS_MAX][ATOMIC_TERM_LEN_MAX];
 extern Atom g_Self;
 
-#define Narsese_RuleTableVars "ABCMRSPXYZ"
-#define Naresese_CanonicalCopulas "@*&|;:=$'\"/\\.-%#~+!"
+#define NARSESE_RULE_TABLE_VARIABLES "ABCMRSPXYZ"
+#define NARSESE_CANONICAL_COPULAS "@*&|;:=$'\"/\\.-%#~+!"
 
 //Methods//
 //-------//

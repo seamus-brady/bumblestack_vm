@@ -12,7 +12,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_1;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -72,7 +72,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_2;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -132,7 +132,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_3;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -192,7 +192,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_4;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -252,7 +252,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_5;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -312,7 +312,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_6;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -372,7 +372,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_7;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -432,7 +432,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_8;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -492,7 +492,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_9;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 44)
 		{
@@ -534,7 +534,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_10;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -586,7 +586,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_11;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -638,7 +638,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_12;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -698,7 +698,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_13;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -758,7 +758,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_14;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -818,7 +818,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_15;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -878,7 +878,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_16;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -938,7 +938,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_17;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 44)
 		{
@@ -998,7 +998,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_18;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -1058,7 +1058,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_19;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 44)
 		{
@@ -1118,7 +1118,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_20;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -1188,7 +1188,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_21;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 44)
 		{
@@ -1258,7 +1258,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_22;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -1328,7 +1328,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_23;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 44)
 		{
@@ -1398,7 +1398,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_24;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 44)
 		{
@@ -1458,7 +1458,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_25;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 44)
 		{
@@ -1518,7 +1518,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_26;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 44)
 		{
@@ -1576,7 +1576,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_27;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 44)
 		{
@@ -1634,7 +1634,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_28;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -1689,7 +1689,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_29;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -1744,7 +1744,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_30;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -1799,7 +1799,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_31;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -1854,7 +1854,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_32;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -1907,7 +1907,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_33;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -1960,7 +1960,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_34;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -2013,7 +2013,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_35;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -2066,7 +2066,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_36;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -2119,7 +2119,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_37;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -2172,7 +2172,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_38;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -2225,7 +2225,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_39;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -2278,7 +2278,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_40;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -2343,7 +2343,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_41;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -2408,7 +2408,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_42;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -2473,7 +2473,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_43;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -2538,7 +2538,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_44;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -2603,7 +2603,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_45;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -2668,7 +2668,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_46;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -2733,7 +2733,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_47;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -2798,7 +2798,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_48;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -2863,7 +2863,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_49;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -2928,7 +2928,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_50;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -2993,7 +2993,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_51;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -3058,7 +3058,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_52;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -3129,7 +3129,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_53;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -3200,7 +3200,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_54;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -3271,7 +3271,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_55;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -3342,7 +3342,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_56;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -3413,7 +3413,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_57;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -3484,7 +3484,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_58;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -3555,7 +3555,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_59;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -3626,7 +3626,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_60;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -3697,7 +3697,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_61;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -3768,7 +3768,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_62;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -3839,7 +3839,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_63;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -3910,7 +3910,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_64;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -3981,7 +3981,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_65;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -4052,7 +4052,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_66;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -4123,7 +4123,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_67;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -4194,7 +4194,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_68;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -4265,7 +4265,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_69;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -4336,7 +4336,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_70;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -4407,7 +4407,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_71;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -4478,7 +4478,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_72;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -4549,7 +4549,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_73;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -4620,7 +4620,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_74;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -4691,7 +4691,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_75;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -4762,7 +4762,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_76;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -4820,7 +4820,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_77;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -4878,7 +4878,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_78;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -4936,7 +4936,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_79;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -4994,7 +4994,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_80;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -5052,7 +5052,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_81;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -5110,7 +5110,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_82;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -5168,7 +5168,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_83;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -5226,7 +5226,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_84;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 56)
 		{
@@ -5260,7 +5260,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_85;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 42)
 		{
@@ -5297,7 +5297,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		{
 			goto RULE_86;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 42)
 		{
@@ -5341,7 +5341,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_87;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -5393,7 +5393,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_88;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -5445,7 +5445,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_89;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -5497,7 +5497,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_90;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -5549,7 +5549,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_91;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 42)
 		{
@@ -5585,7 +5585,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_92;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -5658,7 +5658,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_93;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -5731,7 +5731,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_94;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -5804,7 +5804,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_95;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -5877,7 +5877,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_96;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -5942,7 +5942,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_97;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -6007,7 +6007,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_98;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{
@@ -6072,7 +6072,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_99;
 		}
-		Term substitutions[27 + NUM_ELEMENTS(Narsese_RuleTableVars)] = {0};
+		Term substitutions[27 + NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0};
 		Term subtree = {0};
 		if (term1.atoms[0] != 43)
 		{

@@ -77,7 +77,7 @@ nal_generate_conclusion_term(char *premise1, char *premise2, char *conclusion, b
 	{
 		printf("if(doublePremise) { goto RULE_%d; }\n", g_ruleID);
 	}
-	puts("Term substitutions[27+NUM_ELEMENTS(Narsese_RuleTableVars)] = {0}; Term subtree = {0};"); //27 because of 9 indep, 9 dep, 9 query vars
+	puts("Term substitutions[27+NUM_ELEMENTS(NARSESE_RULE_TABLE_VARIABLES)] = {0}; Term subtree = {0};"); //27 because of 9 indep, 9 dep, 9 query vars
 	for (int i = 0; i < COMPOUND_TERM_SIZE_MAX; i++)
 	{
 		nal_generate_premises_unifier(i, term1.atoms[i], 1);
