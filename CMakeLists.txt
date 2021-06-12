@@ -37,8 +37,8 @@ target_link_libraries(unit_tests m)
 ### target for main executable
 ######################################################################################################################
 add_executable(bumblestack
-        src/vm/bumblevm_app.c
-        src/vm/bumblevm_app.h
+        src/vm/app.c
+        src/vm/app.h
         src/vm/nars_concept.h
         src/vm/nars_config.h
         src/vm/nars_cycle.c
@@ -118,7 +118,7 @@ add_executable(bumblestack
         src/vm/wren_opt_meta.wren.inc
         src/vm/wren_opt_random.c
         src/vm/wren_opt_random.h
-        src/vm/wren_opt_random.wren.inc)
+        src/vm/wren_opt_random.wren.inc src/vm/app_script_loader.h src/vm/app_script_loader.c)
 
 set_target_properties(bumblestack PROPERTIES LINKER_LANGUAGE C)
 target_link_libraries(bumblestack m)

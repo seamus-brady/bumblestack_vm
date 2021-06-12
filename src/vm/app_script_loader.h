@@ -1,6 +1,5 @@
 /*
  * Copyright 2021 seamus@bumblestack.com, Corvideon Limited.
- * Portions of this code were originally created by the OpenNARS authors under the MIT License.
 
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
@@ -14,25 +13,16 @@
  * THE SOFTWARE.
  */
 
-#include <stdbool.h>
-#include <stdlib.h>
-#include "nars_nar.h"
-#include "lib_slog.h"
+#ifndef BUMBLESTACK_SRC_VM_APP_SCRIPT_LOADER_H
+#define BUMBLESTACK_SRC_VM_APP_SCRIPT_LOADER_H
+
+#include <stdio.h>
+#include "wren.h"
 
 void
-setup_logging();
+run_script(WrenVM *vm);
 
 void
-print_concepts();
+start_wren();
 
-void
-print_atom_table();
-
-void
-print_cycling_belief_events();
-
-void
-print_cycling_goal_events();
-
-void
-run_diagnostics();
+#endif //BUMBLESTACK_SRC_VM_APP_SCRIPT_LOADER_H

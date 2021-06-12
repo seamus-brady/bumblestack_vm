@@ -1,7 +1,6 @@
-/* 
+/*
  * Copyright 2021 seamus@bumblestack.com, Corvideon Limited.
- * Portions of this code were originally created by the OpenNARS authors under the MIT License.
-
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
@@ -13,7 +12,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-#include "bumblevm_app.h"
+#include "app.h"
 
 void
 Process_Args(int argc, char *argv[])
@@ -76,6 +75,7 @@ main(int argc, char *argv[])
 {
 	systemInit();
 	run_diagnostics();
+	start_wren();
 	return 0;
 }
 

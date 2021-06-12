@@ -1,6 +1,5 @@
 /*
  * Copyright 2021 seamus@bumblestack.com, Corvideon Limited.
- * Portions of this code were originally created by the OpenNARS authors under the MIT License.
 
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
@@ -22,5 +21,6 @@
 #include "nars_shell.h"
 #include "lib_slog.h"
 #include "nars_io.h"
+#include "app_script_loader.h"
 
 #endif
