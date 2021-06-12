@@ -37,6 +37,8 @@ target_link_libraries(unit_tests m)
 ### target for main executable
 ######################################################################################################################
 add_executable(bumblestack
+        src/vm/bumblevm_app.c
+        src/vm/bumblevm_app.h
         src/vm/nars_concept.h
         src/vm/nars_config.h
         src/vm/nars_cycle.c
@@ -56,7 +58,6 @@ add_executable(bumblestack
         src/vm/nars_inference.h
         src/vm/nars_inverted_atom_index.c
         src/vm/nars_inverted_atom_index.h
-        src/vm/bumblevm_app.c
         src/vm/nars_memory.c
         src/vm/nars_memory.h
         src/vm/nars_nal.c
@@ -91,8 +92,33 @@ add_executable(bumblestack
         src/vm/lib_slog.c
         src/vm/nars_io.h
         src/vm/nars_io.c
-        src/vm/bumblevm_app.h
-        src/vm/bumblevm_app.c)
+        # wren embedded scripting language
+        src/vm/wren_common.h
+        src/vm/wren_compiler.c
+        src/vm/wren_compiler.h
+        src/vm/wren_core.c
+        src/vm/wren_core.h
+        src/vm/wren_core.wren
+        src/vm/wren_core.wren.inc
+        src/vm/wren_debug.c
+        src/vm/wren_debug.h
+        src/vm/wren_math.h
+        src/vm/wren_opcodes.h
+        src/vm/wren_primitive.c
+        src/vm/wren_primitive.h
+        src/vm/wren_utils.c
+        src/vm/wren_utils.h
+        src/vm/wren_value.c
+        src/vm/wren_value.h
+        src/vm/wren_vm.c
+        src/vm/wren_vm.h
+        src/vm/wren.h
+        src/vm/wren_opt_meta.c
+        src/vm/wren_opt_meta.h
+        src/vm/wren_opt_meta.wren.inc
+        src/vm/wren_opt_random.c
+        src/vm/wren_opt_random.h
+        src/vm/wren_opt_random.wren.inc)
 
 set_target_properties(bumblestack PROPERTIES LINKER_LANGUAGE C)
 target_link_libraries(bumblestack m)
