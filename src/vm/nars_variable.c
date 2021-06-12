@@ -17,37 +17,38 @@
 #include "nars_variable.h"
 
 bool
-Variable_isIndependentVariable(Atom atom)
+variable_is_independent_variable(Atom atom)
 {
 	return atom > 0 && g_narsese_atomNames[(int) atom - 1][1] != 0 && g_narsese_atomNames[(int) atom - 1][0] == '$';
 }
 
 bool
-Variable_isDependentVariable(Atom atom)
+variable_is_dependent_variable(Atom atom)
 {
 	return atom > 0 && g_narsese_atomNames[(int) atom - 1][1] != 0 && g_narsese_atomNames[(int) atom - 1][0] == '#';
 }
 
 bool
-Variable_isQueryVariable(Atom atom)
+variable_is_query_variable(Atom atom)
 {
 	return atom > 0 && g_narsese_atomNames[(int) atom - 1][1] != 0 && g_narsese_atomNames[(int) atom - 1][0] == '?';
 }
 
 bool
-Variable_isVariable(Atom atom)
+variable_is_variable(Atom atom)
 {
-	return Variable_isIndependentVariable(atom) || Variable_isDependentVariable(atom) || Variable_isQueryVariable(atom);
+	return variable_is_independent_variable(atom) || variable_is_dependent_variable(atom) || variable_is_query_variable(
+		atom);
 }
 
 bool
-Variable_hasVariable(Term *term, bool independent, bool dependent, bool query)
+variable_has_variable(Term *term, bool independent, bool dependent, bool query)
 {
 	for (int i = 0; i < COMPOUND_TERM_SIZE_MAX; i++)
 	{
 		Atom atom = term->atoms[i];
-		if ((independent && Variable_isIndependentVariable(atom)) ||
-			(dependent && Variable_isDependentVariable(atom)) || (query && Variable_isQueryVariable(atom)))
+		if ((independent && variable_is_independent_variable(atom)) ||
+			(dependent && variable_is_dependent_variable(atom)) || (query && variable_is_query_variable(atom)))
 		{
 			return true;
 		}
@@ -56,7 +57,7 @@ Variable_hasVariable(Term *term, bool independent, bool dependent, bool query)
 }
 
 Substitution
-Variable_Unify2(Term *general, Term *specific, bool unifyQueryVarOnly)
+variable_unify2(Term *general, Term *specific, bool unifyQueryVarOnly)
 {
 	Substitution substitution = {0};
 	for (int i = 0; i < COMPOUND_TERM_SIZE_MAX; i++)
@@ -64,20 +65,20 @@ Variable_Unify2(Term *general, Term *specific, bool unifyQueryVarOnly)
 		Atom general_atom = general->atoms[i];
 		if (general_atom)
 		{
-			bool is_allowed_var = unifyQueryVarOnly ? Variable_isQueryVariable(general_atom) : Variable_isVariable(
+			bool is_allowed_var = unifyQueryVarOnly ? variable_is_query_variable(general_atom) : variable_is_variable(
 				general_atom);
 			if (is_allowed_var)
 			{
 				ASSERT(general_atom <= 27,
-				       "Variable_Unify: Problematic variable encountered, only $1-$9, #1-#9 and ?1-?9 are allowed!");
-				Term subtree = Term_ExtractSubterm(specific, i);
-				if (Variable_isQueryVariable(general_atom) &&
-					Variable_isVariable(subtree.atoms[0])) //not valid to substitute a variable for a question var
+				       "variable_unify: Problematic variable encountered, only $1-$9, #1-#9 and ?1-?9 are allowed!");
+				Term subtree = term_extract_subterm(specific, i);
+				if (variable_is_query_variable(general_atom) &&
+					variable_is_variable(subtree.atoms[0])) //not valid to substitute a variable for a question var
 				{
 					return substitution;
 				}
 				if (substitution.map[(int) general_atom].atoms[0] != 0 &&
-					!Term_Equal(&substitution.map[(int) general_atom],
+					!term_equal(&substitution.map[(int) general_atom],
 					            &subtree)) //unificiation var consistency criteria
 				{
 					return substitution;
@@ -102,43 +103,43 @@ Variable_Unify2(Term *general, Term *specific, bool unifyQueryVarOnly)
 }
 
 Substitution
-Variable_Unify(Term *general, Term *specific)
+variable_unify(Term *general, Term *specific)
 {
-	return Variable_Unify2(general, specific, false);
+	return variable_unify2(general, specific, false);
 }
 
 Term
-Variable_ApplySubstitute(Term general, Substitution substitution, bool *success)
+variable_apply_substitute(Term term, Substitution substitution, bool *success)
 {
 	ASSERT(substitution.success,
 	       "A substitution from unsuccessful unification cannot be used to substitute variables!");
 	*success = true;
 	for (int i = 0; i < COMPOUND_TERM_SIZE_MAX; i++)
 	{
-		Atom general_atom = general.atoms[i];
-		bool is_variable = Variable_isVariable(general_atom);
+		Atom general_atom = term.atoms[i];
+		bool is_variable = variable_is_variable(general_atom);
 		ASSERT(!is_variable || general_atom <= 27,
-		       "Variable_ApplySubstitute: Problematic variable encountered, only $1-$9, #1-#9 and ?1-?9 are allowed!");
+		       "variable_apply_substitute: Problematic variable encountered, only $1-$9, #1-#9 and ?1-?9 are allowed!");
 		if (is_variable && substitution.map[(int) general_atom].atoms[0] != 0)
 		{
-			if (!Term_OverrideSubterm(&general, i, &substitution.map[(int) general_atom]))
+			if (!term_override_subterm(&term, i, &substitution.map[(int) general_atom]))
 			{
 				*success = false;
 			}
 		}
 	}
-	return general;
+	return term;
 }
 
 //Search for variables which appear twice extensionally, if also appearing in the right side of the implication
 //then introduce as independent variable, else as dependent variable
 static void
-countAtoms(Term *cur_inheritance, int *appearing, bool extensionally)
+variable_count_atoms(Term *cur_inheritance, int *appearing, bool extensionally)
 {
 	if (narsese_copula_equals(cur_inheritance->atoms[0], ':') ||
 		narsese_copula_equals(cur_inheritance->atoms[0], '=')) //inheritance and similarity
 	{
-		Term side = Term_ExtractSubterm(cur_inheritance, extensionally ? 1 : 2);
+		Term side = term_extract_subterm(cur_inheritance, extensionally ? 1 : 2);
 		for (int i = 0; i < COMPOUND_TERM_SIZE_MAX; i++)
 		{
 			Atom atom = side.atoms[i];
@@ -151,21 +152,21 @@ countAtoms(Term *cur_inheritance, int *appearing, bool extensionally)
 }
 
 Term
-IntroduceImplicationVariables(Term implication, bool *success, bool extensionally)
+variable_introduce_implication_variables(Term implication, bool *success, bool extensionally)
 {
 	ASSERT(narsese_copula_equals(implication.atoms[0], '$'), "An implication is expected here!");
-	Term left_side = Term_ExtractSubterm(&implication, 1);
-	Term right_side = Term_ExtractSubterm(&implication, 2);
+	Term left_side = term_extract_subterm(&implication, 1);
+	Term right_side = term_extract_subterm(&implication, 2);
 	int appearing_left[ATOMS_MAX] = {0};
 	int appearing_right[ATOMS_MAX] = {0};
 	while (narsese_copula_equals(left_side.atoms[0], '+')) //sequence
 	{
-		Term potential_inheritance = Term_ExtractSubterm(&left_side, 2);
-		countAtoms(&potential_inheritance, appearing_left, extensionally);
-		left_side = Term_ExtractSubterm(&left_side, 1);
+		Term potential_inheritance = term_extract_subterm(&left_side, 2);
+		variable_count_atoms(&potential_inheritance, appearing_left, extensionally);
+		left_side = term_extract_subterm(&left_side, 1);
 	}
-	countAtoms(&left_side, appearing_left, extensionally);
-	countAtoms(&right_side, appearing_right, extensionally);
+	variable_count_atoms(&left_side, appearing_left, extensionally);
+	variable_count_atoms(&right_side, appearing_right, extensionally);
 	char depvar_i = 1;
 	char indepvar_i = 1;
 	char variable_id[ATOMS_MAX] = {0};
@@ -182,7 +183,7 @@ IntroduceImplicationVariables(Term implication, bool *success, bool extensionall
 				{
 					char varname[3] = {'$', ('0' + var_id), 0}; //$i
 					Term varterm = narsese_atomic_term(varname);
-					if (!Term_OverrideSubterm(&implication, i, &varterm))
+					if (!term_override_subterm(&implication, i, &varterm))
 					{
 						*success = false;
 						return implication;
@@ -196,7 +197,7 @@ IntroduceImplicationVariables(Term implication, bool *success, bool extensionall
 				{
 					char varname[3] = {'#', ('0' + var_id), 0}; //#i
 					Term varterm = narsese_atomic_term(varname);
-					if (!Term_OverrideSubterm(&implication, i, &varterm))
+					if (!term_override_subterm(&implication, i, &varterm))
 					{
 						*success = false;
 						return implication;
@@ -211,7 +212,7 @@ IntroduceImplicationVariables(Term implication, bool *success, bool extensionall
 }
 
 void
-Variable_Normalize(Term *term)
+variable_normalize(Term *term)
 {
 	int independent_i = 1, dependent_i = 1, query_i = 1;
 	bool normalized[COMPOUND_TERM_SIZE_MAX] = {0};
@@ -219,10 +220,10 @@ Variable_Normalize(Term *term)
 	for (int j = 0; j < COMPOUND_TERM_SIZE_MAX; j++)
 	{
 		Atom atom = term->atoms[j];
-		char varType = Variable_isIndependentVariable(atom) ? '$' : (Variable_isDependentVariable(atom) ? '#' : '?');
-		int *varIndex = Variable_isIndependentVariable(atom) ? &independent_i : (Variable_isDependentVariable(atom)
+		char varType = variable_is_independent_variable(atom) ? '$' : (variable_is_dependent_variable(atom) ? '#' : '?');
+		int *varIndex = variable_is_independent_variable(atom) ? &independent_i : (variable_is_dependent_variable(atom)
 		                                                                         ? &dependent_i : &query_i);
-		if (!normalized[j] && Variable_isVariable(atom))
+		if (!normalized[j] && variable_is_variable(atom))
 		{
 			ASSERT(*varIndex <= 9, "Variable overflow in variable normalization!");
 			char varname[3] = {varType, ('0' + *varIndex), 0}; //$i, #j, ?k

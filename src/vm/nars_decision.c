@@ -37,8 +37,8 @@ decision_execute(Decision *decision)
 	{
 		Term operation = {0};
 		operation.atoms[0] = narsese_atomic_term_index(":"); //<args --> ^op>
-		if (!Term_OverrideSubterm(&operation, 1, &decision->arguments) ||
-			!Term_OverrideSubterm(&operation, 2, &decision->op.term))
+		if (!term_override_subterm(&operation, 1, &decision->arguments) ||
+			!term_override_subterm(&operation, 2, &decision->op.term))
 		{
 			return;
 		}
@@ -88,7 +88,7 @@ decision_consider_implication(long currentTime, Event *goal, int considered_opi,
 	if (precondition != NULL)
 	{
 		Event ContextualOperation = inference_goal_deduction(goal, imp); //(&/,a,op())! :\:
-		double operationGoalTruthExpectation = Truth_Expectation(
+		double operationGoalTruthExpectation = truth_expectation(
 			Inference_GoalSequenceDeduction(&ContextualOperation, precondition, currentTime).truth); //op()! :|:
 		IS_SYSTEM_IN_DEBUG_MODE
 		(
@@ -96,22 +96,22 @@ decision_consider_implication(long currentTime, Event *goal, int considered_opi,
 			       operationGoalTruthExpectation);
 			narsese_print_term(&prec->term);
 			fputs("\nConsidered precondition with truth: ", stdout);
-			Truth_Print(&precondition->truth);
+			truth_print(&precondition->truth);
 			fputs("Considered goal with truth: ", stdout);
-			Truth_Print(&goal->truth);
+			truth_print(&goal->truth);
 			fputs("Considered implication with truth: ", stdout);
-			Truth_Print(&imp->truth);
+			truth_print(&imp->truth);
 			printf("Considered ITEM_AT system time occurrenceTime=(%ld)\n", precondition->occurrenceTime);
 			narsese_print_term(&precondition->term); puts("");
 		)
 		//<(precon &/ <args --> ^op>) =/> postcon>. -> [$ , postcon precon : _ _ _ _ args ^op
-		Term operation = Term_ExtractSubterm(&imp->term, 4); //^op or [: args ^op]
+		Term operation = term_extract_subterm(&imp->term, 4); //^op or [: args ^op]
 		if (!narsese_is_operator(
 			operation.atoms[0])) //it is an operation with args, not just an atomic operator, so remember the args
 		{
 			ASSERT(narsese_is_operator(operation.atoms[2]),
 			       "If it's not atomic, it needs to be an operation with args here");
-			Term arguments = Term_ExtractSubterm(&imp->term, 9); //[* ' ARG g_Self]
+			Term arguments = term_extract_subterm(&imp->term, 9); //[* ' ARG g_Self]
 			if (arguments.atoms[3] != g_Self) //either wasn't g_Self or var didn't resolve to g_Self
 			{
 				return decision;
@@ -135,7 +135,7 @@ decision_best_candidate(Concept *goalconcept, Event *goal, long currentTime)
 	Decision decisionGeneral = {0};
 	Implication bestImpGeneral = {0};
 	long bestComplexityGeneral = COMPOUND_TERM_SIZE_MAX + 1;
-	Substitution subs = Variable_Unify(&goalconcept->term, &goal->term);
+	Substitution subs = variable_unify(&goalconcept->term, &goal->term);
 	if (subs.success)
 	{
 		for (int opi = 1; opi <= OPERATIONS_MAX && g_operations[opi - 1].action != 0; opi++)
@@ -144,37 +144,37 @@ decision_best_candidate(Concept *goalconcept, Event *goal, long currentTime)
 			{
 				if (!memory_implication_valid(&goalconcept->precondition_beliefs[opi].array[j]))
 				{
-					Table_Remove(&goalconcept->precondition_beliefs[opi], j--);
+					table_remove(&goalconcept->precondition_beliefs[opi], j--);
 					continue;
 				}
 				Implication imp = goalconcept->precondition_beliefs[opi].array[j];
-				bool impHasVariable = Variable_hasVariable(&imp.term, true, true, true);
+				bool impHasVariable = variable_has_variable(&imp.term, true, true, true);
 				bool success;
-				imp.term = Variable_ApplySubstitute(imp.term, subs, &success);
+				imp.term = variable_apply_substitute(imp.term, subs, &success);
 				if (success)
 				{
 					ASSERT(narsese_copula_equals(imp.term.atoms[0], '$'), "This should be an implication!");
-					Term left_side_with_op = Term_ExtractSubterm(&imp.term, 1);
+					Term left_side_with_op = term_extract_subterm(&imp.term, 1);
 					Term left_side = narsese_get_precondition_without_op(
 						&left_side_with_op); //might be something like <#1 --> a>
 					for (int cmatch_k = 0; cmatch_k < g_concepts.itemsAmount; cmatch_k++)
 					{
 						Concept *cmatch = g_concepts.items[cmatch_k].address;
-						if (!Variable_hasVariable(&cmatch->term, true, true, true))
+						if (!variable_has_variable(&cmatch->term, true, true, true))
 						{
-							Substitution subs2 = Variable_Unify(&left_side, &cmatch->term);
+							Substitution subs2 = variable_unify(&left_side, &cmatch->term);
 							if (subs2.success)
 							{
 								Implication specific_imp = imp; //can only be completely specific
 								bool success;
-								specific_imp.term = Variable_ApplySubstitute(specific_imp.term, subs2, &success);
-								if (success && !Variable_hasVariable(&specific_imp.term, true, true, true))
+								specific_imp.term = variable_apply_substitute(specific_imp.term, subs2, &success);
+								if (success && !variable_has_variable(&specific_imp.term, true, true, true))
 								{
 									specific_imp.sourceConcept = cmatch;
 									specific_imp.sourceConceptId = cmatch->id;
 									Decision considered = decision_consider_implication(currentTime, goal, opi,
 									                                                    &specific_imp);
-									int specific_imp_complexity = Term_Complexity(&specific_imp.term);
+									int specific_imp_complexity = term_complexity(&specific_imp.term);
 									if (impHasVariable)
 									{
 										if (considered.desire > decisionGeneral.desire ||
@@ -243,7 +243,7 @@ decision_anticipate(int operationID, long currentTime)
 		{
 			if (!memory_implication_valid(&postc->precondition_beliefs[operationID].array[h]))
 			{
-				Table_Remove(&postc->precondition_beliefs[operationID], h);
+				table_remove(&postc->precondition_beliefs[operationID], h);
 				h--;
 				continue;
 			}
@@ -262,37 +262,37 @@ decision_anticipate(int operationID, long currentTime)
 				if (success)
 				{
 					Event result = inference_belief_deduction(&seqop, &imp); //b. :/:
-					if (Truth_Expectation(result.truth) > ANTICIPATION_THRESHOLD)
+					if (truth_expectation(result.truth) > ANTICIPATION_THRESHOLD)
 					{
 						Implication negative_confirmation = imp;
 						Truth TNew = {.frequency = 0.0, .confidence = ANTICIPATION_CONFIDENCE};
-						Truth TPast = Truth_Projection(precondition->truth, 0, round(imp.occurrenceTimeOffset));
-						negative_confirmation.truth = Truth_Eternalize(Truth_Induction(TNew, TPast));
+						Truth TPast = truth_projection(precondition->truth, 0, round(imp.occurrenceTimeOffset));
+						negative_confirmation.truth = truth_eternalise(truth_induction(TNew, TPast));
 						negative_confirmation.stamp = (Stamp) {.evidentialBase = {-g_stampID}};
 						g_stampID--;
 						ASSERT(negative_confirmation.truth.confidence >= 0.0 &&
 							negative_confirmation.truth.confidence <= 1.0, "(666) confidence out of bounds");
-						Implication *added = Table_AddAndRevise(&postc->precondition_beliefs[operationID],
-						                                        &negative_confirmation);
+						Implication *added = table_add_and_revise(&postc->precondition_beliefs[operationID],
+						                                          &negative_confirmation);
 						if (added != NULL)
 						{
 							added->sourceConcept = negative_confirmation.sourceConcept;
 							added->sourceConceptId = negative_confirmation.sourceConceptId;
 						}
-						Substitution subs = Variable_Unify(&current_prec->term, &precondition->term);
+						Substitution subs = variable_unify(&current_prec->term, &precondition->term);
 						if (subs.success)
 						{
 							bool success2;
-							result.term = Variable_ApplySubstitute(result.term, subs, &success2);
+							result.term = variable_apply_substitute(result.term, subs, &success2);
 							if (success2)
 							{
 								Concept *c = memory_conceptualise(&result.term, currentTime);
 								if (c != NULL)
 								{
-									c->usage = Usage_use(c->usage, currentTime, false);
+									c->usage = usage_use(c->usage, currentTime, false);
 									c->predicted_belief = result;
 									Event eternal = result;
-									eternal.truth = Truth_Eternalize(eternal.truth);
+									eternal.truth = truth_eternalise(eternal.truth);
 									eternal.occurrenceTime = OCCURRENCE_ETERNAL;
 									c->belief = inference_revision_and_choice(&c->belief, &eternal, currentTime, NULL);
 								}

@@ -218,7 +218,7 @@ Shell_ProcessInput(char *line)
 		else if (!strcmp(line, "*stats"))
 		{
 			puts("//*stats");
-			statsPrint(g_currentTime);
+			stats_print(g_currentTime);
 			puts("//*done");
 		}
 		else if (!strcmp(line, "*inverted_atom_index"))
@@ -251,12 +251,12 @@ Shell_ProcessInput(char *line)
 					c->usage.lastUsed,
 					c->belief.truth.frequency,
 					c->belief.truth.confidence);
-				Term left = Term_ExtractSubterm(&c->term, 1);
-				Term left_left = Term_ExtractSubterm(&left, 1);
-				Term left_right = Term_ExtractSubterm(&left, 2);
-				Term right = Term_ExtractSubterm(&c->term, 2);
-				Term right_left = Term_ExtractSubterm(&right, 1);
-				Term right_right = Term_ExtractSubterm(&right, 2);
+				Term left = term_extract_subterm(&c->term, 1);
+				Term left_left = term_extract_subterm(&left, 1);
+				Term left_right = term_extract_subterm(&left, 2);
+				Term right = term_extract_subterm(&c->term, 2);
+				Term right_left = term_extract_subterm(&right, 1);
+				Term right_right = term_extract_subterm(&right, 2);
 				fputs("\"", stdout);
 				narsese_print_term(&left);
 				fputs("\", ", stdout);
@@ -302,7 +302,7 @@ Shell_ProcessInput(char *line)
 				narsese_print_term(&e->term);
 				printf(": { \"priority\": %f, \"time\": %ld } ", g_cyclingBeliefEvents.items[i].priority,
 				       e->occurrenceTime);
-				Truth_Print(&e->truth);
+				truth_print(&e->truth);
 			}
 			puts("//*done");
 		}
@@ -316,7 +316,7 @@ Shell_ProcessInput(char *line)
 				narsese_print_term(&e->term);
 				printf(": {\"priority\": %f, \"time\": %ld } ", g_cyclingGoalEvents.items[i].priority,
 				       e->occurrenceTime);
-				Truth_Print(&e->truth);
+				truth_print(&e->truth);
 			}
 			puts("//*done");
 		}
@@ -382,7 +382,7 @@ Shell_Start()
 		char line[1024] = {0};
 		if (fgets(line, 1024, stdin) == NULL)
 		{
-			statsPrint(g_currentTime);
+			stats_print(g_currentTime);
 			break;
 		}
 		int cmd = Shell_ProcessInput(line);

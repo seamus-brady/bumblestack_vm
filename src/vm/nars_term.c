@@ -17,9 +17,9 @@
 #include "nars_term.h"
 
 bool
-Term_Equal(Term *a, Term *b)
+term_equal(Term *a, Term *b)
 {
-	if (Term_Hash(a) == Term_Hash(b))
+	if (term_hash(a) == term_hash(b))
 	{
 		return memcmp(a, b, sizeof(Term)) == 0;
 	}
@@ -61,14 +61,14 @@ Term_RelativeOverride(Term *term, int i, Term *subterm, int j)
 }
 
 bool
-Term_OverrideSubterm(Term *term, int i, Term *subterm)
+term_override_subterm(Term *term, int i, Term *subterm)
 {
 	return Term_RelativeOverride(term, i, subterm,
 	                             0); //subterm starts ITEM_AT its root, but its a subterm in term ITEM_AT position i
 }
 
 Term
-Term_ExtractSubterm(Term *term, int j)
+term_extract_subterm(Term *term, int j)
 {
 	Term ret = {0}; //ret is where to "write into"
 	Term_RelativeOverride(&ret, 0, term,
@@ -77,7 +77,7 @@ Term_ExtractSubterm(Term *term, int j)
 }
 
 int
-Term_Complexity(Term *term)
+term_complexity(Term *term)
 {
 	int s = 0;
 	for (int i = 0; i < COMPOUND_TERM_SIZE_MAX; i++)
@@ -91,7 +91,7 @@ Term_Complexity(Term *term)
 }
 
 HASH_TYPE
-Term_Hash(Term *term)
+term_hash(Term *term)
 {
 	if (term->hashed)
 	{

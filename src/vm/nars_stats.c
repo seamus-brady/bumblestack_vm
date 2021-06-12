@@ -17,11 +17,11 @@
 #include "nars_stats.h"
 #include "lib_slog.h"
 
-long Stats_countConceptsMatchedTotal = 0;
-long Stats_countConceptsMatchedMax = 0;
+long g_statsCountConceptsMatchedTotal = 0;
+long g_statsCountConceptsMatchedMax = 0;
 
 void
-statsPrint(long currentTime)
+stats_print(long currentTime)
 {
 	double Stats_averageBeliefEventPriority = 0.0;
 	for (int i = 0; i < g_cyclingBeliefEvents.itemsAmount; i++)
@@ -49,9 +49,9 @@ statsPrint(long currentTime)
 	}
 	Stats_averageConceptUsefulness /= (double) CONCEPTS_MAX;
 	slog_info("BumbleStack Statistics:");
-	printf("\tConcepts matched total:\t\t\t\t\t\t%ld\n", Stats_countConceptsMatchedTotal);
-	printf("\tConcepts matched max:\t\t\t\t\t\t%ld\n", Stats_countConceptsMatchedMax);
-	long countConceptsMatchedAverage = Stats_countConceptsMatchedTotal / currentTime;
+	printf("\tConcepts matched total:\t\t\t\t\t\t%ld\n", g_statsCountConceptsMatchedTotal);
+	printf("\tConcepts matched max:\t\t\t\t\t\t%ld\n", g_statsCountConceptsMatchedMax);
+	long countConceptsMatchedAverage = g_statsCountConceptsMatchedTotal / currentTime;
 	printf("\tConcepts matched average:\t\t\t\t\t%ld\n", countConceptsMatchedAverage);
 	printf("\tCurrent internal system time:\t\t\t\t%ld\n", currentTime);
 	printf("\tTotal g_concepts:\t\t\t\t\t\t\t\t%d\n", g_concepts.itemsAmount);

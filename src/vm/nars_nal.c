@@ -27,9 +27,9 @@ nal_generate_premises_unifier(int i, Atom atom, int premiseIndex)
 		if (g_narsese_atomNames[atom - 1][0] >= 'A' && g_narsese_atomNames[atom - 1][0] <= 'Z')
 		{
 			//unification failure by inequal value assignment (value ITEM_AT position i versus previously assigned one), and variable binding
-			printf("subtree = Term_ExtractSubterm(&term%d, %d);\n", premiseIndex, i);
+			printf("subtree = term_extract_subterm(&term%d, %d);\n", premiseIndex, i);
 			printf(
-				"if((substitutions[%d].atoms[0]!=0 && !Term_Equal(&substitutions[%d], &subtree)) || narsese_copula_equals(subtree.atoms[0], '@')){ goto RULE_%d; }\n",
+				"if((substitutions[%d].atoms[0]!=0 && !term_equal(&substitutions[%d], &subtree)) || narsese_copula_equals(subtree.atoms[0], '@')){ goto RULE_%d; }\n",
 				atom,
 				atom,
 				g_ruleID);
@@ -51,7 +51,7 @@ nal_generate_conclusion_substitution(int i, Atom atom)
 		if (g_narsese_atomNames[atom - 1][0] >= 'A' && g_narsese_atomNames[atom - 1][0] <= 'Z')
 		{
 			//conclusion term gets variables substituted
-			printf("if(!Term_OverrideSubterm(&conclusion,%d,&substitutions[%d])){ goto RULE_%d; }\n", i, atom, g_ruleID);
+			printf("if(!term_override_subterm(&conclusion,%d,&substitutions[%d])){ goto RULE_%d; }\n", i, atom, g_ruleID);
 		}
 		else
 		{
@@ -110,7 +110,7 @@ nal_generate_rule(char *premise1, char *premise2, char *conclusion, char *truthF
 		printf("Truth conclusionTruth = %s(truth1,truth2);\n", truthFunction);
 	}
 	puts(
-		"nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp, g_currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept, validation_cid);}\n");
+		"nal_derived_event(rule_table_reduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp, g_currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept, validation_cid);}\n");
 }
 
 static void
@@ -126,14 +126,14 @@ nal_generate_rule_table()
 {
 	puts("#include \"ruletable.h\"");
 	puts(
-		"void RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusionOccurrence, double occurrenceTimeOffset, Stamp conclusionStamp, long g_currentTime, double parentPriority, double conceptPriority, bool doublePremise, Concept *validation_concept, long validation_cid)\n{\ngoto RULE_0;");
+		"void rule_table_apply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusionOccurrence, double occurrenceTimeOffset, Stamp conclusionStamp, long g_currentTime, double parentPriority, double conceptPriority, bool doublePremise, Concept *validation_concept, long validation_cid)\n{\ngoto RULE_0;");
 #define H_NAL_RULES
 
 #include "nars_nal.h"
 
 #undef H_NAL_RULES
 	printf("RULE_%d:;\n}\n", g_ruleID);
-	printf("Term RuleTableReduce(Term term1, bool doublePremise)\n{\ngoto RULE_%d;\n", g_ruleID);
+	printf("Term rule_table_reduce(Term term1, bool doublePremise)\n{\ngoto RULE_%d;\n", g_ruleID);
 #define H_NAL_REDUCTIONS
 
 #include "nars_nal.h"
@@ -184,7 +184,7 @@ nal_derived_event(Term conclusionTerm, long conclusionOccurrence, Truth conclusi
 		//concept recycling would invalidate the derivation (allows to lock only adding results to memory)
 		if (!nal_atom_appears_twice(&conclusionTerm))
 		{
-			memory_add_event(&e, currentTime, conceptPriority * parentPriority * Truth_Expectation(conclusionTruth),
+			memory_add_event(&e, currentTime, conceptPriority * parentPriority * truth_expectation(conclusionTruth),
 			                 occurrenceTimeOffset, false, true, false, false, false);
 		}
 	}

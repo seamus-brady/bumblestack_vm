@@ -17,7 +17,7 @@
 #include "nars_stack.h"
 
 void
-Stack_INIT(Stack *stack, void **items, int maxElements)
+stack_init(Stack *stack, void **items, int maxElements)
 {
 	stack->stackpointer = 0;
 	stack->items = items;
@@ -25,7 +25,7 @@ Stack_INIT(Stack *stack, void **items, int maxElements)
 }
 
 void
-Stack_Push(Stack *stack, void *item)
+stack_push(Stack *stack, void *item)
 {
 	stack->items[stack->stackpointer] = item;
 	stack->stackpointer++;
@@ -33,7 +33,7 @@ Stack_Push(Stack *stack, void *item)
 }
 
 void *
-Stack_Pop(Stack *stack)
+stack_pop(Stack *stack)
 {
 	stack->stackpointer--;
 	ASSERT(stack->stackpointer >= 0, "VMEntry stack underflow");
@@ -41,7 +41,7 @@ Stack_Pop(Stack *stack)
 }
 
 bool
-Stack_IsEmpty(Stack *stack)
+stack_is_empty(Stack *stack)
 {
 	return stack->stackpointer == 0;
 }

@@ -17,7 +17,7 @@
 #include "nars_stamp.h"
 
 Stamp
-Stamp_make(Stamp *stamp1, Stamp *stamp2)
+stamp_make(Stamp *stamp1, Stamp *stamp2)
 {
 	Stamp ret = {0};
 	bool processStamp1 = true;
@@ -65,7 +65,7 @@ Stamp_make(Stamp *stamp1, Stamp *stamp2)
 }
 
 bool
-Stamp_checkOverlap(Stamp *a, Stamp *b)
+stamp_check_overlap(Stamp *a, Stamp *b)
 {
 	for (int i = 0; i < STAMP_SIZE; i++)
 	{
@@ -89,7 +89,7 @@ Stamp_checkOverlap(Stamp *a, Stamp *b)
 }
 
 void
-Stamp_print(Stamp *stamp)
+stamp_print(Stamp *stamp)
 {
 	fputs("stamp=", stdout);
 	for (int i = 0; i < STAMP_SIZE; i++)

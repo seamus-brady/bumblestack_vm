@@ -29,13 +29,13 @@ inverted_atom_index_init()
 	{
 		g_invertedAtomIndex[i] = NULL;
 	}
-	Stack_INIT(&g_conceptChainElementStack, (void **) g_conceptChainElementStoragePointers,
+	stack_init(&g_conceptChainElementStack, (void **) g_conceptChainElementStoragePointers,
 	           UNIFICATION_DEPTH * CONCEPTS_MAX);
 	for (int i = 0; i < UNIFICATION_DEPTH * CONCEPTS_MAX; i++)
 	{
 		g_conceptChainElementStorage[i] = (ConceptChainElement) {0};
 		g_conceptChainElementStoragePointers[i] = NULL;
-		Stack_Push(&g_conceptChainElementStack, &g_conceptChainElementStorage[i]);
+		stack_push(&g_conceptChainElementStack, &g_conceptChainElementStorage[i]);
 	}
 }
 
@@ -50,7 +50,7 @@ inverted_atom_index_add_concept(Term term, Concept *c)
 			ConceptChainElement *elem = g_invertedAtomIndex[atom];
 			if (elem == NULL)
 			{
-				ConceptChainElement *newElem = Stack_Pop(&g_conceptChainElementStack); //new item
+				ConceptChainElement *newElem = stack_pop(&g_conceptChainElementStack); //new item
 				newElem->c = c;
 				g_invertedAtomIndex[atom] = newElem;
 			}
@@ -68,7 +68,7 @@ inverted_atom_index_add_concept(Term term, Concept *c)
 					elem = elem->next;
 				}
 				//ok, we can add it as previous->next
-				ConceptChainElement *newElem = Stack_Pop(&g_conceptChainElementStack); //new item
+				ConceptChainElement *newElem = stack_pop(&g_conceptChainElementStack); //new item
 				newElem->c = c;
 				previous->next = newElem;
 			}
@@ -103,7 +103,7 @@ inverted_atom_index_remove_concept(Term term, Concept *c)
 					ASSERT(elem->c != NULL, "A null concept was in inverted atom index!");
 					elem->c = NULL;
 					elem->next = NULL;
-					Stack_Push(&g_conceptChainElementStack, elem);
+					stack_push(&g_conceptChainElementStack, elem);
 					goto NEXT_ATOM;
 				}
 				previous = elem;

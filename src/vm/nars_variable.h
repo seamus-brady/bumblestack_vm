@@ -37,34 +37,44 @@ typedef struct
 
 //Methods//
 //-------//
+
 //Whether the atom is an independent variable, $i
 bool
-Variable_isIndependentVariable(Atom atom);
+variable_is_independent_variable(Atom atom);
+
 //Whether the atom is a dependent variable, #1
 bool
-Variable_isDependentVariable(Atom atom);
+variable_is_dependent_variable(Atom atom);
+
 //Whether the atom is a query variable, ?1
 bool
-Variable_isQueryVariable(Atom atom);
+variable_is_query_variable(Atom atom);
+
 //Whether the atom is any variable
 bool
-Variable_isVariable(Atom atom);
+variable_is_variable(Atom atom);
+
 //Whether the term has variables of certain kind
 bool
-Variable_hasVariable(Term *term, bool independent, bool dependent, bool query);
+variable_has_variable(Term *term, bool independent, bool dependent, bool query);
+
 //Unify two terms, returning the substitution/unifier
 Substitution
-Variable_Unify(Term *general, Term *specific);
+variable_unify(Term *general, Term *specific);
+
 Substitution
-Variable_Unify2(Term *general, Term *specific, bool unifyQueryVarOnly);
+variable_unify2(Term *general, Term *specific, bool unifyQueryVarOnly);
+
 //Applying the substitution to a term, returning success
 Term
-Variable_ApplySubstitute(Term term, Substitution substitution, bool *success);
+variable_apply_substitute(Term term, Substitution substitution, bool *success);
+
 //Introduce variables in an implication
 Term
-IntroduceImplicationVariables(Term implication, bool *success, bool extensionally);
+variable_introduce_implication_variables(Term implication, bool *success, bool extensionally);
+
 //Normalize variables, transforming ?what to ?1 for instance.
 void
-Variable_Normalize(Term *term);
+variable_normalize(Term *term);
 
 #endif

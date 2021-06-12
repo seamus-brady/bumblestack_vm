@@ -38,5 +38,5 @@ event_init()
 bool
 event_equal(Event *event, Event *existing)
 {
-	return Truth_Equal(&event->truth, &existing->truth) && Term_Equal(&event->term, &existing->term);
+	return truth_equal(&event->truth, &existing->truth) && term_equal(&event->term, &existing->term);
 }

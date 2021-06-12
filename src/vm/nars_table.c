@@ -17,17 +17,17 @@
 #include "nars_table.h"
 
 Implication *
-Table_Add(Table *table, Implication *imp)
+table_add(Table *table, Implication *imp)
 {
 	ASSERT(imp->sourceConcept != NULL, "Attempted to add an implication without source concept!");
-	double impTruthExp = Truth_Expectation(imp->truth);
+	double impTruthExp = truth_expectation(imp->truth);
 	for (int i = 0; i < TABLE_SIZE; i++)
 	{
-		bool same_term = Term_Equal(&table->array[i].term, &imp->term);
+		bool same_term = term_equal(&table->array[i].term, &imp->term);
 		//either it's not yet full and we reached a new space,
 		//or the term is different and the truth expectation is higher
 		//or the term is the same and the confidence is higher
-		if (i == table->itemsAmount || (!same_term && impTruthExp > Truth_Expectation(table->array[i].truth)) ||
+		if (i == table->itemsAmount || (!same_term && impTruthExp > truth_expectation(table->array[i].truth)) ||
 			(same_term && imp->truth.confidence > table->array[i].truth.confidence))
 		{
 			//ok here it has to go, move down the rest, evicting the last element if we hit TABLE_SIZE-1.
@@ -44,7 +44,7 @@ Table_Add(Table *table, Implication *imp)
 }
 
 void
-Table_Remove(Table *table, int index)
+table_remove(Table *table, int index)
 {
 	//move up the rest beginning ITEM_AT index
 	for (int j = index; j < table->itemsAmount; j++)
@@ -55,13 +55,13 @@ Table_Remove(Table *table, int index)
 }
 
 Implication *
-Table_AddAndRevise(Table *table, Implication *imp)
+table_add_and_revise(Table *table, Implication *imp)
 {
 	//1. find element with same Term
 	int same_i = -1;
 	for (int i = 0; i < table->itemsAmount; i++)
 	{
-		if (Term_Equal(&imp->term, &table->array[i].term))
+		if (term_equal(&imp->term, &table->array[i].term))
 		{
 			same_i = i;
 			break;
@@ -80,13 +80,13 @@ Table_AddAndRevise(Table *table, Implication *imp)
 		ASSERT(revised.truth.frequency >= 0.0 && revised.truth.frequency <= 1.0, "(3) frequency out of bounds");
 		ASSERT(revised.truth.confidence >= 0.0 && revised.truth.confidence <= 1.0, "(3) confidence out of bounds");
 		revised.term = imp->term;
-		Table_Remove(table, same_i);
-		Implication *ret = Table_Add(table, &revised);
+		table_remove(table, same_i);
+		Implication *ret = table_add(table, &revised);
 		ASSERT(ret != NULL, "Deletion and re-addition should have succeeded");
 		return ret;
 	}
 	else
 	{
-		return Table_Add(table, imp);
+		return table_add(table, imp);
 	}
 }

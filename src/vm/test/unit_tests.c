@@ -55,9 +55,9 @@ test_stamp()
 {
 	Stamp stamp1 = {.evidentialBase = {1, 2}};
 	Stamp stamp2 = {.evidentialBase = {2, 3, 4}};
-	Stamp stamp3 = Stamp_make(&stamp1, &stamp2);
+	Stamp stamp3 = stamp_make(&stamp1, &stamp2);
 	TEST_ASSERT_TRUE_MESSAGE(stamp3.evidentialBase[0] != 0, "Stamp not made correctly.");
-	TEST_ASSERT_TRUE_MESSAGE(Stamp_checkOverlap(&stamp1, &stamp2) == true, "Stamp should overlap.");
+	TEST_ASSERT_TRUE_MESSAGE(stamp_check_overlap(&stamp1, &stamp2) == true, "Stamp should overlap.");
 }
 
 void
@@ -98,7 +98,7 @@ test_fifo()
 			char buf[100];
 			Event *ev = fifo_get_kth_newest_sequence(&fifo2, 0, i);
 			sprintf(buf, "This event Term is not allowed to be zero, sequence length=%d\n", i + 1);
-			TEST_ASSERT_TRUE_MESSAGE(!Term_Equal(&zero, &ev->term), buf);
+			TEST_ASSERT_TRUE_MESSAGE(!term_equal(&zero, &ev->term), buf);
 		}
 	}
 	TEST_ASSERT_TRUE_MESSAGE(fifo2.itemsAmount == FIFO_SIZE, "FIFO size differs");
@@ -147,7 +147,7 @@ test_table(void)
 			.stamp = {.evidentialBase = {i}},
 			.occurrenceTimeOffset = 10,
 			.sourceConcept = &sourceConcept};
-		Table_Add(&table, &imp);
+		table_add(&table, &imp);
 	}
 	for (int i = 0; i < TABLE_SIZE; i++)
 	{
@@ -160,7 +160,7 @@ test_table(void)
 		.occurrenceTimeOffset = 10,
 		.sourceConcept = &sourceConcept};
 	TEST_ASSERT_TRUE_MESSAGE(table.array[0].truth.confidence == 0.5, "The highest confidence one should be the first.");
-	Table_AddAndRevise(&table, &imp);
+	table_add_and_revise(&table, &imp);
 	TEST_ASSERT_TRUE_MESSAGE(table.array[0].truth.confidence > 0.5,
 	                         "The revision result should be more confident than the table element that existed.");
 }
@@ -283,26 +283,26 @@ test_stack(void)
 {
 	Stack stack = {0};
 	VMItem *storageptrs[CONCEPTS_MAX];
-	Stack_INIT(&stack, (void **) storageptrs, CONCEPTS_MAX);
+	stack_init(&stack, (void **) storageptrs, CONCEPTS_MAX);
 	Concept c1 = {0};
 	Concept c2 = {0};
 	VMItem item1 = {.value = &c1};
 	VMItem item2 = {.value = &c2};
-	Stack_Push(&stack, &item1);
+	stack_push(&stack, &item1);
 	TEST_ASSERT_TRUE_MESSAGE(stack.stackpointer == 1, "Stackpointer wasn't incremented");
 	TEST_ASSERT_TRUE_MESSAGE(((VMItem **) stack.items)[0]->value == &c1, "Item should point to c1");
-	TEST_ASSERT_TRUE_MESSAGE(!Stack_IsEmpty(&stack), "Stack should not be empty");
-	VMItem *item1_popped = Stack_Pop(&stack);
+	TEST_ASSERT_TRUE_MESSAGE(!stack_is_empty(&stack), "Stack should not be empty");
+	VMItem *item1_popped = stack_pop(&stack);
 	TEST_ASSERT_TRUE_MESSAGE(stack.stackpointer == 0, "Stackpointer wasn't decremented");
 	TEST_ASSERT_TRUE_MESSAGE(item1_popped->value == &c1, "Popped item1 should point to c1 (1)");
-	Stack_Push(&stack, &item1);
-	Stack_Push(&stack, &item2);
+	stack_push(&stack, &item1);
+	stack_push(&stack, &item2);
 	TEST_ASSERT_TRUE_MESSAGE(stack.stackpointer == 2, "Stackpointer wrong");
-	VMItem *item2_popped = Stack_Pop(&stack);
+	VMItem *item2_popped = stack_pop(&stack);
 	TEST_ASSERT_TRUE_MESSAGE(item2_popped->value == &c2, "Popped item2 should point to c2");
-	VMItem *item1_popped_again = Stack_Pop(&stack);
+	VMItem *item1_popped_again = stack_pop(&stack);
 	TEST_ASSERT_TRUE_MESSAGE(item1_popped_again->value == &c1, "Popped item1 should point to c1 (2)");
-	TEST_ASSERT_TRUE_MESSAGE(Stack_IsEmpty(&stack), "Stack should be empty");
+	TEST_ASSERT_TRUE_MESSAGE(stack_is_empty(&stack), "Stack should be empty");
 }
 
 void
@@ -313,7 +313,7 @@ test_hashtable()
 	VMItem HTest_storage[CONCEPTS_MAX];
 	VMItem *HTest_HT[CONCEPTS_HASHTABLE_BUCKETS]; //the hash of the concept term is the index
 	hashtable_init(&HTtest, HTest_storage, HTest_storageptrs, HTest_HT, CONCEPTS_HASHTABLE_BUCKETS, CONCEPTS_MAX,
-	               (Equal) Term_Equal, (Hash) Term_Hash);
+	               (Equal) term_equal, (Hash) term_hash);
 	TEST_ASSERT_TRUE_MESSAGE(HTtest.VMStack.stackpointer == CONCEPTS_MAX, "The stack should be full!");
 	//Insert a first concept:
 	Term term1 = narsese_term("<a --> b>");
@@ -326,7 +326,7 @@ test_hashtable()
 	//Return it
 	Concept *c1_returned = hashtable_get(&HTtest, &term1);
 	TEST_ASSERT_TRUE_MESSAGE(c1_returned != NULL, "Returned item is null (1)");
-	TEST_ASSERT_TRUE_MESSAGE(Term_Equal(&c1.term, &c1_returned->term),
+	TEST_ASSERT_TRUE_MESSAGE(term_equal(&c1.term, &c1_returned->term),
 	                         "Hashtable Get led to different term than we put into (1)");
 	//insert another with the same hash:
 	Term term2 = narsese_term("<vm --> d>");
@@ -336,34 +336,34 @@ test_hashtable()
 	//get first one:
 	Concept *c1_returned_again = hashtable_get(&HTtest, &term1);
 	TEST_ASSERT_TRUE_MESSAGE(c1_returned_again != NULL, "Returned item is null (2)");
-	TEST_ASSERT_TRUE_MESSAGE(Term_Equal(&c1.term, &c1_returned_again->term),
+	TEST_ASSERT_TRUE_MESSAGE(term_equal(&c1.term, &c1_returned_again->term),
 	                         "Hashtable Get led to different term than we put into (2)");
 	Term term3 = narsese_term("<e --> f>");
 	term3.hash = c1.term.hash;
 	Concept c3 = {.id = 3, .term = term3}; //use different term but same hash, hash collision!
 	hashtable_set(&HTtest, &term3, &c3);
 	//there should be a chain of 3 g_concepts now ITEM_AT the hash position:
-	TEST_ASSERT_TRUE_MESSAGE(Term_Equal(HTtest.HT[c1.term.hash % CONCEPTS_HASHTABLE_BUCKETS]->key, &c1.term),
+	TEST_ASSERT_TRUE_MESSAGE(term_equal(HTtest.HT[c1.term.hash % CONCEPTS_HASHTABLE_BUCKETS]->key, &c1.term),
 	                         "c1 not there! (1)");
 	TEST_ASSERT_TRUE_MESSAGE(
-		Term_Equal(((VMItem *) HTtest.HT[c1.term.hash % CONCEPTS_HASHTABLE_BUCKETS]->next)->key, &c2.term),
+		term_equal(((VMItem *) HTtest.HT[c1.term.hash % CONCEPTS_HASHTABLE_BUCKETS]->next)->key, &c2.term),
 		"c2 not there! (1)");
 	TEST_ASSERT_TRUE_MESSAGE(
-		Term_Equal(((VMItem *) ((VMItem *) HTtest.HT[c1.term.hash % CONCEPTS_HASHTABLE_BUCKETS]->next)->next)->key,
+		term_equal(((VMItem *) ((VMItem *) HTtest.HT[c1.term.hash % CONCEPTS_HASHTABLE_BUCKETS]->next)->next)->key,
 		           &c3.term), "c3 not there! (1)");
 	//Delete the middle one, c2
 	hashtable_delete(&HTtest, &term2);
 	TEST_ASSERT_TRUE_MESSAGE(
 		((Concept *) ((VMItem *) HTtest.HT[c1.term.hash % CONCEPTS_HASHTABLE_BUCKETS]->next)->value)->id == 3,
 		"c3 not there according to id! (2)");
-	TEST_ASSERT_TRUE_MESSAGE(Term_Equal(HTtest.HT[c1.term.hash % CONCEPTS_HASHTABLE_BUCKETS]->key, &c1.term),
+	TEST_ASSERT_TRUE_MESSAGE(term_equal(HTtest.HT[c1.term.hash % CONCEPTS_HASHTABLE_BUCKETS]->key, &c1.term),
 	                         "c1 not there! (2)");
 	TEST_ASSERT_TRUE_MESSAGE(
-		Term_Equal(((VMItem *) HTtest.HT[c1.term.hash % CONCEPTS_HASHTABLE_BUCKETS]->next)->key, &c3.term),
+		term_equal(((VMItem *) HTtest.HT[c1.term.hash % CONCEPTS_HASHTABLE_BUCKETS]->next)->key, &c3.term),
 		"c3 not there! (2)");
 	//Delete the last one, c3
 	hashtable_delete(&HTtest, &term3);
-	TEST_ASSERT_TRUE_MESSAGE(Term_Equal(HTtest.HT[c1.term.hash % CONCEPTS_HASHTABLE_BUCKETS]->key, &c1.term),
+	TEST_ASSERT_TRUE_MESSAGE(term_equal(HTtest.HT[c1.term.hash % CONCEPTS_HASHTABLE_BUCKETS]->key, &c1.term),
 	                         "c1 not there! (3)");
 	//Delete the first one, which is the last one left, c1
 	hashtable_delete(&HTtest, &term1);

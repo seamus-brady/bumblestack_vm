@@ -30,8 +30,10 @@
 
 //Data structure//
 //--------------//
+
 //Stamp as implemented by all NARS implementations
 #define STAMP_FREE 0
+
 typedef struct
 {
 	//EvidentalBase of stamp
@@ -42,12 +44,14 @@ typedef struct
 //-------//
 //zip stamp1 and stamp2 into a stamp
 Stamp
-Stamp_make(Stamp *stamp1, Stamp *stamp2);
+stamp_make(Stamp *stamp1, Stamp *stamp2);
+
 //true iff there is evidental g_base overlap between a and b
 bool
-Stamp_checkOverlap(Stamp *a, Stamp *b);
+stamp_check_overlap(Stamp *a, Stamp *b);
+
 //print stamp
 void
-Stamp_print(Stamp *stamp);
+stamp_print(Stamp *stamp);
 
 #endif

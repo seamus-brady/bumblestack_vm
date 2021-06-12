@@ -42,70 +42,101 @@ typedef struct
 //Parameters//
 //----------//
 extern double TRUTH_EVIDENTAL_HORIZON;
+
 extern double TRUTH_PROJECTION_DECAY;
+
 #define OCCURRENCE_ETERNAL -1
+
 #define STRUCTURAL_TRUTH (Truth) { .frequency = 1.0, .confidence = RELIANCE }
 
 //Methods//
 //-------//
 double
-Truth_w2c(double w);
+truth_w2c(double w);
+
 double
-Truth_c2w(double c);
+truth_c2w(double c);
+
 double
-Truth_Expectation(Truth v);
+truth_expectation(Truth v);
+
 Truth
-Truth_Revision(Truth v1, Truth v2);
+truth_revision(Truth v1, Truth v2);
+
 Truth
-Truth_Deduction(Truth v1, Truth v2);
+truth_deduction(Truth v1, Truth v2);
+
 Truth
-Truth_Induction(Truth v1, Truth v2);
+truth_induction(Truth v1, Truth v2);
+
 Truth
-Truth_Intersection(Truth v1, Truth v2);
+truth_intersection(Truth v1, Truth v2);
+
 Truth
-Truth_Eternalize(Truth v);
+truth_eternalise(Truth v);
+
 Truth
-Truth_Projection(Truth v, long originalTime, long targetTime);
+truth_projection(Truth v, long originalTime, long targetTime);
+
 void
-Truth_Print(Truth *truth);
+truth_print(Truth *truth);
+
 void
-Truth_Print2(Truth *truth);
+truth_print2(Truth *truth);
+
 //not part of sensorimotor inference:
 Truth
-Truth_Abduction(Truth v1, Truth v2);
+truth_abduction(Truth v1, Truth v2);
+
 Truth
-Truth_Exemplification(Truth v1, Truth v2);
+truth_exemplification(Truth v1, Truth v2);
+
 Truth
-Truth_Comparison(Truth v1, Truth v2);
+truth_comparison(Truth v1, Truth v2);
+
 Truth
-Truth_Analogy(Truth v1, Truth v2);
+truth_analogy(Truth v1, Truth v2);
+
 Truth
-Truth_Resemblance(Truth v1, Truth v2);
+truth_resemblance(Truth v1, Truth v2);
+
 Truth
-Truth_StructuralDeduction(Truth v1, Truth v2);
+truth_structural_deduction(Truth v1, Truth v2);
+
 Truth
-Truth_StructuralDeductionNegated(Truth v1, Truth v2);
+truth_structural_deduction_negated(Truth v1, Truth v2);
+
 Truth
-Truth_StructuralAbduction(Truth v1, Truth v2);
+truth_structural_abduction(Truth v1, Truth v2);
+
 Truth
-Truth_Union(Truth v1, Truth v2);
+truth_union(Truth v1, Truth v2);
+
 Truth
-Truth_Difference(Truth v1, Truth v2);
+truth_difference(Truth v1, Truth v2);
+
 Truth
-Truth_Conversion(Truth v1, Truth v2);
+truth_conversion(Truth v1, Truth v2);
+
 Truth
-Truth_Negation(Truth v1, Truth v2);
+truth_negation(Truth v1, Truth v2);
+
 Truth
-Truth_DecomposePNN(Truth v1, Truth v2);
+truth_decompose_pnn(Truth v1, Truth v2);
+
 Truth
-Truth_DecomposeNPP(Truth v1, Truth v2);
+truth_decompose_npp(Truth v1, Truth v2);
+
 Truth
-Truth_DecomposePNP(Truth v1, Truth v2);
+truth_decompose_pnp(Truth v1, Truth v2);
+
 Truth
-Truth_DecomposePPP(Truth v1, Truth v2);
+truth_decompose_ppp(Truth v1, Truth v2);
+
 Truth
-Truth_DecomposeNNN(Truth v1, Truth v2);
+truth_decompose_nnn(Truth v1, Truth v2);
+
 bool
-Truth_Equal(Truth *v1, Truth *v2);
+truth_equal(Truth *v1, Truth *v2);
 
 #endif

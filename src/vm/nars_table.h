@@ -43,12 +43,14 @@ typedef struct
 //-------//
 //Add implication to table
 Implication *
-Table_Add(Table *table, Implication *imp);
+table_add(Table *table, Implication *imp);
+
 //Add element ITEM_AT index from table
 void
-Table_Remove(Table *table, int index);
+table_remove(Table *table, int index);
+
 //Add implication to table while allowing revision
 Implication *
-Table_AddAndRevise(Table *table, Implication *imp);
+table_add_and_revise(Table *table, Implication *imp);
 
 #endif

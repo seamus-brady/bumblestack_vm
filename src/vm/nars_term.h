@@ -39,7 +39,9 @@
 //Data structure//
 //--------------//
 #define HASH_TYPE_SIZE sizeof(HASH_TYPE)
+
 #define TERM_ATOMS_SIZE (sizeof(Atom)*COMPOUND_TERM_SIZE_MAX)
+
 typedef struct
 {
 	bool hashed;
@@ -51,18 +53,22 @@ typedef struct
 //-------//
 //Whether two Term's are equal completely
 bool
-Term_Equal(Term *a, Term *b);
+term_equal(Term *a, Term *b);
+
 //Overwrites a subterm
 bool
-Term_OverrideSubterm(Term *term, int i, Term *subterm);
+term_override_subterm(Term *term, int i, Term *subterm);
+
 //Extract a subterm as a term
 Term
-Term_ExtractSubterm(Term *term, int j);
+term_extract_subterm(Term *term, int j);
+
 //The complexity of a term
 int
-Term_Complexity(Term *term);
+term_complexity(Term *term);
+
 //Hash of a term (needed by the term->concept HashTable)
 HASH_TYPE
-Term_Hash(Term *term);
+term_hash(Term *term);
 
 #endif

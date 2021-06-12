@@ -96,8 +96,14 @@ memory_reset_concepts()
 void
 memory_init()
 {
-	hashtable_init(&g_hashtableConceptsStruct, g_hashtableConceptsStorage, g_hashtableConceptsStoragePtrs, g_hashtableConceptsHashtable, CONCEPTS_HASHTABLE_BUCKETS,
-	               CONCEPTS_MAX, (Equal) Term_Equal, (Hash) Term_Hash);
+	hashtable_init(&g_hashtableConceptsStruct,
+	               g_hashtableConceptsStorage,
+	               g_hashtableConceptsStoragePtrs,
+	               g_hashtableConceptsHashtable,
+	               CONCEPTS_HASHTABLE_BUCKETS,
+	               CONCEPTS_MAX,
+	               (Equal) term_equal,
+	               (Hash) term_hash);
 	g_conceptPriorityThreshold = 0.0;
 	memory_reset_concepts();
 	memory_reset_events();
@@ -198,16 +204,16 @@ memory_add_cycling_event(Event *e, double priority, long currentTime)
 		if (e->type == EVENT_TYPE_BELIEF && c->belief.type != EVENT_TYPE_DELETED &&
 			((e->occurrenceTime == OCCURRENCE_ETERNAL && c->belief.truth.confidence > e->truth.confidence) ||
 				(e->occurrenceTime != OCCURRENCE_ETERNAL &&
-					Truth_Projection(c->belief_spike.truth, c->belief_spike.occurrenceTime, currentTime).confidence >
-						Truth_Projection(e->truth, e->occurrenceTime, currentTime).confidence)))
+					truth_projection(c->belief_spike.truth, c->belief_spike.occurrenceTime, currentTime).confidence >
+						truth_projection(e->truth, e->occurrenceTime, currentTime).confidence)))
 		{
 			return false; //the belief has a higher confidence and was already revised up (or a cyclic transformation happened!), get rid of the event!
 		}   //more radical than OpenNARS!
 		if (e->type == EVENT_TYPE_GOAL && c->goal_spike.type != EVENT_TYPE_DELETED &&
 			((e->occurrenceTime == OCCURRENCE_ETERNAL && c->goal_spike.truth.confidence > e->truth.confidence) ||
 				(e->occurrenceTime != OCCURRENCE_ETERNAL &&
-					Truth_Projection(c->goal_spike.truth, c->goal_spike.occurrenceTime, currentTime).confidence >
-						Truth_Projection(e->truth, e->occurrenceTime, currentTime).confidence)))
+					truth_projection(c->goal_spike.truth, c->goal_spike.occurrenceTime, currentTime).confidence >
+						truth_projection(e->truth, e->occurrenceTime, currentTime).confidence)))
 		{
 			return false; //the belief has a higher confidence and was already revised up (or a cyclic transformation happened!), get rid of the event!
 		}   //more radical than OpenNARS!
@@ -243,11 +249,11 @@ memory_print_added_knowledge(Term *term, char type, Truth *truth, long occurrenc
 		if (controlInfo)
 		{
 			printf("priority=(%f) ", priority);
-			Truth_Print(truth);
+			truth_print(truth);
 		}
 		else
 		{
-			Truth_Print2(truth);
+			truth_print2(truth);
 		}
 		fflush(stdout);
 	}
@@ -277,7 +283,7 @@ memory_process_new_belief_event(Event *event, long currentTime, double priority,
 	if (event->occurrenceTime != OCCURRENCE_ETERNAL)
 	{
 		eternal_event.occurrenceTime = OCCURRENCE_ETERNAL;
-		eternal_event.truth = Truth_Eternalize(event->truth);
+		eternal_event.truth = truth_eternalise(event->truth);
 	}
 	if (event->isUserKnowledge)
 	{
@@ -286,12 +292,12 @@ memory_process_new_belief_event(Event *event, long currentTime, double priority,
 	if (isImplication)
 	{
 		//get predicate and add the subject to precondition table as an implication
-		Term subject = Term_ExtractSubterm(&event->term, 1);
-		Term predicate = Term_ExtractSubterm(&event->term, 2);
+		Term subject = term_extract_subterm(&event->term, 1);
+		Term predicate = term_extract_subterm(&event->term, 2);
 		Concept *target_concept = memory_conceptualise(&predicate, currentTime);
 		if (target_concept != NULL)
 		{
-			target_concept->usage = Usage_use(target_concept->usage, currentTime, eternalInput);
+			target_concept->usage = usage_use(target_concept->usage, currentTime, eternalInput);
 			Implication imp = {.truth = eternal_event.truth,
 				.stamp = eternal_event.stamp,
 				.occurrenceTimeOffset = occurrenceTimeOffset,
@@ -302,11 +308,11 @@ memory_process_new_belief_event(Event *event, long currentTime, double priority,
 			int opi = 0;
 			if (narsese_copula_equals(subject.atoms[0], '+')) //sequence
 			{
-				Term potential_op = Term_ExtractSubterm(&subject, 2);
+				Term potential_op = term_extract_subterm(&subject, 2);
 				if (narsese_is_operation(&potential_op)) //atom starts with ^, making it an operator
 				{
 					opi = narsese_get_operation_id(&potential_op); //"<(a * b) --> ^op>" to ^op index
-					sourceConceptTerm = Term_ExtractSubterm(&subject, 1); //gets rid of op as MSC links cannot use it
+					sourceConceptTerm = term_extract_subterm(&subject, 1); //gets rid of op as MSC links cannot use it
 				}
 				else
 				{
@@ -320,13 +326,13 @@ memory_process_new_belief_event(Event *event, long currentTime, double priority,
 			Concept *source_concept = memory_conceptualise(&sourceConceptTerm, currentTime);
 			if (source_concept != NULL)
 			{
-				source_concept->usage = Usage_use(source_concept->usage, currentTime, eternalInput);
+				source_concept->usage = usage_use(source_concept->usage, currentTime, eternalInput);
 				source_concept->hasUserKnowledge |= event->isUserKnowledge;
 				target_concept->hasUserKnowledge |= event->isUserKnowledge;
 				imp.sourceConceptId = source_concept->id;
 				imp.sourceConcept = source_concept;
 				imp.term = event->term;
-				Implication *revised = Table_AddAndRevise(&target_concept->precondition_beliefs[opi], &imp);
+				Implication *revised = table_add_and_revise(&target_concept->precondition_beliefs[opi], &imp);
 				if (revised != NULL)
 				{
 					bool wasRevised = revised->truth.confidence > event->truth.confidence ||
@@ -345,7 +351,7 @@ memory_process_new_belief_event(Event *event, long currentTime, double priority,
 		Concept *c = memory_conceptualise(&event->term, currentTime);
 		if (c != NULL)
 		{
-			c->usage = Usage_use(c->usage, currentTime, eternalInput);
+			c->usage = usage_use(c->usage, currentTime, eternalInput);
 			c->priority = MAX(c->priority, priority);
 			c->hasUserKnowledge |= event->isUserKnowledge;
 			if (event->occurrenceTime != OCCURRENCE_ETERNAL && event->occurrenceTime <= currentTime)
@@ -378,26 +384,26 @@ memory_process_new_belief_event(Event *event, long currentTime, double priority,
 							Implication *imp = &cpost->precondition_beliefs[0].array[k];
 							if (imp->isUserKnowledge)
 							{
-								Term subject = Term_ExtractSubterm(&imp->term, 1);
-								if (Variable_Unify(&subject, &event->term).success)
+								Term subject = term_extract_subterm(&imp->term, 1);
+								if (variable_unify(&subject, &event->term).success)
 								{
 									ASSERT(narsese_copula_equals(imp->term.atoms[0], '$'),
 									       "Not a valid implication term!");
-									Term precondition_with_op = Term_ExtractSubterm(&imp->term, 1);
+									Term precondition_with_op = term_extract_subterm(&imp->term, 1);
 									Term precondition = narsese_get_precondition_without_op(&precondition_with_op);
-									Substitution subs = Variable_Unify(&precondition, &event->term);
+									Substitution subs = variable_unify(&precondition, &event->term);
 									if (subs.success)
 									{
 										Implication updated_imp = *imp;
 										bool success;
-										updated_imp.term = Variable_ApplySubstitute(updated_imp.term, subs, &success);
+										updated_imp.term = variable_apply_substitute(updated_imp.term, subs, &success);
 										if (success)
 										{
 											Event predicted = inference_belief_deduction(event, &updated_imp);
 											memory_add_event(&predicted,
 											                 currentTime,
-											                 priority * Truth_Expectation(imp->truth) *
-												                 Truth_Expectation(predicted.truth),
+											                 priority * truth_expectation(imp->truth) *
+												                 truth_expectation(predicted.truth),
 											                 0,
 											                 false,
 											                 true,
@@ -429,7 +435,7 @@ memory_add_event(Event *event, long currentTime, double priority, double occurre
 	else if (!revised &&
 		!input) //derivations get penalized by complexity as well, but revised ones not as they already come from an input or derivation
 	{
-		double complexity = Term_Complexity(&event->term);
+		double complexity = term_complexity(&event->term);
 		priority *= 1.0 / log2(1.0 + complexity);
 	}
 	if (event->truth.confidence < MIN_CONFIDENCE || priority <= MIN_PRIORITY || priority == 0.0)

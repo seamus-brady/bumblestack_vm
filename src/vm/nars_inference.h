@@ -38,35 +38,35 @@
 //Methods//
 //-------//
 
-//{Event a.} |- Event a. Truth_Projection (projecting to current time)
+//{Event a.} |- Event a. truth_projection (projecting to current time)
 Event
 inference_event_update(Event *ev, long currentTime);
 
-//{Event a., Event b.} |- Event (a &/ b). Truth_Intersection (after projecting a to b)
+//{Event a., Event b.} |- Event (a &/ b). truth_intersection (after projecting a to b)
 Event
 inference_belief_intersection(Event *a, Event *b, bool *success);
 
-//{Event a., Event b.} |- Implication <a =/> b>. Truth_Eternalize(Truth_Induction) (after projecting a to b)
+//{Event a., Event b.} |- Implication <a =/> b>. truth_eternalise(truth_induction) (after projecting a to b)
 Implication
 inference_belief_induction(Event *a, Event *b, bool *success);
 
-//{Implication <a =/> b>., <a =/> b>.} |- Implication <a =/> b>. Truth_Revision
+//{Implication <a =/> b>., <a =/> b>.} |- Implication <a =/> b>. truth_revision
 Implication
 inference_implication_revision(Implication *a, Implication *b);
 
-//{Event b!, Implication <a =/> b>.} |- Event a! Truth_Deduction
+//{Event b!, Implication <a =/> b>.} |- Event a! truth_deduction
 Event
 inference_goal_deduction(Event *component, Implication *compound);
 
-//{Event (a &/ b)!, Event a.} |- Event b! Truth_Deduction
+//{Event (a &/ b)!, Event a.} |- Event b! truth_deduction
 Event
 Inference_GoalSequenceDeduction(Event *compound, Event *component, long currentTime);
 
-//{Event a!, Event a!} |- Event a! Truth_Revision or Choice (dependent on evidental overlap)
+//{Event a!, Event a!} |- Event a! truth_revision or Choice (dependent on evidental overlap)
 Event
 inference_revision_and_choice(Event *existing_potential, Event *incoming_spike, long currentTime, bool *revised);
 
-//{Event a., Implication <a =/> b>.} |- Event b.  Truth_Deduction
+//{Event a., Implication <a =/> b>.} |- Event b.  truth_deduction
 Event
 inference_belief_deduction(Event *component, Implication *compound);
 

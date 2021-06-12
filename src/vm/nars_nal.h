@@ -114,11 +114,11 @@ R2( (P --> M), ((S & P) --> M), |-, (S --> M), Truth_DecomposeNPP )
 R2( (S --> M), ((S ~ P) --> M), |-, (P --> M), Truth_DecomposePNP )
 R2( (S --> M), ((P ~ S) --> M), |-, (P --> M), Truth_DecomposeNNN )
 R2( (M --> S), (M --> (S & P)), |-, (M --> P), Truth_DecomposePNN )
-R2( (M --> P), (M --> (S & P)), |-, (M --> S), Truth_DecomposePNN )
+R2( (M --> P), (M --> (S & P)), |-, (M --> S), truth_decompose_pnn )
 R2( (M --> S), (M --> (S | P)), |-, (M --> P), Truth_DecomposeNPP )
 R2( (M --> P), (M --> (S | P)), |-, (M --> S), Truth_DecomposeNPP )
 R2( (M --> S), (M --> (S - P)), |-, (M --> P), Truth_DecomposePNP )
-R2( (M --> S), (M --> (P - S)), |-, (M --> P), Truth_DecomposeNNN )
+R2( (M --> S), (M --> (P - S)), |-, (M --> P), truth_decompose_nnn )
 
 //NAL4 rules
 RTrans( ((A * B) --> R), -|-, (A --> (R /1 B)), Truth_StructuralDeduction )

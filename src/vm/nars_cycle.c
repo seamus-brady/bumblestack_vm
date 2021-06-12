@@ -43,7 +43,7 @@ cycle_activate_sensorimotor_concept(Concept *c, Event *e, long currentTime)
 	Decision decision = {0};
 	if (e->truth.confidence > MIN_CONFIDENCE)
 	{
-		c->usage = Usage_use(c->usage, currentTime, false);
+		c->usage = usage_use(c->usage, currentTime, false);
 		//add event as spike to the concept:
 		if (e->type == EVENT_TYPE_BELIEF)
 		{
@@ -67,14 +67,14 @@ cycle_process_sensorimotor_event(Event *e, long currentTime)
 	memory_conceptualise(&e->term, currentTime);
 	e->processed = true;
 	//determine the concept it is related to
-	bool e_hasVariable = Variable_hasVariable(&e->term, true, true, true);
+	bool e_hasVariable = variable_has_variable(&e->term, true, true, true);
 	conceptProcessID++; //process the to e related g_concepts
 	RELATED_CONCEPTS_FOREACH(&e->term, c,
 	                         {
 		                         Event ecp = *e;
 		                         if (!e_hasVariable)  //concept matched to the event which doesn't have variables
 		                         {
-			                         Substitution subs = Variable_Unify(&c->term, &e->term); //concept with variables,
+			                         Substitution subs = variable_unify(&c->term, &e->term); //concept with variables,
 			                         if (subs.success)
 			                         {
 				                         ecp.term = e->term;
@@ -88,12 +88,12 @@ cycle_process_sensorimotor_event(Event *e, long currentTime)
 		                         }
 		                         else
 		                         {
-			                         Substitution subs = Variable_Unify(&e->term,
+			                         Substitution subs = variable_unify(&e->term,
 			                                                            &c->term); //event with variable matched to concept
 			                         if (subs.success)
 			                         {
 				                         bool success;
-				                         ecp.term = Variable_ApplySubstitute(e->term, subs, &success);
+				                         ecp.term = variable_apply_substitute(e->term, subs, &success);
 				                         if (success)
 				                         {
 					                         Decision decision = cycle_activate_sensorimotor_concept(c, &ecp,
@@ -131,9 +131,9 @@ cycle_pop_events(Event *selectionArray, double *selectionPriority, int *selected
 }
 
 //Derive a subgoal from a sequence goal
-//{Event (a &/ b)!, Event a.} |- Event b! Truth_Deduction
-//if Truth_Expectation(a) >= ANTICIPATION_THRESHOLD else
-//{Event (a &/ b)!} |- Event a! Truth_StructuralDeduction
+//{Event (a &/ b)!, Event a.} |- Event b! truth_deduction
+//if truth_expectation(a) >= ANTICIPATION_THRESHOLD else
+//{Event (a &/ b)!} |- Event a! truth_structural_deduction
 bool
 cycle_goal_sequence_decomposition(Event *selectedGoal, double selectedGoalPriority)
 {
@@ -149,8 +149,8 @@ cycle_goal_sequence_decomposition(Event *selectedGoal, double selectedGoalPriori
 	{
 		ASSERT(i <= MAX_SEQUENCE_LEN,
 		       "The sequence was longer than MAX_SEQUENCE_LEN, change your input or increase the parameter!");
-		componentGoalsTerm[i] = Term_ExtractSubterm(&cur_seq, 2);
-		cur_seq = Term_ExtractSubterm(&cur_seq, 1);
+		componentGoalsTerm[i] = term_extract_subterm(&cur_seq, 2);
+		cur_seq = term_extract_subterm(&cur_seq, 1);
 	}
 	componentGoalsTerm[i] = cur_seq; //the last element ITEM_AT this point
 	//2. Find first subgoal which isn't fulfilled
@@ -167,10 +167,10 @@ cycle_goal_sequence_decomposition(Event *selectedGoal, double selectedGoalPriori
 		conceptProcessID++;
 		RELATED_CONCEPTS_FOREACH(componentGoal, c,
 		                         {
-			                         if (!Variable_hasVariable(&c->term, true, true,
-			                                                   true))  //concept matched to the event which doesn't have variables
+			                         if (!variable_has_variable(&c->term, true, true,
+			                                                    true))  //concept matched to the event which doesn't have variables
 			                         {
-				                         Substitution subs = Variable_Unify(componentGoal,
+				                         Substitution subs = variable_unify(componentGoal,
 				                                                            &c->term); //event with variable matched to concept
 				                         if (subs.success)
 				                         {
@@ -183,7 +183,7 @@ cycle_goal_sequence_decomposition(Event *selectedGoal, double selectedGoalPriori
 							                         continue;
 						                         }
 						                         //check whether belief is too weak (not recent enough or not true enough)
-						                         if (Truth_Expectation(Truth_Projection(c->belief_spike.truth,
+						                         if (truth_expectation(truth_projection(c->belief_spike.truth,
 						                                                                c->belief_spike.occurrenceTime,
 						                                                                g_currentTime)) <
 							                         CONDITION_THRESHOLD)
@@ -194,8 +194,8 @@ cycle_goal_sequence_decomposition(Event *selectedGoal, double selectedGoalPriori
 						                         for (int u = j - 1; u >= 0; u--)
 						                         {
 							                         bool goalsubs_success;
-							                         Variable_ApplySubstitute(componentGoalsTerm[u], subs,
-							                                                  &goalsubs_success);
+							                         variable_apply_substitute(componentGoalsTerm[u], subs,
+							                                                   &goalsubs_success);
 							                         if (!goalsubs_success)
 							                         {
 								                         success = false;
@@ -205,8 +205,8 @@ cycle_goal_sequence_decomposition(Event *selectedGoal, double selectedGoalPriori
 						                         //Use this specific concept for subgoaling if it has the strongest belief event
 						                         if (success)
 						                         {
-							                         double expectation = Truth_Expectation(
-								                         Truth_Projection(c->belief_spike.truth,
+							                         double expectation = truth_expectation(
+								                         truth_projection(c->belief_spike.truth,
 								                                          c->belief_spike.occurrenceTime,
 								                                          g_currentTime));
 							                         if (expectation > best_exp)
@@ -220,7 +220,7 @@ cycle_goal_sequence_decomposition(Event *selectedGoal, double selectedGoalPriori
 				                         }
 			                         }
 			                         //no need to search another concept, as it didn't have a var so the concept we just iterated is the only one
-			                         if (!Variable_hasVariable(componentGoal, true, true, true))
+			                         if (!variable_has_variable(componentGoal, true, true, true))
 			                         {
 				                         goto DONE_CONCEPT_ITERATING;
 			                         }
@@ -240,20 +240,20 @@ cycle_goal_sequence_decomposition(Event *selectedGoal, double selectedGoalPriori
 		for (int u = j - 1; u >= 0; u--)
 		{
 			bool goalsubs_success;
-			componentGoalsTerm[u] = Variable_ApplySubstitute(componentGoalsTerm[u], best_subs, &goalsubs_success);
+			componentGoalsTerm[u] = variable_apply_substitute(componentGoalsTerm[u], best_subs, &goalsubs_success);
 			ASSERT(goalsubs_success, "cycle_goal_sequence_decomposition: The subsitution succeeded before but not now!");
 		}
-		//build component subgoal according to {(a, b)!, a} |- b! Truth_Deduction
+		//build component subgoal according to {(a, b)!, a} |- b! truth_deduction
 		lastComponentOccurrenceTime = best_c->belief_spike.occurrenceTime;
 		newGoal = Inference_GoalSequenceDeduction(&newGoal, &best_c->belief_spike, g_currentTime);
 		newGoal.term = componentGoalsTerm[j - 1];
 	}
-	if (j == i) //we derive first component according to {(a,b)!} |- a! Truth_StructuralDeduction
+	if (j == i) //we derive first component according to {(a,b)!} |- a! truth_structural_deduction
 	{
 		newGoal.term = componentGoalsTerm[i];
-		newGoal.truth = Truth_StructuralDeduction(newGoal.truth, newGoal.truth);
+		newGoal.truth = truth_structural_deduction(newGoal.truth, newGoal.truth);
 	}
-	memory_add_event(&newGoal, g_currentTime, selectedGoalPriority * Truth_Expectation(newGoal.truth), 0, false, true,
+	memory_add_event(&newGoal, g_currentTime, selectedGoalPriority * truth_expectation(newGoal.truth), 0, false, true,
 	                 false, false, false);
 	return true;
 }
@@ -297,7 +297,7 @@ cycle_process_input_goal_events(long currentTime)
 		conceptProcessID++; //process subgoaling for the related g_concepts for each selected goal
 		RELATED_CONCEPTS_FOREACH(&goal->term, c,
 		                         {
-			                         if (Variable_Unify(&c->term, &goal->term).success)
+			                         if (variable_unify(&c->term, &goal->term).success)
 			                         {
 				                         bool revised;
 				                         c->goal_spike =
@@ -310,17 +310,17 @@ cycle_process_input_goal_events(long currentTime)
 						                         Implication *imp = &c->precondition_beliefs[opi].array[j];
 						                         if (!memory_implication_valid(imp))
 						                         {
-							                         Table_Remove(&c->precondition_beliefs[opi], j);
+							                         table_remove(&c->precondition_beliefs[opi], j);
 							                         j--;
 							                         continue;
 						                         }
-						                         Term postcondition = Term_ExtractSubterm(&imp->term, 2);
-						                         Substitution subs = Variable_Unify(&postcondition,
+						                         Term postcondition = term_extract_subterm(&imp->term, 2);
+						                         Substitution subs = variable_unify(&postcondition,
 						                                                            &c->goal_spike.term);
 						                         Implication updated_imp = *imp;
 						                         bool success;
-						                         updated_imp.term = Variable_ApplySubstitute(updated_imp.term, subs,
-						                                                                     &success);
+						                         updated_imp.term = variable_apply_substitute(updated_imp.term, subs,
+						                                                                      &success);
 						                         if (success)
 						                         {
 							                         Event newGoal = inference_goal_deduction(&c->goal_spike,
@@ -333,7 +333,7 @@ cycle_process_input_goal_events(long currentTime)
 							                         memory_add_event(&newGoalUpdated,
 							                                          currentTime,
 							                                          g_selectedGoalsPriority[i] *
-								                                          Truth_Expectation(newGoalUpdated.truth),
+								                                          truth_expectation(newGoalUpdated.truth),
 							                                          0,
 							                                          false,
 							                                          true,
@@ -362,7 +362,7 @@ cycle_reinforce_link(Event *a, Event *b)
 	if (A != NULL && B != NULL && A != B)
 	{
 		//temporal induction
-		if (!Stamp_checkOverlap(&a->stamp, &b->stamp))
+		if (!stamp_check_overlap(&a->stamp, &b->stamp))
 		{
 			bool success;
 			Implication precondition_implication = inference_belief_induction(a, b, &success);
@@ -374,9 +374,10 @@ cycle_reinforce_link(Event *a, Event *b)
 				{
 					//extensional var intro:
 					bool success;
-					Term general_implication_term_ext = IntroduceImplicationVariables(precondition_implication.term,
-					                                                                  &success, true);
-					if (success && Variable_hasVariable(&general_implication_term_ext, true, true, false))
+					Term general_implication_term_ext =
+						variable_introduce_implication_variables(precondition_implication.term,
+						                                         &success, true);
+					if (success && variable_has_variable(&general_implication_term_ext, true, true, false))
 					{
 						nal_derived_event(general_implication_term_ext,
 						                  OCCURRENCE_ETERNAL,
@@ -391,9 +392,10 @@ cycle_reinforce_link(Event *a, Event *b)
 					}
 					//intensional var intro:
 					bool success2;
-					Term general_implication_term_int = IntroduceImplicationVariables(precondition_implication.term,
-					                                                                  &success2, false);
-					if (success2 && Variable_hasVariable(&general_implication_term_int, true, true, false))
+					Term general_implication_term_int =
+						variable_introduce_implication_variables(precondition_implication.term,
+						                                         &success2, false);
+					if (success2 && variable_has_variable(&general_implication_term_int, true, true, false))
 					{
 						nal_derived_event(general_implication_term_int,
 						                  OCCURRENCE_ETERNAL,
@@ -497,7 +499,7 @@ cycle_inference(long currentTime)
 			long countConceptsMatchedNew = 0;
 			//Adjust dynamic firing threshold: (proportional "self"-control)
 			double conceptPriorityThresholdCurrent = g_conceptPriorityThreshold;
-			long countConceptsMatchedAverage = Stats_countConceptsMatchedTotal / currentTime;
+			long countConceptsMatchedAverage = g_statsCountConceptsMatchedTotal / currentTime;
 			double set_point = BELIEF_CONCEPT_MATCH_TARGET;
 			double process_value = countConceptsMatchedAverage;
 			double error = process_value - set_point;
@@ -508,8 +510,8 @@ cycle_inference(long currentTime)
 			double priority = g_selectedBeliefsPriority[i];
 			Term dummy_term = {0};
 			Truth dummy_truth = {0};
-			RuleTableApply(e->term, dummy_term, e->truth, dummy_truth, e->occurrenceTime, 0, e->stamp, currentTime,
-			               priority, 1, false, NULL, 0);
+			rule_table_apply(e->term, dummy_term, e->truth, dummy_truth, e->occurrenceTime, 0, e->stamp, currentTime,
+			                 priority, 1, false, NULL, 0);
 			RELATED_CONCEPTS_FOREACH(&e->term, c,
 			                         {
 				                         long validation_cid =
@@ -520,7 +522,7 @@ cycle_inference(long currentTime)
 				                         }
 				                         countConceptsMatchedNew++;
 				                         countConceptsMatched++;
-				                         Stats_countConceptsMatchedTotal++;
+				                         g_statsCountConceptsMatchedTotal++;
 				                         if (c->belief.type != EVENT_TYPE_DELETED &&
 					                         countConceptsMatched <= BELIEF_CONCEPT_MATCH_TARGET)
 				                         {
@@ -533,7 +535,7 @@ cycle_inference(long currentTime)
 						                         labs(e->occurrenceTime - future_belief.occurrenceTime) <
 							                         EVENT_BELIEF_DISTANCE) //take event as belief if it's stronger
 					                         {
-						                         future_belief.truth = Truth_Projection(future_belief.truth,
+						                         future_belief.truth = truth_projection(future_belief.truth,
 						                                                                future_belief.occurrenceTime,
 						                                                                e->occurrenceTime);
 						                         future_belief.occurrenceTime = e->occurrenceTime;
@@ -546,17 +548,17 @@ cycle_inference(long currentTime)
 						                         labs(e->occurrenceTime - project_belief.occurrenceTime) <
 							                         EVENT_BELIEF_DISTANCE) //take event as belief if it's stronger
 					                         {
-						                         project_belief.truth = Truth_Projection(project_belief.truth,
+						                         project_belief.truth = truth_projection(project_belief.truth,
 						                                                                 project_belief.occurrenceTime,
 						                                                                 e->occurrenceTime);
 						                         project_belief.occurrenceTime = e->occurrenceTime;
 						                         belief = &project_belief;
 					                         }
 					                         //Check for overlap and apply inference rules
-					                         if (!Stamp_checkOverlap(&e->stamp, &belief->stamp))
+					                         if (!stamp_check_overlap(&e->stamp, &belief->stamp))
 					                         {
-						                         c->usage = Usage_use(c->usage, currentTime, false);
-						                         Stamp stamp = Stamp_make(&e->stamp, &belief->stamp);
+						                         c->usage = usage_use(c->usage, currentTime, false);
+						                         Stamp stamp = stamp_make(&e->stamp, &belief->stamp);
 						                         if (PRINT_CONTROL_INFO)
 						                         {
 							                         fputs("Apply rule table on ", stdout);
@@ -573,16 +575,16 @@ cycle_inference(long currentTime)
 							                         occurrenceTimeDistance = labs(
 								                         belief->occurrenceTime - e->occurrenceTime);
 						                         }
-						                         RuleTableApply(e->term, c->term, e->truth, belief->truth,
-						                                        e->occurrenceTime, occurrenceTimeDistance, stamp,
-						                                        currentTime, priority, c->priority, true, c,
-						                                        validation_cid);
+						                         rule_table_apply(e->term, c->term, e->truth, belief->truth,
+						                                          e->occurrenceTime, occurrenceTimeDistance, stamp,
+						                                          currentTime, priority, c->priority, true, c,
+						                                          validation_cid);
 					                         }
 				                         }
 			                         })
-			if (countConceptsMatched > Stats_countConceptsMatchedMax)
+			if (countConceptsMatched > g_statsCountConceptsMatchedMax)
 			{
-				Stats_countConceptsMatchedMax = countConceptsMatched;
+				g_statsCountConceptsMatchedMax = countConceptsMatched;
 			}
 			if (countConceptsMatched >= BELIEF_CONCEPT_MATCH_TARGET || countConceptsMatchedNew == 0)
 			{
@@ -610,27 +612,27 @@ cycle_prediction(long currentTime)
 			{
 				if (!memory_implication_valid(&c->precondition_beliefs[0].array[k]))
 				{
-					Table_Remove(&c->precondition_beliefs[0], k--);
+					table_remove(&c->precondition_beliefs[0], k--);
 					continue;
 				}
 				Implication *imp = &c->precondition_beliefs[0].array[k];
-				Term precondition = Term_ExtractSubterm(&imp->term, 1);
-				Substitution subs = Variable_Unify(&precondition, &e->term);
+				Term precondition = term_extract_subterm(&imp->term, 1);
+				Substitution subs = variable_unify(&precondition, &e->term);
 				if (subs.success)
 				{
 					ASSERT(narsese_copula_equals(imp->term.atoms[0], '$'), "Not a valid implication term!");
 					Concept *c_pre = memory_find_concept_by_term(&precondition);
 					if (c_pre != NULL)
 					{
-						Substitution subs = Variable_Unify(&precondition, &e->term);
+						Substitution subs = variable_unify(&precondition, &e->term);
 						Implication updated_imp = *imp;
 						bool success;
-						updated_imp.term = Variable_ApplySubstitute(updated_imp.term, subs, &success);
+						updated_imp.term = variable_apply_substitute(updated_imp.term, subs, &success);
 						if (success)
 						{
 							Event predicted = inference_belief_deduction(e, &updated_imp);
 							memory_add_event(&predicted, currentTime,
-							                 parentpriority * Truth_Expectation(predicted.truth), 0, false, true,
+							                 parentpriority * truth_expectation(predicted.truth), 0, false, true,
 							                 false, false, true);
 						}
 					}
@@ -657,7 +659,7 @@ cycle_relative_forgetting(long currentTime)
 	{
 		Concept *c = g_concepts.items[i].address;
 		c->priority *= CONCEPT_DURABILITY;
-		g_concepts.items[i].priority = Usage_usefulness(c->usage,
+		g_concepts.items[i].priority = usage_usefulness(c->usage,
 		                                                currentTime); //how concept memory is sorted by, by concept usefulness
 	}
 	//BEGIN SPECIAL HANDLING FOR USER KNOWLEDGE
@@ -669,7 +671,7 @@ cycle_relative_forgetting(long currentTime)
 			Concept *c = g_concepts.items[i].address;
 			if (c->hasUserKnowledge)
 			{
-				c->usage = Usage_use(c->usage, currentTime, false); //user implication won't be forgotten
+				c->usage = usage_use(c->usage, currentTime, false); //user implication won't be forgotten
 			}
 		}
 	}

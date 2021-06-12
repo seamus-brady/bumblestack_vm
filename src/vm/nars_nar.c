@@ -89,7 +89,7 @@ void NAR_AddInputNarsese(char *narsese_sentence)
 	double occurrenceTimeOffset;
 	narsese_get_sentence(narsese_sentence, &term, &punctuation, &tense, &isUserKnowledge, &tv, &occurrenceTimeOffset);
 	//apply reduction rules to term:
-	term = RuleTableReduce(term, false);
+	term = rule_table_reduce(term, false);
 	if (punctuation == '?') {
 		//answer questions:
 		Truth best_truth = {.frequency = 0.0, .confidence = 1.0};
@@ -106,18 +106,18 @@ void NAR_AddInputNarsese(char *narsese_sentence)
 		for (int i = 0; i < g_concepts.itemsAmount; i++) {
 			Concept *c = g_concepts.items[i].address;
 			//compare the predicate of implication, or if it's not an implication, the term
-			Term toCompare = isImplication ? Term_ExtractSubterm(&term, 2) : term;
-			if (!Variable_Unify2(&toCompare, &c->term, true).success) {
+			Term toCompare = isImplication ? term_extract_subterm(&term, 2) : term;
+			if (!variable_unify2(&toCompare, &c->term, true).success) {
 				goto Continue;
 			}
 			if (isImplication) {
 				for (int op_k = 0; op_k < OPERATIONS_MAX; op_k++) {
 					for (int j = 0; j < c->precondition_beliefs[op_k].itemsAmount; j++) {
 						Implication *imp = &c->precondition_beliefs[op_k].array[j];
-						if (!Variable_Unify2(&term, &imp->term, true).success) {
+						if (!variable_unify2(&term, &imp->term, true).success) {
 							continue;
 						}
-						if (Truth_Expectation(imp->truth) >= Truth_Expectation(best_truth)) {
+						if (truth_expectation(imp->truth) >= truth_expectation(best_truth)) {
 							best_truth = imp->truth;
 							best_term = imp->term;
 							answerCreationTime = imp->creationTime;
@@ -127,9 +127,9 @@ void NAR_AddInputNarsese(char *narsese_sentence)
 			}
 			else if (tense) {
 				if (c->belief_spike.type != EVENT_TYPE_DELETED && (tense == 1 || tense == 2)) {
-					Truth potential_best_truth = Truth_Projection(c->belief_spike.truth, c->belief_spike.occurrenceTime,
+					Truth potential_best_truth = truth_projection(c->belief_spike.truth, c->belief_spike.occurrenceTime,
 					                                              g_currentTime);
-					if (Truth_Expectation(potential_best_truth) >= Truth_Expectation(best_truth_projected)) {
+					if (truth_expectation(potential_best_truth) >= truth_expectation(best_truth_projected)) {
 						best_truth_projected = potential_best_truth;
 						best_truth = c->belief_spike.truth;
 						best_term = c->belief_spike.term;
@@ -138,9 +138,9 @@ void NAR_AddInputNarsese(char *narsese_sentence)
 					}
 				}
 				if (c->predicted_belief.type != EVENT_TYPE_DELETED && (tense == 1 || tense == 3)) {
-					Truth potential_best_truth = Truth_Projection(c->predicted_belief.truth,
+					Truth potential_best_truth = truth_projection(c->predicted_belief.truth,
 					                                              c->predicted_belief.occurrenceTime, g_currentTime);
-					if (Truth_Expectation(potential_best_truth) >= Truth_Expectation(best_truth_projected)) {
+					if (truth_expectation(potential_best_truth) >= truth_expectation(best_truth_projected)) {
 						best_truth_projected = potential_best_truth;
 						best_truth = c->predicted_belief.truth;
 						best_term = c->predicted_belief.term;
@@ -151,7 +151,7 @@ void NAR_AddInputNarsese(char *narsese_sentence)
 			}
 			else {
 				if (c->belief.type != EVENT_TYPE_DELETED &&
-					Truth_Expectation(c->belief.truth) >= Truth_Expectation(best_truth)) {
+					truth_expectation(c->belief.truth) >= truth_expectation(best_truth)) {
 					best_truth = c->belief.truth;
 					best_term = c->belief.term;
 					answerCreationTime = c->belief.creationTime;
@@ -171,7 +171,7 @@ void NAR_AddInputNarsese(char *narsese_sentence)
 			else {
 				printf(". :|: occurrenceTime=%ld creationTime=%ld ", answerOccurrenceTime, answerCreationTime);
 			}
-			Truth_Print(&best_truth);
+			truth_print(&best_truth);
 		}
 		fflush(stdout);
 	}

@@ -17,11 +17,11 @@
 #include "nars_inference.h"
 #include "nars_term.h"
 
-#define DERIVATION_STAMP(a, b) Stamp conclusionStamp = Stamp_make(&a->stamp, &b->stamp); \
+#define DERIVATION_STAMP(a, b) Stamp conclusionStamp = stamp_make(&a->stamp, &b->stamp); \
                               long creationTime = MAX(a->creationTime, b->creationTime);
 #define DERIVATION_STAMP_AND_TIME(a, b) DERIVATION_STAMP(a,b) \
                 long conclusionTime = b->occurrenceTime; \
-                Truth truthA = Truth_Projection(a->truth, a->occurrenceTime, conclusionTime); \
+                Truth truthA = truth_projection(a->truth, a->occurrenceTime, conclusionTime); \
                 Truth truthB = b->truth;
 
 static double
@@ -39,7 +39,7 @@ inference_belief_intersection(Event *a, Event *b, bool *success)
 	Term conclusionTerm = narsese_sequence(&a->term, &b->term, success);
 	return *success ? (Event) {.term = conclusionTerm,
 		.type = EVENT_TYPE_BELIEF,
-		.truth = Truth_Intersection(truthA, truthB),
+		.truth = truth_intersection(truthA, truthB),
 		.stamp = conclusionStamp,
 		.occurrenceTime = conclusionTime,
 		.creationTime = creationTime}
@@ -54,9 +54,9 @@ inference_belief_induction(Event *a, Event *b, bool *success)
 	DERIVATION_STAMP_AND_TIME(a, b)
 	Term term = {0};
 	term.atoms[0] = narsese_atomic_term_index("$");
-	*success = Term_OverrideSubterm(&term, 1, &a->term) && Term_OverrideSubterm(&term, 2, &b->term);
+	*success = term_override_subterm(&term, 1, &a->term) && term_override_subterm(&term, 2, &b->term);
 	return *success ? (Implication) {.term = term,
-		.truth = Truth_Eternalize(Truth_Induction(truthB, truthA)),
+		.truth = truth_eternalise(truth_induction(truthB, truthA)),
 		.stamp = conclusionStamp,
 		.occurrenceTimeOffset = b->occurrenceTime - a->occurrenceTime,
 		.creationTime = creationTime}
@@ -71,7 +71,7 @@ inference_event_revision(Event *a, Event *b)
 	DERIVATION_STAMP_AND_TIME(a, b)
 	return (Event) {.term = a->term,
 		.type = a->type,
-		.truth = Truth_Revision(truthA, truthB),
+		.truth = truth_revision(truthA, truthB),
 		.stamp = conclusionStamp,
 		.occurrenceTime = conclusionTime,
 		.creationTime = creationTime};
@@ -83,9 +83,9 @@ inference_implication_revision(Implication *a, Implication *b)
 {
 	DERIVATION_STAMP(a, b)
 	double occurrenceTimeOffsetAvg = weighted_average(a->occurrenceTimeOffset, b->occurrenceTimeOffset,
-	                                                  Truth_c2w(a->truth.confidence), Truth_c2w(b->truth.confidence));
+	                                                  truth_c2w(a->truth.confidence), truth_c2w(b->truth.confidence));
 	return (Implication) {.term = a->term,
-		.truth = Truth_Revision(a->truth, b->truth),
+		.truth = truth_revision(a->truth, b->truth),
 		.stamp = conclusionStamp,
 		.occurrenceTimeOffset = occurrenceTimeOffsetAvg,
 		.sourceConcept = a->sourceConcept,
@@ -100,11 +100,11 @@ inference_goal_deduction(Event *component, Implication *compound)
 {
 	ASSERT(narsese_copula_equals(compound->term.atoms[0], '$'), "Not a valid implication term!");
 	DERIVATION_STAMP(component, compound)
-	Term precondition = Term_ExtractSubterm(&compound->term, 1);
+	Term precondition = term_extract_subterm(&compound->term, 1);
 	//extract precondition: (plus unification once vars are there)
 	return (Event) {.term = narsese_get_precondition_without_op(&precondition),
 		.type = EVENT_TYPE_GOAL,
-		.truth = Truth_Deduction(compound->truth, component->truth),
+		.truth = truth_deduction(compound->truth, component->truth),
 		.stamp = conclusionStamp,
 		.occurrenceTime = component->occurrenceTime - compound->occurrenceTimeOffset,
 		.creationTime = creationTime};
@@ -115,12 +115,12 @@ Event
 inference_event_update(Event *ev, long currentTime)
 {
 	Event ret = *ev;
-	ret.truth = Truth_Projection(ret.truth, ret.occurrenceTime, currentTime);
+	ret.truth = truth_projection(ret.truth, ret.occurrenceTime, currentTime);
 	ret.occurrenceTime = currentTime;
 	return ret;
 }
 
-//{Event (&/,a,b)!, Event a.} |- Event b! Truth_Deduction
+//{Event (&/,a,b)!, Event a.} |- Event b! truth_deduction
 Event
 Inference_GoalSequenceDeduction(Event *compound, Event *component, long currentTime)
 {
@@ -129,7 +129,7 @@ Inference_GoalSequenceDeduction(Event *compound, Event *component, long currentT
 	Event componentUpdated = inference_event_update(component, currentTime);
 	return (Event) {.term = compound->term,
 		.type = EVENT_TYPE_GOAL,
-		.truth = Truth_Deduction(compoundUpdated.truth, componentUpdated.truth),
+		.truth = truth_deduction(compoundUpdated.truth, componentUpdated.truth),
 		.stamp = conclusionStamp,
 		.occurrenceTime = currentTime,
 		.creationTime = creationTime};
@@ -152,11 +152,11 @@ inference_revision_and_choice(Event *existing_potential, Event *incoming_spike, 
 		double confExisting = inference_event_update(existing_potential, currentTime).truth.confidence;
 		double confIncoming = inference_event_update(incoming_spike, currentTime).truth.confidence;
 		//check if there is evidental overlap
-		bool overlap = Stamp_checkOverlap(&incoming_spike->stamp, &existing_potential->stamp);
+		bool overlap = stamp_check_overlap(&incoming_spike->stamp, &existing_potential->stamp);
 		//if there is or the terms aren't equal, apply choice, keeping the stronger one:
 		if (overlap || (existing_potential->occurrenceTime != OCCURRENCE_ETERNAL &&
 			existing_potential->occurrenceTime != incoming_spike->occurrenceTime) ||
-			!Term_Equal(&existing_potential->term, &incoming_spike->term))
+			!term_equal(&existing_potential->term, &incoming_spike->term))
 		{
 			if (confIncoming > confExisting)
 			{
@@ -191,10 +191,10 @@ inference_belief_deduction(Event *component, Implication *compound)
 {
 	ASSERT(narsese_copula_equals(compound->term.atoms[0], '$'), "Not a valid implication term!");
 	DERIVATION_STAMP(component, compound)
-	Term postcondition = Term_ExtractSubterm(&compound->term, 2);
+	Term postcondition = term_extract_subterm(&compound->term, 2);
 	return (Event) {.term = postcondition,
 		.type = EVENT_TYPE_BELIEF,
-		.truth = Truth_Deduction(compound->truth, component->truth),
+		.truth = truth_deduction(compound->truth, component->truth),
 		.stamp = conclusionStamp,
 		.occurrenceTime = component->occurrenceTime == OCCURRENCE_ETERNAL ?
 		                  OCCURRENCE_ETERNAL : component->occurrenceTime + compound->occurrenceTimeOffset,

@@ -17,7 +17,7 @@
 #include "nars_usage.h"
 
 double
-Usage_usefulness(Usage usage, long currentTime)
+usage_usefulness(Usage usage, long currentTime)
 {
 	double recency = currentTime - usage.lastUsed;
 	double usefulnessToNormalize = ((double) usage.useCount) / (recency + 1.0);
@@ -25,14 +25,14 @@ Usage_usefulness(Usage usage, long currentTime)
 }
 
 Usage
-Usage_use(Usage usage, long currentTime, bool eternalInput)
+usage_use(Usage usage, long currentTime, bool eternalInput)
 {
 	return (Usage) {.useCount = usage.useCount + (eternalInput ? ETERNAL_INPUT_USAGE_BOOST : 1),
 		.lastUsed = currentTime};
 }
 
 void
-Usage_Print(Usage *usage)
+usage_print(Usage *usage)
 {
 	printf("Usage: useCount=%ld lastUsed=%ld\n", usage->useCount, usage->lastUsed);
 }

@@ -40,16 +40,19 @@ typedef struct
 //Methods//
 //-------//
 void
-Stack_INIT(Stack *stack, void **items, int maxElements);
+stack_init(Stack *stack, void **items, int maxElements);
+
 //Add a VMItem on the top of the stack
 void
-Stack_Push(Stack *stack, void *item);
+stack_push(Stack *stack, void *item);
+
 //Remove a VMItem from the top of the stack
 void *
-Stack_Pop(Stack *stack);
+stack_pop(Stack *stack);
+
 //Check if there aren't VMItems left on the stack
 bool
-Stack_IsEmpty(Stack *stack);
+stack_is_empty(Stack *stack);
 
 #endif
 

@@ -49,7 +49,7 @@ hashtable_set(HashTable *hashtable, void *key, void *value)
 		}
 	}
 	//Retrieve recycled VMItem from the stack and set its value to vm
-	VMItem *popped = Stack_Pop(&hashtable->VMStack);
+	VMItem *popped = stack_pop(&hashtable->VMStack);
 	popped->value = value;
 	popped->key = key;
 	popped->next = NULL;
@@ -76,7 +76,7 @@ hashtable_delete(HashTable *hashtable, void *key)
 	if (item->next == NULL)
 	{
 		hashtable->HT[keyhash] = NULL;
-		Stack_Push(&hashtable->VMStack, item);
+		stack_push(&hashtable->VMStack, item);
 		return;
 	}
 	//If there is more than 1 item, we have to remove the item from chain, relinking previous to next
@@ -94,7 +94,7 @@ hashtable_delete(HashTable *hashtable, void *key)
 			{
 				previous->next = item->next;
 			}
-			Stack_Push(&hashtable->VMStack, item);
+			stack_push(&hashtable->VMStack, item);
 			return;
 		}
 	}
@@ -109,7 +109,7 @@ hashtable_init(HashTable *hashtable, VMItem *storage, VMItem **storageptrs, VMIt
 	hashtable->storageptrs = storageptrs;
 	hashtable->HT = HT;
 	hashtable->VMStack = (Stack) {0};
-	Stack_INIT(&hashtable->VMStack, (void **) hashtable->storageptrs, maxElements);
+	stack_init(&hashtable->VMStack, (void **) hashtable->storageptrs, maxElements);
 	hashtable->equal = equal;
 	hashtable->hash = hash;
 	hashtable->buckets = buckets;
@@ -121,7 +121,7 @@ hashtable_init(HashTable *hashtable, VMItem *storage, VMItem **storageptrs, VMIt
 	{
 		hashtable->storage[i] = (VMItem) {0};
 		hashtable->storageptrs[i] = NULL;
-		Stack_Push(&hashtable->VMStack, &hashtable->storage[i]);
+		stack_push(&hashtable->VMStack, &hashtable->storage[i]);
 	}
 }
 

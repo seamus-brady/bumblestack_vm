@@ -29,14 +29,17 @@
 
 //Global vars//
 //-----------//
-extern long Stats_countConceptsMatchedTotal;
-extern long Stats_countConceptsMatchedMax;
+
+extern long g_statsCountConceptsMatchedTotal;
+
+extern long g_statsCountConceptsMatchedMax;
+
 //From Narsese module, for stats purposes:
 extern HashTable g_hashtableAtomsStruct;
 
 //Methods//
 //-------//
 void
-statsPrint(long currentTime);
+stats_print(long currentTime);
 
 #endif

@@ -21,36 +21,36 @@ double TRUTH_PROJECTION_DECAY = TRUTH_PROJECTION_DECAY_INITIAL;
 #define TruthValues(v1, v2, f1, c1, f2, c2) double f1 = v1.frequency; double f2 = v2.frequency; double c1 = v1.confidence; double c2 = v2.confidence;
 
 double
-Truth_w2c(double w)
+truth_w2c(double w)
 {
 	return w / (w + TRUTH_EVIDENTAL_HORIZON);
 }
 
 double
-Truth_c2w(double c)
+truth_c2w(double c)
 {
 	return TRUTH_EVIDENTAL_HORIZON * c / (1 - c);
 }
 
 double
-Truth_Expectation(Truth v)
+truth_expectation(Truth v)
 {
 	return (v.confidence * (v.frequency - 0.5) + 0.5);
 }
 
 Truth
-Truth_Revision(Truth v1, Truth v2)
+truth_revision(Truth v1, Truth v2)
 {
 	TruthValues(v1, v2, f1, c1, f2, c2);
-	double w1 = Truth_c2w(c1);
-	double w2 = Truth_c2w(c2);
+	double w1 = truth_c2w(c1);
+	double w2 = truth_c2w(c2);
 	double w = w1 + w2;
 	return (Truth) {.frequency = MIN(1.0, (w1 * f1 + w2 * f2) / w),
-		.confidence = MIN(MAX_CONFIDENCE, MAX(MAX(Truth_w2c(w), c1), c2))};
+		.confidence = MIN(MAX_CONFIDENCE, MAX(MAX(truth_w2c(w), c1), c2))};
 }
 
 Truth
-Truth_Deduction(Truth v1, Truth v2)
+truth_deduction(Truth v1, Truth v2)
 {
 	TruthValues(v1, v2, f1, c1, f2, c2);
 	double f = f1 * f2;
@@ -58,33 +58,33 @@ Truth_Deduction(Truth v1, Truth v2)
 }
 
 Truth
-Truth_Abduction(Truth v1, Truth v2)
+truth_abduction(Truth v1, Truth v2)
 {
 	TruthValues(v1, v2, f1, c1, f2, c2);
-	return (Truth) {.frequency = f2, .confidence = Truth_w2c(f1 * c1 * c2)};
+	return (Truth) {.frequency = f2, .confidence = truth_w2c(f1 * c1 * c2)};
 }
 
 Truth
-Truth_Induction(Truth v1, Truth v2)
+truth_induction(Truth v1, Truth v2)
 {
-	return Truth_Abduction(v2, v1);
+	return truth_abduction(v2, v1);
 }
 
 Truth
-Truth_Intersection(Truth v1, Truth v2)
+truth_intersection(Truth v1, Truth v2)
 {
 	TruthValues(v1, v2, f1, c1, f2, c2);
 	return (Truth) {.frequency = f1 * f2, .confidence = c1 * c2};
 }
 
 Truth
-Truth_Eternalize(Truth v)
+truth_eternalise(Truth v)
 {
-	return (Truth) {.frequency = v.frequency, .confidence = Truth_w2c(v.confidence)};
+	return (Truth) {.frequency = v.frequency, .confidence = truth_w2c(v.confidence)};
 }
 
 Truth
-Truth_Projection(Truth v, long originalTime, long targetTime)
+truth_projection(Truth v, long originalTime, long targetTime)
 {
 	double difference = labs(targetTime - originalTime);
 	return originalTime == OCCURRENCE_ETERNAL ?
@@ -92,13 +92,13 @@ Truth_Projection(Truth v, long originalTime, long targetTime)
 }
 
 void
-Truth_Print(Truth *truth)
+truth_print(Truth *truth)
 {
 	printf(" truth=(frequency=%f, confidence=%f) \n", truth->frequency, truth->confidence);
 }
 
 void
-Truth_Print2(Truth *truth)
+truth_print2(Truth *truth)
 {
 	printf("{%f %f} \n", truth->frequency, truth->confidence);
 }
@@ -106,10 +106,10 @@ Truth_Print2(Truth *truth)
 //not part of MSC:
 
 Truth
-Truth_Exemplification(Truth v1, Truth v2)
+truth_exemplification(Truth v1, Truth v2)
 {
 	TruthValues(v1, v2, f1, c1, f2, c2);
-	return (Truth) {.frequency = 1.0, .confidence = Truth_w2c(f1 * f2 * c1 * c2)};
+	return (Truth) {.frequency = 1.0, .confidence = truth_w2c(f1 * f2 * c1 * c2)};
 }
 
 static inline double
@@ -119,80 +119,80 @@ or(double a, double b)
 }
 
 Truth
-Truth_Comparison(Truth v1, Truth v2)
+truth_comparison(Truth v1, Truth v2)
 {
 	TruthValues(v1, v2, f1, c1, f2, c2);
 	double f0 = or(f1, f2);
-	return (Truth) {.frequency = (f0 == 0.0) ? 0.0 : ((f1 * f2) / f0), .confidence = Truth_w2c(f0 * c1 * c2)};
+	return (Truth) {.frequency = (f0 == 0.0) ? 0.0 : ((f1 * f2) / f0), .confidence = truth_w2c(f0 * c1 * c2)};
 }
 
 Truth
-Truth_Analogy(Truth v1, Truth v2)
+truth_analogy(Truth v1, Truth v2)
 {
 	TruthValues(v1, v2, f1, c1, f2, c2);
 	return (Truth) {.frequency = f1 * f2, .confidence = c1 * c2 * f2};
 }
 
 Truth
-Truth_Resemblance(Truth v1, Truth v2)
+truth_resemblance(Truth v1, Truth v2)
 {
 	TruthValues(v1, v2, f1, c1, f2, c2);
 	return (Truth) {.frequency = f1 * f2, .confidence = c1 * c2 * or(f1, f2)};
 }
 
 Truth
-Truth_Union(Truth v1, Truth v2)
+truth_union(Truth v1, Truth v2)
 {
 	TruthValues(v1, v2, f1, c1, f2, c2);
 	return (Truth) {.frequency = or(f1, f2), .confidence = c1 * c2};
 }
 
 Truth
-Truth_Difference(Truth v1, Truth v2)
+truth_difference(Truth v1, Truth v2)
 {
 	TruthValues(v1, v2, f1, c1, f2, c2);
 	return (Truth) {.frequency = f1 * (1.0 - f2), .confidence = c1 * c2};
 }
 
 Truth
-Truth_Conversion(Truth v1, Truth v2)
+truth_conversion(Truth v1, Truth v2)
 {
-	return (Truth) {.frequency = 1.0, .confidence = Truth_w2c(v1.frequency * v1.confidence)};
+	return (Truth) {.frequency = 1.0, .confidence = truth_w2c(v1.frequency * v1.confidence)};
 }
 
 Truth
-Truth_Negation(Truth v1, Truth v2)
+truth_negation(Truth v1, Truth v2)
 {
 	TruthValues(v1, v2, f1, c1, f2, c2);
 	return (Truth) {.frequency = 1.0 - f1, .confidence = c1};
 }
 
 Truth
-Truth_StructuralDeduction(Truth v1, Truth v2)
+truth_structural_deduction(Truth v1, Truth v2)
 {
-	return Truth_Deduction(v1, STRUCTURAL_TRUTH);
+	return truth_deduction(v1, STRUCTURAL_TRUTH);
 }
 
 Truth
-Truth_StructuralDeductionNegated(Truth v1, Truth v2)
+truth_structural_deduction_negated(Truth v1, Truth v2)
 {
-	return Truth_Negation(Truth_Deduction(v1, STRUCTURAL_TRUTH), v2);
+	return truth_negation(truth_deduction(v1, STRUCTURAL_TRUTH), v2);
 }
 
 Truth
-Truth_StructuralAbduction(Truth v1, Truth v2)
+truth_structural_abduction(Truth v1, Truth v2)
 {
-	return Truth_Abduction(v1, STRUCTURAL_TRUTH);
+	return truth_abduction(v1, STRUCTURAL_TRUTH);
 }
 
 bool
-Truth_Equal(Truth *v1, Truth *v2)
+truth_equal(Truth *v1, Truth *v2)
 {
 	return v1->confidence == v2->confidence && v1->frequency == v2->frequency;
 }
 
 Truth
-Truth_DecomposePNN(Truth v1, Truth v2)
+truth_decompose_pnn(Truth v1, Truth v2)
 {
 	TruthValues(v1, v2, f1, c1, f2, c2);
 	double fn = f1 * (1.0 - f2);
@@ -200,7 +200,7 @@ Truth_DecomposePNN(Truth v1, Truth v2)
 }
 
 Truth
-Truth_DecomposeNPP(Truth v1, Truth v2)
+truth_decompose_npp(Truth v1, Truth v2)
 {
 	TruthValues(v1, v2, f1, c1, f2, c2);
 	double f = (1.0 - f1) * f2;
@@ -208,7 +208,7 @@ Truth_DecomposeNPP(Truth v1, Truth v2)
 }
 
 Truth
-Truth_DecomposePNP(Truth v1, Truth v2)
+truth_decompose_pnp(Truth v1, Truth v2)
 {
 	TruthValues(v1, v2, f1, c1, f2, c2);
 	double f = f1 * (1.0 - f2);
@@ -216,13 +216,13 @@ Truth_DecomposePNP(Truth v1, Truth v2)
 }
 
 Truth
-Truth_DecomposePPP(Truth v1, Truth v2)
+truth_decompose_ppp(Truth v1, Truth v2)
 {
-	return Truth_DecomposeNPP(Truth_Negation(v1, v2), v2);
+	return truth_decompose_npp(truth_negation(v1, v2), v2);
 }
 
 Truth
-Truth_DecomposeNNN(Truth v1, Truth v2)
+truth_decompose_nnn(Truth v1, Truth v2)
 {
 	TruthValues(v1, v2, f1, c1, f2, c2);
 	double fn = (1.0 - f1) * (1.0 - f2);

@@ -131,12 +131,12 @@ print_concepts()
 			c->usage.lastUsed,
 			c->belief.truth.frequency,
 			c->belief.truth.confidence);
-		Term left = Term_ExtractSubterm(&c->term, 1);
-		Term left_left = Term_ExtractSubterm(&left, 1);
-		Term left_right = Term_ExtractSubterm(&left, 2);
-		Term right = Term_ExtractSubterm(&c->term, 2);
-		Term right_left = Term_ExtractSubterm(&right, 1);
-		Term right_right = Term_ExtractSubterm(&right, 2);
+		Term left = term_extract_subterm(&c->term, 1);
+		Term left_left = term_extract_subterm(&left, 1);
+		Term left_right = term_extract_subterm(&left, 2);
+		Term right = term_extract_subterm(&c->term, 2);
+		Term right_left = term_extract_subterm(&right, 1);
+		Term right_right = term_extract_subterm(&right, 2);
 		fputs("\"", stdout);
 		narsese_print_term(&left);
 		fputs("\", ", stdout);
@@ -190,7 +190,7 @@ print_cycling_belief_events()
 		narsese_print_term(&e->term);
 		printf(": { \"priority\": %f, \"time\": %ld } ", g_cyclingBeliefEvents.items[i].priority,
 		       e->occurrenceTime);
-		Truth_Print(&e->truth);
+		truth_print(&e->truth);
 	}
 	slog_info("Finished printing cycling g_beliefEvents.");
 }
@@ -206,7 +206,7 @@ print_cycling_goal_events()
 		narsese_print_term(&e->term);
 		printf(": {\"priority\": %f, \"time\": %ld } ", g_cyclingGoalEvents.items[i].priority,
 		       e->occurrenceTime);
-		Truth_Print(&e->truth);
+		truth_print(&e->truth);
 	}
 	slog_info("Finished printing cycling goal events.");
 }

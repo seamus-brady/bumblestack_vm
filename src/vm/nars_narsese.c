@@ -388,8 +388,8 @@ narsese_term(char *narsese)
 	{
 	}
 	narsese_build_binary_tree(&ret, tokens_prefix, 0, 1, nt);
-	Variable_Normalize(&ret);
-	Term_Hash(&ret);
+	variable_normalize(&ret);
+	term_hash(&ret);
 	return ret;
 }
 
@@ -467,7 +467,7 @@ narsese_sequence(Term *a, Term *b, bool *success)
 {
 	Term ret = {0};
 	ret.atoms[0] = narsese_atomic_term_index("+");
-	*success = Term_OverrideSubterm(&ret, 1, a) && Term_OverrideSubterm(&ret, 2, b);
+	*success = term_override_subterm(&ret, 1, a) && term_override_subterm(&ret, 2, b);
 	return *success ? ret : (Term) {0};
 }
 
@@ -702,7 +702,7 @@ narsese_is_operation(Term *term) //<(*,{g_Self},x) --> ^op> -> [: * ^op " x _ _ 
 		(narsese_copula_equals(term->atoms[0], ':') && narsese_copula_equals(term->atoms[1], '*') && //(_ * _) -->
 			narsese_is_operator(term->atoms[2]) && //^op
 			narsese_copula_equals(term->atoms[3], '"') &&
-			(term->atoms[7] == g_Self || Variable_isVariable(term->atoms[7]))); //  { g_Self } or { VAR }
+			(term->atoms[7] == g_Self || variable_is_variable(term->atoms[7]))); //  { g_Self } or { VAR }
 }
 
 int
@@ -710,7 +710,7 @@ narsese_get_operation_id(Term *term)
 {
 	if (narsese_copula_equals(term->atoms[0], '+')) //sequence
 	{
-		Term potential_operator = Term_ExtractSubterm(term, 2); //(a &/ ^op)
+		Term potential_operator = term_extract_subterm(term, 2); //(a &/ ^op)
 		ASSERT(!narsese_copula_equals(potential_operator.atoms[0], '+'),
 		       "Sequences should be left-nested encoded, never right-nested!!");
 		return narsese_get_operation_id(&potential_operator);
@@ -731,10 +731,10 @@ narsese_get_precondition_without_op(Term *precondition)
 {
 	if (narsese_copula_equals(precondition->atoms[0], '+'))
 	{
-		Term potential_op = Term_ExtractSubterm(precondition, 2);
+		Term potential_op = term_extract_subterm(precondition, 2);
 		if (narsese_is_operation(&potential_op))
 		{
-			return Term_ExtractSubterm(precondition, 1);
+			return term_extract_subterm(precondition, 1);
 		}
 	}
 	return *precondition;
@@ -752,5 +752,5 @@ narsese_is_non_copula_atom(Atom atom)
 bool
 narsese_is_simple_atom(Atom atom)
 {
-	return narsese_is_non_copula_atom(atom) && !Variable_isVariable(atom);
+	return narsese_is_non_copula_atom(atom) && !variable_is_variable(atom);
 }

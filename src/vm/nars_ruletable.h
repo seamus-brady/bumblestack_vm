@@ -30,20 +30,20 @@
 //Methods//
 //-------//
 void
-RuleTableApply(Term term1,
-               Term term2,
-               Truth truth1,
-               Truth truth2,
-               long conclusionOccurrence,
-               double occurrenceTimeOffset,
-               Stamp conclusionStamp,
-               long currentTime,
-               double parentPriority,
-               double conceptPriority,
-               bool doublePremise,
-               Concept *validation_concept,
-               long validation_cid);
+rule_table_apply(Term term1,
+                 Term term2,
+                 Truth truth1,
+                 Truth truth2,
+                 long conclusionOccurrence,
+                 double occurrenceTimeOffset,
+                 Stamp conclusionStamp,
+                 long currentTime,
+                 double parentPriority,
+                 double conceptPriority,
+                 bool doublePremise,
+                 Concept *validation_concept,
+                 long validation_cid);
 Term
-RuleTableReduce(Term term1, bool doublePremise);
+rule_table_reduce(Term term1, bool doublePremise);
 
 #endif

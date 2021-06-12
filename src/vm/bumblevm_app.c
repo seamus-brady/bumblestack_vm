@@ -64,7 +64,7 @@ systemInit()
 	// initialise the bumblestack NARS system
 	NAR_INIT();
 	slog_info("System initialised.");
-	statsPrint(g_currentTime);
+	stats_print(g_currentTime);
 	print_atom_table();
 	print_concepts();
 	print_cycling_belief_events();
