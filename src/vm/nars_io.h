@@ -20,7 +20,7 @@
 #include "lib_slog.h"
 
 void
-setup_test_logging();
+setup_logging();
 
 void
 print_concepts();
