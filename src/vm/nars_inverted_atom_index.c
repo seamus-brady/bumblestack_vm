@@ -17,42 +17,42 @@
 #include "nars_inverted_atom_index.h"
 #include "lib_slog.h"
 
-ConceptChainElement *conceptChainElementStoragePointers[UNIFICATION_DEPTH * CONCEPTS_MAX];
-ConceptChainElement conceptChainElementStorage[UNIFICATION_DEPTH * CONCEPTS_MAX];
-Stack conceptChainElementStack;
-ConceptChainElement *invertedAtomIndex[ATOMS_MAX];
+ConceptChainElement *g_conceptChainElementStoragePointers[UNIFICATION_DEPTH * CONCEPTS_MAX];
+ConceptChainElement g_conceptChainElementStorage[UNIFICATION_DEPTH * CONCEPTS_MAX];
+Stack g_conceptChainElementStack;
+ConceptChainElement *g_invertedAtomIndex[ATOMS_MAX];
 
 void
-InvertedAtomIndex_INIT()
+inverted_atom_index_init()
 {
 	for (int i = 0; i < ATOMS_MAX; i++)
 	{
-		invertedAtomIndex[i] = NULL;
+		g_invertedAtomIndex[i] = NULL;
 	}
-	Stack_INIT(&conceptChainElementStack, (void **) conceptChainElementStoragePointers,
+	Stack_INIT(&g_conceptChainElementStack, (void **) g_conceptChainElementStoragePointers,
 	           UNIFICATION_DEPTH * CONCEPTS_MAX);
 	for (int i = 0; i < UNIFICATION_DEPTH * CONCEPTS_MAX; i++)
 	{
-		conceptChainElementStorage[i] = (ConceptChainElement) {0};
-		conceptChainElementStoragePointers[i] = NULL;
-		Stack_Push(&conceptChainElementStack, &conceptChainElementStorage[i]);
+		g_conceptChainElementStorage[i] = (ConceptChainElement) {0};
+		g_conceptChainElementStoragePointers[i] = NULL;
+		Stack_Push(&g_conceptChainElementStack, &g_conceptChainElementStorage[i]);
 	}
 }
 
 void
-InvertedAtomIndex_AddConcept(Term term, Concept *c)
+inverted_atom_index_add_concept(Term term, Concept *c)
 {
 	for (int i = 0; i < UNIFICATION_DEPTH; i++)
 	{
 		Atom atom = term.atoms[i];
-		if (Narsese_IsSimpleAtom(atom))
+		if (narsese_is_simple_atom(atom))
 		{
-			ConceptChainElement *elem = invertedAtomIndex[atom];
+			ConceptChainElement *elem = g_invertedAtomIndex[atom];
 			if (elem == NULL)
 			{
-				ConceptChainElement *newElem = Stack_Pop(&conceptChainElementStack); //new item
+				ConceptChainElement *newElem = Stack_Pop(&g_conceptChainElementStack); //new item
 				newElem->c = c;
-				invertedAtomIndex[atom] = newElem;
+				g_invertedAtomIndex[atom] = newElem;
 			}
 			else
 			{
@@ -68,7 +68,7 @@ InvertedAtomIndex_AddConcept(Term term, Concept *c)
 					elem = elem->next;
 				}
 				//ok, we can add it as previous->next
-				ConceptChainElement *newElem = Stack_Pop(&conceptChainElementStack); //new item
+				ConceptChainElement *newElem = Stack_Pop(&g_conceptChainElementStack); //new item
 				newElem->c = c;
 				previous->next = newElem;
 			}
@@ -78,32 +78,32 @@ InvertedAtomIndex_AddConcept(Term term, Concept *c)
 }
 
 void
-InvertedAtomIndex_RemoveConcept(Term term, Concept *c)
+inverted_atom_index_remove_concept(Term term, Concept *c)
 {
 	for (int i = 0; i < UNIFICATION_DEPTH; i++)
 	{
 		Atom atom = term.atoms[i];
-		if (Narsese_IsSimpleAtom(atom))
+		if (narsese_is_simple_atom(atom))
 		{
 			ConceptChainElement *previous = NULL;
-			ConceptChainElement *elem = invertedAtomIndex[atom];
+			ConceptChainElement *elem = g_invertedAtomIndex[atom];
 			while (elem != NULL)
 			{
 				if (elem->c == c) //we found vm in the chain, remove it
 				{
 					if (previous == NULL) //item was the initial chain element, let the next element be the initial now
 					{
-						invertedAtomIndex[atom] = elem->next;
+						g_invertedAtomIndex[atom] = elem->next;
 					}
 					else //item was within the chain, relink the previous to the next of elem
 					{
 						previous->next = elem->next;
 					}
 					//push elem back to the stack, it's "freed"
-					assert(elem->c != NULL, "A null concept was in inverted atom index!");
+					ASSERT(elem->c != NULL, "A null concept was in inverted atom index!");
 					elem->c = NULL;
 					elem->next = NULL;
-					Stack_Push(&conceptChainElementStack, elem);
+					Stack_Push(&g_conceptChainElementStack, elem);
 					goto NEXT_ATOM;
 				}
 				previous = elem;
@@ -115,22 +115,22 @@ InvertedAtomIndex_RemoveConcept(Term term, Concept *c)
 }
 
 void
-invertedAtomIndexPrint()
+inverted_atom_index_print()
 {
 	slog_info("Printing inverted atom table content:");
 	for (int i = 0; i < ATOMS_MAX; i++)
 	{
 		Atom atom = i; //the atom is directly the value (from 0 to ATOMS_MAX)
-		if (Narsese_IsSimpleAtom(atom))
+		if (narsese_is_simple_atom(atom))
 		{
-			ConceptChainElement *elem = invertedAtomIndex[atom];
+			ConceptChainElement *elem = g_invertedAtomIndex[atom];
 			while (elem != NULL)
 			{
 				Concept *c = elem->c;
-				assert(c != NULL, "A null concept was in inverted atom index!");
-				Narsese_PrintAtom(atom);
+				ASSERT(c != NULL, "A null concept was in inverted atom index!");
+				narsese_print_atom(atom);
 				fputs(" -> ", stdout);
-				Narsese_PrintTerm(&c->term);
+				narsese_print_term(&c->term);
 				puts("");
 				elem = elem->next;
 			}
@@ -140,12 +140,12 @@ invertedAtomIndexPrint()
 }
 
 ConceptChainElement *
-InvertedAtomIndex_GetConceptChain(Atom atom)
+inverted_atom_index_get_concept_chain(Atom atom)
 {
 	ConceptChainElement *ret = NULL;
 	if (atom != 0)
 	{
-		ret = invertedAtomIndex[atom];
+		ret = g_invertedAtomIndex[atom];
 	}
 	return ret;
 }

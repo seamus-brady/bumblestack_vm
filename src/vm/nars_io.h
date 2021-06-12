@@ -20,14 +20,19 @@
 #include "lib_slog.h"
 
 void
-setupLogging();
+setup_test_logging();
+
 void
-printConcepts();
+print_concepts();
+
 void
-printAtomTable();
+print_atom_table();
+
 void
-printCyclingBeliefEvents();
+print_cycling_belief_events();
+
 void
-printCyclingGoalEvents();
+print_cycling_goal_events();
+
 void
 run_diagnostics();

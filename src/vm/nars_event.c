@@ -16,27 +16,27 @@
 
 #include "nars_event.h"
 
-long base = 1;
+long g_base = 1;
 
 Event
-Event_InputEvent(Term term, char type, Truth truth, long currentTime)
+event_input_event(Term term, char type, Truth truth, long currentTime)
 {
 	return (Event) {.term = term,
 		.type = type,
 		.truth = truth,
-		.stamp = (Stamp) {.evidentialBase = {base++}},
+		.stamp = (Stamp) {.evidentialBase = {g_base++}},
 		.occurrenceTime = currentTime,
 		.creationTime = currentTime};
 }
 
 void
-Event_INIT()
+event_init()
 {
-	base = 1;
+	g_base = 1;
 }
 
 bool
-Event_Equal(Event *event, Event *existing)
+event_equal(Event *event, Event *existing)
 {
 	return Truth_Equal(&event->truth, &existing->truth) && Term_Equal(&event->term, &existing->term);
 }

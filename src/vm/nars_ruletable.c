@@ -20,14 +20,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_1;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_1;
 		}
@@ -38,14 +38,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_1;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_1;
 		}
@@ -61,9 +61,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_1;
 		}
 		Truth conclusionTruth = Truth_Deduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_1:
@@ -80,14 +80,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_2;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_2;
 		}
@@ -98,14 +98,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_2;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_2;
 		}
@@ -121,9 +121,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_2;
 		}
 		Truth conclusionTruth = Truth_Deduction(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_2:
@@ -140,14 +140,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_3;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_3;
 		}
@@ -158,14 +158,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_3;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[30].atoms[0] != 0 && !Term_Equal(&substitutions[30], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_3;
 		}
@@ -181,9 +181,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_3;
 		}
 		Truth conclusionTruth = Truth_Induction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_3:
@@ -200,14 +200,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_4;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[30].atoms[0] != 0 && !Term_Equal(&substitutions[30], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_4;
 		}
@@ -218,14 +218,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_4;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_4;
 		}
@@ -241,9 +241,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_4;
 		}
 		Truth conclusionTruth = Truth_Induction(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_4:
@@ -260,14 +260,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_5;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[30].atoms[0] != 0 && !Term_Equal(&substitutions[30], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_5;
 		}
@@ -278,14 +278,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_5;
 		}
 		substitutions[29] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[30].atoms[0] != 0 && !Term_Equal(&substitutions[30], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_5;
 		}
@@ -301,9 +301,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_5;
 		}
 		Truth conclusionTruth = Truth_Abduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_5:
@@ -320,14 +320,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_6;
 		}
 		substitutions[29] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[30].atoms[0] != 0 && !Term_Equal(&substitutions[30], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_6;
 		}
@@ -338,14 +338,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_6;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[30].atoms[0] != 0 && !Term_Equal(&substitutions[30], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_6;
 		}
@@ -361,9 +361,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_6;
 		}
 		Truth conclusionTruth = Truth_Abduction(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_6:
@@ -380,14 +380,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_7;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_7;
 		}
@@ -398,14 +398,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_7;
 		}
 		substitutions[29] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[30].atoms[0] != 0 && !Term_Equal(&substitutions[30], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_7;
 		}
@@ -421,9 +421,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_7;
 		}
 		Truth conclusionTruth = Truth_Exemplification(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_7:
@@ -440,14 +440,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_8;
 		}
 		substitutions[29] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[30].atoms[0] != 0 && !Term_Equal(&substitutions[30], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_8;
 		}
@@ -458,14 +458,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_8;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_8;
 		}
@@ -481,9 +481,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_8;
 		}
 		Truth conclusionTruth = Truth_Exemplification(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_8:
@@ -500,14 +500,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_9;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_9;
 		}
@@ -523,9 +523,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_9;
 		}
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_9:
@@ -542,7 +542,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_10;
 		}
@@ -553,7 +553,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_10;
 		}
@@ -575,9 +575,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		conclusion.atoms[6] = 38;
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_10:
@@ -598,14 +598,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_11;
 		}
 		substitutions[34] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_11;
 		}
@@ -627,9 +627,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		conclusion.atoms[4] = 38;
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_11:
@@ -646,14 +646,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_12;
 		}
 		substitutions[34] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_12;
 		}
@@ -664,14 +664,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_12;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_12;
 		}
@@ -687,9 +687,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_12;
 		}
 		Truth conclusionTruth = Truth_Comparison(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_12:
@@ -706,14 +706,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_13;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_13;
 		}
@@ -724,14 +724,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_13;
 		}
 		substitutions[34] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_13;
 		}
@@ -747,9 +747,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_13;
 		}
 		Truth conclusionTruth = Truth_Comparison(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_13:
@@ -766,14 +766,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_14;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_14;
 		}
@@ -784,14 +784,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_14;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_14;
 		}
@@ -807,9 +807,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_14;
 		}
 		Truth conclusionTruth = Truth_Comparison(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_14:
@@ -826,14 +826,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_15;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_15;
 		}
@@ -844,14 +844,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_15;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_15;
 		}
@@ -867,9 +867,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_15;
 		}
 		Truth conclusionTruth = Truth_Comparison(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_15:
@@ -886,14 +886,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_16;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_16;
 		}
@@ -904,14 +904,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_16;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_16;
 		}
@@ -927,9 +927,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_16;
 		}
 		Truth conclusionTruth = Truth_Analogy(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_16:
@@ -946,14 +946,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_17;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_17;
 		}
@@ -964,14 +964,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_17;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_17;
 		}
@@ -987,9 +987,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_17;
 		}
 		Truth conclusionTruth = Truth_Analogy(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_17:
@@ -1006,14 +1006,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_18;
 		}
 		substitutions[34] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_18;
 		}
@@ -1024,14 +1024,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_18;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_18;
 		}
@@ -1047,9 +1047,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_18;
 		}
 		Truth conclusionTruth = Truth_Analogy(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_18:
@@ -1066,14 +1066,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_19;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_19;
 		}
@@ -1084,14 +1084,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_19;
 		}
 		substitutions[34] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_19;
 		}
@@ -1107,9 +1107,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_19;
 		}
 		Truth conclusionTruth = Truth_Analogy(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_19:
@@ -1130,14 +1130,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_20;
 		}
 		substitutions[34] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_20;
 		}
@@ -1152,14 +1152,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_20;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_20;
 		}
@@ -1177,9 +1177,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		conclusion.atoms[4] = 38;
 		Truth conclusionTruth = Truth_Analogy(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_20:
@@ -1196,14 +1196,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_21;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_21;
 		}
@@ -1218,14 +1218,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_21;
 		}
 		substitutions[34] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 3);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_21;
 		}
@@ -1247,9 +1247,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		conclusion.atoms[4] = 38;
 		Truth conclusionTruth = Truth_Analogy(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_21:
@@ -1266,7 +1266,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_22;
 		}
@@ -1277,7 +1277,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_22;
 		}
@@ -1292,14 +1292,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_22;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_22;
 		}
@@ -1317,9 +1317,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		conclusion.atoms[6] = 38;
 		Truth conclusionTruth = Truth_Analogy(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_22:
@@ -1336,14 +1336,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_23;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_23;
 		}
@@ -1354,7 +1354,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_23;
 		}
@@ -1365,7 +1365,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 5);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_23;
 		}
@@ -1387,9 +1387,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		conclusion.atoms[6] = 38;
 		Truth conclusionTruth = Truth_Analogy(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_23:
@@ -1406,14 +1406,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_24;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_24;
 		}
@@ -1424,14 +1424,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_24;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_24;
 		}
@@ -1447,9 +1447,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_24;
 		}
 		Truth conclusionTruth = Truth_Resemblance(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_24:
@@ -1466,14 +1466,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_25;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_25;
 		}
@@ -1484,14 +1484,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_25;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_25;
 		}
@@ -1507,9 +1507,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_25;
 		}
 		Truth conclusionTruth = Truth_Resemblance(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_25:
@@ -1534,7 +1534,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_26;
 		}
@@ -1545,7 +1545,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_26;
 		}
@@ -1565,9 +1565,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_26;
 		}
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_26:
@@ -1592,7 +1592,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_27;
 		}
@@ -1603,7 +1603,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_27;
 		}
@@ -1623,9 +1623,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_27;
 		}
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_27:
@@ -1646,21 +1646,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_28;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_28;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 4);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_28;
 		}
@@ -1678,9 +1678,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		conclusion.atoms[4] = 38;
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_28:
@@ -1701,21 +1701,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_29;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_29;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 4);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_29;
 		}
@@ -1733,9 +1733,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		conclusion.atoms[4] = 38;
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_29:
@@ -1752,7 +1752,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_30;
 		}
@@ -1763,14 +1763,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_30;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 6);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_30;
 		}
@@ -1788,9 +1788,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		conclusion.atoms[6] = 38;
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_30:
@@ -1807,7 +1807,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_31;
 		}
@@ -1818,14 +1818,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_31;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 6);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_31;
 		}
@@ -1843,9 +1843,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		conclusion.atoms[6] = 38;
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_31:
@@ -1866,21 +1866,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_32;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_32;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 4);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_32;
 		}
@@ -1896,9 +1896,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_32;
 		}
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_32:
@@ -1915,7 +1915,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_33;
 		}
@@ -1926,14 +1926,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_33;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 6);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_33;
 		}
@@ -1949,9 +1949,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_33;
 		}
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_33:
@@ -1972,21 +1972,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_34;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_34;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 4);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_34;
 		}
@@ -2002,9 +2002,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_34;
 		}
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_34:
@@ -2021,7 +2021,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_35;
 		}
@@ -2032,14 +2032,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_35;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 6);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_35;
 		}
@@ -2055,9 +2055,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_35;
 		}
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_35:
@@ -2078,21 +2078,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_36;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_36;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 4);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_36;
 		}
@@ -2108,9 +2108,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_36;
 		}
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_36:
@@ -2127,7 +2127,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_37;
 		}
@@ -2138,14 +2138,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_37;
 		}
 		substitutions[29] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 6);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_37;
 		}
@@ -2161,9 +2161,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_37;
 		}
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_37:
@@ -2184,21 +2184,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_38;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_38;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 4);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_38;
 		}
@@ -2214,9 +2214,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_38;
 		}
 		Truth conclusionTruth = Truth_StructuralDeductionNegated(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_38:
@@ -2233,7 +2233,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_39;
 		}
@@ -2244,14 +2244,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_39;
 		}
 		substitutions[29] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 6);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_39;
 		}
@@ -2267,9 +2267,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_39;
 		}
 		Truth conclusionTruth = Truth_StructuralDeductionNegated(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_39:
@@ -2286,14 +2286,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_40;
 		}
 		substitutions[34] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_40;
 		}
@@ -2304,14 +2304,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_40;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_40;
 		}
@@ -2332,9 +2332,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_40;
 		}
 		Truth conclusionTruth = Truth_Intersection(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_40:
@@ -2351,14 +2351,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_41;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_41;
 		}
@@ -2369,14 +2369,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_41;
 		}
 		substitutions[34] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_41;
 		}
@@ -2397,9 +2397,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_41;
 		}
 		Truth conclusionTruth = Truth_Intersection(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_41:
@@ -2416,14 +2416,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_42;
 		}
 		substitutions[34] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_42;
 		}
@@ -2434,14 +2434,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_42;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_42;
 		}
@@ -2462,9 +2462,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_42;
 		}
 		Truth conclusionTruth = Truth_Union(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_42:
@@ -2481,14 +2481,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_43;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_43;
 		}
@@ -2499,14 +2499,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_43;
 		}
 		substitutions[34] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_43;
 		}
@@ -2527,9 +2527,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_43;
 		}
 		Truth conclusionTruth = Truth_Union(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_43:
@@ -2546,14 +2546,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_44;
 		}
 		substitutions[34] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_44;
 		}
@@ -2564,14 +2564,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_44;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_44;
 		}
@@ -2592,9 +2592,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_44;
 		}
 		Truth conclusionTruth = Truth_Difference(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_44:
@@ -2611,14 +2611,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_45;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_45;
 		}
@@ -2629,14 +2629,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_45;
 		}
 		substitutions[34] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_45;
 		}
@@ -2657,9 +2657,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_45;
 		}
 		Truth conclusionTruth = Truth_Difference(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_45:
@@ -2676,14 +2676,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_46;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_46;
 		}
@@ -2694,14 +2694,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_46;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_46;
 		}
@@ -2722,9 +2722,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_46;
 		}
 		Truth conclusionTruth = Truth_Intersection(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_46:
@@ -2741,14 +2741,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_47;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_47;
 		}
@@ -2759,14 +2759,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_47;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_47;
 		}
@@ -2787,9 +2787,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_47;
 		}
 		Truth conclusionTruth = Truth_Intersection(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_47:
@@ -2806,14 +2806,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_48;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_48;
 		}
@@ -2824,14 +2824,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_48;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_48;
 		}
@@ -2852,9 +2852,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_48;
 		}
 		Truth conclusionTruth = Truth_Union(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_48:
@@ -2871,14 +2871,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_49;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_49;
 		}
@@ -2889,14 +2889,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_49;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_49;
 		}
@@ -2917,9 +2917,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_49;
 		}
 		Truth conclusionTruth = Truth_Union(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_49:
@@ -2936,14 +2936,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_50;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_50;
 		}
@@ -2954,14 +2954,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_50;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_50;
 		}
@@ -2982,9 +2982,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_50;
 		}
 		Truth conclusionTruth = Truth_Difference(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_50:
@@ -3001,14 +3001,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_51;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_51;
 		}
@@ -3019,14 +3019,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_51;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_51;
 		}
@@ -3047,9 +3047,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_51;
 		}
 		Truth conclusionTruth = Truth_Difference(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_51:
@@ -3066,14 +3066,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_52;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_52;
 		}
@@ -3088,21 +3088,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_52;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 3);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_52;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 4);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_52;
 		}
@@ -3118,9 +3118,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_52;
 		}
 		Truth conclusionTruth = Truth_DecomposePNN(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_52:
@@ -3141,21 +3141,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_53;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_53;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 4);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_53;
 		}
@@ -3166,14 +3166,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_53;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_53;
 		}
@@ -3189,9 +3189,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_53;
 		}
 		Truth conclusionTruth = Truth_DecomposePNN(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_53:
@@ -3208,14 +3208,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_54;
 		}
 		substitutions[34] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_54;
 		}
@@ -3230,21 +3230,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_54;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 3);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_54;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 4);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_54;
 		}
@@ -3260,9 +3260,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_54;
 		}
 		Truth conclusionTruth = Truth_DecomposePNN(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_54:
@@ -3283,21 +3283,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_55;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_55;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 4);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_55;
 		}
@@ -3308,14 +3308,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_55;
 		}
 		substitutions[34] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_55;
 		}
@@ -3331,9 +3331,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_55;
 		}
 		Truth conclusionTruth = Truth_DecomposePNN(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_55:
@@ -3350,14 +3350,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_56;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_56;
 		}
@@ -3372,21 +3372,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_56;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 3);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_56;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 4);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_56;
 		}
@@ -3402,9 +3402,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_56;
 		}
 		Truth conclusionTruth = Truth_DecomposeNPP(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_56:
@@ -3425,21 +3425,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_57;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_57;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 4);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_57;
 		}
@@ -3450,14 +3450,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_57;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_57;
 		}
@@ -3473,9 +3473,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_57;
 		}
 		Truth conclusionTruth = Truth_DecomposeNPP(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_57:
@@ -3492,14 +3492,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_58;
 		}
 		substitutions[34] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_58;
 		}
@@ -3514,21 +3514,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_58;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 3);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_58;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 4);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_58;
 		}
@@ -3544,9 +3544,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_58;
 		}
 		Truth conclusionTruth = Truth_DecomposeNPP(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_58:
@@ -3567,21 +3567,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_59;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_59;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 4);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_59;
 		}
@@ -3592,14 +3592,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_59;
 		}
 		substitutions[34] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_59;
 		}
@@ -3615,9 +3615,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_59;
 		}
 		Truth conclusionTruth = Truth_DecomposeNPP(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_59:
@@ -3634,14 +3634,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_60;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_60;
 		}
@@ -3656,21 +3656,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_60;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 3);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_60;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 4);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_60;
 		}
@@ -3686,9 +3686,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_60;
 		}
 		Truth conclusionTruth = Truth_DecomposePNP(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_60:
@@ -3709,21 +3709,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_61;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_61;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 4);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_61;
 		}
@@ -3734,14 +3734,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_61;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_61;
 		}
@@ -3757,9 +3757,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_61;
 		}
 		Truth conclusionTruth = Truth_DecomposePNP(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_61:
@@ -3776,14 +3776,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_62;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_62;
 		}
@@ -3798,21 +3798,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_62;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 3);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_62;
 		}
 		substitutions[34] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 4);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_62;
 		}
@@ -3828,9 +3828,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_62;
 		}
 		Truth conclusionTruth = Truth_DecomposeNNN(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_62:
@@ -3851,21 +3851,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_63;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_63;
 		}
 		substitutions[34] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 4);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_63;
 		}
@@ -3876,14 +3876,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_63;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_63;
 		}
@@ -3899,9 +3899,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_63;
 		}
 		Truth conclusionTruth = Truth_DecomposeNNN(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_63:
@@ -3918,14 +3918,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_64;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_64;
 		}
@@ -3936,7 +3936,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_64;
 		}
@@ -3947,14 +3947,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 5);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_64;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 6);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_64;
 		}
@@ -3970,9 +3970,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_64;
 		}
 		Truth conclusionTruth = Truth_DecomposePNN(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_64:
@@ -3989,7 +3989,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_65;
 		}
@@ -4000,14 +4000,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_65;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 6);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_65;
 		}
@@ -4018,14 +4018,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_65;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_65;
 		}
@@ -4041,9 +4041,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_65;
 		}
 		Truth conclusionTruth = Truth_DecomposePNN(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_65:
@@ -4060,14 +4060,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_66;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_66;
 		}
@@ -4078,7 +4078,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_66;
 		}
@@ -4089,14 +4089,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 5);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_66;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 6);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_66;
 		}
@@ -4112,9 +4112,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_66;
 		}
 		Truth conclusionTruth = Truth_DecomposePNN(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_66:
@@ -4131,7 +4131,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_67;
 		}
@@ -4142,14 +4142,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_67;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 6);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_67;
 		}
@@ -4160,14 +4160,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_67;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_67;
 		}
@@ -4183,9 +4183,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_67;
 		}
 		Truth conclusionTruth = Truth_DecomposePNN(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_67:
@@ -4202,14 +4202,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_68;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_68;
 		}
@@ -4220,7 +4220,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_68;
 		}
@@ -4231,14 +4231,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 5);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_68;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 6);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_68;
 		}
@@ -4254,9 +4254,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_68;
 		}
 		Truth conclusionTruth = Truth_DecomposeNPP(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_68:
@@ -4273,7 +4273,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_69;
 		}
@@ -4284,14 +4284,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_69;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 6);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_69;
 		}
@@ -4302,14 +4302,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_69;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_69;
 		}
@@ -4325,9 +4325,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_69;
 		}
 		Truth conclusionTruth = Truth_DecomposeNPP(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_69:
@@ -4344,14 +4344,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_70;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_70;
 		}
@@ -4362,7 +4362,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_70;
 		}
@@ -4373,14 +4373,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 5);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_70;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 6);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_70;
 		}
@@ -4396,9 +4396,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_70;
 		}
 		Truth conclusionTruth = Truth_DecomposeNPP(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_70:
@@ -4415,7 +4415,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_71;
 		}
@@ -4426,14 +4426,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_71;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 6);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_71;
 		}
@@ -4444,14 +4444,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_71;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_71;
 		}
@@ -4467,9 +4467,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_71;
 		}
 		Truth conclusionTruth = Truth_DecomposeNPP(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_71:
@@ -4486,14 +4486,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_72;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_72;
 		}
@@ -4504,7 +4504,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_72;
 		}
@@ -4515,14 +4515,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 5);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_72;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 6);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_72;
 		}
@@ -4538,9 +4538,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_72;
 		}
 		Truth conclusionTruth = Truth_DecomposePNP(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_72:
@@ -4557,7 +4557,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_73;
 		}
@@ -4568,14 +4568,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_73;
 		}
 		substitutions[33] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 6);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_73;
 		}
@@ -4586,14 +4586,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_73;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_73;
 		}
@@ -4609,9 +4609,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_73;
 		}
 		Truth conclusionTruth = Truth_DecomposePNP(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_73:
@@ -4628,14 +4628,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_74;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_74;
 		}
@@ -4646,7 +4646,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_74;
 		}
@@ -4657,14 +4657,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 5);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_74;
 		}
 		substitutions[34] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 6);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_74;
 		}
@@ -4680,9 +4680,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_74;
 		}
 		Truth conclusionTruth = Truth_DecomposeNNN(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_74:
@@ -4699,7 +4699,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_75;
 		}
@@ -4710,14 +4710,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[34].atoms[0] != 0 && !Term_Equal(&substitutions[34], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_75;
 		}
 		substitutions[34] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 6);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_75;
 		}
@@ -4728,14 +4728,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term2, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_75;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term2, 2);
 		if ((substitutions[33].atoms[0] != 0 && !Term_Equal(&substitutions[33], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_75;
 		}
@@ -4751,9 +4751,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_75;
 		}
 		Truth conclusionTruth = Truth_DecomposeNNN(truth2, truth1);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_75:
@@ -4774,21 +4774,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[32].atoms[0] != 0 && !Term_Equal(&substitutions[32], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_76;
 		}
 		substitutions[32] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_76;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 4);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_76;
 		}
@@ -4809,9 +4809,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_76;
 		}
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_76:
@@ -4828,7 +4828,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_77;
 		}
@@ -4839,14 +4839,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[32].atoms[0] != 0 && !Term_Equal(&substitutions[32], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_77;
 		}
 		substitutions[32] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 6);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_77;
 		}
@@ -4867,9 +4867,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_77;
 		}
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_77:
@@ -4890,21 +4890,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[32].atoms[0] != 0 && !Term_Equal(&substitutions[32], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_78;
 		}
 		substitutions[32] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_78;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 4);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_78;
 		}
@@ -4925,9 +4925,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_78;
 		}
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_78:
@@ -4944,7 +4944,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_79;
 		}
@@ -4955,14 +4955,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[32].atoms[0] != 0 && !Term_Equal(&substitutions[32], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_79;
 		}
 		substitutions[32] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 6);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_79;
 		}
@@ -4983,9 +4983,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_79;
 		}
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_79:
@@ -5002,7 +5002,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[32].atoms[0] != 0 && !Term_Equal(&substitutions[32], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_80;
 		}
@@ -5013,14 +5013,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_80;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 6);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_80;
 		}
@@ -5041,9 +5041,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_80;
 		}
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_80:
@@ -5064,21 +5064,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_81;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[32].atoms[0] != 0 && !Term_Equal(&substitutions[32], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_81;
 		}
 		substitutions[32] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 4);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_81;
 		}
@@ -5099,9 +5099,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_81;
 		}
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_81:
@@ -5118,7 +5118,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[32].atoms[0] != 0 && !Term_Equal(&substitutions[32], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_82;
 		}
@@ -5129,14 +5129,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_82;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 6);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_82;
 		}
@@ -5157,9 +5157,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_82;
 		}
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_82:
@@ -5180,21 +5180,21 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_83;
 		}
 		substitutions[29] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[32].atoms[0] != 0 && !Term_Equal(&substitutions[32], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_83;
 		}
 		substitutions[32] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 4);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_83;
 		}
@@ -5215,9 +5215,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_83;
 		}
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_83:
@@ -5234,7 +5234,7 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_84;
 		}
@@ -5249,9 +5249,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_84;
 		}
 		Truth conclusionTruth = Truth_Negation(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_84:
@@ -5268,14 +5268,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_85;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_85;
 		}
@@ -5286,9 +5286,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_85;
 		}
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_85:
@@ -5305,14 +5305,14 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_86;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_86;
 		}
@@ -5323,9 +5323,9 @@ RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusi
 			goto RULE_86;
 		}
 		Truth conclusionTruth = Truth_StructuralDeduction(truth1, truth2);
-		NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
-		                 currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
-		                 validation_cid);
+		nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp,
+		                  currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept,
+		                  validation_cid);
 	}
 
 	RULE_86:;
@@ -5353,21 +5353,21 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_87;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_87;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 4);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_87;
 		}
@@ -5382,8 +5382,8 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_87;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); Narsese_PrintTerm(&term1); fputs(" -> ",
-		                                                                                     stdout); Narsese_PrintTerm(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -5401,7 +5401,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_88;
 		}
@@ -5412,14 +5412,14 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_88;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 6);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_88;
 		}
@@ -5434,8 +5434,8 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_88;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); Narsese_PrintTerm(&term1); fputs(" -> ",
-		                                                                                     stdout); Narsese_PrintTerm(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -5457,21 +5457,21 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_89;
 		}
 		substitutions[31] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 3);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_89;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 4);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_89;
 		}
@@ -5486,8 +5486,8 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_89;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); Narsese_PrintTerm(&term1); fputs(" -> ",
-		                                                                                     stdout); Narsese_PrintTerm(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -5505,7 +5505,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_90;
 		}
@@ -5516,14 +5516,14 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 5);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_90;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 6);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_90;
 		}
@@ -5538,8 +5538,8 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_90;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); Narsese_PrintTerm(&term1); fputs(" -> ",
-		                                                                                     stdout); Narsese_PrintTerm(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -5557,14 +5557,14 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_91;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_91;
 		}
@@ -5574,8 +5574,8 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_91;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); Narsese_PrintTerm(&term1); fputs(" -> ",
-		                                                                                     stdout); Narsese_PrintTerm(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -5597,7 +5597,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_92;
 		}
@@ -5612,7 +5612,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 7);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_92;
 		}
@@ -5623,7 +5623,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 9);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_92;
 		}
@@ -5647,8 +5647,8 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_92;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); Narsese_PrintTerm(&term1); fputs(" -> ",
-		                                                                                     stdout); Narsese_PrintTerm(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -5666,7 +5666,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_93;
 		}
@@ -5685,7 +5685,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 11);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_93;
 		}
@@ -5696,7 +5696,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 13);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_93;
 		}
@@ -5720,8 +5720,8 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_93;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); Narsese_PrintTerm(&term1); fputs(" -> ",
-		                                                                                     stdout); Narsese_PrintTerm(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -5743,7 +5743,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_94;
 		}
@@ -5758,7 +5758,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 7);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_94;
 		}
@@ -5769,7 +5769,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 9);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_94;
 		}
@@ -5793,8 +5793,8 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_94;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); Narsese_PrintTerm(&term1); fputs(" -> ",
-		                                                                                     stdout); Narsese_PrintTerm(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -5812,7 +5812,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_95;
 		}
@@ -5831,7 +5831,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 11);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_95;
 		}
@@ -5842,7 +5842,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 13);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_95;
 		}
@@ -5866,8 +5866,8 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_95;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); Narsese_PrintTerm(&term1); fputs(" -> ",
-		                                                                                     stdout); Narsese_PrintTerm(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -5889,7 +5889,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_96;
 		}
@@ -5904,14 +5904,14 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 7);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_96;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 8);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_96;
 		}
@@ -5931,8 +5931,8 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_96;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); Narsese_PrintTerm(&term1); fputs(" -> ",
-		                                                                                     stdout); Narsese_PrintTerm(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -5950,7 +5950,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_97;
 		}
@@ -5969,14 +5969,14 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 11);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_97;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 12);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_97;
 		}
@@ -5996,8 +5996,8 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_97;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); Narsese_PrintTerm(&term1); fputs(" -> ",
-		                                                                                     stdout); Narsese_PrintTerm(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -6019,7 +6019,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 2);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_98;
 		}
@@ -6034,14 +6034,14 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 7);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_98;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 8);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_98;
 		}
@@ -6061,8 +6061,8 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_98;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); Narsese_PrintTerm(&term1); fputs(" -> ",
-		                                                                                     stdout); Narsese_PrintTerm(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -6080,7 +6080,7 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 1);
 		if ((substitutions[31].atoms[0] != 0 && !Term_Equal(&substitutions[31], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_99;
 		}
@@ -6099,14 +6099,14 @@ RuleTableReduce(Term term1, bool doublePremise)
 		}
 		subtree = Term_ExtractSubterm(&term1, 11);
 		if ((substitutions[28].atoms[0] != 0 && !Term_Equal(&substitutions[28], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_99;
 		}
 		substitutions[28] = subtree;
 		subtree = Term_ExtractSubterm(&term1, 12);
 		if ((substitutions[29].atoms[0] != 0 && !Term_Equal(&substitutions[29], &subtree)) ||
-			Narsese_copulaEquals(subtree.atoms[0], '@'))
+			narsese_copula_equals(subtree.atoms[0], '@'))
 		{
 			goto RULE_99;
 		}
@@ -6126,8 +6126,8 @@ RuleTableReduce(Term term1, bool doublePremise)
 		{
 			goto RULE_99;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); Narsese_PrintTerm(&term1); fputs(" -> ",
-		                                                                                     stdout); Narsese_PrintTerm(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}

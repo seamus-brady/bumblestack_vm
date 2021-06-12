@@ -19,9 +19,9 @@
 static void
 Shell_op_left(Term args)
 {
-	fputs(Narsese_operatorNames[0], stdout);
+	fputs(g_narsese_operatorNames[0], stdout);
 	fputs(" executed with args ", stdout);
-	Narsese_PrintTerm(&args);
+	narsese_print_term(&args);
 	puts("");
 	fflush(stdout);
 }
@@ -29,9 +29,9 @@ Shell_op_left(Term args)
 static void
 Shell_op_right(Term args)
 {
-	fputs(Narsese_operatorNames[1], stdout);
+	fputs(g_narsese_operatorNames[1], stdout);
 	fputs(" executed with args ", stdout);
-	Narsese_PrintTerm(&args);
+	narsese_print_term(&args);
 	puts("");
 	fflush(stdout);
 }
@@ -39,9 +39,9 @@ Shell_op_right(Term args)
 static void
 Shell_op_up(Term args)
 {
-	fputs(Narsese_operatorNames[2], stdout);
+	fputs(g_narsese_operatorNames[2], stdout);
 	fputs(" executed with args ", stdout);
-	Narsese_PrintTerm(&args);
+	narsese_print_term(&args);
 	puts("");
 	fflush(stdout);
 }
@@ -49,9 +49,9 @@ Shell_op_up(Term args)
 static void
 Shell_op_down(Term args)
 {
-	fputs(Narsese_operatorNames[3], stdout);
+	fputs(g_narsese_operatorNames[3], stdout);
 	fputs(" executed with args ", stdout);
-	Narsese_PrintTerm(&args);
+	narsese_print_term(&args);
 	puts("");
 	fflush(stdout);
 }
@@ -59,9 +59,9 @@ Shell_op_down(Term args)
 static void
 Shell_op_say(Term args)
 {
-	fputs(Narsese_operatorNames[4], stdout);
+	fputs(g_narsese_operatorNames[4], stdout);
 	fputs(" executed with args ", stdout);
-	Narsese_PrintTerm(&args);
+	narsese_print_term(&args);
 	puts("");
 	fflush(stdout);
 }
@@ -69,9 +69,9 @@ Shell_op_say(Term args)
 static void
 Shell_op_pick(Term args)
 {
-	fputs(Narsese_operatorNames[5], stdout);
+	fputs(g_narsese_operatorNames[5], stdout);
 	fputs(" executed with args ", stdout);
-	Narsese_PrintTerm(&args);
+	narsese_print_term(&args);
 	puts("");
 	fflush(stdout);
 }
@@ -79,9 +79,9 @@ Shell_op_pick(Term args)
 static void
 Shell_op_drop(Term args)
 {
-	fputs(Narsese_operatorNames[6], stdout);
+	fputs(g_narsese_operatorNames[6], stdout);
 	fputs(" executed with args ", stdout);
-	Narsese_PrintTerm(&args);
+	narsese_print_term(&args);
 	puts("");
 	fflush(stdout);
 }
@@ -89,9 +89,9 @@ Shell_op_drop(Term args)
 static void
 Shell_op_go(Term args)
 {
-	fputs(Narsese_operatorNames[7], stdout);
+	fputs(g_narsese_operatorNames[7], stdout);
 	fputs(" executed with args ", stdout);
-	Narsese_PrintTerm(&args);
+	narsese_print_term(&args);
 	puts("");
 	fflush(stdout);
 }
@@ -99,9 +99,9 @@ Shell_op_go(Term args)
 static void
 Shell_op_activate(Term args)
 {
-	fputs(Narsese_operatorNames[8], stdout);
+	fputs(g_narsese_operatorNames[8], stdout);
 	fputs(" executed with args ", stdout);
-	Narsese_PrintTerm(&args);
+	narsese_print_term(&args);
 	puts("");
 	fflush(stdout);
 }
@@ -109,9 +109,9 @@ Shell_op_activate(Term args)
 static void
 Shell_op_deactivate(Term args)
 {
-	fputs(Narsese_operatorNames[9], stdout);
+	fputs(g_narsese_operatorNames[9], stdout);
 	fputs(" executed with args ", stdout);
-	Narsese_PrintTerm(&args);
+	narsese_print_term(&args);
 	puts("");
 	fflush(stdout);
 }
@@ -127,57 +127,57 @@ Shell_NARInit()
 	{
 		return;
 	};
-	NAR_AddOperation(Narsese_AtomicTerm("^left"), Shell_op_left);
+	NAR_AddOperation(narsese_atomic_term("^left"), Shell_op_left);
 	if (++k >= OPERATIONS_MAX)
 	{
 		return;
 	};
-	NAR_AddOperation(Narsese_AtomicTerm("^right"), Shell_op_right);
+	NAR_AddOperation(narsese_atomic_term("^right"), Shell_op_right);
 	if (++k >= OPERATIONS_MAX)
 	{
 		return;
 	};
-	NAR_AddOperation(Narsese_AtomicTerm("^up"), Shell_op_up);
+	NAR_AddOperation(narsese_atomic_term("^up"), Shell_op_up);
 	if (++k >= OPERATIONS_MAX)
 	{
 		return;
 	};
-	NAR_AddOperation(Narsese_AtomicTerm("^down"), Shell_op_down);
+	NAR_AddOperation(narsese_atomic_term("^down"), Shell_op_down);
 	if (++k >= OPERATIONS_MAX)
 	{
 		return;
 	};
-	NAR_AddOperation(Narsese_AtomicTerm("^say"), Shell_op_say);
+	NAR_AddOperation(narsese_atomic_term("^say"), Shell_op_say);
 	if (++k >= OPERATIONS_MAX)
 	{
 		return;
 	};
-	NAR_AddOperation(Narsese_AtomicTerm("^pick"), Shell_op_pick);
+	NAR_AddOperation(narsese_atomic_term("^pick"), Shell_op_pick);
 	if (++k >= OPERATIONS_MAX)
 	{
 		return;
 	};
-	NAR_AddOperation(Narsese_AtomicTerm("^drop"), Shell_op_drop);
+	NAR_AddOperation(narsese_atomic_term("^drop"), Shell_op_drop);
 	if (++k >= OPERATIONS_MAX)
 	{
 		return;
 	};
-	NAR_AddOperation(Narsese_AtomicTerm("^go"), Shell_op_go);
+	NAR_AddOperation(narsese_atomic_term("^go"), Shell_op_go);
 	if (++k >= OPERATIONS_MAX)
 	{
 		return;
 	};
-	NAR_AddOperation(Narsese_AtomicTerm("^activate"), Shell_op_activate);
+	NAR_AddOperation(narsese_atomic_term("^activate"), Shell_op_activate);
 	if (++k >= OPERATIONS_MAX)
 	{
 		return;
 	};
-	NAR_AddOperation(Narsese_AtomicTerm("^deactivate"), Shell_op_deactivate);
+	NAR_AddOperation(narsese_atomic_term("^deactivate"), Shell_op_deactivate);
 	if (++k >= OPERATIONS_MAX)
 	{
 		return;
 	};
-	assert(false, "Shell_NARInit: Ran out of operators, add more there, or decrease OPERATIONS_MAX!");
+	ASSERT(false, "Shell_NARInit: Ran out of operators, add more there, or decrease OPERATIONS_MAX!");
 }
 
 int
@@ -218,35 +218,35 @@ Shell_ProcessInput(char *line)
 		else if (!strcmp(line, "*stats"))
 		{
 			puts("//*stats");
-			statsPrint(currentTime);
+			statsPrint(g_currentTime);
 			puts("//*done");
 		}
 		else if (!strcmp(line, "*inverted_atom_index"))
 		{
-			invertedAtomIndexPrint();
+			inverted_atom_index_print();
 		}
-		else if (!strcmp(line, "*concepts"))
+		else if (!strcmp(line, "*g_concepts"))
 		{
-			puts("//*concepts");
+			puts("//*g_concepts");
 			for (int opi = 0; opi < OPERATIONS_MAX; opi++)
 			{
-				if (operations[opi].term.atoms[0])
+				if (g_operations[opi].term.atoms[0])
 				{
 					printf("*setopname %d ", opi + 1);
-					Narsese_PrintTerm(&operations[opi].term);
+					narsese_print_term(&g_operations[opi].term);
 					puts("");
 				}
 			}
-			for (int i = 0; i < concepts.itemsAmount; i++)
+			for (int i = 0; i < g_concepts.itemsAmount; i++)
 			{
-				Concept *c = concepts.items[i].address;
-				assert(c != NULL, "Concept is null");
+				Concept *c = g_concepts.items[i].address;
+				ASSERT(c != NULL, "Concept is null");
 				fputs("//", stdout);
-				Narsese_PrintTerm(&c->term);
+				narsese_print_term(&c->term);
 				printf(
 					": { \"priority\": %f, \"usefulness\": %f, \"useCount\": %ld, \"lastUsed\": %ld, \"frequency\": %f, \"confidence\": %f, \"termlinks\": [",
 					c->priority,
-					concepts.items[i].priority,
+					g_concepts.items[i].priority,
 					c->usage.useCount,
 					c->usage.lastUsed,
 					c->belief.truth.frequency,
@@ -258,27 +258,27 @@ Shell_ProcessInput(char *line)
 				Term right_left = Term_ExtractSubterm(&right, 1);
 				Term right_right = Term_ExtractSubterm(&right, 2);
 				fputs("\"", stdout);
-				Narsese_PrintTerm(&left);
+				narsese_print_term(&left);
 				fputs("\", ", stdout);
 				fputs("\"", stdout);
-				Narsese_PrintTerm(&right);
+				narsese_print_term(&right);
 				fputs("\", ", stdout);
 				fputs("\"", stdout);
-				Narsese_PrintTerm(&left_left);
+				narsese_print_term(&left_left);
 				fputs("\", ", stdout);
 				fputs("\"", stdout);
-				Narsese_PrintTerm(&left_right);
+				narsese_print_term(&left_right);
 				fputs("\", ", stdout);
 				fputs("\"", stdout);
-				Narsese_PrintTerm(&right_left);
+				narsese_print_term(&right_left);
 				fputs("\", ", stdout);
 				fputs("\"", stdout);
-				Narsese_PrintTerm(&right_right);
+				narsese_print_term(&right_right);
 				fputs("\"", stdout);
 				puts("]}");
 				if (c->belief.type != EVENT_TYPE_DELETED)
 				{
-					Memory_printAddedEvent(&c->belief, 1, true, false, false, false);
+					memory_print_added_event(&c->belief, 1, true, false, false, false);
 				}
 				for (int opi = 0; opi < OPERATIONS_MAX; opi++)
 				{
@@ -292,29 +292,29 @@ Shell_ProcessInput(char *line)
 			}
 			puts("//*done");
 		}
-		else if (!strcmp(line, "*cycling_belief_events"))
+		else if (!strcmp(line, "*g_cyclingBeliefEvents"))
 		{
-			puts("//*cycling_belief_events");
-			for (int i = 0; i < cycling_belief_events.itemsAmount; i++)
+			puts("//*g_cyclingBeliefEvents");
+			for (int i = 0; i < g_cyclingBeliefEvents.itemsAmount; i++)
 			{
-				Event *e = cycling_belief_events.items[i].address;
-				assert(e != NULL, "Event is null");
-				Narsese_PrintTerm(&e->term);
-				printf(": { \"priority\": %f, \"time\": %ld } ", cycling_belief_events.items[i].priority,
+				Event *e = g_cyclingBeliefEvents.items[i].address;
+				ASSERT(e != NULL, "Event is null");
+				narsese_print_term(&e->term);
+				printf(": { \"priority\": %f, \"time\": %ld } ", g_cyclingBeliefEvents.items[i].priority,
 				       e->occurrenceTime);
 				Truth_Print(&e->truth);
 			}
 			puts("//*done");
 		}
-		else if (!strcmp(line, "*cycling_goal_events"))
+		else if (!strcmp(line, "*g_cyclingGoalEvents"))
 		{
-			puts("//*cycling_goal_events");
-			for (int i = 0; i < cycling_goal_events.itemsAmount; i++)
+			puts("//*g_cyclingGoalEvents");
+			for (int i = 0; i < g_cyclingGoalEvents.itemsAmount; i++)
 			{
-				Event *e = cycling_goal_events.items[i].address;
-				assert(e != NULL, "Event is null");
-				Narsese_PrintTerm(&e->term);
-				printf(": {\"priority\": %f, \"time\": %ld } ", cycling_goal_events.items[i].priority,
+				Event *e = g_cyclingGoalEvents.items[i].address;
+				ASSERT(e != NULL, "Event is null");
+				narsese_print_term(&e->term);
+				printf(": {\"priority\": %f, \"time\": %ld } ", g_cyclingGoalEvents.items[i].priority,
 				       e->occurrenceTime);
 				Truth_Print(&e->truth);
 			}
@@ -349,10 +349,10 @@ Shell_ProcessInput(char *line)
 			int opID;
 			char opname[ATOMIC_TERM_LEN_MAX] = {0};
 			sscanf(&line[strlen("*setopname ")], "%d %s", &opID, (char *) &opname);
-			Term previousOpAtom = Narsese_AtomicTerm(Narsese_operatorNames[opID - 1]);
-			strncpy(Narsese_operatorNames[opID - 1], opname, ATOMIC_TERM_LEN_MAX);
-			strncpy(Narsese_atomNames[previousOpAtom.atoms[0] - 1], opname, ATOMIC_TERM_LEN_MAX);
-			operations[opID - 1].term = Narsese_AtomicTerm(Narsese_operatorNames[opID - 1]);
+			Term previousOpAtom = narsese_atomic_term(g_narsese_operatorNames[opID - 1]);
+			strncpy(g_narsese_operatorNames[opID - 1], opname, ATOMIC_TERM_LEN_MAX);
+			strncpy(g_narsese_atomNames[previousOpAtom.atoms[0] - 1], opname, ATOMIC_TERM_LEN_MAX);
+			g_operations[opID - 1].term = narsese_atomic_term(g_narsese_operatorNames[opID - 1]);
 		}
 		else if (strspn(line, "0123456789") && strlen(line) == strspn(line, "0123456789"))
 		{
@@ -382,7 +382,7 @@ Shell_Start()
 		char line[1024] = {0};
 		if (fgets(line, 1024, stdin) == NULL)
 		{
-			statsPrint(currentTime);
+			statsPrint(g_currentTime);
 			break;
 		}
 		int cmd = Shell_ProcessInput(line);

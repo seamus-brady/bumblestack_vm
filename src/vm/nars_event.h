@@ -46,14 +46,17 @@ typedef struct
 
 //Methods//
 //-------//
+
 //Init/Reset module
 void
-Event_INIT();
+event_init();
+
 //construct an input event
 Event
-Event_InputEvent(Term term, char type, Truth truth, long currentTime);
+event_input_event(Term term, char type, Truth truth, long currentTime);
+
 //Whether two events are the same
 bool
-Event_Equal(Event *event, Event *existing);
+event_equal(Event *event, Event *existing);
 
 #endif

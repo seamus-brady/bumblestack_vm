@@ -54,12 +54,15 @@ typedef struct
 
 //Methods//
 //-------//
+
 //execute decision
 void
-Decision_Execute(Decision *decision);
+decision_execute(Decision *decision);
+
 //assumption of failure, also works for "do nothing operator"
 void
-Decision_Anticipate(int operationID, long currentTime);
+decision_anticipate(int operationID, long currentTime);
+
 //NAR decision making rule applying when goal is an operation
 Decision
 Decision_Suggest(Concept *goalconcept, Event *goal, long currentTime);

@@ -17,7 +17,7 @@
 #include "nars_hashtable.h"
 
 void *
-HashTable_Get(HashTable *hashtable, void *key)
+hashtable_get(HashTable *hashtable, void *key)
 {
 	HASH_TYPE keyhash = hashtable->hash(key) % hashtable->buckets;
 	VMItem *item = hashtable->HT[keyhash];
@@ -32,7 +32,7 @@ HashTable_Get(HashTable *hashtable, void *key)
 }
 
 void
-HashTable_Set(HashTable *hashtable, void *key, void *value)
+hashtable_set(HashTable *hashtable, void *key, void *value)
 {
 	HASH_TYPE keyhash = hashtable->hash(key) % hashtable->buckets;
 	//Check if item already exists in hashtable, if yes return
@@ -61,13 +61,13 @@ HashTable_Set(HashTable *hashtable, void *key, void *value)
 		//Case2: HT at hash not empty so add recycled item at end of the chain of HT[keyhash]
 	else
 	{
-		assert(item != NULL, "VMItem should not be null!");
+		ASSERT(item != NULL, "VMItem should not be null!");
 		item->next = popped;
 	}
 }
 
 void
-HashTable_Delete(HashTable *hashtable, void *key)
+hashtable_delete(HashTable *hashtable, void *key)
 {
 	HASH_TYPE keyhash = hashtable->hash(key) % hashtable->buckets;
 	VMItem *item = hashtable->HT[keyhash];
@@ -98,11 +98,11 @@ HashTable_Delete(HashTable *hashtable, void *key)
 			return;
 		}
 	}
-	assert(false, "HashTable deletion failed, item was not found!");
+	ASSERT(false, "HashTable deletion failed, item was not found!");
 }
 
 void
-HashTable_INIT(HashTable *hashtable, VMItem *storage, VMItem **storageptrs, VMItem **HT, int buckets, int maxElements,
+hashtable_init(HashTable *hashtable, VMItem *storage, VMItem **storageptrs, VMItem **HT, int buckets, int maxElements,
                Equal equal, Hash hash)
 {
 	hashtable->storage = storage;
@@ -126,7 +126,7 @@ HashTable_INIT(HashTable *hashtable, VMItem *storage, VMItem **storageptrs, VMIt
 }
 
 int
-HashTable_MaximumChainLength(HashTable *hashtable)
+hashtable_maximum_chain_length(HashTable *hashtable)
 {
 	int maxlen = 0;
 	for (int i = 0; i < hashtable->buckets; i++)

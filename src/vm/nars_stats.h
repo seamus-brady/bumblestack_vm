@@ -32,7 +32,7 @@
 extern long Stats_countConceptsMatchedTotal;
 extern long Stats_countConceptsMatchedMax;
 //From Narsese module, for stats purposes:
-extern HashTable HTatoms;
+extern HashTable g_hashtableAtomsStruct;
 
 //Methods//
 //-------//

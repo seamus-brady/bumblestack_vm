@@ -32,7 +32,7 @@
 //Data structure//
 //--------------//
 //A truth-expectation-ranked table for Implications, similar as pre- and post-condition table in OpenNARS,
-//except that this table supports revision by itself (as in NAR implications don't form concepts).
+//except that this table supports revision by itself (as in NAR implications don't form g_concepts).
 typedef struct
 {
 	Implication array[TABLE_SIZE];

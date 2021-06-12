@@ -30,7 +30,7 @@
 //Parameters//
 //----------//
 #define NAR_DEFAULT_TRUTH ((Truth) { .frequency = NAR_DEFAULT_FREQUENCY, .confidence = NAR_DEFAULT_CONFIDENCE })
-extern long currentTime;
+extern long g_currentTime;
 
 //Callback function types//
 //-----------------------//

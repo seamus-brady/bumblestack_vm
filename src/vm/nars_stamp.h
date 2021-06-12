@@ -43,7 +43,7 @@ typedef struct
 //zip stamp1 and stamp2 into a stamp
 Stamp
 Stamp_make(Stamp *stamp1, Stamp *stamp2);
-//true iff there is evidental base overlap between a and b
+//true iff there is evidental g_base overlap between a and b
 bool
 Stamp_checkOverlap(Stamp *a, Stamp *b);
 //print stamp

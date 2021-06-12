@@ -33,29 +33,34 @@
 //-------//
 //Generates inference rule code
 void
-NAL_GenerateRuleTable();
+nal_generate_rule_table();
 //Method for the derivation of new events as called by the generated rule table
 void
-NAL_DerivedEvent(Term conclusionTerm,
-                 long conclusionOccurrence,
-                 Truth conclusionTruth,
-                 Stamp stamp,
-                 long currentTime,
-                 double parentPriority,
-                 double conceptPriority,
-                 double occurrenceTimeOffset,
-                 Concept *validation_concept,
-                 long validation_cid);
+nal_derived_event(Term conclusionTerm,
+                  long conclusionOccurrence,
+                  Truth conclusionTruth,
+                  Stamp stamp,
+                  long currentTime,
+                  double parentPriority,
+                  double conceptPriority,
+                  double occurrenceTimeOffset,
+                  Concept *validation_concept,
+                  long validation_cid);
+
 //macro for syntactic representation, increases readability, double premise inference
-#define R2(premise1, premise2, _, conclusion, truthFunction) NAL_GenerateRule(#premise1, #premise2, #conclusion, #truthFunction, true,false); NAL_GenerateRule(#premise2, #premise1, #conclusion, #truthFunction, true, true);
+#define R2(premise1, premise2, _, conclusion, truthFunction) nal_generate_rule(#premise1, #premise2, #conclusion, #truthFunction, true,false); nal_generate_rule(#premise2, #premise1, #conclusion, #truthFunction, true, true);
+
 //macro for syntactic representation, increases readability, single premise inference
-#define R1(premise1, _, conclusion, truthFunction) NAL_GenerateRule(#premise1, NULL, #conclusion, #truthFunction, false, false);
+#define R1(premise1, _, conclusion, truthFunction) nal_generate_rule(#premise1, NULL, #conclusion, #truthFunction, false, false);
+
 //macro for bidirectional transformation rules
-#define RTrans(rep1, _, rep2, truthFunction) NAL_GenerateRule(#rep1, NULL, #rep2, #truthFunction, false, false); NAL_GenerateRule(#rep2, NULL, #rep1, #truthFunction, false, false);
+#define RTrans(rep1, _, rep2, truthFunction) nal_generate_rule(#rep1, NULL, #rep2, #truthFunction, false, false); nal_generate_rule(#rep2, NULL, #rep1, #truthFunction, false, false);
+
 //macro for term reductions
-#define ReduceTerm(pattern, replacement) NAL_GenerateReduction("(" #pattern " --> M) ", "(" #replacement " --> M)"); NAL_GenerateReduction("(M --> " #pattern ")", "(M --> " #replacement ")");
+#define ReduceTerm(pattern, replacement) nal_generate_reduction("(" #pattern " --> M) ", "(" #replacement " --> M)"); nal_generate_reduction("(M --> " #pattern ")", "(M --> " #replacement ")");
+
 //macro for statement reductions
-#define ReduceStatement(pattern, replacement) NAL_GenerateReduction(#pattern, #replacement);
+#define ReduceStatement(pattern, replacement) nal_generate_reduction(#pattern, #replacement);
 
 #endif
 
@@ -68,6 +73,7 @@ R2( (S --> M), (M --> P), |-, (S --> P), Truth_Deduction )
 R2( (A --> B), (A --> C), |-, (C --> B), Truth_Induction )
 R2( (A --> C), (B --> C), |-, (B --> A), Truth_Abduction )
 R2( (A --> B), (B --> C), |-, (C --> A), Truth_Exemplification )
+
 //NAL2 rules
 R1( (S <-> P), |-, (P <-> S), Truth_StructuralDeduction )
 R1( (S --> {P}), |-, (S <-> {P}), Truth_StructuralDeduction )
@@ -81,6 +87,7 @@ R2( (P --> [M]), (S <-> M), |-, (P --> [S]), Truth_Analogy )
 R2( (M <-> P), (S <-> M), |-, (S <-> P), Truth_Resemblance )
 R1( ({A} <-> {B}), |-, (A <-> B), Truth_StructuralDeduction )
 R1( ([A] <-> [B]), |-, (A <-> B), Truth_StructuralDeduction )
+
 //NAL3 rules
 R1( ({A B} --> M), |-, <{A} --> M>, Truth_StructuralDeduction )
 R1( ({A B} --> M), |-, <{B} --> M>, Truth_StructuralDeduction )
@@ -112,15 +119,18 @@ R2( (M --> S), (M --> (S | P)), |-, (M --> P), Truth_DecomposeNPP )
 R2( (M --> P), (M --> (S | P)), |-, (M --> S), Truth_DecomposeNPP )
 R2( (M --> S), (M --> (S - P)), |-, (M --> P), Truth_DecomposePNP )
 R2( (M --> S), (M --> (P - S)), |-, (M --> P), Truth_DecomposeNNN )
+
 //NAL4 rules
 RTrans( ((A * B) --> R), -|-, (A --> (R /1 B)), Truth_StructuralDeduction )
 RTrans( ((A * B) --> R), -|-, (B --> (R /2 A)), Truth_StructuralDeduction )
 RTrans( (R --> (A * B)), -|-, ((R \\1 B) --> A), Truth_StructuralDeduction )
 RTrans( (R --> (A * B)), -|-, ((R \\2 A) --> B), Truth_StructuralDeduction )
+
 //NAL5 rules
 R1( (! A), |-, A, Truth_Negation )
 R1( (A && B), |-, A, Truth_StructuralDeduction )
 R1( (A && B), |-, B, Truth_StructuralDeduction )
+
 //Other NAL5/6/7/8 temporal induction and conditional inference is handled by sensorimotor inference, see Inference.h!
 
 #endif

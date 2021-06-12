@@ -21,7 +21,7 @@
 //  RuleTable  //
 /////////////////
 //The rule table which .vm is generated at compile time
-//by NAL_GenerateRuleTable
+//by nal_generate_rule_table
 
 //References//
 //----------//

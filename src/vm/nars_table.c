@@ -19,7 +19,7 @@
 Implication *
 Table_Add(Table *table, Implication *imp)
 {
-	assert(imp->sourceConcept != NULL, "Attempted to add an implication without source concept!");
+	ASSERT(imp->sourceConcept != NULL, "Attempted to add an implication without source concept!");
 	double impTruthExp = Truth_Expectation(imp->truth);
 	for (int i = 0; i < TABLE_SIZE; i++)
 	{
@@ -72,17 +72,17 @@ Table_AddAndRevise(Table *table, Implication *imp)
 	{
 		//revision adds the revised element, removing the old implication from the table
 		Implication OldImp = table->array[same_i];
-		assert(OldImp.truth.frequency >= 0.0 && OldImp.truth.frequency <= 1.0, "(1) frequency out of bounds");
-		assert(OldImp.truth.confidence >= 0.0 && OldImp.truth.confidence <= 1.0, "(1) confidence out of bounds");
-		assert(imp->truth.frequency >= 0.0 && imp->truth.frequency <= 1.0, "(2) frequency out of bounds");
-		assert(imp->truth.confidence >= 0.0 && imp->truth.confidence <= 1.0, "(2) confidence out of bounds");
-		Implication revised = Inference_ImplicationRevision(&OldImp, imp);
-		assert(revised.truth.frequency >= 0.0 && revised.truth.frequency <= 1.0, "(3) frequency out of bounds");
-		assert(revised.truth.confidence >= 0.0 && revised.truth.confidence <= 1.0, "(3) confidence out of bounds");
+		ASSERT(OldImp.truth.frequency >= 0.0 && OldImp.truth.frequency <= 1.0, "(1) frequency out of bounds");
+		ASSERT(OldImp.truth.confidence >= 0.0 && OldImp.truth.confidence <= 1.0, "(1) confidence out of bounds");
+		ASSERT(imp->truth.frequency >= 0.0 && imp->truth.frequency <= 1.0, "(2) frequency out of bounds");
+		ASSERT(imp->truth.confidence >= 0.0 && imp->truth.confidence <= 1.0, "(2) confidence out of bounds");
+		Implication revised = inference_implication_revision(&OldImp, imp);
+		ASSERT(revised.truth.frequency >= 0.0 && revised.truth.frequency <= 1.0, "(3) frequency out of bounds");
+		ASSERT(revised.truth.confidence >= 0.0 && revised.truth.confidence <= 1.0, "(3) confidence out of bounds");
 		revised.term = imp->term;
 		Table_Remove(table, same_i);
 		Implication *ret = Table_Add(table, &revised);
-		assert(ret != NULL, "Deletion and re-addition should have succeeded");
+		ASSERT(ret != NULL, "Deletion and re-addition should have succeeded");
 		return ret;
 	}
 	else

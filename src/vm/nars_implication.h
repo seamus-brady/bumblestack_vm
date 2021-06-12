@@ -20,7 +20,7 @@
 //////////////////////
 //  Implication     //
 //////////////////////
-//essentially allowing concepts to predict activations of others
+//essentially allowing g_concepts to predict activations of others
 
 //References//
 //----------//

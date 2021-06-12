@@ -20,7 +20,7 @@
 #include <stdlib.h>
 
 void
-Globals_Assert(bool b, char *message)
+globals_assert(bool b, char *message)
 {
 	if (!b)
 	{
@@ -31,7 +31,7 @@ Globals_Assert(bool b, char *message)
 }
 
 HASH_TYPE
-Globals_Hash(HASH_TYPE *data, int pieces)
+globals_hash(HASH_TYPE *data, int pieces)
 {
 	HASH_TYPE hash = 0;
 	for (int i = 0; i < pieces; i++, data++)
@@ -53,14 +53,14 @@ static unsigned long next = 1;
 
 /* RAND_MAX assumed to be 32767 */
 int
-myrand(void)
+globals_next_rand(void)
 {
 	next = next * 1103515245 + 12345;
 	return ((unsigned) (next / 65536) % 32768);
 }
 
 void
-mysrand(unsigned int seed)
+globals_sys_rand(unsigned int seed)
 {
 	next = seed;
 }

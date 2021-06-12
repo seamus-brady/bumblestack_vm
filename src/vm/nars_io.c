@@ -30,25 +30,25 @@ run_operation_diagnostic()
 {
 	slog_info("Running operation diagnostic test...");
 	slog_info("Add operation...");
-	NAR_AddOperation(Narsese_AtomicTerm("^op"), diagnosticTestOperation);
+	NAR_AddOperation(narsese_atomic_term("^op"), diagnosticTestOperation);
 	slog_info("Add belief...");
-	NAR_AddInputBelief(Narsese_AtomicTerm("a"));
+	NAR_AddInputBelief(narsese_atomic_term("a"));
 	slog_info("Run 1 inference cycle...");
 	NAR_Cycles(1);
 	slog_info("Add belief...");
-	NAR_AddInputBelief(Narsese_AtomicTerm("^op"));
+	NAR_AddInputBelief(narsese_atomic_term("^op"));
 	slog_info("Run 1 inference cycle...");
 	NAR_Cycles(1);
 	slog_info("Add belief...");
-	NAR_AddInputBelief(Narsese_AtomicTerm("result"));
+	NAR_AddInputBelief(narsese_atomic_term("result"));
 	slog_info("Run 1 inference cycle...");
 	NAR_Cycles(1);
 	slog_info("Add belief...");
-	NAR_AddInputBelief(Narsese_AtomicTerm("a"));
+	NAR_AddInputBelief(narsese_atomic_term("a"));
 	slog_info("Run 1 inference cycle...");
 	NAR_Cycles(1);
 	slog_info("Add goal...");
-	NAR_AddInputGoal(Narsese_AtomicTerm("result"));
+	NAR_AddInputGoal(narsese_atomic_term("result"));
 	slog_info("Run 1 inference cycle...");
 	NAR_Cycles(1);
 	slog_info("Finished operation diagnostic test.");
@@ -59,16 +59,16 @@ run_ruletable_diagnostic()
 {
 	slog_info("Running a diagnostic ruletable test...");
 	slog_info("Adding input...");
-	NAR_AddInput(Narsese_Term(
+	NAR_AddInput(narsese_term(
 		"<cat --> animal>"), EVENT_TYPE_BELIEF, NAR_DEFAULT_TRUTH,
 	             true, 0, false);
 	slog_info("Adding input...");
-	NAR_AddInput(Narsese_Term(
+	NAR_AddInput(narsese_term(
 		"<animal --> being>"), EVENT_TYPE_BELIEF, NAR_DEFAULT_TRUTH,
 	             true, 0, false);
 	slog_info("Running 10 inference cycles...");
 	NAR_Cycles(10);
-	assert(currentTime != 0, "Internal cycle time should not be zero.");
+	ASSERT(g_currentTime != 0, "Internal cycle time should not be zero.");
 	slog_info("Finished diagnostic ruletable test.");
 }
 
@@ -82,7 +82,7 @@ run_diagnostics(void)
 }
 
 void
-setupLogging()
+setup_logging()
 {// Enable all logging levels
 	int enabledLevels = SLOG_FLAGS_ALL;
 
@@ -105,28 +105,28 @@ setupLogging()
 }
 
 void
-printConcepts()
+print_concepts()
 {
-	slog_info("Printing concepts:");
+	slog_info("Printing g_concepts:");
 	for (int opi = 0; opi < OPERATIONS_MAX; opi++)
 	{
-		if (operations[opi].term.atoms[0])
+		if (g_operations[opi].term.atoms[0])
 		{
 			printf("*setopname %d ", opi + 1);
-			Narsese_PrintTerm(&operations[opi].term);
+			narsese_print_term(&g_operations[opi].term);
 			puts("");
 		}
 	}
-	for (int i = 0; i < concepts.itemsAmount; i++)
+	for (int i = 0; i < g_concepts.itemsAmount; i++)
 	{
-		Concept *c = concepts.items[i].address;
-		assert(c != NULL, "Concept is null");
+		Concept *c = g_concepts.items[i].address;
+		ASSERT(c != NULL, "Concept is null");
 		fputs("//", stdout);
-		Narsese_PrintTerm(&c->term);
+		narsese_print_term(&c->term);
 		printf(
 			": { \"priority\": %f, \"usefulness\": %f, \"useCount\": %ld, \"lastUsed\": %ld, \"frequency\": %f, \"confidence\": %f, \"termlinks\": [",
 			c->priority,
-			concepts.items[i].priority,
+			g_concepts.items[i].priority,
 			c->usage.useCount,
 			c->usage.lastUsed,
 			c->belief.truth.frequency,
@@ -138,27 +138,27 @@ printConcepts()
 		Term right_left = Term_ExtractSubterm(&right, 1);
 		Term right_right = Term_ExtractSubterm(&right, 2);
 		fputs("\"", stdout);
-		Narsese_PrintTerm(&left);
+		narsese_print_term(&left);
 		fputs("\", ", stdout);
 		fputs("\"", stdout);
-		Narsese_PrintTerm(&right);
+		narsese_print_term(&right);
 		fputs("\", ", stdout);
 		fputs("\"", stdout);
-		Narsese_PrintTerm(&left_left);
+		narsese_print_term(&left_left);
 		fputs("\", ", stdout);
 		fputs("\"", stdout);
-		Narsese_PrintTerm(&left_right);
+		narsese_print_term(&left_right);
 		fputs("\", ", stdout);
 		fputs("\"", stdout);
-		Narsese_PrintTerm(&right_left);
+		narsese_print_term(&right_left);
 		fputs("\", ", stdout);
 		fputs("\"", stdout);
-		Narsese_PrintTerm(&right_right);
+		narsese_print_term(&right_right);
 		fputs("\"", stdout);
 		puts("]}");
 		if (c->belief.type != EVENT_TYPE_DELETED)
 		{
-			Memory_printAddedEvent(&c->belief, 1, true, false, false, false);
+			memory_print_added_event(&c->belief, 1, true, false, false, false);
 		}
 		for (int opi = 0; opi < OPERATIONS_MAX; opi++)
 		{
@@ -170,41 +170,41 @@ printConcepts()
 			}
 		}
 	}
-	slog_info("Finished printing concepts.");
+	slog_info("Finished printing g_concepts.");
 }
 
 void
-printAtomTable()
+print_atom_table()
 {
-	invertedAtomIndexPrint();
+	inverted_atom_index_print();
 }
 
 void
-printCyclingBeliefEvents()
+print_cycling_belief_events()
 {
-	slog_info("Printing cycling belief_events:");
-	for (int i = 0; i < cycling_belief_events.itemsAmount; i++)
+	slog_info("Printing cycling g_beliefEvents:");
+	for (int i = 0; i < g_cyclingBeliefEvents.itemsAmount; i++)
 	{
-		Event *e = cycling_belief_events.items[i].address;
-		assert(e != NULL, "Event is null");
-		Narsese_PrintTerm(&e->term);
-		printf(": { \"priority\": %f, \"time\": %ld } ", cycling_belief_events.items[i].priority,
+		Event *e = g_cyclingBeliefEvents.items[i].address;
+		ASSERT(e != NULL, "Event is null");
+		narsese_print_term(&e->term);
+		printf(": { \"priority\": %f, \"time\": %ld } ", g_cyclingBeliefEvents.items[i].priority,
 		       e->occurrenceTime);
 		Truth_Print(&e->truth);
 	}
-	slog_info("Finished printing cycling belief_events.");
+	slog_info("Finished printing cycling g_beliefEvents.");
 }
 
 void
-printCyclingGoalEvents()
+print_cycling_goal_events()
 {
 	slog_info("Printing cycling goal events:");
-	for (int i = 0; i < cycling_goal_events.itemsAmount; i++)
+	for (int i = 0; i < g_cyclingGoalEvents.itemsAmount; i++)
 	{
-		Event *e = cycling_goal_events.items[i].address;
-		assert(e != NULL, "Event is null");
-		Narsese_PrintTerm(&e->term);
-		printf(": {\"priority\": %f, \"time\": %ld } ", cycling_goal_events.items[i].priority,
+		Event *e = g_cyclingGoalEvents.items[i].address;
+		ASSERT(e != NULL, "Event is null");
+		narsese_print_term(&e->term);
+		printf(": {\"priority\": %f, \"time\": %ld } ", g_cyclingGoalEvents.items[i].priority,
 		       e->occurrenceTime);
 		Truth_Print(&e->truth);
 	}

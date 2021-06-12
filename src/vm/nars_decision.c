@@ -23,18 +23,20 @@ double ANTICIPATION_CONFIDENCE = ANTICIPATION_CONFIDENCE_INITIAL;
 double MOTOR_BABBLING_CHANCE = MOTOR_BABBLING_CHANCE_INITIAL;
 int BABBLING_OPS = OPERATIONS_MAX;
 
+int g_stampID = -1;
+
 //Inject action event after execution or babbling
 void
-Decision_Execute(Decision *decision)
+decision_execute(Decision *decision)
 {
-	assert(decision->operationID > 0, "Operation 0 is reserved for no action");
-	decision->op = operations[decision->operationID - 1];
+	ASSERT(decision->operationID > 0, "Operation 0 is reserved for no action");
+	decision->op = g_operations[decision->operationID - 1];
 	Term feedback = decision->op.term; //atomic operation / operator
 	//and add operator feedback
 	if (decision->arguments.atoms[0] > 0) //operation with args
 	{
 		Term operation = {0};
-		operation.atoms[0] = Narsese_AtomicTermIndex(":"); //<args --> ^op>
+		operation.atoms[0] = narsese_atomic_term_index(":"); //<args --> ^op>
 		if (!Term_OverrideSubterm(&operation, 1, &decision->arguments) ||
 			!Term_OverrideSubterm(&operation, 2, &decision->op.term))
 		{
@@ -46,19 +48,19 @@ Decision_Execute(Decision *decision)
 	NAR_AddInputBelief(feedback);
 }
 
-//"reflexes" to try different operations, especially important in the beginning
+//"reflexes" to try different g_operations, especially important in the beginning
 static Decision
-Decision_MotorBabbling()
+decision_motor_babbling()
 {
 	Decision decision = (Decision) {0};
 	int n_ops = 0;
-	for (int i = 0; i < OPERATIONS_MAX && operations[i].action != 0; i++)
+	for (int i = 0; i < OPERATIONS_MAX && g_operations[i].action != 0; i++)
 	{
 		n_ops = i + 1;
 	}
 	if (n_ops > 0)
 	{
-		decision.operationID = 1 + (myrand() % (MIN(BABBLING_OPS, n_ops)));
+		decision.operationID = 1 + (globals_next_rand() % (MIN(BABBLING_OPS, n_ops)));
 		IS_SYSTEM_IN_DEBUG_MODE (
 			printf(" NAR BABBLE %d\n", decision.operationID);
 		)
@@ -69,7 +71,7 @@ Decision_MotorBabbling()
 }
 
 static Decision
-Decision_ConsiderImplication(long currentTime, Event *goal, int considered_opi, Implication *imp)
+decision_consider_implication(long currentTime, Event *goal, int considered_opi, Implication *imp)
 {
 	Decision decision = {0};
 	IS_SYSTEM_IN_DEBUG_MODE
@@ -77,7 +79,7 @@ Decision_ConsiderImplication(long currentTime, Event *goal, int considered_opi, 
 		printf("Considered implication with truth: truth=(frequency=%f, confidence=%f) ",
 		       imp->truth.frequency,
 		       imp->truth.confidence);
-		Narsese_PrintTerm(&imp->term);
+		narsese_print_term(&imp->term);
 		puts("");
 	)
 	//now look at how much the precondition is fulfilled
@@ -85,14 +87,14 @@ Decision_ConsiderImplication(long currentTime, Event *goal, int considered_opi, 
 	Event *precondition = &prec->belief_spike; //a. :|:
 	if (precondition != NULL)
 	{
-		Event ContextualOperation = Inference_GoalDeduction(goal, imp); //(&/,a,op())! :\:
+		Event ContextualOperation = inference_goal_deduction(goal, imp); //(&/,a,op())! :\:
 		double operationGoalTruthExpectation = Truth_Expectation(
 			Inference_GoalSequenceDeduction(&ContextualOperation, precondition, currentTime).truth); //op()! :|:
 		IS_SYSTEM_IN_DEBUG_MODE
 		(
 			printf("Considered precondition with desire: operationGoalTruthExpectation=(%f) ",
 			       operationGoalTruthExpectation);
-			Narsese_PrintTerm(&prec->term);
+			narsese_print_term(&prec->term);
 			fputs("\nConsidered precondition with truth: ", stdout);
 			Truth_Print(&precondition->truth);
 			fputs("Considered goal with truth: ", stdout);
@@ -100,17 +102,17 @@ Decision_ConsiderImplication(long currentTime, Event *goal, int considered_opi, 
 			fputs("Considered implication with truth: ", stdout);
 			Truth_Print(&imp->truth);
 			printf("Considered at system time occurrenceTime=(%ld)\n", precondition->occurrenceTime);
-			Narsese_PrintTerm(&precondition->term); puts("");
+			narsese_print_term(&precondition->term); puts("");
 		)
 		//<(precon &/ <args --> ^op>) =/> postcon>. -> [$ , postcon precon : _ _ _ _ args ^op
 		Term operation = Term_ExtractSubterm(&imp->term, 4); //^op or [: args ^op]
-		if (!Narsese_isOperator(
+		if (!narsese_is_operator(
 			operation.atoms[0])) //it is an operation with args, not just an atomic operator, so remember the args
 		{
-			assert(Narsese_isOperator(operation.atoms[2]),
+			ASSERT(narsese_is_operator(operation.atoms[2]),
 			       "If it's not atomic, it needs to be an operation with args here");
-			Term arguments = Term_ExtractSubterm(&imp->term, 9); //[* ' ARG SELF]
-			if (arguments.atoms[3] != SELF) //either wasn't SELF or var didn't resolve to SELF
+			Term arguments = Term_ExtractSubterm(&imp->term, 9); //[* ' ARG g_Self]
+			if (arguments.atoms[3] != g_Self) //either wasn't g_Self or var didn't resolve to g_Self
 			{
 				return decision;
 			}
@@ -124,10 +126,8 @@ Decision_ConsiderImplication(long currentTime, Event *goal, int considered_opi, 
 	return decision;
 }
 
-int stampID = -1;
-
 Decision
-Decision_BestCandidate(Concept *goalconcept, Event *goal, long currentTime)
+decision_best_candidate(Concept *goalconcept, Event *goal, long currentTime)
 {
 	Decision decision = {0};
 	Implication bestImp = {0};
@@ -138,11 +138,11 @@ Decision_BestCandidate(Concept *goalconcept, Event *goal, long currentTime)
 	Substitution subs = Variable_Unify(&goalconcept->term, &goal->term);
 	if (subs.success)
 	{
-		for (int opi = 1; opi <= OPERATIONS_MAX && operations[opi - 1].action != 0; opi++)
+		for (int opi = 1; opi <= OPERATIONS_MAX && g_operations[opi - 1].action != 0; opi++)
 		{
 			for (int j = 0; j < goalconcept->precondition_beliefs[opi].itemsAmount; j++)
 			{
-				if (!Memory_ImplicationValid(&goalconcept->precondition_beliefs[opi].array[j]))
+				if (!memory_implication_valid(&goalconcept->precondition_beliefs[opi].array[j]))
 				{
 					Table_Remove(&goalconcept->precondition_beliefs[opi], j--);
 					continue;
@@ -153,13 +153,13 @@ Decision_BestCandidate(Concept *goalconcept, Event *goal, long currentTime)
 				imp.term = Variable_ApplySubstitute(imp.term, subs, &success);
 				if (success)
 				{
-					assert(Narsese_copulaEquals(imp.term.atoms[0], '$'), "This should be an implication!");
+					ASSERT(narsese_copula_equals(imp.term.atoms[0], '$'), "This should be an implication!");
 					Term left_side_with_op = Term_ExtractSubterm(&imp.term, 1);
-					Term left_side = Narsese_GetPreconditionWithoutOp(
+					Term left_side = narsese_get_precondition_without_op(
 						&left_side_with_op); //might be something like <#1 --> a>
-					for (int cmatch_k = 0; cmatch_k < concepts.itemsAmount; cmatch_k++)
+					for (int cmatch_k = 0; cmatch_k < g_concepts.itemsAmount; cmatch_k++)
 					{
-						Concept *cmatch = concepts.items[cmatch_k].address;
+						Concept *cmatch = g_concepts.items[cmatch_k].address;
 						if (!Variable_hasVariable(&cmatch->term, true, true, true))
 						{
 							Substitution subs2 = Variable_Unify(&left_side, &cmatch->term);
@@ -172,8 +172,8 @@ Decision_BestCandidate(Concept *goalconcept, Event *goal, long currentTime)
 								{
 									specific_imp.sourceConcept = cmatch;
 									specific_imp.sourceConceptId = cmatch->id;
-									Decision considered = Decision_ConsiderImplication(currentTime, goal, opi,
-									                                                   &specific_imp);
+									Decision considered = decision_consider_implication(currentTime, goal, opi,
+									                                                    &specific_imp);
 									int specific_imp_complexity = Term_Complexity(&specific_imp.term);
 									if (impHasVariable)
 									{
@@ -218,13 +218,13 @@ Decision_BestCandidate(Concept *goalconcept, Event *goal, long currentTime)
 	}
 	//set execute and return execution
 	printf("Decision expectation=(%f) implication: ", decision.desire);
-	Narsese_PrintTerm(&bestImp.term);
+	narsese_print_term(&bestImp.term);
 	printf(". truth=(frequency=%f confidence=%f) occurrenceTimeOffset=(%f)",
 	       bestImp.truth.frequency,
 	       bestImp.truth.confidence,
 	       bestImp.occurrenceTimeOffset);
 	fputs(" precondition: ", stdout);
-	Narsese_PrintTerm(&decision.reason->term);
+	narsese_print_term(&decision.reason->term);
 	fputs(". :|: ", stdout);
 	printf("truth=(frequency=%f confidence=%f)", decision.reason->truth.frequency, decision.reason->truth.confidence);
 	printf(" occurrenceTime=(%ld)\n", decision.reason->occurrenceTime);
@@ -233,15 +233,15 @@ Decision_BestCandidate(Concept *goalconcept, Event *goal, long currentTime)
 }
 
 void
-Decision_Anticipate(int operationID, long currentTime)
+decision_anticipate(int operationID, long currentTime)
 {
-	assert(operationID >= 0 && operationID <= OPERATIONS_MAX, "Wrong operation id, did you inject an event manually?");
-	for (int j = 0; j < concepts.itemsAmount; j++)
+	ASSERT(operationID >= 0 && operationID <= OPERATIONS_MAX, "Wrong operation id, did you inject an event manually?");
+	for (int j = 0; j < g_concepts.itemsAmount; j++)
 	{
-		Concept *postc = concepts.items[j].address;
+		Concept *postc = g_concepts.items[j].address;
 		for (int h = 0; h < postc->precondition_beliefs[operationID].itemsAmount; h++)
 		{
-			if (!Memory_ImplicationValid(&postc->precondition_beliefs[operationID].array[h]))
+			if (!memory_implication_valid(&postc->precondition_beliefs[operationID].array[h]))
 			{
 				Table_Remove(&postc->precondition_beliefs[operationID], h);
 				h--;
@@ -252,25 +252,25 @@ Decision_Anticipate(int operationID, long currentTime)
 			Event *precondition = &current_prec->belief_spike;
 			if (precondition != NULL && precondition->type != EVENT_TYPE_DELETED)
 			{
-				assert(precondition->occurrenceTime != OCCURRENCE_ETERNAL, "Precondition should not be eternal!");
-				Event updated_precondition = Inference_EventUpdate(precondition, currentTime);
+				ASSERT(precondition->occurrenceTime != OCCURRENCE_ETERNAL, "Precondition should not be eternal!");
+				Event updated_precondition = inference_event_update(precondition, currentTime);
 				Event op = {.type = EVENT_TYPE_BELIEF,
 					.truth = (Truth) {.frequency = 1.0, .confidence = 0.9},
 					.occurrenceTime = currentTime};
 				bool success;
-				Event seqop = Inference_BeliefIntersection(&updated_precondition, &op, &success);
+				Event seqop = inference_belief_intersection(&updated_precondition, &op, &success);
 				if (success)
 				{
-					Event result = Inference_BeliefDeduction(&seqop, &imp); //b. :/:
+					Event result = inference_belief_deduction(&seqop, &imp); //b. :/:
 					if (Truth_Expectation(result.truth) > ANTICIPATION_THRESHOLD)
 					{
 						Implication negative_confirmation = imp;
 						Truth TNew = {.frequency = 0.0, .confidence = ANTICIPATION_CONFIDENCE};
 						Truth TPast = Truth_Projection(precondition->truth, 0, round(imp.occurrenceTimeOffset));
 						negative_confirmation.truth = Truth_Eternalize(Truth_Induction(TNew, TPast));
-						negative_confirmation.stamp = (Stamp) {.evidentialBase = {-stampID}};
-						stampID--;
-						assert(negative_confirmation.truth.confidence >= 0.0 &&
+						negative_confirmation.stamp = (Stamp) {.evidentialBase = {-g_stampID}};
+						g_stampID--;
+						ASSERT(negative_confirmation.truth.confidence >= 0.0 &&
 							negative_confirmation.truth.confidence <= 1.0, "(666) confidence out of bounds");
 						Implication *added = Table_AddAndRevise(&postc->precondition_beliefs[operationID],
 						                                        &negative_confirmation);
@@ -286,7 +286,7 @@ Decision_Anticipate(int operationID, long currentTime)
 							result.term = Variable_ApplySubstitute(result.term, subs, &success2);
 							if (success2)
 							{
-								Concept *c = Memory_Conceptualize(&result.term, currentTime);
+								Concept *c = memory_conceptualise(&result.term, currentTime);
 								if (c != NULL)
 								{
 									c->usage = Usage_use(c->usage, currentTime, false);
@@ -294,7 +294,7 @@ Decision_Anticipate(int operationID, long currentTime)
 									Event eternal = result;
 									eternal.truth = Truth_Eternalize(eternal.truth);
 									eternal.occurrenceTime = OCCURRENCE_ETERNAL;
-									c->belief = Inference_RevisionAndChoice(&c->belief, &eternal, currentTime, NULL);
+									c->belief = inference_revision_and_choice(&c->belief, &eternal, currentTime, NULL);
 								}
 							}
 						}
@@ -310,12 +310,12 @@ Decision_Suggest(Concept *postc, Event *goal, long currentTime)
 {
 	Decision babble_decision = {0};
 	//try motor babbling with a certain chance
-	if (myrand() < (int) (MOTOR_BABBLING_CHANCE * MY_RAND_MAX))
+	if (globals_next_rand() < (int) (MOTOR_BABBLING_CHANCE * MY_RAND_MAX))
 	{
-		babble_decision = Decision_MotorBabbling();
+		babble_decision = decision_motor_babbling();
 	}
 	//try matching op if didn't motor babble
-	Decision decision_suggested = Decision_BestCandidate(postc, goal, currentTime);
+	Decision decision_suggested = decision_best_candidate(postc, goal, currentTime);
 	if (!babble_decision.execute || decision_suggested.desire > MOTOR_BABBLING_SUPPRESSION_THRESHOLD)
 	{
 		return decision_suggested;

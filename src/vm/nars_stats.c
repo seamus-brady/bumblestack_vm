@@ -24,28 +24,28 @@ void
 statsPrint(long currentTime)
 {
 	double Stats_averageBeliefEventPriority = 0.0;
-	for (int i = 0; i < cycling_belief_events.itemsAmount; i++)
+	for (int i = 0; i < g_cyclingBeliefEvents.itemsAmount; i++)
 	{
-		Stats_averageBeliefEventPriority += cycling_belief_events.items[i].priority;
+		Stats_averageBeliefEventPriority += g_cyclingBeliefEvents.items[i].priority;
 	}
 	Stats_averageBeliefEventPriority /= (double) CYCLING_BELIEF_EVENTS_MAX;
 	double Stats_averageGoalEventPriority = 0.0;
-	for (int i = 0; i < cycling_goal_events.itemsAmount; i++)
+	for (int i = 0; i < g_cyclingGoalEvents.itemsAmount; i++)
 	{
-		Stats_averageGoalEventPriority += cycling_goal_events.items[i].priority;
+		Stats_averageGoalEventPriority += g_cyclingGoalEvents.items[i].priority;
 	}
 	Stats_averageGoalEventPriority /= (double) CYCLING_GOAL_EVENTS_MAX;
 	double Stats_averageConceptPriority = 0.0;
-	for (int i = 0; i < concepts.itemsAmount; i++)
+	for (int i = 0; i < g_concepts.itemsAmount; i++)
 	{
-		Concept *c = concepts.items[i].address;
+		Concept *c = g_concepts.items[i].address;
 		Stats_averageConceptPriority += c->priority;
 	}
 	Stats_averageConceptPriority /= (double) CONCEPTS_MAX;
 	double Stats_averageConceptUsefulness = 0.0;
-	for (int i = 0; i < concepts.itemsAmount; i++)
+	for (int i = 0; i < g_concepts.itemsAmount; i++)
 	{
-		Stats_averageConceptUsefulness += concepts.items[i].priority;
+		Stats_averageConceptUsefulness += g_concepts.items[i].priority;
 	}
 	Stats_averageConceptUsefulness /= (double) CONCEPTS_MAX;
 	slog_info("BumbleStack Statistics:");
@@ -54,14 +54,14 @@ statsPrint(long currentTime)
 	long countConceptsMatchedAverage = Stats_countConceptsMatchedTotal / currentTime;
 	printf("\tConcepts matched average:\t\t\t\t\t%ld\n", countConceptsMatchedAverage);
 	printf("\tCurrent internal system time:\t\t\t\t%ld\n", currentTime);
-	printf("\tTotal concepts:\t\t\t\t\t\t\t\t%d\n", concepts.itemsAmount);
+	printf("\tTotal g_concepts:\t\t\t\t\t\t\t\t%d\n", g_concepts.itemsAmount);
 	printf("\tCurrent average concept priority:\t\t\t%f\n", Stats_averageConceptPriority);
 	printf("\tCurrent average concept usefulness:\t\t\t%f\n", Stats_averageConceptUsefulness);
-	printf("\tCurrent belief events count:\t\t\t\t%d\n", cycling_belief_events.itemsAmount);
-	printf("\tCurrent goal events count:\t\t\t\t\t%d\n", cycling_goal_events.itemsAmount);
+	printf("\tCurrent belief events count:\t\t\t\t%d\n", g_cyclingBeliefEvents.itemsAmount);
+	printf("\tCurrent goal events count:\t\t\t\t\t%d\n", g_cyclingGoalEvents.itemsAmount);
 	printf("\tCurrent average belief event priority:\t\t%f\n", Stats_averageBeliefEventPriority);
 	printf("\tCurrent average goal event priority:\t\t%f\n", Stats_averageGoalEventPriority);
-	printf("\tMaximum chain length in concept hashtable:\t%d\n", HashTable_MaximumChainLength(&HTconcepts));
-	printf("\tMaximum chain length in atoms hashtable: \t%d\n", HashTable_MaximumChainLength(&HTatoms));
+	printf("\tMaximum chain length in concept hashtable:\t%d\n", hashtable_maximum_chain_length(&g_hashtableConceptsStruct));
+	printf("\tMaximum chain length in atoms hashtable: \t%d\n", hashtable_maximum_chain_length(&g_hashtableAtomsStruct));
 	fflush(stdout);
 }

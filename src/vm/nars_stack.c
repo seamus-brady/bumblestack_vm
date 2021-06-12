@@ -29,14 +29,14 @@ Stack_Push(Stack *stack, void *item)
 {
 	stack->items[stack->stackpointer] = item;
 	stack->stackpointer++;
-	assert(stack->stackpointer <= stack->maxElements, "VMEntry stack overflow");
+	ASSERT(stack->stackpointer <= stack->maxElements, "VMEntry stack overflow");
 }
 
 void *
 Stack_Pop(Stack *stack)
 {
 	stack->stackpointer--;
-	assert(stack->stackpointer >= 0, "VMEntry stack underflow");
+	ASSERT(stack->stackpointer >= 0, "VMEntry stack underflow");
 	return stack->items[stack->stackpointer];
 }
 

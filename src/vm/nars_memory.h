@@ -34,11 +34,15 @@
 
 //Parameters//
 //----------//
+
 //Inferences per cycle (amount of events from cycling events)
 extern double PROPAGATION_THRESHOLD;
+
 extern bool PRINT_DERIVATIONS;
+
 extern bool PRINT_INPUT;
-extern double conceptPriorityThreshold;
+
+extern double g_conceptPriorityThreshold;
 
 //Data structure//
 //--------------//
@@ -48,58 +52,78 @@ typedef struct
 	Term term;
 	Action action;
 } Operation;
-extern bool ontology_handling;
-extern Event selectedBeliefs[BELIEF_EVENT_SELECTIONS]; //better to be global
-extern double selectedBeliefsPriority[BELIEF_EVENT_SELECTIONS]; //better to be global
-extern int beliefsSelectedCnt;
-extern Event selectedGoals[GOAL_EVENT_SELECTIONS]; //better to be global
-extern double selectedGoalsPriority[GOAL_EVENT_SELECTIONS]; //better to be global
-extern int goalsSelectedCnt;
+
+extern bool g_ontologyHandling;
+
+extern Event g_selectedBeliefs[BELIEF_EVENT_SELECTIONS]; //better to be global
+
+extern double g_selectedBeliefsPriority[BELIEF_EVENT_SELECTIONS]; //better to be global
+
+extern int g_beliefsSelectedCnt;
+
+extern Event g_selectedGoals[GOAL_EVENT_SELECTIONS]; //better to be global
+
+extern double g_selectedGoalsPriority[GOAL_EVENT_SELECTIONS]; //better to be global
+
+extern int g_goalsSelectedCnt;
+
 //Concepts in main memory:
-extern PriorityQueue concepts;
+extern PriorityQueue g_concepts;
+
 //cycling events cycling in main memory:
-extern PriorityQueue cycling_belief_events;
-extern PriorityQueue cycling_goal_events;
-//Hashtable of concepts used for fast retrieval of concepts via term:
-extern HashTable HTconcepts;
+extern PriorityQueue g_cyclingBeliefEvents;
+extern PriorityQueue g_cyclingGoalEvents;
+
+//Hashtable of g_concepts used for fast retrieval of g_concepts via term:
+extern HashTable g_hashtableConceptsStruct;
+
 //Input event buffers:
-extern FIFO belief_events;
+extern FIFO g_beliefEvents;
+
 //Registered perations
-extern Operation operations[OPERATIONS_MAX];
+extern Operation g_operations[OPERATIONS_MAX];
 
 //Methods//
 //-------//
+
 //Init memory
 void
-Memory_INIT();
+memory_init();
+
 //Find a concept
 Concept *
-Memory_FindConceptByTerm(Term *term);
+memory_find_concept_by_term(Term *term);
+
 //Create a new concept
 Concept *
-Memory_Conceptualize(Term *term, long currentTime);
+memory_conceptualise(Term *term, long currentTime);
+
 //Add event to memory
 void
-Memory_AddEvent(Event *event,
-                long currentTime,
-                double priority,
-                double occurrenceTimeOffset,
-                bool input,
-                bool derived,
-                bool readded,
-                bool revised,
-                bool predicted);
+memory_add_event(Event *event,
+                 long currentTime,
+                 double priority,
+                 double occurrenceTimeOffset,
+                 bool input,
+                 bool derived,
+                 bool readded,
+                 bool revised,
+                 bool predicted);
 void
-Memory_AddInputEvent(Event *event, double occurrenceTimeOffset, long currentTime);
+memory_add_input_event(Event *event, double occurrenceTimeOffset, long currentTime);
+
 //Add operation to memory
 void
 Memory_AddOperation(int id, Operation op);
+
 //check if implication is still valid (source concept might be forgotten)
 bool
-Memory_ImplicationValid(Implication *imp);
+memory_implication_valid(Implication *imp);
+
 //Print an event in memory:
 void
-Memory_printAddedEvent(Event *event, double priority, bool input, bool derived, bool revised, bool controlInfo);
+memory_print_added_event(Event *event, double priority, bool input, bool derived, bool revised, bool controlInfo);
+
 //Print an implication in memory:
 void
 Memory_printAddedImplication(Term *implication,

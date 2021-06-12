@@ -19,19 +19,19 @@
 bool
 Variable_isIndependentVariable(Atom atom)
 {
-	return atom > 0 && Narsese_atomNames[(int) atom - 1][1] != 0 && Narsese_atomNames[(int) atom - 1][0] == '$';
+	return atom > 0 && g_narsese_atomNames[(int) atom - 1][1] != 0 && g_narsese_atomNames[(int) atom - 1][0] == '$';
 }
 
 bool
 Variable_isDependentVariable(Atom atom)
 {
-	return atom > 0 && Narsese_atomNames[(int) atom - 1][1] != 0 && Narsese_atomNames[(int) atom - 1][0] == '#';
+	return atom > 0 && g_narsese_atomNames[(int) atom - 1][1] != 0 && g_narsese_atomNames[(int) atom - 1][0] == '#';
 }
 
 bool
 Variable_isQueryVariable(Atom atom)
 {
-	return atom > 0 && Narsese_atomNames[(int) atom - 1][1] != 0 && Narsese_atomNames[(int) atom - 1][0] == '?';
+	return atom > 0 && g_narsese_atomNames[(int) atom - 1][1] != 0 && g_narsese_atomNames[(int) atom - 1][0] == '?';
 }
 
 bool
@@ -68,7 +68,7 @@ Variable_Unify2(Term *general, Term *specific, bool unifyQueryVarOnly)
 				general_atom);
 			if (is_allowed_var)
 			{
-				assert(general_atom <= 27,
+				ASSERT(general_atom <= 27,
 				       "Variable_Unify: Problematic variable encountered, only $1-$9, #1-#9 and ?1-?9 are allowed!");
 				Term subtree = Term_ExtractSubterm(specific, i);
 				if (Variable_isQueryVariable(general_atom) &&
@@ -82,7 +82,7 @@ Variable_Unify2(Term *general, Term *specific, bool unifyQueryVarOnly)
 				{
 					return substitution;
 				}
-				if (Narsese_copulaEquals(subtree.atoms[0], '@')) //not allowed to unify with set terminator
+				if (narsese_copula_equals(subtree.atoms[0], '@')) //not allowed to unify with set terminator
 				{
 					return substitution;
 				}
@@ -110,14 +110,14 @@ Variable_Unify(Term *general, Term *specific)
 Term
 Variable_ApplySubstitute(Term general, Substitution substitution, bool *success)
 {
-	assert(substitution.success,
+	ASSERT(substitution.success,
 	       "A substitution from unsuccessful unification cannot be used to substitute variables!");
 	*success = true;
 	for (int i = 0; i < COMPOUND_TERM_SIZE_MAX; i++)
 	{
 		Atom general_atom = general.atoms[i];
 		bool is_variable = Variable_isVariable(general_atom);
-		assert(!is_variable || general_atom <= 27,
+		ASSERT(!is_variable || general_atom <= 27,
 		       "Variable_ApplySubstitute: Problematic variable encountered, only $1-$9, #1-#9 and ?1-?9 are allowed!");
 		if (is_variable && substitution.map[(int) general_atom].atoms[0] != 0)
 		{
@@ -135,14 +135,14 @@ Variable_ApplySubstitute(Term general, Substitution substitution, bool *success)
 static void
 countAtoms(Term *cur_inheritance, int *appearing, bool extensionally)
 {
-	if (Narsese_copulaEquals(cur_inheritance->atoms[0], ':') ||
-		Narsese_copulaEquals(cur_inheritance->atoms[0], '=')) //inheritance and similarity
+	if (narsese_copula_equals(cur_inheritance->atoms[0], ':') ||
+		narsese_copula_equals(cur_inheritance->atoms[0], '=')) //inheritance and similarity
 	{
 		Term side = Term_ExtractSubterm(cur_inheritance, extensionally ? 1 : 2);
 		for (int i = 0; i < COMPOUND_TERM_SIZE_MAX; i++)
 		{
 			Atom atom = side.atoms[i];
-			if (Narsese_IsNonCopulaAtom(atom))
+			if (narsese_is_non_copula_atom(atom))
 			{
 				appearing[(int) side.atoms[i]] += 1;
 			}
@@ -153,12 +153,12 @@ countAtoms(Term *cur_inheritance, int *appearing, bool extensionally)
 Term
 IntroduceImplicationVariables(Term implication, bool *success, bool extensionally)
 {
-	assert(Narsese_copulaEquals(implication.atoms[0], '$'), "An implication is expected here!");
+	ASSERT(narsese_copula_equals(implication.atoms[0], '$'), "An implication is expected here!");
 	Term left_side = Term_ExtractSubterm(&implication, 1);
 	Term right_side = Term_ExtractSubterm(&implication, 2);
 	int appearing_left[ATOMS_MAX] = {0};
 	int appearing_right[ATOMS_MAX] = {0};
-	while (Narsese_copulaEquals(left_side.atoms[0], '+')) //sequence
+	while (narsese_copula_equals(left_side.atoms[0], '+')) //sequence
 	{
 		Term potential_inheritance = Term_ExtractSubterm(&left_side, 2);
 		countAtoms(&potential_inheritance, appearing_left, extensionally);
@@ -181,7 +181,7 @@ IntroduceImplicationVariables(Term implication, bool *success, bool extensionall
 				if (var_id <= 9) //can only introduce up to 9 variables
 				{
 					char varname[3] = {'$', ('0' + var_id), 0}; //$i
-					Term varterm = Narsese_AtomicTerm(varname);
+					Term varterm = narsese_atomic_term(varname);
 					if (!Term_OverrideSubterm(&implication, i, &varterm))
 					{
 						*success = false;
@@ -195,7 +195,7 @@ IntroduceImplicationVariables(Term implication, bool *success, bool extensionall
 				if (var_id <= 9) //can only introduce up to 9 variables
 				{
 					char varname[3] = {'#', ('0' + var_id), 0}; //#i
-					Term varterm = Narsese_AtomicTerm(varname);
+					Term varterm = narsese_atomic_term(varname);
 					if (!Term_OverrideSubterm(&implication, i, &varterm))
 					{
 						*success = false;
@@ -224,7 +224,7 @@ Variable_Normalize(Term *term)
 		                                                                         ? &dependent_i : &query_i);
 		if (!normalized[j] && Variable_isVariable(atom))
 		{
-			assert(*varIndex <= 9, "Variable overflow in variable normalization!");
+			ASSERT(*varIndex <= 9, "Variable overflow in variable normalization!");
 			char varname[3] = {varType, ('0' + *varIndex), 0}; //$i, #j, ?k
 			(*varIndex)++;
 			for (int k = j; k < COMPOUND_TERM_SIZE_MAX; k++)
@@ -232,7 +232,7 @@ Variable_Normalize(Term *term)
 				Atom atom2 = term->atoms[k];
 				if (atom == atom2)
 				{
-					term->atoms[k] = Narsese_AtomicTermIndex(varname);
+					term->atoms[k] = narsese_atomic_term_index(varname);
 					normalized[k] = true;
 				}
 			}

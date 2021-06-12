@@ -44,9 +44,9 @@ Process_Args(int argc, char *argv[])
 	}
 	if (inspectionOnExit)
 	{
-		Shell_ProcessInput("*concepts");
-		Shell_ProcessInput("*cycling_belief_events");
-		Shell_ProcessInput("*cycling_goal_events");
+		Shell_ProcessInput("*g_concepts");
+		Shell_ProcessInput("*g_cyclingBeliefEvents");
+		Shell_ProcessInput("*g_cyclingGoalEvents");
 		Shell_ProcessInput("*stats");
 	}
 }
@@ -55,20 +55,20 @@ void
 systemInit()
 {
 	// set up random number generator
-	mysrand(SEED);
+	globals_sys_rand(SEED);
 
 	// initialise logging
-	setupLogging();
+	setup_logging();
 	slog_info("Welcome to BumbleStack!");
 
 	// initialise the bumblestack NARS system
 	NAR_INIT();
 	slog_info("System initialised.");
-	statsPrint(currentTime);
-	printAtomTable();
-	printConcepts();
-	printCyclingBeliefEvents();
-	printCyclingGoalEvents();
+	statsPrint(g_currentTime);
+	print_atom_table();
+	print_concepts();
+	print_cycling_belief_events();
+	print_cycling_goal_events();
 }
 
 int

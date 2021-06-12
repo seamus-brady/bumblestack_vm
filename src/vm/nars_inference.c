@@ -32,11 +32,11 @@ weighted_average(double a1, double a2, double w1, double w2)
 
 //{Event a., Event b.} |- Event (&/,a,b).
 Event
-Inference_BeliefIntersection(Event *a, Event *b, bool *success)
+inference_belief_intersection(Event *a, Event *b, bool *success)
 {
-	assert(b->occurrenceTime >= a->occurrenceTime, "after(b,a) violated in Inference_BeliefIntersection");
+	ASSERT(b->occurrenceTime >= a->occurrenceTime, "after(b,a) violated in inference_belief_intersection");
 	DERIVATION_STAMP_AND_TIME(a, b)
-	Term conclusionTerm = Narsese_Sequence(&a->term, &b->term, success);
+	Term conclusionTerm = narsese_sequence(&a->term, &b->term, success);
 	return *success ? (Event) {.term = conclusionTerm,
 		.type = EVENT_TYPE_BELIEF,
 		.truth = Truth_Intersection(truthA, truthB),
@@ -48,12 +48,12 @@ Inference_BeliefIntersection(Event *a, Event *b, bool *success)
 
 //{Event a., Event b., after(b,a)} |- Implication <a =/> b>.
 Implication
-Inference_BeliefInduction(Event *a, Event *b, bool *success)
+inference_belief_induction(Event *a, Event *b, bool *success)
 {
-	assert(b->occurrenceTime > a->occurrenceTime, "after(b,a) violated in Inference_BeliefInduction");
+	ASSERT(b->occurrenceTime > a->occurrenceTime, "after(b,a) violated in inference_belief_induction");
 	DERIVATION_STAMP_AND_TIME(a, b)
 	Term term = {0};
-	term.atoms[0] = Narsese_AtomicTermIndex("$");
+	term.atoms[0] = narsese_atomic_term_index("$");
 	*success = Term_OverrideSubterm(&term, 1, &a->term) && Term_OverrideSubterm(&term, 2, &b->term);
 	return *success ? (Implication) {.term = term,
 		.truth = Truth_Eternalize(Truth_Induction(truthB, truthA)),
@@ -66,7 +66,7 @@ Inference_BeliefInduction(Event *a, Event *b, bool *success)
 //{Event a., Event a.} |- Event a.
 //{Event a!, Event a!} |- Event a!
 static Event
-Inference_EventRevision(Event *a, Event *b)
+inference_event_revision(Event *a, Event *b)
 {
 	DERIVATION_STAMP_AND_TIME(a, b)
 	return (Event) {.term = a->term,
@@ -79,7 +79,7 @@ Inference_EventRevision(Event *a, Event *b)
 
 //{Implication <a =/> b>., <a =/> b>.} |- Implication <a =/> b>.
 Implication
-Inference_ImplicationRevision(Implication *a, Implication *b)
+inference_implication_revision(Implication *a, Implication *b)
 {
 	DERIVATION_STAMP(a, b)
 	double occurrenceTimeOffsetAvg = weighted_average(a->occurrenceTimeOffset, b->occurrenceTimeOffset,
@@ -96,13 +96,13 @@ Inference_ImplicationRevision(Implication *a, Implication *b)
 
 //{Event b!, Implication <a =/> b>.} |- Event a!
 Event
-Inference_GoalDeduction(Event *component, Implication *compound)
+inference_goal_deduction(Event *component, Implication *compound)
 {
-	assert(Narsese_copulaEquals(compound->term.atoms[0], '$'), "Not a valid implication term!");
+	ASSERT(narsese_copula_equals(compound->term.atoms[0], '$'), "Not a valid implication term!");
 	DERIVATION_STAMP(component, compound)
 	Term precondition = Term_ExtractSubterm(&compound->term, 1);
 	//extract precondition: (plus unification once vars are there)
-	return (Event) {.term = Narsese_GetPreconditionWithoutOp(&precondition),
+	return (Event) {.term = narsese_get_precondition_without_op(&precondition),
 		.type = EVENT_TYPE_GOAL,
 		.truth = Truth_Deduction(compound->truth, component->truth),
 		.stamp = conclusionStamp,
@@ -110,9 +110,9 @@ Inference_GoalDeduction(Event *component, Implication *compound)
 		.creationTime = creationTime};
 }
 
-//{Event a.} |- Event a. updated to currentTime
+//{Event a.} |- Event a. updated to g_currentTime
 Event
-Inference_EventUpdate(Event *ev, long currentTime)
+inference_event_update(Event *ev, long currentTime)
 {
 	Event ret = *ev;
 	ret.truth = Truth_Projection(ret.truth, ret.occurrenceTime, currentTime);
@@ -125,8 +125,8 @@ Event
 Inference_GoalSequenceDeduction(Event *compound, Event *component, long currentTime)
 {
 	DERIVATION_STAMP(component, compound)
-	Event compoundUpdated = Inference_EventUpdate(compound, currentTime);
-	Event componentUpdated = Inference_EventUpdate(component, currentTime);
+	Event compoundUpdated = inference_event_update(compound, currentTime);
+	Event componentUpdated = inference_event_update(component, currentTime);
 	return (Event) {.term = compound->term,
 		.type = EVENT_TYPE_GOAL,
 		.truth = Truth_Deduction(compoundUpdated.truth, componentUpdated.truth),
@@ -137,7 +137,7 @@ Inference_GoalSequenceDeduction(Event *compound, Event *component, long currentT
 
 //{Event a!, Event a!} |- Event a! (revision and choice)
 Event
-Inference_RevisionAndChoice(Event *existing_potential, Event *incoming_spike, long currentTime, bool *revised)
+inference_revision_and_choice(Event *existing_potential, Event *incoming_spike, long currentTime, bool *revised)
 {
 	if (revised != NULL)
 	{
@@ -149,8 +149,8 @@ Inference_RevisionAndChoice(Event *existing_potential, Event *incoming_spike, lo
 	}
 	else
 	{
-		double confExisting = Inference_EventUpdate(existing_potential, currentTime).truth.confidence;
-		double confIncoming = Inference_EventUpdate(incoming_spike, currentTime).truth.confidence;
+		double confExisting = inference_event_update(existing_potential, currentTime).truth.confidence;
+		double confIncoming = inference_event_update(incoming_spike, currentTime).truth.confidence;
 		//check if there is evidental overlap
 		bool overlap = Stamp_checkOverlap(&incoming_spike->stamp, &existing_potential->stamp);
 		//if there is or the terms aren't equal, apply choice, keeping the stronger one:
@@ -166,7 +166,7 @@ Inference_RevisionAndChoice(Event *existing_potential, Event *incoming_spike, lo
 		else
 			//and else revise, increasing the "activation potential"
 		{
-			Event revised_spike = Inference_EventRevision(existing_potential, incoming_spike);
+			Event revised_spike = inference_event_revision(existing_potential, incoming_spike);
 			if (revised_spike.truth.confidence >= existing_potential->truth.confidence)
 			{
 				if (revised != NULL)
@@ -187,9 +187,9 @@ Inference_RevisionAndChoice(Event *existing_potential, Event *incoming_spike, lo
 
 //{Event a., Implication <a =/> b>.} |- Event b.
 Event
-Inference_BeliefDeduction(Event *component, Implication *compound)
+inference_belief_deduction(Event *component, Implication *compound)
 {
-	assert(Narsese_copulaEquals(compound->term.atoms[0], '$'), "Not a valid implication term!");
+	ASSERT(narsese_copula_equals(compound->term.atoms[0], '$'), "Not a valid implication term!");
 	DERIVATION_STAMP(component, compound)
 	Term postcondition = Term_ExtractSubterm(&compound->term, 2);
 	return (Event) {.term = postcondition,

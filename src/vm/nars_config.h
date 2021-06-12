@@ -56,7 +56,7 @@
 #define MIN_PRIORITY 0
 //Occurrence time distance in which case event belief is preferred over eternal
 #define EVENT_BELIEF_DISTANCE 20
-//Amount of belief concepts to select to be matched to the selected event
+//Amount of belief g_concepts to select to be matched to the selected event
 #define BELIEF_CONCEPT_MATCH_TARGET 80
 //Adaptation speed of the concept priority threshold to meet the match target
 #define CONCEPT_THRESHOLD_ADAPTATION 0.000001
@@ -68,7 +68,7 @@
 /*------------------*/
 /* Space parameters */
 /*------------------*/
-//Maximum amount of concepts
+//Maximum amount of g_concepts
 #define CONCEPTS_MAX 16384
 //Amount of buckets for concept hashmap
 #define CONCEPTS_HASHTABLE_BUCKETS CONCEPTS_MAX
@@ -76,9 +76,9 @@
 #define CYCLING_BELIEF_EVENTS_MAX 40
 //Maximum amount of goal events attention buffer holds
 #define CYCLING_GOAL_EVENTS_MAX 40
-//Maximum amount of operations which can be registered
+//Maximum amount of g_operations which can be registered
 #define OPERATIONS_MAX 10
-//Maximum size of the stamp in terms of evidental base id's
+//Maximum size of the stamp in terms of evidental g_base id's
 #define STAMP_SIZE 10
 //Maximum event FIFO size
 #define FIFO_SIZE 20

@@ -36,6 +36,6 @@
 //-------//
 //Apply one operating cyle
 void
-Cycle_Perform(long currentTime);
+cycle_perform(long currentTime);
 
 #endif

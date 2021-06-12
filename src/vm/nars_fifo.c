@@ -17,7 +17,7 @@
 #include "nars_fifo.h"
 
 void
-FIFO_Add(Event *event, FIFO *fifo)
+fifo_add(Event *event, FIFO *fifo)
 {
 	//build sequence elements:
 	for (int len = 0; len < MAX_SEQUENCE_LEN; len++)
@@ -29,14 +29,14 @@ FIFO_Add(Event *event, FIFO *fifo)
 		}
 		else //len>0, so chain previous sequence with length len-1 with new event
 		{
-			Event *sequence = FIFO_GetNewestSequence(fifo, len - 1);
+			Event *sequence = fifo_get_newest_sequence(fifo, len - 1);
 			if (sequence == NULL || sequence->type == EVENT_TYPE_DELETED)
 			{
 				break;
 			}
 			//printf("occurrence times a=%d, b=%d", ((int) sequence->occurrenceTime),((int) event->occurrenceTime));
 			bool success;
-			Event new_sequence = Inference_BeliefIntersection(sequence, event, &success);
+			Event new_sequence = inference_belief_intersection(sequence, event, &success);
 			fifo->array[len][fifo->currentIndex] = success ? new_sequence : (Event) {0};
 		}
 
@@ -46,7 +46,7 @@ FIFO_Add(Event *event, FIFO *fifo)
 }
 
 Event *
-FIFO_GetKthNewestSequence(FIFO *fifo, int k, int len)
+fifo_get_kth_newest_sequence(FIFO *fifo, int k, int len)
 {
 	if (fifo->itemsAmount == 0 || k >= fifo->itemsAmount)
 	{
@@ -61,7 +61,7 @@ FIFO_GetKthNewestSequence(FIFO *fifo, int k, int len)
 }
 
 Event *
-FIFO_GetNewestSequence(FIFO *fifo, int len)
+fifo_get_newest_sequence(FIFO *fifo, int len)
 {
-	return FIFO_GetKthNewestSequence(fifo, 0, len);
+	return fifo_get_kth_newest_sequence(fifo, 0, len);
 }

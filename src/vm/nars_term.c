@@ -98,8 +98,8 @@ Term_Hash(Term *term)
 		return term->hash;
 	}
 	int pieces = TERM_ATOMS_SIZE / HASH_TYPE_SIZE;
-	assert(HASH_TYPE_SIZE * pieces == TERM_ATOMS_SIZE, "Not a multiple, issue in hash calculation (TermHash)");
-	HASH_TYPE hash = Globals_Hash((HASH_TYPE *) term->atoms, pieces);
+	ASSERT(HASH_TYPE_SIZE * pieces == TERM_ATOMS_SIZE, "Not a multiple, issue in hash calculation (TermHash)");
+	HASH_TYPE hash = globals_hash((HASH_TYPE *) term->atoms, pieces);
 	term->hashed = true;
 	term->hash = hash;
 	return hash;

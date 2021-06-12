@@ -31,34 +31,41 @@
 //////////
 //Whether debug mode should be on
 #define DEBUG_MODE false
+
 //Whether control information should be printed - leave as debug mode for now
 #define PRINT_CONTROL_INFO DEBUG_MODE
+
 //Priority threshold for printing derivations  - leave as debug mode for now
 #define PRINT_DERIVATIONS_PRIORITY_THRESHOLD 0.0
-//Debug macros, debug printing, assert:
+
+//Debug macros, debug printing, ASSERT:
 #define IS_SYSTEM_IN_DEBUG_MODE(x) {if(DEBUG_MODE){ x } }
 
-//assert, printing message and exiting if b=false
+//ASSERT, printing message and exiting if b=false
 void
-Globals_Assert(bool b, char *message);
+globals_assert(bool b, char *message);
 
-#define assert Globals_Assert
+#define ASSERT globals_assert
+
 #define MIN(a, b) (((a) < (b)) ? (a) : (b))
+
 #define MAX(a, b) (((a) > (b)) ? (a) : (b))
+
 //Number of elements of compile time allocated array:
 #define NUM_ELEMENTS(array) (sizeof(array)/sizeof(array[0]))
+
 //Generic hash function on byte array
 #define HASH_TYPE long
 
 HASH_TYPE
-Globals_Hash(HASH_TYPE *data, int pieces);
+globals_hash(HASH_TYPE *data, int pieces);
 
 //Random number generator for reproducibility across platforms
 int
-myrand(void);
+globals_next_rand(void);
 
 void
-mysrand(unsigned int seed);
+globals_sys_rand(unsigned int seed);
 
 #define MY_RAND_MAX 32767
 

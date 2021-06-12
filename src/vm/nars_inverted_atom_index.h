@@ -35,27 +35,35 @@ typedef struct
 	Concept *c;
 	void *next;
 } ConceptChainElement;
-extern ConceptChainElement *conceptChainElementStoragePointers[UNIFICATION_DEPTH * CONCEPTS_MAX];
-extern ConceptChainElement conceptChainElementStorage[UNIFICATION_DEPTH * CONCEPTS_MAX];
-extern Stack conceptChainElementStack;
-extern ConceptChainElement *invertedAtomIndex[ATOMS_MAX];
+
+extern ConceptChainElement *g_conceptChainElementStoragePointers[UNIFICATION_DEPTH * CONCEPTS_MAX];
+
+extern ConceptChainElement g_conceptChainElementStorage[UNIFICATION_DEPTH * CONCEPTS_MAX];
+
+extern Stack g_conceptChainElementStack;
+
+extern ConceptChainElement *g_invertedAtomIndex[ATOMS_MAX];
 
 //Methods//
 //-------//
 //Init inverted atom index
 void
-InvertedAtomIndex_INIT();
+inverted_atom_index_init();
+
 //Add concept to inverted atom index
 void
-InvertedAtomIndex_AddConcept(Term term, Concept *c);
+inverted_atom_index_add_concept(Term term, Concept *c);
+
 //Remove concept from inverted atom index
 void
-InvertedAtomIndex_RemoveConcept(Term term, Concept *c);
+inverted_atom_index_remove_concept(Term term, Concept *c);
+
 //Print the inverted atom index
 void
-invertedAtomIndexPrint();
-//Get the invtable chain with the concepts for an atom
+inverted_atom_index_print();
+
+//Get the invtable chain with the g_concepts for an atom
 ConceptChainElement *
-InvertedAtomIndex_GetConceptChain(Atom atom);
+inverted_atom_index_get_concept_chain(Atom atom);
 
 #endif

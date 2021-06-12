@@ -16,42 +16,42 @@
 
 #include "nars_nal.h"
 
-int ruleID = 0;
+int g_ruleID = 0;
 
 static void
-NAL_GeneratePremisesUnifier(int i, Atom atom, int premiseIndex)
+nal_generate_premises_unifier(int i, Atom atom, int premiseIndex)
 {
 	if (atom)
 	{
 		//upper case atoms are treated as variables in the meta rule language
-		if (Narsese_atomNames[atom - 1][0] >= 'A' && Narsese_atomNames[atom - 1][0] <= 'Z')
+		if (g_narsese_atomNames[atom - 1][0] >= 'A' && g_narsese_atomNames[atom - 1][0] <= 'Z')
 		{
 			//unification failure by inequal value assignment (value at position i versus previously assigned one), and variable binding
 			printf("subtree = Term_ExtractSubterm(&term%d, %d);\n", premiseIndex, i);
 			printf(
-				"if((substitutions[%d].atoms[0]!=0 && !Term_Equal(&substitutions[%d], &subtree)) || Narsese_copulaEquals(subtree.atoms[0], '@')){ goto RULE_%d; }\n",
+				"if((substitutions[%d].atoms[0]!=0 && !Term_Equal(&substitutions[%d], &subtree)) || narsese_copula_equals(subtree.atoms[0], '@')){ goto RULE_%d; }\n",
 				atom,
 				atom,
-				ruleID);
+				g_ruleID);
 			printf("substitutions[%d] = subtree;\n", atom);
 		}
 		else
 		{
 			//structural constraint given by copulas at position i
-			printf("if(term%d.atoms[%d] != %d){ goto RULE_%d; }\n", premiseIndex, i, atom, ruleID);
+			printf("if(term%d.atoms[%d] != %d){ goto RULE_%d; }\n", premiseIndex, i, atom, g_ruleID);
 		}
 	}
 }
 
 static void
-NAL_GenerateConclusionSubstitution(int i, Atom atom)
+nal_generate_conclusion_substitution(int i, Atom atom)
 {
 	if (atom)
 	{
-		if (Narsese_atomNames[atom - 1][0] >= 'A' && Narsese_atomNames[atom - 1][0] <= 'Z')
+		if (g_narsese_atomNames[atom - 1][0] >= 'A' && g_narsese_atomNames[atom - 1][0] <= 'Z')
 		{
 			//conclusion term gets variables substituted
-			printf("if(!Term_OverrideSubterm(&conclusion,%d,&substitutions[%d])){ goto RULE_%d; }\n", i, atom, ruleID);
+			printf("if(!Term_OverrideSubterm(&conclusion,%d,&substitutions[%d])){ goto RULE_%d; }\n", i, atom, g_ruleID);
 		}
 		else
 		{
@@ -62,45 +62,45 @@ NAL_GenerateConclusionSubstitution(int i, Atom atom)
 }
 
 static void
-NAL_GenerateConclusionTerm(char *premise1, char *premise2, char *conclusion, bool doublePremise)
+nal_generate_conclusion_term(char *premise1, char *premise2, char *conclusion, bool doublePremise)
 {
-	Term term1 = Narsese_Term(premise1);
-	Term term2 = doublePremise ? Narsese_Term(premise2) : (Term) {0};
-	Term conclusion_term = Narsese_Term(conclusion);
-	printf("RULE_%d:\n{\n", ruleID++);
+	Term term1 = narsese_term(premise1);
+	Term term2 = doublePremise ? narsese_term(premise2) : (Term) {0};
+	Term conclusion_term = narsese_term(conclusion);
+	printf("RULE_%d:\n{\n", g_ruleID++);
 	//skip double/single premise rule if single/double premise
 	if (doublePremise)
 	{
-		printf("if(!doublePremise) { goto RULE_%d; }\n", ruleID);
+		printf("if(!doublePremise) { goto RULE_%d; }\n", g_ruleID);
 	}
 	if (!doublePremise)
 	{
-		printf("if(doublePremise) { goto RULE_%d; }\n", ruleID);
+		printf("if(doublePremise) { goto RULE_%d; }\n", g_ruleID);
 	}
 	puts("Term substitutions[27+NUM_ELEMENTS(Narsese_RuleTableVars)] = {0}; Term subtree = {0};"); //27 because of 9 indep, 9 dep, 9 query vars
 	for (int i = 0; i < COMPOUND_TERM_SIZE_MAX; i++)
 	{
-		NAL_GeneratePremisesUnifier(i, term1.atoms[i], 1);
+		nal_generate_premises_unifier(i, term1.atoms[i], 1);
 	}
 	if (doublePremise)
 	{
 		for (int i = 0; i < COMPOUND_TERM_SIZE_MAX; i++)
 		{
-			NAL_GeneratePremisesUnifier(i, term2.atoms[i], 2);
+			nal_generate_premises_unifier(i, term2.atoms[i], 2);
 		}
 	}
 	puts("Term conclusion = {0};");
 	for (int i = 0; i < COMPOUND_TERM_SIZE_MAX; i++)
 	{
-		NAL_GenerateConclusionSubstitution(i, conclusion_term.atoms[i]);
+		nal_generate_conclusion_substitution(i, conclusion_term.atoms[i]);
 	}
 }
 
 static void
-NAL_GenerateRule(char *premise1, char *premise2, char *conclusion, char *truthFunction, bool doublePremise,
-                 bool switchTruthArgs)
+nal_generate_rule(char *premise1, char *premise2, char *conclusion, char *truthFunction, bool doublePremise,
+                  bool switchTruthArgs)
 {
-	NAL_GenerateConclusionTerm(premise1, premise2, conclusion, doublePremise);
+	nal_generate_conclusion_term(premise1, premise2, conclusion, doublePremise);
 	if (switchTruthArgs)
 	{
 		printf("Truth conclusionTruth = %s(truth2,truth1);\n", truthFunction);
@@ -110,58 +110,58 @@ NAL_GenerateRule(char *premise1, char *premise2, char *conclusion, char *truthFu
 		printf("Truth conclusionTruth = %s(truth1,truth2);\n", truthFunction);
 	}
 	puts(
-		"NAL_DerivedEvent(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp, currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept, validation_cid);}\n");
+		"nal_derived_event(RuleTableReduce(conclusion, false), conclusionOccurrence, conclusionTruth, conclusionStamp, g_currentTime, parentPriority, conceptPriority, occurrenceTimeOffset, validation_concept, validation_cid);}\n");
 }
 
 static void
-NAL_GenerateReduction(char *premise1, char *conclusion)
+nal_generate_reduction(char *premise1, char *conclusion)
 {
-	NAL_GenerateConclusionTerm(premise1, NULL, conclusion, false);
+	nal_generate_conclusion_term(premise1, NULL, conclusion, false);
 	puts(
-		"IS_SYSTEM_IN_DEBUG_MODE( fputs(\"Reduced: \", stdout); Narsese_PrintTerm(&term1); fputs(\" -> \", stdout); Narsese_PrintTerm(&conclusion); puts(\"\"); ) \nreturn conclusion;\n}");
+		"IS_SYSTEM_IN_DEBUG_MODE( fputs(\"Reduced: \", stdout); Narsese_PrintTerm(&term1); fputs(\" -> \", stdout); narsese_print_term(&conclusion); puts(\"\"); ) \nreturn conclusion;\n}");
 }
 
 void
-NAL_GenerateRuleTable()
+nal_generate_rule_table()
 {
 	puts("#include \"ruletable.h\"");
 	puts(
-		"void RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusionOccurrence, double occurrenceTimeOffset, Stamp conclusionStamp, long currentTime, double parentPriority, double conceptPriority, bool doublePremise, Concept *validation_concept, long validation_cid)\n{\ngoto RULE_0;");
+		"void RuleTableApply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusionOccurrence, double occurrenceTimeOffset, Stamp conclusionStamp, long g_currentTime, double parentPriority, double conceptPriority, bool doublePremise, Concept *validation_concept, long validation_cid)\n{\ngoto RULE_0;");
 #define H_NAL_RULES
 
 #include "nars_nal.h"
 
 #undef H_NAL_RULES
-	printf("RULE_%d:;\n}\n", ruleID);
-	printf("Term RuleTableReduce(Term term1, bool doublePremise)\n{\ngoto RULE_%d;\n", ruleID);
+	printf("RULE_%d:;\n}\n", g_ruleID);
+	printf("Term RuleTableReduce(Term term1, bool doublePremise)\n{\ngoto RULE_%d;\n", g_ruleID);
 #define H_NAL_REDUCTIONS
 
 #include "nars_nal.h"
 
 #undef H_NAL_REDUCTIONS
-	printf("RULE_%d:;\nreturn term1;\n}\n\n", ruleID);
+	printf("RULE_%d:;\nreturn term1;\n}\n\n", g_ruleID);
 }
 
-static int atomsCounter = 1; //allows to avoid memset
-static int atomsAppeared[ATOMS_MAX] = {0};
+static int g_atomsCounter = 1; //allows to avoid memset
+static int g_atomsAppeared[ATOMS_MAX] = {0};
 
 static bool
-NAL_AtomAppearsTwice(Term *conclusionTerm)
+nal_atom_appears_twice(Term *conclusionTerm)
 {
-	if (Narsese_copulaEquals(conclusionTerm->atoms[0], ':') ||
-		Narsese_copulaEquals(conclusionTerm->atoms[0], '=')) //similarity or inheritance
+	if (narsese_copula_equals(conclusionTerm->atoms[0], ':') ||
+		narsese_copula_equals(conclusionTerm->atoms[0], '=')) //similarity or inheritance
 	{
-		atomsCounter++;
+		g_atomsCounter++;
 		for (int i = 0; i < COMPOUND_TERM_SIZE_MAX; i++)
 		{
 			Atom atom = conclusionTerm->atoms[i];
-			if (atomsAppeared[conclusionTerm->atoms[i]] == atomsCounter) //atom already appeared
+			if (g_atomsAppeared[conclusionTerm->atoms[i]] == g_atomsCounter) //atom already appeared
 			{
 				return true;
 			}
-			if (Narsese_IsNonCopulaAtom(atom))
+			if (narsese_is_non_copula_atom(atom))
 			{
-				atomsAppeared[atom] = atomsCounter;
+				g_atomsAppeared[atom] = g_atomsCounter;
 			}
 		}
 	}
@@ -169,9 +169,9 @@ NAL_AtomAppearsTwice(Term *conclusionTerm)
 }
 
 void
-NAL_DerivedEvent(Term conclusionTerm, long conclusionOccurrence, Truth conclusionTruth, Stamp stamp, long currentTime,
-                 double parentPriority, double conceptPriority, double occurrenceTimeOffset,
-                 Concept *validation_concept, long validation_cid)
+nal_derived_event(Term conclusionTerm, long conclusionOccurrence, Truth conclusionTruth, Stamp stamp, long currentTime,
+                  double parentPriority, double conceptPriority, double occurrenceTimeOffset,
+                  Concept *validation_concept, long validation_cid)
 {
 	Event e = {.term = conclusionTerm,
 		.type = EVENT_TYPE_BELIEF,
@@ -182,10 +182,10 @@ NAL_DerivedEvent(Term conclusionTerm, long conclusionOccurrence, Truth conclusio
 	if (validation_concept == NULL || validation_concept->id == validation_cid)
 	{
 		//concept recycling would invalidate the derivation (allows to lock only adding results to memory)
-		if (!NAL_AtomAppearsTwice(&conclusionTerm))
+		if (!nal_atom_appears_twice(&conclusionTerm))
 		{
-			Memory_AddEvent(&e, currentTime, conceptPriority * parentPriority * Truth_Expectation(conclusionTruth),
-			                occurrenceTimeOffset, false, true, false, false, false);
+			memory_add_event(&e, currentTime, conceptPriority * parentPriority * Truth_Expectation(conclusionTruth),
+			                 occurrenceTimeOffset, false, true, false, false, false);
 		}
 	}
 }

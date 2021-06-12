@@ -33,80 +33,102 @@
 
 //Data structure//
 //--------------//
+
 //Atomic term names:
-extern char Narsese_atomNames[ATOMS_MAX][ATOMIC_TERM_LEN_MAX];
-extern char Narsese_operatorNames[OPERATIONS_MAX][ATOMIC_TERM_LEN_MAX];
-extern Atom SELF;
+extern char g_narsese_atomNames[ATOMS_MAX][ATOMIC_TERM_LEN_MAX];
+extern char g_narsese_operatorNames[OPERATIONS_MAX][ATOMIC_TERM_LEN_MAX];
+extern Atom g_Self;
+
 #define Narsese_RuleTableVars "ABCMRSPXYZ"
 #define Naresese_CanonicalCopulas "@*&|;:=$'\"/\\.-%#~+!"
 
 //Methods//
 //-------//
+
 //Initializes encoder
 void
-Narsese_INIT();
+narsese_init();
+
 //Expands Narsese into by strtok(str," ") tokenizable string with canonical copulas
 char *
-Narsese_Expand(char *narsese);
+narsese_expand(char *narsese);
+
 //Tokenize expanded Narsese in prefix copula order
 char **
-Narsese_PrefixTransform(char *narsese_expanded);
+narsese_prefix_transform(char *narsese_expanded);
+
 //Parses a Narsese string to a compound term
 Term
-Narsese_Term(char *narsese);
+narsese_term(char *narsese);
+
 //Parses a Narsese string to a compound term and a tv, tv is default if not present
 void
-Narsese_Sentence(char *narsese,
-                 Term *destTerm,
-                 char *punctuation,
-                 int *tense,
-                 bool *isUserKnowledge,
-                 Truth *destTv,
-                 double *occurrenceTimeOffset);
+narsese_get_sentence(char *narsese,
+                     Term *destTerm,
+                     char *punctuation,
+                     int *tense,
+                     bool *isUserKnowledge,
+                     Truth *destTv,
+                     double *occurrenceTimeOffset);
+
 //Encodes a sequence
 Term
-Narsese_Sequence(Term *a, Term *b, bool *success);
+narsese_sequence(Term *a, Term *b, bool *success);
+
 //Parses an atomic term string to a term
 Term
-Narsese_AtomicTerm(char *name);
+narsese_atomic_term(char *name);
+
 //Index of atomic term
 int
-Narsese_AtomicTermIndex(char *name);
+narsese_atomic_term_index(char *name);
+
 //Index of operator
 int
-Narsese_OperatorIndex(char *name);
+narsese_operator_index(char *name);
+
 //Print an atom
 void
-Narsese_PrintAtom(Atom atom);
+narsese_print_atom(Atom atom);
+
 //Print a term
 void
-Narsese_PrintTerm(Term *term);
+narsese_print_term(Term *term);
+
 //Whether it is a certain copula:
 bool
-Narsese_copulaEquals(Atom atom, char name);
+narsese_copula_equals(Atom atom, char name);
+
 //Whether it is an operator
 bool
-Narsese_isOperator(Atom atom);
+narsese_is_operator(Atom atom);
+
 //Get operator id
 int
-Narsese_getOperationID(Term *term);
+narsese_get_operation_id(Term *term);
+
 //Is an operation
 bool
-Narsese_isOperation(Term *term);
+narsese_is_operation(Term *term);
+
 //Get precondition without operation
 Term
-Narsese_GetPreconditionWithoutOp(Term *precondition);
+narsese_get_precondition_without_op(Term *precondition);
+
 //Get whether something is a true atom, not a copula
 bool
-Narsese_IsNonCopulaAtom(Atom atom);
+narsese_is_non_copula_atom(Atom atom);
+
 //Whether two Narsese strings are equal
 bool
-Narsese_StringEqual(char *name1, char *name2);
+narsese_string_equal(char *name1, char *name2);
+
 //The hash code of a string
 HASH_TYPE
-Narsese_StringHash(char *name);
+narsese_string_hash(char *name);
+
 //Whether something is a simple atom such as "cat"
 bool
-Narsese_IsSimpleAtom(Atom atom);
+narsese_is_simple_atom(Atom atom);
 
 #endif

@@ -38,6 +38,7 @@ typedef struct
 	void *value;
 	void *next;
 } VMItem;
+
 typedef struct
 {
 	VMItem **storageptrs;
@@ -53,16 +54,19 @@ typedef struct
 //-------//
 //Get a concept from the hashtable via term
 void *
-HashTable_Get(HashTable *hashtable, void *key);
+hashtable_get(HashTable *hashtable, void *key);
+
 //Add a concept to the hashtable using the concept term
 void
-HashTable_Set(HashTable *hashtable, void *key, void *value);
+hashtable_set(HashTable *hashtable, void *key, void *value);
+
 //Delete a concept from hashtable (the concept's term is the key)
 void
-HashTable_Delete(HashTable *hashtable, void *key);
+hashtable_delete(HashTable *hashtable, void *key);
+
 //Initialize hashtable "virtual memory" stack and HT array
 void
-HashTable_INIT(HashTable *hashtable,
+hashtable_init(HashTable *hashtable,
                VMItem *storage,
                VMItem **storageptrs,
                VMItem **HT,
@@ -70,9 +74,10 @@ HashTable_INIT(HashTable *hashtable,
                int maxElements,
                Equal equal,
                Hash hash);
+
 //Maximum chain length in hashtable
 int
-HashTable_MaximumChainLength(HashTable *hashtable);
+hashtable_maximum_chain_length(HashTable *hashtable);
 
 #endif
 
