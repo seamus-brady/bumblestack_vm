@@ -2025,7 +2025,7 @@ int UnityStringArgumentMatches(const char* str)
     const char* ptr2;
     const char* ptrf;
 
-    /* Go through the options and get the substrings for matching one at a time */
+    /* Go through the options and get the substrings for matching one ITEM_AT a time */
     ptr1 = str;
     while (ptr1[0] != 0)
     {

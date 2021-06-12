@@ -78,7 +78,7 @@ test_fifo()
 	for (int i = 0; i < FIFO_SIZE; i++)
 	{
 		TEST_ASSERT_TRUE_MESSAGE(FIFO_SIZE - i == fifo.array[0][i].stamp.evidentialBase[0],
-		                         "Item at FIFO position has to be right");
+		                         "Item ITEM_AT FIFO position has to be right");
 	}
 	//now see whether a new item is revised with the correct one:
 	int i = 3; //revise with item 10, which has occurrence time 10
@@ -115,10 +115,10 @@ test_priority_queue(void)
 		items[i].address = (void *) ((long) i + 1);
 		items[i].priority = 0;
 	}
-	PriorityQueue_INIT(&queue, items, n_items);
+	priority_queue_init(&queue, items, n_items);
 	for (int i = 0, evictions = 0; i < n_items * 2; i++)
 	{
-		PriorityQueue_Push_Feedback feedback = PriorityQueue_Push(&queue, 1.0 / ((double) (n_items * 2 - i)));
+		PriorityQueuePushFeedback feedback = priority_queue_push(&queue, 1.0 / ((double) (n_items * 2 - i)));
 		if (feedback.added)
 		{
 			TEST_ASSERT_TRUE_MESSAGE(feedback.addedItem.priority != 0, "Feedback priority should not be 0.");
@@ -152,7 +152,7 @@ test_table(void)
 	for (int i = 0; i < TABLE_SIZE; i++)
 	{
 		TEST_ASSERT_TRUE_MESSAGE(i + 1 == table.array[i].stamp.evidentialBase[0],
-		                         "Item at table position has to be right");
+		                         "Item ITEM_AT table position has to be right");
 	}
 	Implication imp = {.term = narsese_atomic_term("test"),
 		.truth = {.frequency = 1.0, .confidence = 0.9},
@@ -342,7 +342,7 @@ test_hashtable()
 	term3.hash = c1.term.hash;
 	Concept c3 = {.id = 3, .term = term3}; //use different term but same hash, hash collision!
 	hashtable_set(&HTtest, &term3, &c3);
-	//there should be a chain of 3 g_concepts now at the hash position:
+	//there should be a chain of 3 g_concepts now ITEM_AT the hash position:
 	TEST_ASSERT_TRUE_MESSAGE(Term_Equal(HTtest.HT[c1.term.hash % CONCEPTS_HASHTABLE_BUCKETS]->key, &c1.term),
 	                         "c1 not there! (1)");
 	TEST_ASSERT_TRUE_MESSAGE(
@@ -368,7 +368,7 @@ test_hashtable()
 	//Delete the first one, which is the last one left, c1
 	hashtable_delete(&HTtest, &term1);
 	TEST_ASSERT_TRUE_MESSAGE(HTtest.HT[c1.term.hash % CONCEPTS_HASHTABLE_BUCKETS] == NULL,
-	                         "Hash table at hash position must be null");
+	                         "Hash table ITEM_AT hash position must be null");
 	TEST_ASSERT_TRUE_MESSAGE(HTtest.VMStack.stackpointer == CONCEPTS_MAX, "All elements should be free now");
 	//test for chars:
 	HashTable HTtest2;

@@ -53,12 +53,12 @@ hashtable_set(HashTable *hashtable, void *key, void *value)
 	popped->value = value;
 	popped->key = key;
 	popped->next = NULL;
-	//Case1: HT at hash was empty so add recycled item at HT[keyhash]
+	//Case1: HT ITEM_AT hash was empty so add recycled item ITEM_AT HT[keyhash]
 	if (empty)
 	{
 		hashtable->HT[keyhash] = popped;
 	}
-		//Case2: HT at hash not empty so add recycled item at end of the chain of HT[keyhash]
+		//Case2: HT ITEM_AT hash not empty so add recycled item ITEM_AT end of the chain of HT[keyhash]
 	else
 	{
 		ASSERT(item != NULL, "VMItem should not be null!");

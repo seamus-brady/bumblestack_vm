@@ -31,7 +31,7 @@ extern "C"
 void setUp(void);
 void tearDown(void);
 
-/* These functions are intended to be called at the beginning and end of an
+/* These functions are intended to be called ITEM_AT the beginning and end of an
  * entire test suite.  suiteTearDown() is passed the number of tests that
  * failed, and its return value becomes the exit code of main(). If using
  * Unity directly, you're in charge of calling these if they are desired.
@@ -79,7 +79,7 @@ void verifyTest(void);
 
  * Output
  *     - by default, Unity prints to standard out with putchar.  define UNITY_OUTPUT_CHAR(a) with a different function if desired
- *     - define UNITY_DIFFERENTIATE_FINAL_FAIL to print FAILED (vs. FAIL) at test end summary - for automated search for failure
+ *     - define UNITY_DIFFERENTIATE_FINAL_FAIL to print FAILED (vs. FAIL) ITEM_AT test end summary - for automated search for failure
 
  * Optimization
  *     - by default, line numbers are stored in unsigned shorts.  Define UNITY_LINE_TYPE with a different type if your files are huge

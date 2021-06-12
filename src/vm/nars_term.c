@@ -64,7 +64,7 @@ bool
 Term_OverrideSubterm(Term *term, int i, Term *subterm)
 {
 	return Term_RelativeOverride(term, i, subterm,
-	                             0); //subterm starts at its root, but its a subterm in term at position i
+	                             0); //subterm starts ITEM_AT its root, but its a subterm in term ITEM_AT position i
 }
 
 Term
@@ -72,8 +72,8 @@ Term_ExtractSubterm(Term *term, int j)
 {
 	Term ret = {0}; //ret is where to "write into"
 	Term_RelativeOverride(&ret, 0, term,
-	                      j); //where we begin to write at root, 0 (always succeeds as we extract just a subset)
-	return ret; //reading from term beginning at i
+	                      j); //where we begin to write ITEM_AT root, 0 (always succeeds as we extract just a subset)
+	return ret; //reading from term beginning ITEM_AT i
 }
 
 int

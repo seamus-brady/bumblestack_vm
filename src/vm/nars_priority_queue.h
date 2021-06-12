@@ -36,41 +36,48 @@ typedef struct
 	double priority;
 	void *address;
 } Item;
+
 typedef struct
 {
 	Item *items;
 	int itemsAmount;
 	int maxElements;
 } PriorityQueue;
+
 typedef struct
 {
 	bool added;
 	Item addedItem;
 	bool evicted;
 	Item evictedItem;
-} PriorityQueue_Push_Feedback;
+} PriorityQueuePushFeedback;
 
 //Methods//
 //-------//
 //Resets the priority queue
 void
-PriorityQueue_INIT(PriorityQueue *queue, Item *items, int maxElements);
+priority_queue_init(PriorityQueue *queue, Item *items, int maxElements);
+
 //Push element of a certain priority into the queue.
 //If successful, addedItem will point to the item in the data structure, with address of the evicted item, if eviction happened
-PriorityQueue_Push_Feedback
-PriorityQueue_Push(PriorityQueue *queue, double priority);
+PriorityQueuePushFeedback
+priority_queue_push(PriorityQueue *queue, double priority);
+
 //use this function and add again if maybe lower!
 bool
-PriorityQueue_PopAt(PriorityQueue *queue, int i, void **returnItemAddress);
+priority_queue_pop_at(PriorityQueue *queue, int i, void **returnItemAddress);
+
 //Rebuilds the data structure by re-inserting all elements:
 void
-PriorityQueue_Rebuild(PriorityQueue *queue);
+priority_queue_rebuild(PriorityQueue *queue);
+
 //Pops minimum element
 bool
-PriorityQueue_PopMin(PriorityQueue *queue, void **returnItemAddress, double *returnItemPriority);
+priority_queue_pop_min(PriorityQueue *queue, void **returnItemAddress, double *returnItemPriority);
+
 //Pops maximum element
 bool
-PriorityQueue_PopMax(PriorityQueue *queue, void **returnItemAddress, double *returnItemPriority);
+priority_queue_pop_max(PriorityQueue *queue, void **returnItemAddress, double *returnItemPriority);
 
 #endif
 

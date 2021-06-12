@@ -68,8 +68,8 @@ static void
 memory_reset_events()
 {
 	g_beliefEvents = (FIFO) {0};
-	PriorityQueue_INIT(&g_cyclingBeliefEvents, g_cyclingBeliefEventItemsStorage, CYCLING_BELIEF_EVENTS_MAX);
-	PriorityQueue_INIT(&g_cyclingGoalEvents, g_cyclingGoalEventItemsStorage, CYCLING_GOAL_EVENTS_MAX);
+	priority_queue_init(&g_cyclingBeliefEvents, g_cyclingBeliefEventItemsStorage, CYCLING_BELIEF_EVENTS_MAX);
+	priority_queue_init(&g_cyclingGoalEvents, g_cyclingGoalEventItemsStorage, CYCLING_GOAL_EVENTS_MAX);
 	for (int i = 0; i < CYCLING_BELIEF_EVENTS_MAX; i++)
 	{
 		g_cyclingBeliefEventStorage[i] = (Event) {0};
@@ -85,7 +85,7 @@ memory_reset_events()
 static void
 memory_reset_concepts()
 {
-	PriorityQueue_INIT(&g_concepts, g_conceptItemsStorage, CONCEPTS_MAX);
+	priority_queue_init(&g_concepts, g_conceptItemsStorage, CONCEPTS_MAX);
 	for (int i = 0; i < CONCEPTS_MAX; i++)
 	{
 		g_conceptStorage[i] = (Concept) {0};
@@ -128,7 +128,7 @@ memory_conceptualise(Term *term, long currentTime)
 	{
 		Concept *recycleConcept = NULL;
 		//try to add it, and if successful add to voting structure
-		PriorityQueue_Push_Feedback feedback = PriorityQueue_Push(&g_concepts, 1);
+		PriorityQueuePushFeedback feedback = priority_queue_push(&g_concepts, 1);
 		if (feedback.added)
 		{
 			recycleConcept = feedback.addedItem.address;
@@ -213,7 +213,7 @@ memory_add_cycling_event(Event *e, double priority, long currentTime)
 		}   //more radical than OpenNARS!
 	}
 	PriorityQueue *priority_queue = e->type == EVENT_TYPE_BELIEF ? &g_cyclingBeliefEvents : &g_cyclingGoalEvents;
-	PriorityQueue_Push_Feedback feedback = PriorityQueue_Push(priority_queue, priority);
+	PriorityQueuePushFeedback feedback = priority_queue_push(priority_queue, priority);
 	if (feedback.added)
 	{
 		Event *toRecyle = feedback.addedItem.address;

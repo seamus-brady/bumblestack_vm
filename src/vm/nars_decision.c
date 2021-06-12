@@ -82,7 +82,7 @@ decision_consider_implication(long currentTime, Event *goal, int considered_opi,
 		narsese_print_term(&imp->term);
 		puts("");
 	)
-	//now look at how much the precondition is fulfilled
+	//now look ITEM_AT how much the precondition is fulfilled
 	Concept *prec = imp->sourceConcept;
 	Event *precondition = &prec->belief_spike; //a. :|:
 	if (precondition != NULL)
@@ -101,7 +101,7 @@ decision_consider_implication(long currentTime, Event *goal, int considered_opi,
 			Truth_Print(&goal->truth);
 			fputs("Considered implication with truth: ", stdout);
 			Truth_Print(&imp->truth);
-			printf("Considered at system time occurrenceTime=(%ld)\n", precondition->occurrenceTime);
+			printf("Considered ITEM_AT system time occurrenceTime=(%ld)\n", precondition->occurrenceTime);
 			narsese_print_term(&precondition->term); puts("");
 		)
 		//<(precon &/ <args --> ^op>) =/> postcon>. -> [$ , postcon precon : _ _ _ _ args ^op

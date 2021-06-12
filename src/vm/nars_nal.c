@@ -26,7 +26,7 @@ nal_generate_premises_unifier(int i, Atom atom, int premiseIndex)
 		//upper case atoms are treated as variables in the meta rule language
 		if (g_narsese_atomNames[atom - 1][0] >= 'A' && g_narsese_atomNames[atom - 1][0] <= 'Z')
 		{
-			//unification failure by inequal value assignment (value at position i versus previously assigned one), and variable binding
+			//unification failure by inequal value assignment (value ITEM_AT position i versus previously assigned one), and variable binding
 			printf("subtree = Term_ExtractSubterm(&term%d, %d);\n", premiseIndex, i);
 			printf(
 				"if((substitutions[%d].atoms[0]!=0 && !Term_Equal(&substitutions[%d], &subtree)) || narsese_copula_equals(subtree.atoms[0], '@')){ goto RULE_%d; }\n",
@@ -37,7 +37,7 @@ nal_generate_premises_unifier(int i, Atom atom, int premiseIndex)
 		}
 		else
 		{
-			//structural constraint given by copulas at position i
+			//structural constraint given by copulas ITEM_AT position i
 			printf("if(term%d.atoms[%d] != %d){ goto RULE_%d; }\n", premiseIndex, i, atom, g_ruleID);
 		}
 	}

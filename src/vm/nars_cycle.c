@@ -118,7 +118,7 @@ cycle_pop_events(Event *selectionArray, double *selectionPriority, int *selected
 	{
 		Event *e;
 		double priority = 0;
-		if (!PriorityQueue_PopMax(queue, (void **) &e, &priority))
+		if (!priority_queue_pop_max(queue, (void **) &e, &priority))
 		{
 			ASSERT(queue->itemsAmount == 0, "No item was popped, only acceptable reason is when it's empty");
 			IS_SYSTEM_IN_DEBUG_MODE(puts("PriorityQueue seems to have no events as selecting event failed.");)
@@ -152,7 +152,7 @@ cycle_goal_sequence_decomposition(Event *selectedGoal, double selectedGoalPriori
 		componentGoalsTerm[i] = Term_ExtractSubterm(&cur_seq, 2);
 		cur_seq = Term_ExtractSubterm(&cur_seq, 1);
 	}
-	componentGoalsTerm[i] = cur_seq; //the last element at this point
+	componentGoalsTerm[i] = cur_seq; //the last element ITEM_AT this point
 	//2. Find first subgoal which isn't fulfilled
 	int lastComponentOccurrenceTime = -1;
 	Event newGoal = inference_event_update(selectedGoal, g_currentTime);
@@ -284,7 +284,7 @@ cycle_process_input_goal_events(long currentTime)
 	if (best_decision.execute && best_decision.operationID > 0)
 	{
 		//reset cycling goal events after execution to avoid "residue actions"
-		PriorityQueue_INIT(&g_cyclingGoalEvents, g_cyclingGoalEvents.items, g_cyclingGoalEvents.maxElements);
+		priority_queue_init(&g_cyclingGoalEvents, g_cyclingGoalEvents.items, g_cyclingGoalEvents.maxElements);
 		//also don't re-add the selected goal:
 		g_goalsSelectedCnt = 0;
 		//execute decision
@@ -675,9 +675,9 @@ cycle_relative_forgetting(long currentTime)
 	}
 	//END SPECIAL HANDLING FOR USER KNOWLEDGE
 	//Re-sort queues
-	PriorityQueue_Rebuild(&g_concepts);
-	PriorityQueue_Rebuild(&g_cyclingBeliefEvents);
-	PriorityQueue_Rebuild(&g_cyclingGoalEvents);
+	priority_queue_rebuild(&g_concepts);
+	priority_queue_rebuild(&g_cyclingBeliefEvents);
+	priority_queue_rebuild(&g_cyclingGoalEvents);
 }
 
 void

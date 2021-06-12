@@ -46,7 +46,7 @@ Table_Add(Table *table, Implication *imp)
 void
 Table_Remove(Table *table, int index)
 {
-	//move up the rest beginning at index
+	//move up the rest beginning ITEM_AT index
 	for (int j = index; j < table->itemsAmount; j++)
 	{
 		table->array[j] = j == table->itemsAmount - 1 ? (Implication) {0} : table->array[j + 1];

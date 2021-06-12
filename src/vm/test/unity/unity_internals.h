@@ -52,7 +52,7 @@
 
 /* Determine the size of an int, if not already specified.
  * We cannot use sizeof(int), because it is not yet defined
- * at this stage in the translation of the C program.
+ * ITEM_AT this stage in the translation of the C program.
  * Also sizeof(int) does return the size in addressable units on all platforms,
  * which may not necessarily be the size in bytes.
  * Therefore, infer it from UINT_MAX if possible. */

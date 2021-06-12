@@ -24,7 +24,7 @@ char g_narsese_operatorNames[OPERATIONS_MAX][ATOMIC_TERM_LEN_MAX];
 //upper bound of multplier 3 given by [ becoming "(' " replacement
 #define REPLACEMENT_LEN 3*NARSESE_LEN_MAX
 
-//size for the expanded array with spaces for tokenization, has at most 3 times the amount of chars as the replacement array
+//size for the expanded array with spaces for tokenization, has ITEM_AT most 3 times the amount of chars as the replacement array
 #define EXPANSION_LEN REPLACEMENT_LEN*3
 
 //whether the package is g_narseseInitialized
@@ -48,7 +48,7 @@ narsese_replace_with_canonical_copulas(char *narsese, int n)
 {
 	static char narsese_replaced[REPLACEMENT_LEN];
 	memset(narsese_replaced, ' ', REPLACEMENT_LEN);
-	//upper bound of 3 increment given by max. look-ahead of --> becoming :, plus 0 at the end
+	//upper bound of 3 increment given by max. look-ahead of --> becoming :, plus 0 ITEM_AT the end
 	ASSERT(n + 3 <= NARSESE_LEN_MAX,
 	       "NARSESE_LEN_MAX too small, consider increasing or split input into multiple statements! \n");
 	int j = 0;
@@ -273,7 +273,7 @@ narsese_prefix_transform(char *narsese_expanded)
 			{
 				//1. backup copula token
 				char copula = tokens[i2][0];
-				//2. shift all tokens forward up to copula position and set the copula to be at i+1 instead
+				//2. shift all tokens forward up to copula position and set the copula to be ITEM_AT i+1 instead
 				for (int j = i2; j >= i + 2; j--)
 				{
 					char *temp = tokens[j];
@@ -398,7 +398,7 @@ narsese_get_sentence(char *narsese, Term *destTerm, char *punctuation, int *tens
                      double *occurrenceTimeOffset)
 {
 	ASSERT(g_narseseInitialized, "Narsese not g_narseseInitialized, call narsese_init first!");
-	//Handle optional dt=num at beginning of line
+	//Handle optional dt=num ITEM_AT beginning of line
 	*occurrenceTimeOffset = 0.0;
 	char dt[10];
 	if (narsese[0] == 'd' && narsese[1] == 't' && narsese[2] == '=') //dt=
@@ -655,7 +655,7 @@ narsese_init()
 	{
 		memset(&g_narsese_operatorNames[i], 0, ATOMIC_TERM_LEN_MAX);
 	}
-	//index variables at first, these atoms come first as also used by Substitution struct
+	//index variables ITEM_AT first, these atoms come first as also used by Substitution struct
 	for (int i = 1; i <= 9; i++)
 	{
 		char dep_varname[3] = "#1";
