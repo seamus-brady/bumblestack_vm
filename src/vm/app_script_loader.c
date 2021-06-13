@@ -75,18 +75,18 @@ run_script(WrenVM *vm)
 // ensure right number of slots
 wrenEnsureSlots(vm, 0);
 // set main class
-wrenGetVariable(vm, "main", "JSON", 0);
+wrenGetVariable(vm, "main", "BumbleVM", 0);
 WrenHandle *jsonParser = wrenGetSlotHandle(vm, 0);
 
 // set up function
-WrenHandle *updateFn = wrenMakeCallHandle(vm, "stringify(_)");
+WrenHandle *updateFn = wrenMakeCallHandle(vm, "jsonPrint(_)");
 // call function
 wrenEnsureSlots(vm, 2);
 wrenSetSlotHandle(vm, 0, jsonParser);
 wrenSetSlotString(vm, 1, "\"lonely string\""); // elapsedTime
 wrenCall(vm, updateFn);
-char *result = wrenGetSlotString(vm, 0);
-printf("Result from Wren: %d\n", result);
+// char *result = wrenGetSlotString(vm, 0);
+//printf("Result from Wren: %d\n", result);
 // Release this handle if it finished successfully
 wrenReleaseHandle(vm, updateFn);
 wrenReleaseHandle(vm, jsonParser);

@@ -1,3 +1,9 @@
+class BumbleVM {
+  static jsonPrint(string) {
+    System.print(JSON.parse(string))
+  }
+
+}
 
 class JSON {
   static parse(string) {

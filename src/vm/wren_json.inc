@@ -1,5 +1,11 @@
 // Generated automatically from /home/seamus/GitHub/bumblestack-repos/bumblestack/src/scripts/json.wren. Do not edit.
 static const char* jsonModuleSource =
+"class BumbleVM {\n"
+"  static jsonPrint(string) {\n"
+"    System.print(JSON.parse(string))\n"
+"  }\n"
+"\n"
+"}\n"
 "\n"
 "class JSON {\n"
 "  static parse(string) {\n"
