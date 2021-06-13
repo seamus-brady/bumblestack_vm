@@ -107,7 +107,7 @@ setup_logging()
 void
 print_concepts()
 {
-	slog_info("Printing g_concepts:");
+	slog_info("Printing concepts:");
 	for (int opi = 0; opi < OPERATIONS_MAX; opi++)
 	{
 		if (g_operations[opi].term.atoms[0])
@@ -170,7 +170,7 @@ print_concepts()
 			}
 		}
 	}
-	slog_info("Finished printing g_concepts.");
+	slog_info("Finished printing concepts.");
 }
 
 void

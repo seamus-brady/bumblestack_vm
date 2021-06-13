@@ -225,8 +225,12 @@ decision_best_candidate(Concept *goalconcept, Event *goal, long currentTime)
 		return (Decision) {0};
 	}
 	//set execute and return execution
+	buffer_t *buf = buffer_new();
 	printf("Decision expectation=(%f) implication: ", decision.desire);
-	narsese_print_term(&bestImp.term);
+//	char *s;
+//	sprintf(s, "Decision expectation=(%f) implication: ", decision.desire);
+//	buffer_append(s, buf);
+	narsese_print_term_with_buffer(&bestImp.term, buf);
 	printf(". truth=(frequency=%f confidence=%f) occurrenceTimeOffset=(%f)",
 	       bestImp.truth.frequency,
 	       bestImp.truth.confidence,
@@ -237,6 +241,8 @@ decision_best_candidate(Concept *goalconcept, Event *goal, long currentTime)
 	printf("truth=(frequency=%f confidence=%f)", decision.reason->truth.frequency, decision.reason->truth.confidence);
 	printf(" occurrenceTime=(%ld)\n", decision.reason->occurrenceTime);
 	decision.execute = true;
+	printf(buffer_string(buf));
+	buffer_free(buf);
 	return decision;
 }
 

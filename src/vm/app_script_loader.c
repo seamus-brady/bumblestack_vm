@@ -85,8 +85,8 @@ wrenEnsureSlots(vm, 2);
 wrenSetSlotHandle(vm, 0, jsonParser);
 wrenSetSlotString(vm, 1, "\"lonely string\""); // elapsedTime
 wrenCall(vm, updateFn);
-// char *result = wrenGetSlotString(vm, 0);
-//printf("Result from Wren: %d\n", result);
+char *result = wrenGetSlotString(vm, 0);
+// printf("Result from Wren: %d\n", result);
 // Release this handle if it finished successfully
 wrenReleaseHandle(vm, updateFn);
 wrenReleaseHandle(vm, jsonParser);
