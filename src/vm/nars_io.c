@@ -73,7 +73,7 @@ run_ruletable_diagnostic()
 }
 
 void
-run_diagnostics(void)
+io_run_diagnostics(void)
 {
 	slog_info("Running diagnostic tests...");
 	run_ruletable_diagnostic();
@@ -82,7 +82,7 @@ run_diagnostics(void)
 }
 
 void
-setup_logging()
+io_setup_logging()
 {// Enable all logging levels
 	int enabledLevels = SLOG_FLAGS_ALL;
 
@@ -105,7 +105,7 @@ setup_logging()
 }
 
 void
-print_concepts()
+io_print_concepts()
 {
 	slog_info("Printing concepts:");
 	for (int opi = 0; opi < OPERATIONS_MAX; opi++)
@@ -174,13 +174,13 @@ print_concepts()
 }
 
 void
-print_atom_table()
+io_print_atom_table()
 {
 	inverted_atom_index_print();
 }
 
 void
-print_cycling_belief_events()
+io_print_cycling_belief_events()
 {
 	slog_info("Printing cycling g_beliefEvents:");
 	for (int i = 0; i < g_cyclingBeliefEvents.itemsAmount; i++)
@@ -196,7 +196,7 @@ print_cycling_belief_events()
 }
 
 void
-print_cycling_goal_events()
+io_print_cycling_goal_events()
 {
 	slog_info("Printing cycling goal events:");
 	for (int i = 0; i < g_cyclingGoalEvents.itemsAmount; i++)
@@ -209,4 +209,159 @@ print_cycling_goal_events()
 		truth_print(&e->truth);
 	}
 	slog_info("Finished printing cycling goal events.");
+}
+
+void
+io_print_decision_with_json(Decision decision, Implication bestImp)
+{
+	puts("{\"Decision\":\"");
+	printf("Decision expectation=(%f) implication: ", decision.desire);
+	narsese_print_term(&bestImp.term);
+	printf(". truth=(frequency=%f confidence=%f) occurrenceTimeOffset=(%f)",
+	       bestImp.truth.frequency,
+	       bestImp.truth.confidence,
+	       bestImp.occurrenceTimeOffset);
+	fputs(" precondition: ", stdout);
+	narsese_print_term(&decision.reason->term);
+	fputs(". :|: ", stdout);
+	printf("truth=(frequency=%f confidence=%f)", decision.reason->truth.frequency, decision.reason->truth.confidence);
+	printf(" occurrenceTime=(%ld)\n", decision.reason->occurrenceTime);
+	puts("\"}");
+}
+
+
+void
+io_narsese_print_term_with_buffer(Term *term, buffer_t *buf)
+{
+	io_narsese_print_term_pretty_recursive_with_buffer(term, 1, buf);
+}
+
+void
+io_narsese_print_term_pretty_recursive_with_buffer(Term *term, int index, buffer_t *buf) //start with index=1!
+{
+	Atom atom = term->atoms[index - 1];
+	if (!atom)
+	{
+		return;
+	}
+	int child1 = index * 2;
+	int child2 = index * 2 + 1;
+	bool hasLeftChild = child1 < COMPOUND_TERM_SIZE_MAX && term->atoms[child1 - 1];
+	bool hasRightChild = child2 < COMPOUND_TERM_SIZE_MAX && term->atoms[child2 - 1] &&
+		!narsese_copula_equals(term->atoms[child2 - 1], '@');
+	bool isNegation = narsese_copula_equals(atom, '!');
+	bool isExtSet = narsese_copula_equals(atom, '"');
+	bool isIntSet = narsese_copula_equals(atom, '\'');
+	bool isStatement =
+		narsese_copula_equals(atom, '$') || narsese_copula_equals(atom, ':') || narsese_copula_equals(atom, '=');
+	if (isExtSet)
+	{
+		buffer_append(buf, hasLeftChild ? "{" : "");
+	}
+	else if (isIntSet)
+	{
+		buffer_append(buf, hasLeftChild ? "[" : "");
+	}
+	else if (isStatement)
+	{
+		buffer_append(buf, hasLeftChild ? "<" : "");
+	}
+	else
+	{
+		buffer_append(buf, hasLeftChild ? "(" : "");
+		if (isNegation)
+		{
+			io_narsese_print_atom_with_buffer(atom, buf);
+			buffer_append(buf, " ");
+		}
+	}
+	if (child1 < COMPOUND_TERM_SIZE_MAX)
+	{
+		io_narsese_print_term_pretty_recursive_with_buffer(term, child1, buf);
+	}
+	if (hasRightChild)
+	{
+		buffer_append(buf, hasLeftChild ? " " : "");
+	}
+	if (!isExtSet && !isIntSet && !narsese_copula_equals(atom, '@'))
+	{
+		if (!isNegation)
+		{
+			io_narsese_print_atom_with_buffer(atom, buf);
+			buffer_append(buf, hasLeftChild ? " " : "");
+		}
+	}
+	if (child2 < COMPOUND_TERM_SIZE_MAX)
+	{
+		io_narsese_print_term_pretty_recursive_with_buffer(term, child2, buf);
+	}
+	if (isExtSet)
+	{
+		buffer_append(buf, hasLeftChild ? "}" : "");
+	}
+	else if (isIntSet)
+	{
+		buffer_append(buf, hasLeftChild ? "]" : "");
+	}
+	else if (isStatement)
+	{
+		buffer_append(buf, hasLeftChild ? ">" : "");
+	}
+	else
+	{
+		buffer_append(buf, hasLeftChild ? ")" : "");
+	}
+}
+
+
+void
+io_narsese_print_atom_with_buffer(Atom atom, buffer_t *buf)
+{
+	if (atom)
+	{
+		if (narsese_copula_equals(atom, ':'))
+		{
+			buffer_append(buf, "-->");
+		}
+		else if (narsese_copula_equals(atom, '$'))
+		{
+			buffer_append(buf, "=/>");
+		}
+		else if (narsese_copula_equals(atom, '+'))
+		{
+			buffer_append(buf, "&/");
+		}
+		else if (narsese_copula_equals(atom, ';'))
+		{
+			buffer_append(buf, "&|");
+		}
+		else if (narsese_copula_equals(atom, '='))
+		{
+			buffer_append(buf, "<->");
+		}
+		else if (narsese_copula_equals(atom, '/'))
+		{
+			buffer_append(buf, "/1");
+		}
+		else if (narsese_copula_equals(atom, '%'))
+		{
+			buffer_append(buf, "/2");
+		}
+		else if (narsese_copula_equals(atom, '\\'))
+		{
+			buffer_append(buf, "\\1");
+		}
+		else if (narsese_copula_equals(atom, '#'))
+		{
+			buffer_append(buf, "\\2");
+		}
+		else
+		{
+			buffer_append(buf, g_narsese_atomNames[atom - 1]);
+		}
+	}
+	else
+	{
+		buffer_append(buf, "@");
+	}
 }

@@ -23,6 +23,7 @@
  */
 
 #include "nars_decision.h"
+#include "app.h"
 
 double CONDITION_THRESHOLD = CONDITION_THRESHOLD_INITIAL;
 double DECISION_THRESHOLD = DECISION_THRESHOLD_INITIAL;
@@ -225,24 +226,8 @@ decision_best_candidate(Concept *goalconcept, Event *goal, long currentTime)
 		return (Decision) {0};
 	}
 	//set execute and return execution
-	buffer_t *buf = buffer_new();
-	printf("Decision expectation=(%f) implication: ", decision.desire);
-//	char *s;
-//	sprintf(s, "Decision expectation=(%f) implication: ", decision.desire);
-//	buffer_append(s, buf);
-	narsese_print_term_with_buffer(&bestImp.term, buf);
-	printf(". truth=(frequency=%f confidence=%f) occurrenceTimeOffset=(%f)",
-	       bestImp.truth.frequency,
-	       bestImp.truth.confidence,
-	       bestImp.occurrenceTimeOffset);
-	fputs(" precondition: ", stdout);
-	narsese_print_term(&decision.reason->term);
-	fputs(". :|: ", stdout);
-	printf("truth=(frequency=%f confidence=%f)", decision.reason->truth.frequency, decision.reason->truth.confidence);
-	printf(" occurrenceTime=(%ld)\n", decision.reason->occurrenceTime);
+	io_print_decision_with_json(decision, bestImp);
 	decision.execute = true;
-	printf(buffer_string(buf));
-	buffer_free(buf);
 	return decision;
 }
 

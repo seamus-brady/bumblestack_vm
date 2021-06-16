@@ -57,24 +57,24 @@ systemInit()
 	globals_sys_rand(SEED);
 
 	// initialise logging
-	setup_logging();
+	io_setup_logging();
 	slog_info("Welcome to BumbleStack!");
 
 	// initialise the bumblestack NARS system
 	NAR_INIT();
 	slog_info("System initialised.");
 	stats_print(g_currentTime);
-	print_atom_table();
-	print_concepts();
-	print_cycling_belief_events();
-	print_cycling_goal_events();
+	io_print_atom_table();
+	io_print_concepts();
+	io_print_cycling_belief_events();
+	io_print_cycling_goal_events();
 }
 
 int
 main(int argc, char *argv[])
 {
 	systemInit();
-	run_diagnostics();
+	io_run_diagnostics();
 	start_wren();
 	return 0;
 }

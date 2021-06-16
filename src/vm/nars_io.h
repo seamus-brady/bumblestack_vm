@@ -14,25 +14,44 @@
  * THE SOFTWARE.
  */
 
+#ifndef H_IO
+#define H_IO
+
 #include <stdbool.h>
 #include <stdlib.h>
 #include "nars_nar.h"
 #include "lib_slog.h"
 
 void
-setup_logging();
+io_setup_logging();
 
 void
-print_concepts();
+io_print_concepts();
 
 void
-print_atom_table();
+io_print_atom_table();
 
 void
-print_cycling_belief_events();
+io_print_cycling_belief_events();
 
 void
-print_cycling_goal_events();
+io_print_cycling_goal_events();
 
 void
-run_diagnostics();
+io_run_diagnostics();
+
+void
+io_print_decision_with_json(Decision decision, Implication imp);
+
+//Print an atom with buffer
+void
+io_narsese_print_atom_with_buffer(Atom atom, buffer_t *buf);
+
+//Print a term with a buffer
+void
+io_narsese_print_term_with_buffer(Term *term, buffer_t *buf);
+
+void
+io_narsese_print_term_pretty_recursive_with_buffer(Term *term, int index, buffer_t *buf);
+
+#endif

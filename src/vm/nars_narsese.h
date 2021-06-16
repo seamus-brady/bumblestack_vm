@@ -104,14 +104,6 @@ narsese_print_atom(Atom atom);
 void
 narsese_print_term(Term *term);
 
-//Print an atom with buffer
-void
-narsese_print_atom_with_buffer(Atom atom, buffer_t *buf);
-
-//Print a term with a buffer
-void
-narsese_print_term_with_buffer(Term *term, buffer_t *buf);
-
 //Whether it is a certain copula:
 bool
 narsese_copula_equals(Atom atom, char name);
