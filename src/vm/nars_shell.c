@@ -23,13 +23,14 @@
  */
 
 #include "nars_shell.h"
+#include "nars_io.h"
 
 static void
 Shell_op_left(Term args)
 {
 	fputs(g_narsese_operatorNames[0], stdout);
 	fputs(" executed with args ", stdout);
-	narsese_print_term(&args);
+	io_narsese_print_term(&args);
 	puts("");
 	fflush(stdout);
 }
@@ -39,7 +40,7 @@ Shell_op_right(Term args)
 {
 	fputs(g_narsese_operatorNames[1], stdout);
 	fputs(" executed with args ", stdout);
-	narsese_print_term(&args);
+	io_narsese_print_term(&args);
 	puts("");
 	fflush(stdout);
 }
@@ -49,7 +50,7 @@ Shell_op_up(Term args)
 {
 	fputs(g_narsese_operatorNames[2], stdout);
 	fputs(" executed with args ", stdout);
-	narsese_print_term(&args);
+	io_narsese_print_term(&args);
 	puts("");
 	fflush(stdout);
 }
@@ -59,7 +60,7 @@ Shell_op_down(Term args)
 {
 	fputs(g_narsese_operatorNames[3], stdout);
 	fputs(" executed with args ", stdout);
-	narsese_print_term(&args);
+	io_narsese_print_term(&args);
 	puts("");
 	fflush(stdout);
 }
@@ -69,7 +70,7 @@ Shell_op_say(Term args)
 {
 	fputs(g_narsese_operatorNames[4], stdout);
 	fputs(" executed with args ", stdout);
-	narsese_print_term(&args);
+	io_narsese_print_term(&args);
 	puts("");
 	fflush(stdout);
 }
@@ -79,7 +80,7 @@ Shell_op_pick(Term args)
 {
 	fputs(g_narsese_operatorNames[5], stdout);
 	fputs(" executed with args ", stdout);
-	narsese_print_term(&args);
+	io_narsese_print_term(&args);
 	puts("");
 	fflush(stdout);
 }
@@ -89,7 +90,7 @@ Shell_op_drop(Term args)
 {
 	fputs(g_narsese_operatorNames[6], stdout);
 	fputs(" executed with args ", stdout);
-	narsese_print_term(&args);
+	io_narsese_print_term(&args);
 	puts("");
 	fflush(stdout);
 }
@@ -99,7 +100,7 @@ Shell_op_go(Term args)
 {
 	fputs(g_narsese_operatorNames[7], stdout);
 	fputs(" executed with args ", stdout);
-	narsese_print_term(&args);
+	io_narsese_print_term(&args);
 	puts("");
 	fflush(stdout);
 }
@@ -109,7 +110,7 @@ Shell_op_activate(Term args)
 {
 	fputs(g_narsese_operatorNames[8], stdout);
 	fputs(" executed with args ", stdout);
-	narsese_print_term(&args);
+	io_narsese_print_term(&args);
 	puts("");
 	fflush(stdout);
 }
@@ -119,7 +120,7 @@ Shell_op_deactivate(Term args)
 {
 	fputs(g_narsese_operatorNames[9], stdout);
 	fputs(" executed with args ", stdout);
-	narsese_print_term(&args);
+	io_narsese_print_term(&args);
 	puts("");
 	fflush(stdout);
 }
@@ -128,59 +129,59 @@ void
 Shell_NARInit()
 {
 	fflush(stdout);
-	NAR_INIT();
+	nar_init();
 	PRINT_DERIVATIONS = true;
 	int k = 0;
 	if (k >= OPERATIONS_MAX)
 	{
 		return;
 	};
-	NAR_AddOperation(narsese_atomic_term("^left"), Shell_op_left);
+	nar_add_operation(narsese_atomic_term("^left"), Shell_op_left);
 	if (++k >= OPERATIONS_MAX)
 	{
 		return;
 	};
-	NAR_AddOperation(narsese_atomic_term("^right"), Shell_op_right);
+	nar_add_operation(narsese_atomic_term("^right"), Shell_op_right);
 	if (++k >= OPERATIONS_MAX)
 	{
 		return;
 	};
-	NAR_AddOperation(narsese_atomic_term("^up"), Shell_op_up);
+	nar_add_operation(narsese_atomic_term("^up"), Shell_op_up);
 	if (++k >= OPERATIONS_MAX)
 	{
 		return;
 	};
-	NAR_AddOperation(narsese_atomic_term("^down"), Shell_op_down);
+	nar_add_operation(narsese_atomic_term("^down"), Shell_op_down);
 	if (++k >= OPERATIONS_MAX)
 	{
 		return;
 	};
-	NAR_AddOperation(narsese_atomic_term("^say"), Shell_op_say);
+	nar_add_operation(narsese_atomic_term("^say"), Shell_op_say);
 	if (++k >= OPERATIONS_MAX)
 	{
 		return;
 	};
-	NAR_AddOperation(narsese_atomic_term("^pick"), Shell_op_pick);
+	nar_add_operation(narsese_atomic_term("^pick"), Shell_op_pick);
 	if (++k >= OPERATIONS_MAX)
 	{
 		return;
 	};
-	NAR_AddOperation(narsese_atomic_term("^drop"), Shell_op_drop);
+	nar_add_operation(narsese_atomic_term("^drop"), Shell_op_drop);
 	if (++k >= OPERATIONS_MAX)
 	{
 		return;
 	};
-	NAR_AddOperation(narsese_atomic_term("^go"), Shell_op_go);
+	nar_add_operation(narsese_atomic_term("^go"), Shell_op_go);
 	if (++k >= OPERATIONS_MAX)
 	{
 		return;
 	};
-	NAR_AddOperation(narsese_atomic_term("^activate"), Shell_op_activate);
+	nar_add_operation(narsese_atomic_term("^activate"), Shell_op_activate);
 	if (++k >= OPERATIONS_MAX)
 	{
 		return;
 	};
-	NAR_AddOperation(narsese_atomic_term("^deactivate"), Shell_op_deactivate);
+	nar_add_operation(narsese_atomic_term("^deactivate"), Shell_op_deactivate);
 	if (++k >= OPERATIONS_MAX)
 	{
 		return;
@@ -203,7 +204,7 @@ Shell_ProcessInput(char *line)
 	int size = strlen(line);
 	if (size == 0)
 	{
-		NAR_Cycles(1);
+		nar_cycles(1);
 	}
 	else
 	{
@@ -241,7 +242,7 @@ Shell_ProcessInput(char *line)
 				if (g_operations[opi].term.atoms[0])
 				{
 					printf("*setopname %d ", opi + 1);
-					narsese_print_term(&g_operations[opi].term);
+					io_narsese_print_term(&g_operations[opi].term);
 					puts("");
 				}
 			}
@@ -250,7 +251,7 @@ Shell_ProcessInput(char *line)
 				Concept *c = g_concepts.items[i].address;
 				ASSERT(c != NULL, "Concept is null");
 				fputs("//", stdout);
-				narsese_print_term(&c->term);
+				io_narsese_print_term(&c->term);
 				printf(
 					": { \"priority\": %f, \"usefulness\": %f, \"useCount\": %ld, \"lastUsed\": %ld, \"frequency\": %f, \"confidence\": %f, \"termlinks\": [",
 					c->priority,
@@ -266,35 +267,40 @@ Shell_ProcessInput(char *line)
 				Term right_left = term_extract_subterm(&right, 1);
 				Term right_right = term_extract_subterm(&right, 2);
 				fputs("\"", stdout);
-				narsese_print_term(&left);
+				io_narsese_print_term(&left);
 				fputs("\", ", stdout);
 				fputs("\"", stdout);
-				narsese_print_term(&right);
+				io_narsese_print_term(&right);
 				fputs("\", ", stdout);
 				fputs("\"", stdout);
-				narsese_print_term(&left_left);
+				io_narsese_print_term(&left_left);
 				fputs("\", ", stdout);
 				fputs("\"", stdout);
-				narsese_print_term(&left_right);
+				io_narsese_print_term(&left_right);
 				fputs("\", ", stdout);
 				fputs("\"", stdout);
-				narsese_print_term(&right_left);
+				io_narsese_print_term(&right_left);
 				fputs("\", ", stdout);
 				fputs("\"", stdout);
-				narsese_print_term(&right_right);
+				io_narsese_print_term(&right_right);
 				fputs("\"", stdout);
 				puts("]}");
 				if (c->belief.type != EVENT_TYPE_DELETED)
 				{
-					memory_print_added_event(&c->belief, 1, true, false, false, false);
+					io_memory_print_added_event(&c->belief, 1, true, false, false, false);
 				}
 				for (int opi = 0; opi < OPERATIONS_MAX; opi++)
 				{
 					for (int h = 0; h < c->precondition_beliefs[opi].itemsAmount; h++)
 					{
 						Implication *imp = &c->precondition_beliefs[opi].array[h];
-						Memory_printAddedImplication(&imp->term, &imp->truth, imp->occurrenceTimeOffset, 1, true, false,
-						                             false);
+						io_memory_print_added_implication(&imp->term,
+						                                  &imp->truth,
+						                                  imp->occurrenceTimeOffset,
+						                                  1,
+						                                  true,
+						                                  false,
+						                                  false);
 					}
 				}
 			}
@@ -307,10 +313,10 @@ Shell_ProcessInput(char *line)
 			{
 				Event *e = g_cyclingBeliefEvents.items[i].address;
 				ASSERT(e != NULL, "Event is null");
-				narsese_print_term(&e->term);
+				io_narsese_print_term(&e->term);
 				printf(": { \"priority\": %f, \"time\": %ld } ", g_cyclingBeliefEvents.items[i].priority,
 				       e->occurrenceTime);
-				truth_print(&e->truth);
+				io_truth_print(&e->truth);
 			}
 			puts("//*done");
 		}
@@ -321,10 +327,10 @@ Shell_ProcessInput(char *line)
 			{
 				Event *e = g_cyclingGoalEvents.items[i].address;
 				ASSERT(e != NULL, "Event is null");
-				narsese_print_term(&e->term);
+				io_narsese_print_term(&e->term);
 				printf(": {\"priority\": %f, \"time\": %ld } ", g_cyclingGoalEvents.items[i].priority,
 				       e->occurrenceTime);
-				truth_print(&e->truth);
+				io_truth_print(&e->truth);
 			}
 			puts("//*done");
 		}
@@ -368,13 +374,13 @@ Shell_ProcessInput(char *line)
 			sscanf(line, "%u", &steps);
 			printf("performing %u inference steps:\n", steps);
 			fflush(stdout);
-			NAR_Cycles(steps);
+			nar_cycles(steps);
 			printf("done with %u additional inference steps.\n", steps);
 			fflush(stdout);
 		}
 		else
 		{
-			NAR_AddInputNarsese(line);
+			nar_add_input_narsese(line);
 		}
 	}
 	fflush(stdout);

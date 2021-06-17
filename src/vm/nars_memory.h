@@ -128,18 +128,4 @@ Memory_AddOperation(int id, Operation op);
 bool
 memory_implication_valid(Implication *imp);
 
-//Print an event in memory:
-void
-memory_print_added_event(Event *event, double priority, bool input, bool derived, bool revised, bool controlInfo);
-
-//Print an implication in memory:
-void
-Memory_printAddedImplication(Term *implication,
-                             Truth *truth,
-                             double occurrenceTimeOffset,
-                             double priority,
-                             bool input,
-                             bool revised,
-                             bool controlInfo);
-
 #endif

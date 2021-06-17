@@ -126,7 +126,7 @@ nal_generate_reduction(char *premise1, char *conclusion)
 {
 	nal_generate_conclusion_term(premise1, NULL, conclusion, false);
 	puts(
-		"IS_SYSTEM_IN_DEBUG_MODE( fputs(\"Reduced: \", stdout); Narsese_PrintTerm(&term1); fputs(\" -> \", stdout); narsese_print_term(&conclusion); puts(\"\"); ) \nreturn conclusion;\n}");
+		"IS_SYSTEM_IN_DEBUG_MODE( fputs(\"Reduced: \", stdout); Narsese_PrintTerm(&term1); fputs(\" -> \", stdout); io_narsese_print_term(&conclusion); puts(\"\"); ) \nreturn conclusion;\n}");
 }
 
 void

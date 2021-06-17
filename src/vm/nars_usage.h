@@ -55,8 +55,5 @@ usage_usefulness(Usage usage, long currentTime);
 Usage
 usage_use(Usage usage, long currentTime, bool eternalInput);
 
-//print it
-void
-usage_print(Usage *usage);
 
 #endif

@@ -30,27 +30,27 @@ run_operation_diagnostic()
 {
 	slog_info("Running operation diagnostic test...");
 	slog_info("Add operation...");
-	NAR_AddOperation(narsese_atomic_term("^op"), diagnosticTestOperation);
+	nar_add_operation(narsese_atomic_term("^op"), diagnosticTestOperation);
 	slog_info("Add belief...");
-	NAR_AddInputBelief(narsese_atomic_term("a"));
+	nar_add_input_Belief(narsese_atomic_term("a"));
 	slog_info("Run 1 inference cycle...");
-	NAR_Cycles(1);
+	nar_cycles(1);
 	slog_info("Add belief...");
-	NAR_AddInputBelief(narsese_atomic_term("^op"));
+	nar_add_input_Belief(narsese_atomic_term("^op"));
 	slog_info("Run 1 inference cycle...");
-	NAR_Cycles(1);
+	nar_cycles(1);
 	slog_info("Add belief...");
-	NAR_AddInputBelief(narsese_atomic_term("result"));
+	nar_add_input_Belief(narsese_atomic_term("result"));
 	slog_info("Run 1 inference cycle...");
-	NAR_Cycles(1);
+	nar_cycles(1);
 	slog_info("Add belief...");
-	NAR_AddInputBelief(narsese_atomic_term("a"));
+	nar_add_input_Belief(narsese_atomic_term("a"));
 	slog_info("Run 1 inference cycle...");
-	NAR_Cycles(1);
+	nar_cycles(1);
 	slog_info("Add goal...");
-	NAR_AddInputGoal(narsese_atomic_term("result"));
+	nar_add_input_goal(narsese_atomic_term("result"));
 	slog_info("Run 1 inference cycle...");
-	NAR_Cycles(1);
+	nar_cycles(1);
 	slog_info("Finished operation diagnostic test.");
 }
 
@@ -59,15 +59,15 @@ run_ruletable_diagnostic()
 {
 	slog_info("Running a diagnostic ruletable test...");
 	slog_info("Adding input...");
-	NAR_AddInput(narsese_term(
+	nar_add_input(narsese_term(
 		"<cat --> animal>"), EVENT_TYPE_BELIEF, NAR_DEFAULT_TRUTH,
-	             true, 0, false);
+	              true, 0, false);
 	slog_info("Adding input...");
-	NAR_AddInput(narsese_term(
+	nar_add_input(narsese_term(
 		"<animal --> being>"), EVENT_TYPE_BELIEF, NAR_DEFAULT_TRUTH,
-	             true, 0, false);
+	              true, 0, false);
 	slog_info("Running 10 inference cycles...");
-	NAR_Cycles(10);
+	nar_cycles(10);
 	ASSERT(g_currentTime != 0, "Internal cycle time should not be zero.");
 	slog_info("Finished diagnostic ruletable test.");
 }
@@ -113,7 +113,7 @@ io_print_concepts()
 		if (g_operations[opi].term.atoms[0])
 		{
 			printf("*setopname %d ", opi + 1);
-			narsese_print_term(&g_operations[opi].term);
+			io_narsese_print_term(&g_operations[opi].term);
 			puts("");
 		}
 	}
@@ -122,7 +122,7 @@ io_print_concepts()
 		Concept *c = g_concepts.items[i].address;
 		ASSERT(c != NULL, "Concept is null");
 		fputs("//", stdout);
-		narsese_print_term(&c->term);
+		io_narsese_print_term(&c->term);
 		printf(
 			": { \"priority\": %f, \"usefulness\": %f, \"useCount\": %ld, \"lastUsed\": %ld, \"frequency\": %f, \"confidence\": %f, \"termlinks\": [",
 			c->priority,
@@ -138,35 +138,35 @@ io_print_concepts()
 		Term right_left = term_extract_subterm(&right, 1);
 		Term right_right = term_extract_subterm(&right, 2);
 		fputs("\"", stdout);
-		narsese_print_term(&left);
+		io_narsese_print_term(&left);
 		fputs("\", ", stdout);
 		fputs("\"", stdout);
-		narsese_print_term(&right);
+		io_narsese_print_term(&right);
 		fputs("\", ", stdout);
 		fputs("\"", stdout);
-		narsese_print_term(&left_left);
+		io_narsese_print_term(&left_left);
 		fputs("\", ", stdout);
 		fputs("\"", stdout);
-		narsese_print_term(&left_right);
+		io_narsese_print_term(&left_right);
 		fputs("\", ", stdout);
 		fputs("\"", stdout);
-		narsese_print_term(&right_left);
+		io_narsese_print_term(&right_left);
 		fputs("\", ", stdout);
 		fputs("\"", stdout);
-		narsese_print_term(&right_right);
+		io_narsese_print_term(&right_right);
 		fputs("\"", stdout);
 		puts("]}");
 		if (c->belief.type != EVENT_TYPE_DELETED)
 		{
-			memory_print_added_event(&c->belief, 1, true, false, false, false);
+			io_memory_print_added_event(&c->belief, 1, true, false, false, false);
 		}
 		for (int opi = 0; opi < OPERATIONS_MAX; opi++)
 		{
 			for (int h = 0; h < c->precondition_beliefs[opi].itemsAmount; h++)
 			{
 				Implication *imp = &c->precondition_beliefs[opi].array[h];
-				Memory_printAddedImplication(&imp->term, &imp->truth, imp->occurrenceTimeOffset, 1, true, false,
-				                             false);
+				io_memory_print_added_implication(&imp->term, &imp->truth, imp->occurrenceTimeOffset, 1, true, false,
+				                                  false);
 			}
 		}
 	}
@@ -187,10 +187,10 @@ io_print_cycling_belief_events()
 	{
 		Event *e = g_cyclingBeliefEvents.items[i].address;
 		ASSERT(e != NULL, "Event is null");
-		narsese_print_term(&e->term);
+		io_narsese_print_term(&e->term);
 		printf(": { \"priority\": %f, \"time\": %ld } ", g_cyclingBeliefEvents.items[i].priority,
 		       e->occurrenceTime);
-		truth_print(&e->truth);
+		io_truth_print(&e->truth);
 	}
 	slog_info("Finished printing cycling g_beliefEvents.");
 }
@@ -203,10 +203,10 @@ io_print_cycling_goal_events()
 	{
 		Event *e = g_cyclingGoalEvents.items[i].address;
 		ASSERT(e != NULL, "Event is null");
-		narsese_print_term(&e->term);
+		io_narsese_print_term(&e->term);
 		printf(": {\"priority\": %f, \"time\": %ld } ", g_cyclingGoalEvents.items[i].priority,
 		       e->occurrenceTime);
-		truth_print(&e->truth);
+		io_truth_print(&e->truth);
 	}
 	slog_info("Finished printing cycling goal events.");
 }
@@ -214,19 +214,22 @@ io_print_cycling_goal_events()
 void
 io_print_decision_with_json(Decision decision, Implication bestImp)
 {
-	puts("{\"Decision\":\"");
-	printf("Decision expectation=(%f) implication: ", decision.desire);
-	narsese_print_term(&bestImp.term);
-	printf(". truth=(frequency=%f confidence=%f) occurrenceTimeOffset=(%f)",
+	printf("{\"output\": {");
+	printf("\"decision\": {");
+	printf("\"expectation\": \"%f\", ", decision.desire);
+	printf("\"implication\": { \"narsese_term\": \"");
+	io_narsese_print_term(&bestImp.term);
+	printf(".\", ");
+	printf("\"truth\": { \"frequency\": \"%f\", \"confidence\": \"%f\"}, \"occurrence_time_offset\": \"%f\" },",
 	       bestImp.truth.frequency,
 	       bestImp.truth.confidence,
 	       bestImp.occurrenceTimeOffset);
-	fputs(" precondition: ", stdout);
-	narsese_print_term(&decision.reason->term);
-	fputs(". :|: ", stdout);
-	printf("truth=(frequency=%f confidence=%f)", decision.reason->truth.frequency, decision.reason->truth.confidence);
-	printf(" occurrenceTime=(%ld)\n", decision.reason->occurrenceTime);
-	puts("\"}");
+	fputs(" \"precondition \": { \"narsese_term\": \"", stdout);
+	io_narsese_print_term(&decision.reason->term);
+	fputs(". :|: \", ", stdout);
+	printf("\"truth\": { \"frequency\": \"%f\", \"confidence\": \"%f\"}, \"occurrence_time\": \"%ld\" }",
+		decision.reason->truth.frequency, decision.reason->truth.confidence, decision.reason->occurrenceTime);
+	puts("\}}}");
 }
 
 
@@ -364,4 +367,225 @@ io_narsese_print_atom_with_buffer(Atom atom, buffer_t *buf)
 	{
 		buffer_append(buf, "@");
 	}
+}
+
+void
+io_narsese_print_term(Term *term)
+{
+	io_narsese_print_term_pretty_recursive(term, 1);
+}
+
+void
+io_narsese_print_term_pretty_recursive(Term *term, int index) //start with index=1!
+{
+	Atom atom = term->atoms[index - 1];
+	if (!atom)
+	{
+		return;
+	}
+	int child1 = index * 2;
+	int child2 = index * 2 + 1;
+	bool hasLeftChild = child1 < COMPOUND_TERM_SIZE_MAX && term->atoms[child1 - 1];
+	bool hasRightChild = child2 < COMPOUND_TERM_SIZE_MAX && term->atoms[child2 - 1] &&
+		!narsese_copula_equals(term->atoms[child2 - 1], '@');
+	bool isNegation = narsese_copula_equals(atom, '!');
+	bool isExtSet = narsese_copula_equals(atom, '"');
+	bool isIntSet = narsese_copula_equals(atom, '\'');
+	bool isStatement =
+		narsese_copula_equals(atom, '$') || narsese_copula_equals(atom, ':') || narsese_copula_equals(atom, '=');
+	if (isExtSet)
+	{
+		fputs(hasLeftChild ? "{" : "", stdout);
+	}
+	else if (isIntSet)
+	{
+		fputs(hasLeftChild ? "[" : "", stdout);
+	}
+	else if (isStatement)
+	{
+		fputs(hasLeftChild ? "<" : "", stdout);
+	}
+	else
+	{
+		fputs(hasLeftChild ? "(" : "", stdout);
+		if (isNegation)
+		{
+			io_narsese_print_atom(atom);
+			fputs(" ", stdout);
+		}
+	}
+	if (child1 < COMPOUND_TERM_SIZE_MAX)
+	{
+		io_narsese_print_term_pretty_recursive(term, child1);
+	}
+	if (hasRightChild)
+	{
+		fputs(hasLeftChild ? " " : "", stdout);
+	}
+	if (!isExtSet && !isIntSet && !narsese_copula_equals(atom, '@'))
+	{
+		if (!isNegation)
+		{
+			io_narsese_print_atom(atom);
+			fputs(hasLeftChild ? " " : "", stdout);
+		}
+	}
+	if (child2 < COMPOUND_TERM_SIZE_MAX)
+	{
+		io_narsese_print_term_pretty_recursive(term, child2);
+	}
+	if (isExtSet)
+	{
+		fputs(hasLeftChild ? "}" : "", stdout);
+	}
+	else if (isIntSet)
+	{
+		fputs(hasLeftChild ? "]" : "", stdout);
+	}
+	else if (isStatement)
+	{
+		fputs(hasLeftChild ? ">" : "", stdout);
+	}
+	else
+	{
+		fputs(hasLeftChild ? ")" : "", stdout);
+	}
+}
+
+
+void
+io_narsese_print_atom(Atom atom)
+{
+	if (atom)
+	{
+		if (narsese_copula_equals(atom, ':'))
+		{
+			fputs("-->", stdout);
+		}
+		else if (narsese_copula_equals(atom, '$'))
+		{
+			fputs("=/>", stdout);
+		}
+		else if (narsese_copula_equals(atom, '+'))
+		{
+			fputs("&/", stdout);
+		}
+		else if (narsese_copula_equals(atom, ';'))
+		{
+			fputs("&|", stdout);
+		}
+		else if (narsese_copula_equals(atom, '='))
+		{
+			fputs("<->", stdout);
+		}
+		else if (narsese_copula_equals(atom, '/'))
+		{
+			fputs("/1", stdout);
+		}
+		else if (narsese_copula_equals(atom, '%'))
+		{
+			fputs("/2", stdout);
+		}
+		else if (narsese_copula_equals(atom, '\\'))
+		{
+			fputs("\\1", stdout);
+		}
+		else if (narsese_copula_equals(atom, '#'))
+		{
+			fputs("\\2", stdout);
+		}
+		else
+		{
+			fputs(g_narsese_atomNames[atom - 1], stdout);
+		}
+	}
+	else
+	{
+		fputs("@", stdout);
+	}
+}
+
+
+static void
+memory_print_added_knowledge(Term *term, char type, Truth *truth, long occurrenceTime, double occurrenceTimeOffset,
+                             double priority, bool input, bool derived, bool revised, bool controlInfo)
+{
+	if (((input && PRINT_INPUT) || PRINT_DERIVATIONS) && priority > PRINT_DERIVATIONS_PRIORITY_THRESHOLD &&
+		(input || derived || revised))
+	{
+		if (controlInfo)
+			fputs(revised ? "Revised: " : (input ? "Input: " : "Derived: "), stdout);
+		if (narsese_copula_equals(term->atoms[0], '$'))
+			printf("occurrenceTimeOffset=(%f) ", occurrenceTimeOffset);
+		io_narsese_print_term(term);
+		fputs((type == EVENT_TYPE_BELIEF ? ". " : "! "), stdout);
+		if (occurrenceTime != OCCURRENCE_ETERNAL)
+		{
+			printf(":|: occurrenceTime=(%ld) ", occurrenceTime);
+		}
+		if (controlInfo)
+		{
+			printf("priority=(%f) ", priority);
+			io_truth_print(truth);
+		}
+		else
+		{
+			io_truth_print2(truth);
+		}
+		fflush(stdout);
+	}
+}
+
+void
+io_memory_print_added_event(Event *event, double priority, bool input, bool derived, bool revised, bool controlInfo)
+{
+	memory_print_added_knowledge(&event->term, event->type, &event->truth, event->occurrenceTime, 0, priority, input,
+	                             derived, revised, controlInfo);
+}
+
+void
+io_memory_print_added_implication(Term *implication, Truth *truth, double occurrenceTimeOffset, double priority, bool input,
+                                  bool revised, bool controlInfo)
+{
+	memory_print_added_knowledge(implication, EVENT_TYPE_BELIEF, truth, OCCURRENCE_ETERNAL, occurrenceTimeOffset,
+	                             priority, input, true, revised, controlInfo);
+}
+
+void
+io_stamp_print(Stamp *stamp)
+{
+	fputs("stamp=", stdout);
+	for (int i = 0; i < STAMP_SIZE; i++)
+	{
+		if (stamp->evidentialBase[i] == STAMP_FREE)
+		{
+			break;
+		}
+		printf("%ld,", stamp->evidentialBase[i]);
+	}
+	puts("");
+}
+
+void
+io_stats_print(long currentTime)
+{
+	stats_print(currentTime);
+}
+
+void
+io_truth_print(Truth *truth)
+{
+	printf(" truth=(frequency=%f, confidence=%f) \n", truth->frequency, truth->confidence);
+}
+
+void
+io_truth_print2(Truth *truth)
+{
+	printf("{%f %f} \n", truth->frequency, truth->confidence);
+}
+
+void
+io_usage_print(Usage *usage)
+{
+	printf("Usage: useCount=%ld lastUsed=%ld\n", usage->useCount, usage->lastUsed);
 }

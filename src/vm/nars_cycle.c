@@ -23,6 +23,7 @@
  */
 
 #include "nars_cycle.h"
+#include "nars_io.h"
 
 static long conceptProcessID = 0; //avoids duplicate concept processing
 
@@ -60,7 +61,7 @@ cycle_activate_sensorimotor_concept(Concept *c, Event *e, long currentTime)
 		else
 		{
 			//pass spike if the concept doesn't have a satisfying motor command
-			decision = Decision_Suggest(c, e, currentTime);
+			decision = decision_suggest(c, e, currentTime);
 		}
 	}
 	return decision;
@@ -275,7 +276,7 @@ cycle_process_input_goal_events(long currentTime)
 	for (int i = 0; i < g_goalsSelectedCnt; i++)
 	{
 		Event *goal = &g_selectedGoals[i];
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Selected goal: ", stdout); narsese_print_term(&goal->term); puts("");)
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Selected goal: ", stdout); io_narsese_print_term(&goal->term); puts("");)
 		//if goal is a sequence, overwrite with first deduced non-fulfilled element
 		if (cycle_goal_sequence_decomposition(goal,
 		                                      g_selectedGoalsPriority[i])) //the goal was a sequence which leaded to a subgoal derivation
@@ -336,7 +337,7 @@ cycle_process_input_goal_events(long currentTime)
 							                         Event newGoalUpdated = inference_event_update(&newGoal,
 							                                                                       currentTime);
 							                         IS_SYSTEM_IN_DEBUG_MODE(fputs("derived goal ", stdout);
-							                         narsese_print_term(&newGoalUpdated.term);
+							                         io_narsese_print_term(&newGoalUpdated.term);
 							                         puts(""); )
 							                         memory_add_event(&newGoalUpdated,
 							                                          currentTime,
@@ -570,10 +571,10 @@ cycle_inference(long currentTime)
 						                         if (PRINT_CONTROL_INFO)
 						                         {
 							                         fputs("Apply rule table on ", stdout);
-							                         narsese_print_term(&e->term);
+							                         io_narsese_print_term(&e->term);
 							                         printf(" priority=(%f)\n", priority);
 							                         fputs(" and ", stdout);
-							                         narsese_print_term(&c->term);
+							                         io_narsese_print_term(&c->term);
 							                         puts("");
 						                         }
 						                         long occurrenceTimeDistance = 0;

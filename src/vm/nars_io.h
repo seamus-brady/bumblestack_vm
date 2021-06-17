@@ -54,4 +54,47 @@ io_narsese_print_term_with_buffer(Term *term, buffer_t *buf);
 void
 io_narsese_print_term_pretty_recursive_with_buffer(Term *term, int index, buffer_t *buf);
 
+void
+io_narsese_print_term_pretty_recursive(Term *term, int index);
+
+//Print an atom
+void
+io_narsese_print_atom(Atom atom);
+
+//Print a term
+void
+io_narsese_print_term(Term *term);
+
+//Print an event in memory:
+void
+io_memory_print_added_event(Event *event, double priority, bool input, bool derived, bool revised, bool controlInfo);
+
+//Print an implication in memory:
+void
+io_memory_print_added_implication(Term *implication,
+                                  Truth *truth,
+                                  double occurrenceTimeOffset,
+                                  double priority,
+                                  bool input,
+                                  bool revised,
+                                  bool controlInfo);
+
+//print stamp
+void
+io_stamp_print(Stamp *stamp);
+
+void
+io_stats_print(long currentTime);
+
+void
+io_truth_print(Truth *truth);
+
+void
+io_truth_print2(Truth *truth);
+
+//print usage
+void
+io_usage_print(Usage *usage);
+
+
 #endif

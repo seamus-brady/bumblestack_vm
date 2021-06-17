@@ -24,12 +24,13 @@
 
 #include "nars_nar.h"
 #include "lib_slog.h"
+#include "nars_io.h"
 
 long g_currentTime = 1;
 
 static bool nar_initialized = false;
 
-void NAR_INIT()
+void nar_init()
 {
 	ASSERT(pow(TRUTH_PROJECTION_DECAY_INITIAL, EVENT_BELIEF_DISTANCE) >= MIN_CONFIDENCE,
 	       "Bad params, increase projection decay or decrease event belief distance!");
@@ -44,9 +45,9 @@ void NAR_INIT()
 	nar_initialized = true;
 }
 
-void NAR_Cycles(int cycles)
+void nar_cycles(int cycles)
 {
-	ASSERT(nar_initialized, "NAR not g_narseseInitialized yet, call NAR_INIT first!");
+	ASSERT(nar_initialized, "NAR not g_narseseInitialized yet, call nar_init first!");
 	for (int i = 0; i < cycles; i++) {
 		IS_SYSTEM_IN_DEBUG_MODE(puts("\nStart of new inference cycle\n");)
 		cycle_perform(g_currentTime);
@@ -54,40 +55,40 @@ void NAR_Cycles(int cycles)
 	}
 }
 
-Event NAR_AddInput(Term term, char type, Truth truth, bool eternal, double occurrenceTimeOffset, bool isUserKnowledge)
+Event nar_add_input(Term term, char type, Truth truth, bool eternal, double occurrenceTimeOffset, bool isUserKnowledge)
 {
-	ASSERT(nar_initialized, "NAR not g_narseseInitialized yet, call NAR_INIT first!");
+	ASSERT(nar_initialized, "NAR not g_narseseInitialized yet, call nar_init first!");
 	Event ev = event_input_event(term, type, truth, g_currentTime);
 	if (eternal) {
 		ev.occurrenceTime = OCCURRENCE_ETERNAL;
 		ev.isUserKnowledge = isUserKnowledge;
 	}
 	memory_add_input_event(&ev, occurrenceTimeOffset, g_currentTime);
-	NAR_Cycles(1);
+	nar_cycles(1);
 	return ev;
 }
 
-Event NAR_AddInputBelief(Term term)
+Event nar_add_input_Belief(Term term)
 {
-	Event ret = NAR_AddInput(term, EVENT_TYPE_BELIEF, NAR_DEFAULT_TRUTH, false, 0, false);
+	Event ret = nar_add_input(term, EVENT_TYPE_BELIEF, NAR_DEFAULT_TRUTH, false, 0, false);
 	return ret;
 }
 
-Event NAR_AddInputGoal(Term term)
+Event nar_add_input_goal(Term term)
 {
-	return NAR_AddInput(term, EVENT_TYPE_GOAL, NAR_DEFAULT_TRUTH, false, 0, false);
+	return nar_add_input(term, EVENT_TYPE_GOAL, NAR_DEFAULT_TRUTH, false, 0, false);
 }
 
-void NAR_AddOperation(Term term, Action procedure)
+void nar_add_operation(Term term, Action procedure)
 {
-	ASSERT(nar_initialized, "NAR g_narseseInitialized is false, call NAR_INIT first!");
+	ASSERT(nar_initialized, "NAR g_narseseInitialized is false, call nar_init first!");
 	char *term_name = g_narsese_atomNames[(int) term.atoms[0] - 1];
 	ASSERT(term_name[0] == '^', "This atom does not belong to an operator!");
 	ASSERT(narsese_operator_index(term_name) <= OPERATIONS_MAX, "Too many operators, increase OPERATIONS_MAX!");
 	g_operations[narsese_operator_index(term_name) - 1] = (Operation) {.term = term, .action = procedure};
 }
 
-void NAR_AddInputNarsese(char *narsese_sentence)
+void nar_add_input_narsese(char *narsese_sentence)
 {
 	Term term;
 	Truth tv;
@@ -107,7 +108,7 @@ void NAR_AddInputNarsese(char *narsese_sentence)
 		long answerCreationTime = 0;
 		bool isImplication = narsese_copula_equals(term.atoms[0], '$');
 		fputs("Input: ", stdout);
-		narsese_print_term(&term);
+		io_narsese_print_term(&term);
 		fputs("?", stdout);
 		puts(tense == 1 ? " :|:" : (tense == 2 ? " :\\:" : (tense == 3 ? " :/:" : "")));
 		fflush(stdout);
@@ -172,14 +173,14 @@ void NAR_AddInputNarsese(char *narsese_sentence)
 			puts("None.");
 		}
 		else {
-			narsese_print_term(&best_term);
+			io_narsese_print_term(&best_term);
 			if (answerOccurrenceTime == OCCURRENCE_ETERNAL) {
 				printf(". creationTime=%ld ", answerCreationTime);
 			}
 			else {
 				printf(". :|: occurrenceTime=%ld creationTime=%ld ", answerOccurrenceTime, answerCreationTime);
 			}
-			truth_print(&best_truth);
+			io_truth_print(&best_truth);
 		}
 		fflush(stdout);
 	}
@@ -190,8 +191,8 @@ void NAR_AddInputNarsese(char *narsese_sentence)
 		}
 		else {
 			ASSERT(punctuation != '.' || tense < 2, "Future and past belief events are not supported!\n");
-			NAR_AddInput(term, punctuation == '!' ? EVENT_TYPE_GOAL : EVENT_TYPE_BELIEF, tv, !tense,
-			             occurrenceTimeOffset, isUserKnowledge);
+			nar_add_input(term, punctuation == '!' ? EVENT_TYPE_GOAL : EVENT_TYPE_BELIEF, tv, !tense,
+			              occurrenceTimeOffset, isUserKnowledge);
 		}
 	}
 }

@@ -24,6 +24,7 @@
 
 #include "nars_inverted_atom_index.h"
 #include "lib_slog.h"
+#include "nars_io.h"
 
 ConceptChainElement *g_conceptChainElementStoragePointers[UNIFICATION_DEPTH * CONCEPTS_MAX];
 ConceptChainElement g_conceptChainElementStorage[UNIFICATION_DEPTH * CONCEPTS_MAX];
@@ -136,9 +137,9 @@ inverted_atom_index_print()
 			{
 				Concept *c = elem->c;
 				ASSERT(c != NULL, "A null concept was in inverted atom index!");
-				narsese_print_atom(atom);
+				io_narsese_print_atom(atom);
 				fputs(" -> ", stdout);
-				narsese_print_term(&c->term);
+				io_narsese_print_term(&c->term);
 				puts("");
 				elem = elem->next;
 			}

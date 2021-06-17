@@ -1,4 +1,5 @@
 #include "nars_ruletable.h"
+#include "nars_io.h"
 
 void
 rule_table_apply(Term term1, Term term2, Truth truth1, Truth truth2, long conclusionOccurrence,
@@ -5382,8 +5383,8 @@ rule_table_reduce(Term term1, bool doublePremise)
 		{
 			goto RULE_87;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
-		                                                                                      stdout); narsese_print_term(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); io_narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); io_narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -5434,8 +5435,8 @@ rule_table_reduce(Term term1, bool doublePremise)
 		{
 			goto RULE_88;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
-		                                                                                      stdout); narsese_print_term(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); io_narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); io_narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -5486,8 +5487,8 @@ rule_table_reduce(Term term1, bool doublePremise)
 		{
 			goto RULE_89;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
-		                                                                                      stdout); narsese_print_term(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); io_narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); io_narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -5538,8 +5539,8 @@ rule_table_reduce(Term term1, bool doublePremise)
 		{
 			goto RULE_90;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
-		                                                                                      stdout); narsese_print_term(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); io_narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); io_narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -5574,8 +5575,8 @@ rule_table_reduce(Term term1, bool doublePremise)
 		{
 			goto RULE_91;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
-		                                                                                      stdout); narsese_print_term(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); io_narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); io_narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -5647,8 +5648,8 @@ rule_table_reduce(Term term1, bool doublePremise)
 		{
 			goto RULE_92;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
-		                                                                                      stdout); narsese_print_term(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); io_narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); io_narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -5720,8 +5721,8 @@ rule_table_reduce(Term term1, bool doublePremise)
 		{
 			goto RULE_93;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
-		                                                                                      stdout); narsese_print_term(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); io_narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); io_narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -5793,8 +5794,8 @@ rule_table_reduce(Term term1, bool doublePremise)
 		{
 			goto RULE_94;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
-		                                                                                      stdout); narsese_print_term(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); io_narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); io_narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -5866,8 +5867,8 @@ rule_table_reduce(Term term1, bool doublePremise)
 		{
 			goto RULE_95;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
-		                                                                                      stdout); narsese_print_term(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); io_narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); io_narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -5931,8 +5932,8 @@ rule_table_reduce(Term term1, bool doublePremise)
 		{
 			goto RULE_96;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
-		                                                                                      stdout); narsese_print_term(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); io_narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); io_narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -5996,8 +5997,8 @@ rule_table_reduce(Term term1, bool doublePremise)
 		{
 			goto RULE_97;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
-		                                                                                      stdout); narsese_print_term(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); io_narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); io_narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -6061,8 +6062,8 @@ rule_table_reduce(Term term1, bool doublePremise)
 		{
 			goto RULE_98;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
-		                                                                                      stdout); narsese_print_term(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); io_narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); io_narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}
@@ -6126,8 +6127,8 @@ rule_table_reduce(Term term1, bool doublePremise)
 		{
 			goto RULE_99;
 		}
-		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); narsese_print_term(&term1); fputs(" -> ",
-		                                                                                      stdout); narsese_print_term(
+		IS_SYSTEM_IN_DEBUG_MODE(fputs("Reduced: ", stdout); io_narsese_print_term(&term1); fputs(" -> ",
+		                                                                                      stdout); io_narsese_print_term(
 			&conclusion); puts("");)
 		return conclusion;
 	}

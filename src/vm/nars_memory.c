@@ -23,6 +23,7 @@
  */
 
 #include "nars_memory.h"
+#include "nars_io.h"
 
 //Concepts in main memory:
 PriorityQueue g_concepts;
@@ -237,50 +238,6 @@ memory_add_cycling_event(Event *e, double priority, long currentTime)
 	return false;
 }
 
-static void
-memory_print_added_knowledge(Term *term, char type, Truth *truth, long occurrenceTime, double occurrenceTimeOffset,
-                             double priority, bool input, bool derived, bool revised, bool controlInfo)
-{
-	if (((input && PRINT_INPUT) || PRINT_DERIVATIONS) && priority > PRINT_DERIVATIONS_PRIORITY_THRESHOLD &&
-		(input || derived || revised))
-	{
-		if (controlInfo)
-			fputs(revised ? "Revised: " : (input ? "Input: " : "Derived: "), stdout);
-		if (narsese_copula_equals(term->atoms[0], '$'))
-			printf("occurrenceTimeOffset=(%f) ", occurrenceTimeOffset);
-		narsese_print_term(term);
-		fputs((type == EVENT_TYPE_BELIEF ? ". " : "! "), stdout);
-		if (occurrenceTime != OCCURRENCE_ETERNAL)
-		{
-			printf(":|: occurrenceTime=(%ld) ", occurrenceTime);
-		}
-		if (controlInfo)
-		{
-			printf("priority=(%f) ", priority);
-			truth_print(truth);
-		}
-		else
-		{
-			truth_print2(truth);
-		}
-		fflush(stdout);
-	}
-}
-
-void
-memory_print_added_event(Event *event, double priority, bool input, bool derived, bool revised, bool controlInfo)
-{
-	memory_print_added_knowledge(&event->term, event->type, &event->truth, event->occurrenceTime, 0, priority, input,
-	                             derived, revised, controlInfo);
-}
-
-void
-Memory_printAddedImplication(Term *implication, Truth *truth, double occurrenceTimeOffset, double priority, bool input,
-                             bool revised, bool controlInfo)
-{
-	memory_print_added_knowledge(implication, EVENT_TYPE_BELIEF, truth, OCCURRENCE_ETERNAL, occurrenceTimeOffset,
-	                             priority, input, true, revised, controlInfo);
-}
 
 void
 memory_process_new_belief_event(Event *event, long currentTime, double priority, double occurrenceTimeOffset, bool input,
@@ -345,11 +302,21 @@ memory_process_new_belief_event(Event *event, long currentTime, double priority,
 				{
 					bool wasRevised = revised->truth.confidence > event->truth.confidence ||
 						revised->truth.confidence == MAX_CONFIDENCE;
-					Memory_printAddedImplication(&event->term, &event->truth, occurrenceTimeOffset, priority, input,
-					                             false, true);
+					io_memory_print_added_implication(&event->term,
+					                                  &event->truth,
+					                                  occurrenceTimeOffset,
+					                                  priority,
+					                                  input,
+					                                  false,
+					                                  true);
 					if (wasRevised)
-						Memory_printAddedImplication(&revised->term, &revised->truth, revised->occurrenceTimeOffset,
-						                             priority, input, true, true);
+						io_memory_print_added_implication(&revised->term,
+						                                  &revised->truth,
+						                                  revised->occurrenceTimeOffset,
+						                                  priority,
+						                                  input,
+						                                  true,
+						                                  true);
 				}
 			}
 		}
@@ -464,7 +431,7 @@ memory_add_event(Event *event, long currentTime, double priority, double occurre
 	bool isImplication = narsese_copula_equals(event->term.atoms[0], '$');
 	if (!readded && !isImplication) //print new tasks
 	{
-		memory_print_added_event(event, priority, input, derived, revised, true);
+		io_memory_print_added_event(event, priority, input, derived, revised, true);
 	}
 	if (event->type == EVENT_TYPE_BELIEF)
 	{

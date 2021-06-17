@@ -96,13 +96,6 @@ narsese_atomic_term_index(char *name);
 int
 narsese_operator_index(char *name);
 
-//Print an atom
-void
-narsese_print_atom(Atom atom);
-
-//Print a term
-void
-narsese_print_term(Term *term);
 
 //Whether it is a certain copula:
 bool

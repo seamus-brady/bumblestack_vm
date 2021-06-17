@@ -54,7 +54,7 @@ decision_execute(Decision *decision)
 		feedback = operation;
 	}
 	(*decision->op.action)(decision->arguments);
-	NAR_AddInputBelief(feedback);
+	nar_add_input_Belief(feedback);
 }
 
 //"reflexes" to try different g_operations, especially important in the beginning
@@ -88,7 +88,7 @@ decision_consider_implication(long currentTime, Event *goal, int considered_opi,
 		printf("Considered implication with truth: truth=(frequency=%f, confidence=%f) ",
 		       imp->truth.frequency,
 		       imp->truth.confidence);
-		narsese_print_term(&imp->term);
+		io_narsese_print_term(&imp->term);
 		puts("");
 	)
 	//now look ITEM_AT how much the precondition is fulfilled
@@ -103,15 +103,15 @@ decision_consider_implication(long currentTime, Event *goal, int considered_opi,
 		(
 			printf("Considered precondition with desire: operationGoalTruthExpectation=(%f) ",
 			       operationGoalTruthExpectation);
-			narsese_print_term(&prec->term);
+			io_narsese_print_term(&prec->term);
 			fputs("\nConsidered precondition with truth: ", stdout);
-			truth_print(&precondition->truth);
+			io_truth_print(&precondition->truth);
 			fputs("Considered goal with truth: ", stdout);
-			truth_print(&goal->truth);
+			io_truth_print(&goal->truth);
 			fputs("Considered implication with truth: ", stdout);
-			truth_print(&imp->truth);
+			io_truth_print(&imp->truth);
 			printf("Considered ITEM_AT system time occurrenceTime=(%ld)\n", precondition->occurrenceTime);
-			narsese_print_term(&precondition->term); puts("");
+			io_narsese_print_term(&precondition->term); puts("");
 		)
 		//<(precon &/ <args --> ^op>) =/> postcon>. -> [$ , postcon precon : _ _ _ _ args ^op
 		Term operation = term_extract_subterm(&imp->term, 4); //^op or [: args ^op]
@@ -305,7 +305,7 @@ decision_anticipate(int operationID, long currentTime)
 }
 
 Decision
-Decision_Suggest(Concept *postc, Event *goal, long currentTime)
+decision_suggest(Concept *goalconcept, Event *goal, long currentTime)
 {
 	Decision babble_decision = {0};
 	//try motor babbling with a certain chance
@@ -314,7 +314,7 @@ Decision_Suggest(Concept *postc, Event *goal, long currentTime)
 		babble_decision = decision_motor_babbling();
 	}
 	//try matching op if didn't motor babble
-	Decision decision_suggested = decision_best_candidate(postc, goal, currentTime);
+	Decision decision_suggested = decision_best_candidate(goalconcept, goal, currentTime);
 	if (!babble_decision.execute || decision_suggested.desire > MOTOR_BABBLING_SUPPRESSION_THRESHOLD)
 	{
 		return decision_suggested;

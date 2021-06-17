@@ -35,7 +35,7 @@ Process_Args(int argc, char *argv[])
 	}
 	if (argc >= 2)
 	{
-		NAR_INIT();
+		nar_init();
 		if (!strcmp(argv[1], "shell"))
 		{
 			Shell_Start();
@@ -61,7 +61,7 @@ systemInit()
 	slog_info("Welcome to BumbleStack!");
 
 	// initialise the bumblestack NARS system
-	NAR_INIT();
+	nar_init();
 	slog_info("System initialised.");
 	stats_print(g_currentTime);
 	io_print_atom_table();
@@ -69,6 +69,27 @@ systemInit()
 	io_print_cycling_belief_events();
 	io_print_cycling_goal_events();
 }
+
+void
+bumblevm_input_term(char *narsese){
+
+}
+
+void
+bumblevm_do_cycles(int cycleNumber){
+
+}
+
+void
+bumblevm_print_stats(){
+
+}
+
+void
+bumblevm_add_operation(){
+
+}
+
 
 int
 main(int argc, char *argv[])
