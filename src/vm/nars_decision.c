@@ -58,11 +58,13 @@ decision_execute(Decision *decision)
 	if(buffer_length(script_buffer) != 0 ){
 		char *wren_source = buffer_string(script_buffer);
 		// TODO add wren call
+		buffer_free(script_buffer);
 	} else {
-		(*decision->op.action)(decision->arguments);
+		if(decision->op.action != NULL) {
+			(*decision->op.action)(decision->arguments);
+		}
 	}
 	nar_add_input_Belief(feedback);
-	buffer_free(script_buffer);
 }
 
 //"reflexes" to try different g_operations, especially important in the beginning

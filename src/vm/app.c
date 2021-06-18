@@ -38,20 +38,20 @@ Process_Args(int argc, char *argv[])
 		nar_init();
 		if (!strcmp(argv[1], "shell"))
 		{
-			Shell_Start();
+//			Shell_Start();
 		}
 	}
 	if (inspectionOnExit)
 	{
-		Shell_ProcessInput("*g_concepts");
-		Shell_ProcessInput("*g_cyclingBeliefEvents");
-		Shell_ProcessInput("*g_cyclingGoalEvents");
-		Shell_ProcessInput("*stats");
+//		Shell_ProcessInput("*g_concepts");
+//		Shell_ProcessInput("*g_cyclingBeliefEvents");
+//		Shell_ProcessInput("*g_cyclingGoalEvents");
+//		Shell_ProcessInput("*stats");
 	}
 }
 
 void
-systemInit()
+system_init()
 {
 	// set up random number generator
 	globals_sys_rand(SEED);
@@ -63,38 +63,13 @@ systemInit()
 	// initialise the bumblestack NARS system
 	nar_init();
 	slog_info("System initialised.");
-	stats_print(g_currentTime);
-	io_print_atom_table();
-	io_print_concepts();
-	io_print_cycling_belief_events();
-	io_print_cycling_goal_events();
-}
-
-void
-bumblevm_input_term(char *narsese){
-
-}
-
-void
-bumblevm_do_cycles(int cycleNumber){
-
-}
-
-void
-bumblevm_print_stats(){
-
-}
-
-void
-bumblevm_add_operation(){
-
 }
 
 
 int
 main(int argc, char *argv[])
 {
-	systemInit();
+	system_init();
 	io_run_diagnostics();
 	start_wren();
 	return 0;

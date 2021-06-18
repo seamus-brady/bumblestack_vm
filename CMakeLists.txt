@@ -72,8 +72,6 @@ add_executable(bumblestack
         src/vm/nars_priority_queue.h
         src/vm/nars_ruletable.h
         src/vm/nars_ruletable.c
-        src/vm/nars_shell.c
-        src/vm/nars_shell.h
         src/vm/nars_stack.c
         src/vm/nars_stack.h
         src/vm/nars_stamp.c
