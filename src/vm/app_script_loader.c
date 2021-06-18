@@ -112,7 +112,7 @@ start_wren()
 	config.errorFn = errorFn;
 	WrenVM *vm = wrenNewVM(&config);
 	// load the source
-	WrenInterpretResult interpreterResult = wrenInterpret(vm, "main", jsonModuleSource);
+	WrenInterpretResult interpreterResult = wrenInterpret(vm, "main", coreModuleSource);
 	if (interpreterResult != WREN_RESULT_SUCCESS)
 	{
 		slog_fatal("Wren VM failed to load startup script. This is a fatal error.");

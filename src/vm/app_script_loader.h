@@ -18,7 +18,6 @@
 
 #include <stdio.h>
 #include "wren.h"
-#include "wren_json.inc"
 
 void
 run_script(WrenVM *vm);

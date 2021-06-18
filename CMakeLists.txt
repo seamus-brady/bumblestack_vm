@@ -105,8 +105,6 @@ add_executable(bumblestack
         src/vm/wren_compiler.h
         src/vm/wren_core.c
         src/vm/wren_core.h
-        src/vm/wren_core.wren
-        src/vm/wren_core.wren.inc
         src/vm/wren_debug.c
         src/vm/wren_debug.h
         src/vm/wren_math.h
