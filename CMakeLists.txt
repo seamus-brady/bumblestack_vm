@@ -8,9 +8,10 @@ project(bumblestack C)
 ### set values
 ######################################################################################################################
 set(CMAKE_C_STANDARD 11)
-set(CMAKE_C_FLAGS "-lm -mfpmath=sse -msse2 -pthread -lpthread -D_POSIX_C_SOURCE=199506L -pedantic -std=c99 -g3 -O3")
+set(CMAKE_C_FLAGS "-lm -pthread -lpthread -D_POSIX_C_SOURCE=199506L -pedantic -std=c99 -g3 -O3")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
-set(CMAKE_BUILD_TYPE Debug)
+## set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_BUILD_TYPE MinSizeRel)
 
 ######################################################################################################################
 ### include directories
@@ -100,35 +101,13 @@ add_executable(bumblestack
         src/vm/lib_trim.c
         src/vm/lib_trim.h
         # wren embedded scripting language
-        src/vm/wren_common.h
-        src/vm/wren_compiler.c
-        src/vm/wren_compiler.h
-        src/vm/wren_core.c
-        src/vm/wren_core.h
-        src/vm/wren_core.wren
-        src/vm/wren_core.wren.inc
-        src/vm/wren_debug.c
-        src/vm/wren_debug.h
-        src/vm/wren_math.h
-        src/vm/wren_opcodes.h
-        src/vm/wren_primitive.c
-        src/vm/wren_primitive.h
-        src/vm/wren_utils.c
-        src/vm/wren_utils.h
-        src/vm/wren_value.c
-        src/vm/wren_value.h
-        src/vm/wren_vm.c
-        src/vm/wren_vm.h
-        src/vm/wren.h
-        src/vm/wren_opt_meta.c
-        src/vm/wren_opt_meta.h
-        src/vm/wren_opt_meta.wren.inc
-        src/vm/wren_opt_random.c
-        src/vm/wren_opt_random.h
-        src/vm/wren_opt_random.wren.inc src/vm/app_script_loader.h src/vm/app_script_loader.c)
+        src/vm/app_script_loader.h
+        src/vm/app_script_loader.c
+        src/vm/s7.c
+        src/vm/s7.h src/vm/mus-config.h)
 
 set_target_properties(bumblestack PROPERTIES LINKER_LANGUAGE C)
-target_link_libraries(bumblestack m)
+target_link_libraries(bumblestack m dl)
 
 ######################################################################################################################
 ### Target for generating ruletable.vm

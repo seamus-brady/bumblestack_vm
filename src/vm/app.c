@@ -13,6 +13,7 @@
  * THE SOFTWARE.
  */
 #include "app.h"
+#include "s7.h"
 
 void
 Process_Args(int argc, char *argv[])
@@ -71,7 +72,24 @@ main(int argc, char *argv[])
 {
 	system_init();
 	io_run_diagnostics();
-	start_wren();
+	s7_scheme *s7;
+	s7 = s7_init();
+
+	s7_define_variable(s7, "an-integer", s7_make_integer(s7, 1));
+	s7_eval_c_string(s7, "(define (add1 a) (+ a 1))");
+
+	fprintf(stderr, "an-integer: %lld\n",
+	        s7_integer(s7_name_to_value(s7, "an-integer")));
+
+	s7_symbol_set_value(s7, s7_make_symbol(s7, "an-integer"), s7_make_integer(s7, 32));
+
+	fprintf(stderr, "now an-integer: %lld\n",
+	        s7_integer(s7_name_to_value(s7, "an-integer")));
+
+	fprintf(stderr, "(add1 2): %lld\n",
+	        s7_integer(s7_call(s7,
+	                           s7_name_to_value(s7, "add1"),
+	                           s7_cons(s7, s7_make_integer(s7, 2), s7_nil(s7)))));
 	return 0;
 }
 

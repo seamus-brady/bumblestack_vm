@@ -17,13 +17,9 @@
 #define BUMBLESTACK_SRC_VM_APP_SCRIPT_LOADER_H
 
 #include <stdio.h>
-#include "wren.h"
-#include "wren_json.inc"
 
-void
-run_script(WrenVM *vm);
 
-void
-start_wren();
+
+
 
 #endif //BUMBLESTACK_SRC_VM_APP_SCRIPT_LOADER_H

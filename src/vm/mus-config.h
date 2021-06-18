@@ -1,0 +1,8 @@
+//
+// Created by seamus on 6/18/21.
+//
+
+#ifndef BUMBLESTACK_SRC_VM_MUS_CONFIG_H
+#define BUMBLESTACK_SRC_VM_MUS_CONFIG_H
+
+#endif //BUMBLESTACK_SRC_VM_MUS_CONFIG_H
