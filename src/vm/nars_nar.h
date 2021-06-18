@@ -46,24 +46,31 @@ extern long g_currentTime;
 
 //Methods//
 //-------//
+
 //Init/Reset system
 void
-NAR_INIT();
+nar_init();
+
 //Run the system for a certain amount of cycles
 void
-NAR_Cycles(int cycles);
+nar_cycles(int cycles);
+
 //Add input
 Event
-NAR_AddInput(Term term, char type, Truth truth, bool eternal, double occurrenceTimeOffset, bool isUserKnowledge);
+nar_add_input(Term term, char type, Truth truth, bool eternal, double occurrenceTimeOffset, bool isUserKnowledge);
+
 Event
-NAR_AddInputBelief(Term term);
+nar_add_input_Belief(Term term);
+
 Event
-NAR_AddInputGoal(Term term);
+nar_add_input_goal(Term term);
+
 //Add an operation
 void
-NAR_AddOperation(Term term, Action procedure);
+nar_add_operation(Term term, Action procedure, char *wren_source);
+
 //Add an Narsese sentence:
 void
-NAR_AddInputNarsese(char *narsese_sentence);
+nar_add_input_narsese(char *narsese_sentence);
 
 #endif

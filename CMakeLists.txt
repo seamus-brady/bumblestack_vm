@@ -37,8 +37,10 @@ target_link_libraries(unit_tests m)
 ### target for main executable
 ######################################################################################################################
 add_executable(bumblestack
+        # main bumblevm app
         src/vm/app.c
         src/vm/app.h
+        # nars modules
         src/vm/nars_concept.h
         src/vm/nars_config.h
         src/vm/nars_cycle.c
@@ -70,8 +72,6 @@ add_executable(bumblestack
         src/vm/nars_priority_queue.h
         src/vm/nars_ruletable.h
         src/vm/nars_ruletable.c
-        src/vm/nars_shell.c
-        src/vm/nars_shell.h
         src/vm/nars_stack.c
         src/vm/nars_stack.h
         src/vm/nars_stamp.c
@@ -88,10 +88,17 @@ add_executable(bumblestack
         src/vm/nars_usage.h
         src/vm/nars_variable.c
         src/vm/nars_variable.h
-        src/vm/lib_slog.h
-        src/vm/lib_slog.c
         src/vm/nars_io.h
         src/vm/nars_io.c
+        # library code
+        src/vm/lib_slog.h
+        src/vm/lib_slog.c
+        src/vm/lib_buffer.h
+        src/vm/lib_buffer.c
+        src/vm/lib_wildcardcmp.c
+        src/vm/lib_wildcardcmp.h
+        src/vm/lib_trim.c
+        src/vm/lib_trim.h
         # wren embedded scripting language
         src/vm/wren_common.h
         src/vm/wren_compiler.c

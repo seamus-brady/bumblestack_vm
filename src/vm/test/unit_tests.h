@@ -61,5 +61,12 @@
 #include "../nars_stats.c"
 #include "../lib_slog.h"
 #include "../lib_slog.c"
+#include "../lib_buffer.h"
+#include "../lib_buffer.c"
 #include "../nars_io.h"
 #include "../nars_io.c"
+#include "../lib_wildcardcmp.h"
+#include "../lib_wildcardcmp.c"
+#include "../lib_trim.h"
+#include "../lib_trim.c"
+

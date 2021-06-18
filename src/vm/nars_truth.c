@@ -99,17 +99,7 @@ truth_projection(Truth v, long originalTime, long targetTime)
 	       v : (Truth) {.frequency = v.frequency, .confidence = v.confidence * pow(TRUTH_PROJECTION_DECAY, difference)};
 }
 
-void
-truth_print(Truth *truth)
-{
-	printf(" truth=(frequency=%f, confidence=%f) \n", truth->frequency, truth->confidence);
-}
 
-void
-truth_print2(Truth *truth)
-{
-	printf("{%f %f} \n", truth->frequency, truth->confidence);
-}
 
 //not part of MSC:
 

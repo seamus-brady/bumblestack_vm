@@ -41,7 +41,7 @@ setUp(void)
 	// set stuff up here
 	setup_test_logging();
 	globals_sys_rand(42);
-	NAR_INIT();
+	nar_init();
 }
 
 void
@@ -268,13 +268,13 @@ test_narsese(void)
 void
 test_ruletable(void)
 {
-	NAR_AddInput(narsese_term(
+	nar_add_input(narsese_term(
 		"<cat --> animal>"), EVENT_TYPE_BELIEF, NAR_DEFAULT_TRUTH,
-	             true, 0, false);
-	NAR_AddInput(narsese_term(
+	              true, 0, false);
+	nar_add_input(narsese_term(
 		"<animal --> being>"), EVENT_TYPE_BELIEF, NAR_DEFAULT_TRUTH,
-	             true, 0, false);
-	NAR_Cycles(1);
+	              true, 0, false);
+	nar_cycles(1);
 	TEST_ASSERT_TRUE_MESSAGE(g_currentTime != 0, "NAR cycle time should not be zero.");
 }
 
@@ -407,30 +407,30 @@ void
 test_multiple_steps()
 {
 	MOTOR_BABBLING_CHANCE = 0;
-	NAR_INIT();
-	NAR_AddOperation(narsese_atomic_term("^goto_switch"), NAR_Lightswitch_GotoSwitch);
-	NAR_AddOperation(narsese_atomic_term("^activate_switch"), NAR_Lightswitch_ActivateSwitch);
+	nar_init();
+	nar_add_operation(narsese_atomic_term("^goto_switch"), NAR_Lightswitch_GotoSwitch, NULL);
+	nar_add_operation(narsese_atomic_term("^activate_switch"), NAR_Lightswitch_ActivateSwitch, NULL);
 	for (int i = 0; i < 5; i++)
 	{
-		NAR_AddInputBelief(narsese_atomic_term("start_at"));
-		NAR_AddInputBelief(narsese_atomic_term("^goto_switch"));
-		NAR_Cycles(1);
-		NAR_AddInputBelief(narsese_atomic_term("switch_at"));
-		NAR_AddInputBelief(narsese_atomic_term("^activate_switch"));
-		NAR_AddInputBelief(narsese_atomic_term("switch_active"));
-		NAR_Cycles(1);
-		NAR_AddInputBelief(narsese_atomic_term("light_active"));
-		NAR_Cycles(10);
+		nar_add_input_Belief(narsese_atomic_term("start_at"));
+		nar_add_input_Belief(narsese_atomic_term("^goto_switch"));
+		nar_cycles(1);
+		nar_add_input_Belief(narsese_atomic_term("switch_at"));
+		nar_add_input_Belief(narsese_atomic_term("^activate_switch"));
+		nar_add_input_Belief(narsese_atomic_term("switch_active"));
+		nar_cycles(1);
+		nar_add_input_Belief(narsese_atomic_term("light_active"));
+		nar_cycles(10);
 	}
-	NAR_Cycles(10);
-	NAR_AddInputBelief(narsese_atomic_term("start_at"));
-	NAR_AddInputGoal(narsese_atomic_term("light_active"));
-	NAR_Cycles(10);
+	nar_cycles(10);
+	nar_add_input_Belief(narsese_atomic_term("start_at"));
+	nar_add_input_goal(narsese_atomic_term("light_active"));
+	nar_cycles(10);
 	TEST_ASSERT_TRUE_MESSAGE(NAR_Lightswitch_GotoSwitch_executed && !NAR_Lightswitch_ActivateSwitch_executed,
 	                         "NAR needs to go to the switch first");
 	NAR_Lightswitch_GotoSwitch_executed = false;
-	NAR_AddInputBelief(narsese_atomic_term("switch_at"));
-	NAR_AddInputGoal(narsese_atomic_term("light_active"));
+	nar_add_input_Belief(narsese_atomic_term("switch_at"));
+	nar_add_input_goal(narsese_atomic_term("light_active"));
 	TEST_ASSERT_TRUE_MESSAGE(!NAR_Lightswitch_GotoSwitch_executed && NAR_Lightswitch_ActivateSwitch_executed,
 	                         "NAR needs to activate the switch");
 }
@@ -440,36 +440,36 @@ test_multiple_steps2()
 {
 	NAR_Lightswitch_ActivateSwitch_executed = false;
 	MOTOR_BABBLING_CHANCE = 0;
-	NAR_INIT();
-	NAR_AddOperation(narsese_atomic_term("^goto_switch"), NAR_Lightswitch_GotoSwitch);
-	NAR_AddOperation(narsese_atomic_term("^activate_switch"), NAR_Lightswitch_ActivateSwitch);
+	nar_init();
+	nar_add_operation(narsese_atomic_term("^goto_switch"), NAR_Lightswitch_GotoSwitch, NULL);
+	nar_add_operation(narsese_atomic_term("^activate_switch"), NAR_Lightswitch_ActivateSwitch, NULL);
 	for (int i = 0; i < 5; i++)
 	{
-		NAR_AddInputBelief(narsese_atomic_term("start_at"));
-		NAR_AddInputBelief(narsese_atomic_term("^goto_switch"));
-		NAR_Cycles(1);
-		NAR_AddInputBelief(narsese_atomic_term("switch_at"));
-		NAR_Cycles(10);
+		nar_add_input_Belief(narsese_atomic_term("start_at"));
+		nar_add_input_Belief(narsese_atomic_term("^goto_switch"));
+		nar_cycles(1);
+		nar_add_input_Belief(narsese_atomic_term("switch_at"));
+		nar_cycles(10);
 	}
-	NAR_Cycles(1000);
+	nar_cycles(1000);
 	for (int i = 0; i < 5; i++)
 	{
-		NAR_AddInputBelief(narsese_atomic_term("switch_at"));
-		NAR_AddInputBelief(narsese_atomic_term("^activate_switch"));
-		NAR_AddInputBelief(narsese_atomic_term("switch_active"));
-		NAR_Cycles(1);
-		NAR_AddInputBelief(narsese_atomic_term("light_active"));
-		NAR_Cycles(10);
+		nar_add_input_Belief(narsese_atomic_term("switch_at"));
+		nar_add_input_Belief(narsese_atomic_term("^activate_switch"));
+		nar_add_input_Belief(narsese_atomic_term("switch_active"));
+		nar_cycles(1);
+		nar_add_input_Belief(narsese_atomic_term("light_active"));
+		nar_cycles(10);
 	}
-	NAR_Cycles(10);
-	NAR_AddInputBelief(narsese_atomic_term("start_at"));
-	NAR_AddInputGoal(narsese_atomic_term("light_active"));
-	NAR_Cycles(10);
+	nar_cycles(10);
+	nar_add_input_Belief(narsese_atomic_term("start_at"));
+	nar_add_input_goal(narsese_atomic_term("light_active"));
+	nar_cycles(10);
 	TEST_ASSERT_TRUE_MESSAGE(NAR_Lightswitch_GotoSwitch_executed && !NAR_Lightswitch_ActivateSwitch_executed,
 	                         "NAR needs to go to the switch first (2)");
 	NAR_Lightswitch_GotoSwitch_executed = false;
-	NAR_AddInputBelief(narsese_atomic_term("switch_at"));
-	NAR_AddInputGoal(narsese_atomic_term("light_active"));
+	nar_add_input_Belief(narsese_atomic_term("switch_at"));
+	nar_add_input_goal(narsese_atomic_term("light_active"));
 	TEST_ASSERT_TRUE_MESSAGE(!NAR_Lightswitch_GotoSwitch_executed && NAR_Lightswitch_ActivateSwitch_executed,
 	                         "NAR needs to activate the switch (2)");
 }
@@ -487,18 +487,18 @@ NAR_Procedure_Test_Op()
 void
 test_operation_execution()
 {
-	NAR_INIT();
-	NAR_AddOperation(narsese_atomic_term("^op"), NAR_Procedure_Test_Op);
-	NAR_AddInputBelief(narsese_atomic_term("a"));
-	NAR_Cycles(1);
-	NAR_AddInputBelief(narsese_atomic_term("^op"));
-	NAR_Cycles(1);
-	NAR_AddInputBelief(narsese_atomic_term("result"));
-	NAR_Cycles(1);
-	NAR_AddInputBelief(narsese_atomic_term("a"));
-	NAR_Cycles(1);
-	NAR_AddInputGoal(narsese_atomic_term("result"));
-	NAR_Cycles(1);
+	nar_init();
+	nar_add_operation(narsese_atomic_term("^op"), NAR_Procedure_Test_Op, NULL);
+	nar_add_input_Belief(narsese_atomic_term("a"));
+	nar_cycles(1);
+	nar_add_input_Belief(narsese_atomic_term("^op"));
+	nar_cycles(1);
+	nar_add_input_Belief(narsese_atomic_term("result"));
+	nar_cycles(1);
+	nar_add_input_Belief(narsese_atomic_term("a"));
+	nar_cycles(1);
+	nar_add_input_goal(narsese_atomic_term("result"));
+	nar_cycles(1);
 	TEST_ASSERT_TRUE_MESSAGE(NAR_Procedure_Test_Op_executed, "NAR should have executed op!");
 }
 
@@ -528,58 +528,58 @@ op_3()
 void
 test_sequences()
 {
-	NAR_INIT();
+	nar_init();
 	MOTOR_BABBLING_CHANCE = 0;
-	NAR_AddOperation(narsese_atomic_term("^1"), op_1);
-	NAR_AddOperation(narsese_atomic_term("^2"), op_2);
-	NAR_AddOperation(narsese_atomic_term("^3"), op_3);
+	nar_add_operation(narsese_atomic_term("^1"), op_1, NULL);
+	nar_add_operation(narsese_atomic_term("^2"), op_2, NULL);
+	nar_add_operation(narsese_atomic_term("^3"), op_3, NULL);
 	for (int i = 0; i < 5; i++)
 	{
-		NAR_AddInputBelief(narsese_atomic_term("a")); //0 2 4 5
-		NAR_AddInputBelief(narsese_atomic_term("b"));
-		NAR_AddInputBelief(narsese_atomic_term("^1"));
-		NAR_AddInputBelief(narsese_atomic_term("g"));
-		NAR_Cycles(100);
+		nar_add_input_Belief(narsese_atomic_term("a")); //0 2 4 5
+		nar_add_input_Belief(narsese_atomic_term("b"));
+		nar_add_input_Belief(narsese_atomic_term("^1"));
+		nar_add_input_Belief(narsese_atomic_term("g"));
+		nar_cycles(100);
 	}
 	for (int i = 0; i < 100; i++)
 	{
-		NAR_AddInputBelief(narsese_atomic_term("a"));
-		NAR_AddInputBelief(narsese_atomic_term("^1"));
-		NAR_Cycles(100);
+		nar_add_input_Belief(narsese_atomic_term("a"));
+		nar_add_input_Belief(narsese_atomic_term("^1"));
+		nar_cycles(100);
 	}
 	for (int i = 0; i < 100; i++)
 	{
-		NAR_AddInputBelief(narsese_atomic_term("b"));
-		NAR_AddInputBelief(narsese_atomic_term("^1"));
-		NAR_Cycles(100);
+		nar_add_input_Belief(narsese_atomic_term("b"));
+		nar_add_input_Belief(narsese_atomic_term("^1"));
+		nar_cycles(100);
 	}
 	for (int i = 0; i < 2; i++)
 	{
-		NAR_AddInputBelief(narsese_atomic_term("b"));
-		NAR_AddInputBelief(narsese_atomic_term("^2"));
-		NAR_AddInputBelief(narsese_atomic_term("g"));
-		NAR_Cycles(100);
+		nar_add_input_Belief(narsese_atomic_term("b"));
+		nar_add_input_Belief(narsese_atomic_term("^2"));
+		nar_add_input_Belief(narsese_atomic_term("g"));
+		nar_cycles(100);
 	}
 	for (int i = 0; i < 2; i++)
 	{
-		NAR_AddInputBelief(narsese_atomic_term("a"));
-		NAR_AddInputBelief(narsese_atomic_term("^3"));
-		NAR_AddInputBelief(narsese_atomic_term("g"));
-		NAR_Cycles(100);
+		nar_add_input_Belief(narsese_atomic_term("a"));
+		nar_add_input_Belief(narsese_atomic_term("^3"));
+		nar_add_input_Belief(narsese_atomic_term("g"));
+		nar_cycles(100);
 	}
-	NAR_AddInputBelief(narsese_atomic_term("a"));
-	NAR_AddInputBelief(narsese_atomic_term("b"));
-	NAR_AddInputGoal(narsese_atomic_term("g"));
+	nar_add_input_Belief(narsese_atomic_term("a"));
+	nar_add_input_Belief(narsese_atomic_term("b"));
+	nar_add_input_goal(narsese_atomic_term("g"));
 	ASSERT(op_1_executed && !op_2_executed && !op_3_executed, "Expected op1 execution");
 	op_1_executed = op_2_executed = op_3_executed = false;
-	NAR_Cycles(100);
-	NAR_AddInputBelief(narsese_atomic_term("b"));
-	NAR_AddInputGoal(narsese_atomic_term("g"));
+	nar_cycles(100);
+	nar_add_input_Belief(narsese_atomic_term("b"));
+	nar_add_input_goal(narsese_atomic_term("g"));
 	TEST_ASSERT_TRUE_MESSAGE(!op_1_executed && op_2_executed && !op_3_executed, "Expected op2 execution"); //b here
 	op_1_executed = op_2_executed = op_3_executed = false;
-	NAR_Cycles(100);
-	NAR_AddInputBelief(narsese_atomic_term("a"));
-	NAR_AddInputGoal(narsese_atomic_term("g"));
+	nar_cycles(100);
+	nar_add_input_Belief(narsese_atomic_term("a"));
+	nar_add_input_goal(narsese_atomic_term("g"));
 	TEST_ASSERT_TRUE_MESSAGE(!op_1_executed && !op_2_executed && op_3_executed, "Expected op3 execution"); //a here
 }
 

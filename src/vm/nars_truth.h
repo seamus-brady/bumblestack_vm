@@ -86,12 +86,6 @@ truth_eternalise(Truth v);
 Truth
 truth_projection(Truth v, long originalTime, long targetTime);
 
-void
-truth_print(Truth *truth);
-
-void
-truth_print2(Truth *truth);
-
 //not part of sensorimotor inference:
 Truth
 truth_abduction(Truth v1, Truth v2);

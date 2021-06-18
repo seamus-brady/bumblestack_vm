@@ -39,8 +39,3 @@ usage_use(Usage usage, long currentTime, bool eternalInput)
 		.lastUsed = currentTime};
 }
 
-void
-usage_print(Usage *usage)
-{
-	printf("Usage: useCount=%ld lastUsed=%ld\n", usage->useCount, usage->lastUsed);
-}

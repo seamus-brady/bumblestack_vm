@@ -47,7 +47,7 @@ def main():
   module = module.replace("wren_", "")
 
   c_source = wren_to_c_string(args.input, wren_source_lines, module)
-
+  print(c_source)
   with open(args.output, "w") as f:
     f.write(c_source)
 

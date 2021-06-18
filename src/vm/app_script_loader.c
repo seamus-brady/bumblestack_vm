@@ -47,7 +47,7 @@ errorFn(WrenVM *vm, WrenErrorType errorType,
 }
 
 void
-run_script(WrenVM *vm)
+run_script_old(WrenVM *vm)
 {
 	// ensure right number of slots
 	wrenEnsureSlots(vm, 0);
@@ -67,6 +67,29 @@ run_script(WrenVM *vm)
 	// Release this handle if it finished successfully
 	wrenReleaseHandle(vm, updateFn);
 	wrenReleaseHandle(vm, bumbleEngine);
+}
+
+void
+run_script(WrenVM *vm)
+{
+// ensure right number of slots
+wrenEnsureSlots(vm, 0);
+// set main class
+wrenGetVariable(vm, "main", "BumbleVM", 0);
+WrenHandle *jsonParser = wrenGetSlotHandle(vm, 0);
+
+// set up function
+WrenHandle *updateFn = wrenMakeCallHandle(vm, "jsonPrint(_)");
+// call function
+wrenEnsureSlots(vm, 2);
+wrenSetSlotHandle(vm, 0, jsonParser);
+wrenSetSlotString(vm, 1, "\"lonely string\""); // elapsedTime
+wrenCall(vm, updateFn);
+char *result = wrenGetSlotString(vm, 0);
+// printf("Result from Wren: %d\n", result);
+// Release this handle if it finished successfully
+wrenReleaseHandle(vm, updateFn);
+wrenReleaseHandle(vm, jsonParser);
 }
 
 static const char* coreModuleSource = "class BumbleEngine {\n"
@@ -89,7 +112,7 @@ start_wren()
 	config.errorFn = errorFn;
 	WrenVM *vm = wrenNewVM(&config);
 	// load the source
-	WrenInterpretResult interpreterResult = wrenInterpret(vm, "main", coreModuleSource);
+	WrenInterpretResult interpreterResult = wrenInterpret(vm, "main", jsonModuleSource);
 	if (interpreterResult != WREN_RESULT_SUCCESS)
 	{
 		slog_fatal("Wren VM failed to load startup script. This is a fatal error.");

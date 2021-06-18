@@ -96,17 +96,4 @@ stamp_check_overlap(Stamp *a, Stamp *b)
 	return false;
 }
 
-void
-stamp_print(Stamp *stamp)
-{
-	fputs("stamp=", stdout);
-	for (int i = 0; i < STAMP_SIZE; i++)
-	{
-		if (stamp->evidentialBase[i] == STAMP_FREE)
-		{
-			break;
-		}
-		printf("%ld,", stamp->evidentialBase[i]);
-	}
-	puts("");
-}
+

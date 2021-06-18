@@ -18,7 +18,6 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include "nars_nar.h"
-#include "nars_shell.h"
 #include "lib_slog.h"
 #include "nars_io.h"
 #include "app_script_loader.h"

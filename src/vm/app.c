@@ -35,46 +35,42 @@ Process_Args(int argc, char *argv[])
 	}
 	if (argc >= 2)
 	{
-		NAR_INIT();
+		nar_init();
 		if (!strcmp(argv[1], "shell"))
 		{
-			Shell_Start();
+//			Shell_Start();
 		}
 	}
 	if (inspectionOnExit)
 	{
-		Shell_ProcessInput("*g_concepts");
-		Shell_ProcessInput("*g_cyclingBeliefEvents");
-		Shell_ProcessInput("*g_cyclingGoalEvents");
-		Shell_ProcessInput("*stats");
+//		Shell_ProcessInput("*g_concepts");
+//		Shell_ProcessInput("*g_cyclingBeliefEvents");
+//		Shell_ProcessInput("*g_cyclingGoalEvents");
+//		Shell_ProcessInput("*stats");
 	}
 }
 
 void
-systemInit()
+system_init()
 {
 	// set up random number generator
 	globals_sys_rand(SEED);
 
 	// initialise logging
-	setup_logging();
+	io_setup_logging();
 	slog_info("Welcome to BumbleStack!");
 
 	// initialise the bumblestack NARS system
-	NAR_INIT();
+	nar_init();
 	slog_info("System initialised.");
-	stats_print(g_currentTime);
-	print_atom_table();
-	print_concepts();
-	print_cycling_belief_events();
-	print_cycling_goal_events();
 }
+
 
 int
 main(int argc, char *argv[])
 {
-	systemInit();
-	run_diagnostics();
+	system_init();
+	io_run_diagnostics();
 	start_wren();
 	return 0;
 }

@@ -14,25 +14,135 @@
  * THE SOFTWARE.
  */
 
+#ifndef H_IO
+#define H_IO
+
 #include <stdbool.h>
 #include <stdlib.h>
 #include "nars_nar.h"
 #include "lib_slog.h"
+#include "lib_wildcardcmp.h"
+#include "lib_trim.h"
+
+#define INPUT_CONTINUE 0
+#define INPUT_RESET 1
+#define INPUT_EXIT 2
+
+
+static char *const IO_COMMENT = "//*";
+static char *const IO_VM_RESET = "VM_RESET*";
+static char *const IO_VERBOSE_MODE_ON = "IO_VERBOSE_MODE_ON*";
+static char *const IO_VERBOSE_MODE_OFF = "IO_VERBOSE_MODE_OFF*";
+static char *const IO_PRINT_STATS = "IO_PRINT_STATS*";
+static char *const IO_RUN_DIAGNOSTICS = "IO_RUN_DIAGNOSTICS*";
+static char *const IO_DUMP_MEMORY_JSON = "IO_DUMP_MEMORY_JSON*";
+static char *const IO_QUIT = "IO_QUIT*";
+static char *const IO_BABBLE_OPS = "IO_BABBLE_OPS*";
+static char *const IO_MOTORBABBLE_OFF = "IO_MOTORBABBLE_OFF*";
+static char *const IO_MOTORBABBLE_ON = "IO_MOTORBABBLE_ON*";
+static char *const IO_MOTORBABBLE_SET = "VM_MOTORBABBLE=*";
+static char *const IO_ADD_OPERATION = "IO_ADD_OPERATION*";
+static char *const IO_ADD_OPERATION_SET = "IO_ADD_OPERATION ";
+static char *const IO_OP_PREFIX = "^*";
+static char *const IO_OP_CHAR = "^";
+static char *const IO_NUMERIC_VALUES = "0123456789";
+
+int
+io_handle_add_operation(const char *line);
+
+int
+io_handle_run_cycle(const char *line);
+
+int
+io_handle_empty_input();
+
+int
+io_handle_set_motorbabbble(const char *line);
+
+int
+io_handle_memory_dump();
+
+int
+io_handle_babble_ops(const char *line);
+
+int
+io_handle_comments(const char *line);
 
 void
-setup_logging();
+io_setup_logging();
 
 void
-print_concepts();
+io_print_concepts();
 
 void
-print_atom_table();
+io_print_atom_table();
 
 void
-print_cycling_belief_events();
+io_print_cycling_belief_events();
 
 void
-print_cycling_goal_events();
+io_print_cycling_goal_events();
 
 void
-run_diagnostics();
+io_run_diagnostics();
+
+int
+io_process_input(char *line);
+
+void
+io_print_decision_with_json(Decision decision, Implication imp);
+
+//Print an atom with buffer
+void
+io_narsese_print_atom_with_buffer(Atom atom, buffer_t *buf);
+
+//Print a term with a buffer
+void
+io_narsese_print_term_with_buffer(Term *term, buffer_t *buf);
+
+void
+io_narsese_print_term_pretty_recursive_with_buffer(Term *term, int index, buffer_t *buf);
+
+void
+io_narsese_print_term_pretty_recursive(Term *term, int index);
+
+//Print an atom
+void
+io_narsese_print_atom(Atom atom);
+
+//Print a term
+void
+io_narsese_print_term(Term *term);
+
+//Print an event in memory:
+void
+io_memory_print_added_event(Event *event, double priority, bool input, bool derived, bool revised, bool controlInfo);
+
+//Print an implication in memory:
+void
+io_memory_print_added_implication(Term *implication,
+                                  Truth *truth,
+                                  double occurrenceTimeOffset,
+                                  double priority,
+                                  bool input,
+                                  bool revised,
+                                  bool controlInfo);
+
+//print stamp
+void
+io_stamp_print(Stamp *stamp);
+
+void
+io_stats_print(long currentTime);
+
+void
+io_truth_print(Truth *truth);
+
+void
+io_truth_print2(Truth *truth);
+
+//print usage
+void
+io_usage_print(Usage *usage);
+
+#endif

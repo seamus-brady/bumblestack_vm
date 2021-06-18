@@ -18,71 +18,263 @@
 
 bool diagnosticTestOperationRun = false;
 
+int
+io_process_input(char *input)
+{
+	char *line = trim(input);
+	int input_size = strlen(line);
+
+	// handle empty input
+	if (input_size == 0)
+	{
+		return io_handle_empty_input();
+	}
+
+	// handle comments
+	if (wildcardcmp(IO_COMMENT, line))
+	{
+		return io_handle_comments(line);
+	}
+
+	// handle rest VM command
+	if (wildcardcmp(IO_VM_RESET, line))
+	{
+		return INPUT_RESET;
+	}
+
+	// handle verbose printing on
+	if (wildcardcmp(IO_VERBOSE_MODE_ON, line))
+	{
+		PRINT_DERIVATIONS = true;
+		return INPUT_CONTINUE;
+	}
+
+	// handle verbose printing off
+	if (wildcardcmp(IO_VERBOSE_MODE_OFF, line))
+	{
+		PRINT_DERIVATIONS = false;
+		return INPUT_CONTINUE;
+	}
+
+	// handle stats printing
+	if (wildcardcmp(IO_PRINT_STATS, line))
+	{
+		io_stats_print(g_currentTime);
+		return INPUT_CONTINUE;
+	}
+
+	// handle diagnostics
+	if (wildcardcmp(IO_RUN_DIAGNOSTICS, line))
+	{
+		io_run_diagnostics();
+		return INPUT_CONTINUE;
+	}
+
+	// handle dumping memory to json
+	if (wildcardcmp(IO_DUMP_MEMORY_JSON, line))
+	{
+		return io_handle_memory_dump();
+	}
+
+	// handle quit
+	if (wildcardcmp(IO_QUIT, line))
+	{
+		return INPUT_EXIT;
+	}
+
+	// handle babbling operations
+	if (wildcardcmp(IO_BABBLE_OPS, line))
+	{
+		return io_handle_babble_ops(line);
+	}
+
+	// handle motor babbling
+	if (wildcardcmp(IO_MOTORBABBLE_OFF, line))
+	{
+		MOTOR_BABBLING_CHANCE = 0.0;
+		return INPUT_CONTINUE;
+	}
+
+	if (wildcardcmp(IO_MOTORBABBLE_ON, line))
+	{
+		MOTOR_BABBLING_CHANCE = MOTOR_BABBLING_CHANCE_INITIAL;
+		return INPUT_CONTINUE;
+	}
+
+	if (wildcardcmp(IO_MOTORBABBLE_SET, line))
+	{
+		return io_handle_set_motorbabbble(line);
+	}
+
+	// handle add operation
+	if (wildcardcmp(IO_ADD_OPERATION, line))
+	{
+		return io_handle_add_operation(line);
+	}
+
+	// handle cycle request
+	if (strspn(line, IO_NUMERIC_VALUES) && strlen(line) == strspn(line, IO_NUMERIC_VALUES))
+	{
+		return io_handle_run_cycle(line);
+	}
+
+	// last but not least, add input narsese
+	nar_add_input_narsese(line);
+	fflush(stdout);
+	return INPUT_CONTINUE;
+}
+
+int
+io_handle_run_cycle(const char *line)
+{
+	unsigned int steps;
+	sscanf(line, "%u", &steps);
+	slog_info("Performing %u inference steps:\n", steps);
+	fflush(stdout);
+	nar_cycles(steps);
+	slog_info("Completed %u additional inference steps.\n", steps);
+	fflush(stdout);
+	return INPUT_CONTINUE;
+}
+
+int
+io_handle_add_operation(const char *line)
+{
+	char *incoming_term_string[NARSESE_LEN_MAX] = {0};
+	char incoming_operation_name[ATOMIC_TERM_LEN_MAX] = {0};
+	char *incoming_script[NARSESE_LEN_MAX] = {0};
+	sscanf(
+		&line[strlen(IO_ADD_OPERATION_SET)],
+		"%s %s %s",
+		(char *) &incoming_term_string,
+		(char *) &incoming_operation_name,
+		(char *) &incoming_script);
+	// make sure there is a '^' char at the start
+	char *term_string = NULL;
+	if (!wildcardcmp(IO_OP_PREFIX, (const char *) incoming_term_string))
+	{
+		buffer_t *buf = buffer_new();
+		buffer_prepend(buf, IO_OP_CHAR);
+		term_string = buffer_string(buf);
+		buffer_free(buf);
+	}
+	else
+	{
+		term_string = (char *) incoming_term_string;
+	}
+	nar_add_operation(
+		narsese_atomic_term(term_string),
+		(Action) incoming_operation_name,
+		(char *) incoming_script);
+	return INPUT_CONTINUE;
+}
+
+int
+io_handle_set_motorbabbble(const char *line)
+{
+	sscanf(&line[strlen("*VM_MOTORBABBLE=")], "%lf", &MOTOR_BABBLING_CHANCE);
+	return INPUT_CONTINUE;
+}
+
+int
+io_handle_memory_dump()
+{
+	io_print_atom_table();
+	io_print_concepts();
+	io_print_cycling_belief_events();
+	io_print_cycling_goal_events();
+	return INPUT_CONTINUE;
+}
+
+int
+io_handle_babble_ops(const char *line)
+{
+	sscanf(&line[strlen("IO_BABBLE_OPS=")], "%d", &BABBLING_OPS);
+	return INPUT_CONTINUE;
+}
+
+int
+io_handle_comments(const char *line)
+{
+	slog_info("Comment from input: ", stdout);
+	puts(&line[2]);
+	fflush(stdout);
+	return INPUT_CONTINUE;
+}
+
+int
+io_handle_empty_input()
+{
+	nar_cycles(1);
+	fflush(stdout);
+	return INPUT_CONTINUE;
+}
+
 void
-diagnosticTestOperation(Term term)
+io_diagnostic_test_operation(Term term)
 {
 	slog_info("Diagnostic test operation was run correctly.");
 	diagnosticTestOperationRun = true;
 }
 
 void
-run_operation_diagnostic()
+io_run_operation_diagnostic()
 {
 	slog_info("Running operation diagnostic test...");
 	slog_info("Add operation...");
-	NAR_AddOperation(narsese_atomic_term("^op"), diagnosticTestOperation);
+	nar_add_operation(narsese_atomic_term("^op"), io_diagnostic_test_operation, NULL);
 	slog_info("Add belief...");
-	NAR_AddInputBelief(narsese_atomic_term("a"));
+	nar_add_input_Belief(narsese_atomic_term("a"));
 	slog_info("Run 1 inference cycle...");
-	NAR_Cycles(1);
+	nar_cycles(1);
 	slog_info("Add belief...");
-	NAR_AddInputBelief(narsese_atomic_term("^op"));
+	nar_add_input_Belief(narsese_atomic_term("^op"));
 	slog_info("Run 1 inference cycle...");
-	NAR_Cycles(1);
+	nar_cycles(1);
 	slog_info("Add belief...");
-	NAR_AddInputBelief(narsese_atomic_term("result"));
+	nar_add_input_Belief(narsese_atomic_term("result"));
 	slog_info("Run 1 inference cycle...");
-	NAR_Cycles(1);
+	nar_cycles(1);
 	slog_info("Add belief...");
-	NAR_AddInputBelief(narsese_atomic_term("a"));
+	nar_add_input_Belief(narsese_atomic_term("a"));
 	slog_info("Run 1 inference cycle...");
-	NAR_Cycles(1);
+	nar_cycles(1);
 	slog_info("Add goal...");
-	NAR_AddInputGoal(narsese_atomic_term("result"));
+	nar_add_input_goal(narsese_atomic_term("result"));
 	slog_info("Run 1 inference cycle...");
-	NAR_Cycles(1);
+	nar_cycles(1);
 	slog_info("Finished operation diagnostic test.");
 }
 
 void
-run_ruletable_diagnostic()
+io_run_ruletable_diagnostic()
 {
 	slog_info("Running a diagnostic ruletable test...");
 	slog_info("Adding input...");
-	NAR_AddInput(narsese_term(
+	nar_add_input(narsese_term(
 		"<cat --> animal>"), EVENT_TYPE_BELIEF, NAR_DEFAULT_TRUTH,
-	             true, 0, false);
+	              true, 0, false);
 	slog_info("Adding input...");
-	NAR_AddInput(narsese_term(
+	nar_add_input(narsese_term(
 		"<animal --> being>"), EVENT_TYPE_BELIEF, NAR_DEFAULT_TRUTH,
-	             true, 0, false);
+	              true, 0, false);
 	slog_info("Running 10 inference cycles...");
-	NAR_Cycles(10);
+	nar_cycles(10);
 	ASSERT(g_currentTime != 0, "Internal cycle time should not be zero.");
 	slog_info("Finished diagnostic ruletable test.");
 }
 
 void
-run_diagnostics(void)
+io_run_diagnostics(void)
 {
 	slog_info("Running diagnostic tests...");
-	run_ruletable_diagnostic();
-	run_operation_diagnostic();
+	io_run_ruletable_diagnostic();
+	io_run_operation_diagnostic();
 	slog_info("Completed diagnostic tests...");
 }
 
 void
-setup_logging()
+io_setup_logging()
 {// Enable all logging levels
 	int enabledLevels = SLOG_FLAGS_ALL;
 
@@ -105,15 +297,15 @@ setup_logging()
 }
 
 void
-print_concepts()
+io_print_concepts()
 {
-	slog_info("Printing g_concepts:");
+	slog_info("Printing concepts:");
 	for (int opi = 0; opi < OPERATIONS_MAX; opi++)
 	{
 		if (g_operations[opi].term.atoms[0])
 		{
-			printf("*setopname %d ", opi + 1);
-			narsese_print_term(&g_operations[opi].term);
+			printf("Operation %d ", opi + 1);
+			io_narsese_print_term(&g_operations[opi].term);
 			puts("");
 		}
 	}
@@ -122,7 +314,7 @@ print_concepts()
 		Concept *c = g_concepts.items[i].address;
 		ASSERT(c != NULL, "Concept is null");
 		fputs("//", stdout);
-		narsese_print_term(&c->term);
+		io_narsese_print_term(&c->term);
 		printf(
 			": { \"priority\": %f, \"usefulness\": %f, \"useCount\": %ld, \"lastUsed\": %ld, \"frequency\": %f, \"confidence\": %f, \"termlinks\": [",
 			c->priority,
@@ -138,75 +330,455 @@ print_concepts()
 		Term right_left = term_extract_subterm(&right, 1);
 		Term right_right = term_extract_subterm(&right, 2);
 		fputs("\"", stdout);
-		narsese_print_term(&left);
+		io_narsese_print_term(&left);
 		fputs("\", ", stdout);
 		fputs("\"", stdout);
-		narsese_print_term(&right);
+		io_narsese_print_term(&right);
 		fputs("\", ", stdout);
 		fputs("\"", stdout);
-		narsese_print_term(&left_left);
+		io_narsese_print_term(&left_left);
 		fputs("\", ", stdout);
 		fputs("\"", stdout);
-		narsese_print_term(&left_right);
+		io_narsese_print_term(&left_right);
 		fputs("\", ", stdout);
 		fputs("\"", stdout);
-		narsese_print_term(&right_left);
+		io_narsese_print_term(&right_left);
 		fputs("\", ", stdout);
 		fputs("\"", stdout);
-		narsese_print_term(&right_right);
+		io_narsese_print_term(&right_right);
 		fputs("\"", stdout);
 		puts("]}");
 		if (c->belief.type != EVENT_TYPE_DELETED)
 		{
-			memory_print_added_event(&c->belief, 1, true, false, false, false);
+			io_memory_print_added_event(&c->belief, 1, true, false, false, false);
 		}
 		for (int opi = 0; opi < OPERATIONS_MAX; opi++)
 		{
 			for (int h = 0; h < c->precondition_beliefs[opi].itemsAmount; h++)
 			{
 				Implication *imp = &c->precondition_beliefs[opi].array[h];
-				Memory_printAddedImplication(&imp->term, &imp->truth, imp->occurrenceTimeOffset, 1, true, false,
-				                             false);
+				io_memory_print_added_implication(&imp->term, &imp->truth, imp->occurrenceTimeOffset, 1, true, false,
+				                                  false);
 			}
 		}
 	}
-	slog_info("Finished printing g_concepts.");
+	slog_info("Finished printing concepts.");
 }
 
 void
-print_atom_table()
+io_print_atom_table()
 {
 	inverted_atom_index_print();
 }
 
 void
-print_cycling_belief_events()
+io_print_cycling_belief_events()
 {
-	slog_info("Printing cycling g_beliefEvents:");
+	slog_info("Printing cycling belief events:");
 	for (int i = 0; i < g_cyclingBeliefEvents.itemsAmount; i++)
 	{
 		Event *e = g_cyclingBeliefEvents.items[i].address;
 		ASSERT(e != NULL, "Event is null");
-		narsese_print_term(&e->term);
+		io_narsese_print_term(&e->term);
 		printf(": { \"priority\": %f, \"time\": %ld } ", g_cyclingBeliefEvents.items[i].priority,
 		       e->occurrenceTime);
-		truth_print(&e->truth);
+		io_truth_print(&e->truth);
 	}
-	slog_info("Finished printing cycling g_beliefEvents.");
+	slog_info("Finished printing cycling belief events.");
 }
 
 void
-print_cycling_goal_events()
+io_print_cycling_goal_events()
 {
 	slog_info("Printing cycling goal events:");
 	for (int i = 0; i < g_cyclingGoalEvents.itemsAmount; i++)
 	{
 		Event *e = g_cyclingGoalEvents.items[i].address;
 		ASSERT(e != NULL, "Event is null");
-		narsese_print_term(&e->term);
+		io_narsese_print_term(&e->term);
 		printf(": {\"priority\": %f, \"time\": %ld } ", g_cyclingGoalEvents.items[i].priority,
 		       e->occurrenceTime);
-		truth_print(&e->truth);
+		io_truth_print(&e->truth);
 	}
 	slog_info("Finished printing cycling goal events.");
+}
+
+void
+io_print_decision_with_json(Decision decision, Implication bestImp)
+{
+	printf("{\"output\": {");
+	printf("\"decision\": {");
+	printf("\"expectation\": \"%f\", ", decision.desire);
+	printf("\"implication\": { \"narsese_term\": \"");
+	io_narsese_print_term(&bestImp.term);
+	printf(".\", ");
+	printf("\"truth\": { \"frequency\": \"%f\", \"confidence\": \"%f\"}, \"occurrence_time_offset\": \"%f\" },",
+	       bestImp.truth.frequency,
+	       bestImp.truth.confidence,
+	       bestImp.occurrenceTimeOffset);
+	fputs(" \"precondition \": { \"narsese_term\": \"", stdout);
+	io_narsese_print_term(&decision.reason->term);
+	fputs(". :|: \", ", stdout);
+	printf("\"truth\": { \"frequency\": \"%f\", \"confidence\": \"%f\"}, \"occurrence_time\": \"%ld\" }",
+	       decision.reason->truth.frequency, decision.reason->truth.confidence, decision.reason->occurrenceTime);
+	puts("}}}");
+}
+
+void
+io_narsese_print_term_with_buffer(Term *term, buffer_t *buf)
+{
+	io_narsese_print_term_pretty_recursive_with_buffer(term, 1, buf);
+}
+
+void
+io_narsese_print_term_pretty_recursive_with_buffer(Term *term, int index, buffer_t *buf) //start with index=1!
+{
+	Atom atom = term->atoms[index - 1];
+	if (!atom)
+	{
+		return;
+	}
+	int child1 = index * 2;
+	int child2 = index * 2 + 1;
+	bool hasLeftChild = child1 < COMPOUND_TERM_SIZE_MAX && term->atoms[child1 - 1];
+	bool hasRightChild = child2 < COMPOUND_TERM_SIZE_MAX && term->atoms[child2 - 1] &&
+		!narsese_copula_equals(term->atoms[child2 - 1], '@');
+	bool isNegation = narsese_copula_equals(atom, '!');
+	bool isExtSet = narsese_copula_equals(atom, '"');
+	bool isIntSet = narsese_copula_equals(atom, '\'');
+	bool isStatement =
+		narsese_copula_equals(atom, '$') || narsese_copula_equals(atom, ':') || narsese_copula_equals(atom, '=');
+	if (isExtSet)
+	{
+		buffer_append(buf, hasLeftChild ? "{" : "");
+	}
+	else if (isIntSet)
+	{
+		buffer_append(buf, hasLeftChild ? "[" : "");
+	}
+	else if (isStatement)
+	{
+		buffer_append(buf, hasLeftChild ? "<" : "");
+	}
+	else
+	{
+		buffer_append(buf, hasLeftChild ? "(" : "");
+		if (isNegation)
+		{
+			io_narsese_print_atom_with_buffer(atom, buf);
+			buffer_append(buf, " ");
+		}
+	}
+	if (child1 < COMPOUND_TERM_SIZE_MAX)
+	{
+		io_narsese_print_term_pretty_recursive_with_buffer(term, child1, buf);
+	}
+	if (hasRightChild)
+	{
+		buffer_append(buf, hasLeftChild ? " " : "");
+	}
+	if (!isExtSet && !isIntSet && !narsese_copula_equals(atom, '@'))
+	{
+		if (!isNegation)
+		{
+			io_narsese_print_atom_with_buffer(atom, buf);
+			buffer_append(buf, hasLeftChild ? " " : "");
+		}
+	}
+	if (child2 < COMPOUND_TERM_SIZE_MAX)
+	{
+		io_narsese_print_term_pretty_recursive_with_buffer(term, child2, buf);
+	}
+	if (isExtSet)
+	{
+		buffer_append(buf, hasLeftChild ? "}" : "");
+	}
+	else if (isIntSet)
+	{
+		buffer_append(buf, hasLeftChild ? "]" : "");
+	}
+	else if (isStatement)
+	{
+		buffer_append(buf, hasLeftChild ? ">" : "");
+	}
+	else
+	{
+		buffer_append(buf, hasLeftChild ? ")" : "");
+	}
+}
+
+void
+io_narsese_print_atom_with_buffer(Atom atom, buffer_t *buf)
+{
+	if (atom)
+	{
+		if (narsese_copula_equals(atom, ':'))
+		{
+			buffer_append(buf, "-->");
+		}
+		else if (narsese_copula_equals(atom, '$'))
+		{
+			buffer_append(buf, "=/>");
+		}
+		else if (narsese_copula_equals(atom, '+'))
+		{
+			buffer_append(buf, "&/");
+		}
+		else if (narsese_copula_equals(atom, ';'))
+		{
+			buffer_append(buf, "&|");
+		}
+		else if (narsese_copula_equals(atom, '='))
+		{
+			buffer_append(buf, "<->");
+		}
+		else if (narsese_copula_equals(atom, '/'))
+		{
+			buffer_append(buf, "/1");
+		}
+		else if (narsese_copula_equals(atom, '%'))
+		{
+			buffer_append(buf, "/2");
+		}
+		else if (narsese_copula_equals(atom, '\\'))
+		{
+			buffer_append(buf, "\\1");
+		}
+		else if (narsese_copula_equals(atom, '#'))
+		{
+			buffer_append(buf, "\\2");
+		}
+		else
+		{
+			buffer_append(buf, g_narsese_atomNames[atom - 1]);
+		}
+	}
+	else
+	{
+		buffer_append(buf, "@");
+	}
+}
+
+void
+io_narsese_print_term(Term *term)
+{
+	io_narsese_print_term_pretty_recursive(term, 1);
+}
+
+void
+io_narsese_print_term_pretty_recursive(Term *term, int index) //start with index=1!
+{
+	Atom atom = term->atoms[index - 1];
+	if (!atom)
+	{
+		return;
+	}
+	int child1 = index * 2;
+	int child2 = index * 2 + 1;
+	bool hasLeftChild = child1 < COMPOUND_TERM_SIZE_MAX && term->atoms[child1 - 1];
+	bool hasRightChild = child2 < COMPOUND_TERM_SIZE_MAX && term->atoms[child2 - 1] &&
+		!narsese_copula_equals(term->atoms[child2 - 1], '@');
+	bool isNegation = narsese_copula_equals(atom, '!');
+	bool isExtSet = narsese_copula_equals(atom, '"');
+	bool isIntSet = narsese_copula_equals(atom, '\'');
+	bool isStatement =
+		narsese_copula_equals(atom, '$') || narsese_copula_equals(atom, ':') || narsese_copula_equals(atom, '=');
+	if (isExtSet)
+	{
+		fputs(hasLeftChild ? "{" : "", stdout);
+	}
+	else if (isIntSet)
+	{
+		fputs(hasLeftChild ? "[" : "", stdout);
+	}
+	else if (isStatement)
+	{
+		fputs(hasLeftChild ? "<" : "", stdout);
+	}
+	else
+	{
+		fputs(hasLeftChild ? "(" : "", stdout);
+		if (isNegation)
+		{
+			io_narsese_print_atom(atom);
+			fputs(" ", stdout);
+		}
+	}
+	if (child1 < COMPOUND_TERM_SIZE_MAX)
+	{
+		io_narsese_print_term_pretty_recursive(term, child1);
+	}
+	if (hasRightChild)
+	{
+		fputs(hasLeftChild ? " " : "", stdout);
+	}
+	if (!isExtSet && !isIntSet && !narsese_copula_equals(atom, '@'))
+	{
+		if (!isNegation)
+		{
+			io_narsese_print_atom(atom);
+			fputs(hasLeftChild ? " " : "", stdout);
+		}
+	}
+	if (child2 < COMPOUND_TERM_SIZE_MAX)
+	{
+		io_narsese_print_term_pretty_recursive(term, child2);
+	}
+	if (isExtSet)
+	{
+		fputs(hasLeftChild ? "}" : "", stdout);
+	}
+	else if (isIntSet)
+	{
+		fputs(hasLeftChild ? "]" : "", stdout);
+	}
+	else if (isStatement)
+	{
+		fputs(hasLeftChild ? ">" : "", stdout);
+	}
+	else
+	{
+		fputs(hasLeftChild ? ")" : "", stdout);
+	}
+}
+
+void
+io_narsese_print_atom(Atom atom)
+{
+	if (atom)
+	{
+		if (narsese_copula_equals(atom, ':'))
+		{
+			fputs("-->", stdout);
+		}
+		else if (narsese_copula_equals(atom, '$'))
+		{
+			fputs("=/>", stdout);
+		}
+		else if (narsese_copula_equals(atom, '+'))
+		{
+			fputs("&/", stdout);
+		}
+		else if (narsese_copula_equals(atom, ';'))
+		{
+			fputs("&|", stdout);
+		}
+		else if (narsese_copula_equals(atom, '='))
+		{
+			fputs("<->", stdout);
+		}
+		else if (narsese_copula_equals(atom, '/'))
+		{
+			fputs("/1", stdout);
+		}
+		else if (narsese_copula_equals(atom, '%'))
+		{
+			fputs("/2", stdout);
+		}
+		else if (narsese_copula_equals(atom, '\\'))
+		{
+			fputs("\\1", stdout);
+		}
+		else if (narsese_copula_equals(atom, '#'))
+		{
+			fputs("\\2", stdout);
+		}
+		else
+		{
+			fputs(g_narsese_atomNames[atom - 1], stdout);
+		}
+	}
+	else
+	{
+		fputs("@", stdout);
+	}
+}
+
+static void
+io_memory_print_added_knowledge(Term *term, char type, Truth *truth, long occurrenceTime, double occurrenceTimeOffset,
+                                double priority, bool input, bool derived, bool revised, bool controlInfo)
+{
+	if (((input && PRINT_INPUT) || PRINT_DERIVATIONS) && priority > PRINT_DERIVATIONS_PRIORITY_THRESHOLD &&
+		(input || derived || revised))
+	{
+		if (controlInfo)
+			fputs(revised ? "Revised: " : (input ? "Input: " : "Derived: "), stdout);
+		if (narsese_copula_equals(term->atoms[0], '$'))
+			printf("occurrenceTimeOffset=(%f) ", occurrenceTimeOffset);
+		io_narsese_print_term(term);
+		fputs((type == EVENT_TYPE_BELIEF ? ". " : "! "), stdout);
+		if (occurrenceTime != OCCURRENCE_ETERNAL)
+		{
+			printf(":|: occurrenceTime=(%ld) ", occurrenceTime);
+		}
+		if (controlInfo)
+		{
+			printf("priority=(%f) ", priority);
+			io_truth_print(truth);
+		}
+		else
+		{
+			io_truth_print2(truth);
+		}
+		fflush(stdout);
+	}
+}
+
+void
+io_memory_print_added_event(Event *event, double priority, bool input, bool derived, bool revised, bool controlInfo)
+{
+	io_memory_print_added_knowledge(&event->term, event->type, &event->truth, event->occurrenceTime, 0, priority, input,
+	                                derived, revised, controlInfo);
+}
+
+void
+io_memory_print_added_implication(Term *implication,
+                                  Truth *truth,
+                                  double occurrenceTimeOffset,
+                                  double priority,
+                                  bool input,
+                                  bool revised,
+                                  bool controlInfo)
+{
+	io_memory_print_added_knowledge(implication, EVENT_TYPE_BELIEF, truth, OCCURRENCE_ETERNAL, occurrenceTimeOffset,
+	                                priority, input, true, revised, controlInfo);
+}
+
+void
+io_stamp_print(Stamp *stamp)
+{
+	fputs("stamp=", stdout);
+	for (int i = 0; i < STAMP_SIZE; i++)
+	{
+		if (stamp->evidentialBase[i] == STAMP_FREE)
+		{
+			break;
+		}
+		printf("%ld,", stamp->evidentialBase[i]);
+	}
+	puts("");
+}
+
+void
+io_stats_print(long currentTime)
+{
+	stats_print(currentTime);
+}
+
+void
+io_truth_print(Truth *truth)
+{
+	printf(" truth=(frequency=%f, confidence=%f) \n", truth->frequency, truth->confidence);
+}
+
+void
+io_truth_print2(Truth *truth)
+{
+	printf("{%f %f} \n", truth->frequency, truth->confidence);
+}
+
+void
+io_usage_print(Usage *usage)
+{
+	printf("Usage: useCount=%ld lastUsed=%ld\n", usage->useCount, usage->lastUsed);
 }

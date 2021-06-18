@@ -73,6 +73,6 @@ decision_anticipate(int operationID, long currentTime);
 
 //NAR decision making rule applying when goal is an operation
 Decision
-Decision_Suggest(Concept *goalconcept, Event *goal, long currentTime);
+decision_suggest(Concept *goalconcept, Event *goal, long currentTime);
 
 #endif
