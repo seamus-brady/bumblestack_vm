@@ -53,8 +53,5 @@ typedef struct
 	long processID; //avoids duplicate processing
 } Concept;
 
-//Methods//
-//-------//
-//todo
 
 #endif

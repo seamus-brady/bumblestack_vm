@@ -21,6 +21,52 @@
 #include <stdlib.h>
 #include "nars_nar.h"
 #include "lib_slog.h"
+#include "lib_wildcardcmp.h"
+#include "lib_trim.h"
+
+#define INPUT_CONTINUE 0
+#define INPUT_RESET 1
+#define INPUT_EXIT 2
+
+
+static char *const IO_COMMENT = "//*";
+static char *const IO_VM_RESET = "VM_RESET*";
+static char *const IO_VERBOSE_MODE_ON = "IO_VERBOSE_MODE_ON*";
+static char *const IO_VERBOSE_MODE_OFF = "IO_VERBOSE_MODE_OFF*";
+static char *const IO_PRINT_STATS = "IO_PRINT_STATS*";
+static char *const IO_RUN_DIAGNOSTICS = "IO_RUN_DIAGNOSTICS*";
+static char *const IO_DUMP_MEMORY_JSON = "IO_DUMP_MEMORY_JSON*";
+static char *const IO_QUIT = "IO_QUIT*";
+static char *const IO_BABBLE_OPS = "IO_BABBLE_OPS*";
+static char *const IO_MOTORBABBLE_OFF = "IO_MOTORBABBLE_OFF*";
+static char *const IO_MOTORBABBLE_ON = "IO_MOTORBABBLE_ON*";
+static char *const IO_MOTORBABBLE_SET = "VM_MOTORBABBLE=*";
+static char *const IO_ADD_OPERATION = "IO_ADD_OPERATION*";
+static char *const IO_ADD_OPERATION_SET = "IO_ADD_OPERATION ";
+static char *const IO_OP_PREFIX = "^*";
+static char *const IO_OP_CHAR = "^";
+static char *const IO_NUMERIC_VALUES = "0123456789";
+
+int
+io_handle_add_operation(const char *line);
+
+int
+io_handle_run_cycle(const char *line);
+
+int
+io_handle_empty_input();
+
+int
+io_handle_set_motorbabbble(const char *line);
+
+int
+io_handle_memory_dump();
+
+int
+io_handle_babble_ops(const char *line);
+
+int
+io_handle_comments(const char *line);
 
 void
 io_setup_logging();
@@ -39,6 +85,9 @@ io_print_cycling_goal_events();
 
 void
 io_run_diagnostics();
+
+int
+io_process_input(char *line);
 
 void
 io_print_decision_with_json(Decision decision, Implication imp);
@@ -95,6 +144,5 @@ io_truth_print2(Truth *truth);
 //print usage
 void
 io_usage_print(Usage *usage);
-
 
 #endif

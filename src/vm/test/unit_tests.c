@@ -408,8 +408,8 @@ test_multiple_steps()
 {
 	MOTOR_BABBLING_CHANCE = 0;
 	nar_init();
-	nar_add_operation(narsese_atomic_term("^goto_switch"), NAR_Lightswitch_GotoSwitch);
-	nar_add_operation(narsese_atomic_term("^activate_switch"), NAR_Lightswitch_ActivateSwitch);
+	nar_add_operation(narsese_atomic_term("^goto_switch"), NAR_Lightswitch_GotoSwitch, NULL);
+	nar_add_operation(narsese_atomic_term("^activate_switch"), NAR_Lightswitch_ActivateSwitch, NULL);
 	for (int i = 0; i < 5; i++)
 	{
 		nar_add_input_Belief(narsese_atomic_term("start_at"));

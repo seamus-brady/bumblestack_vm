@@ -59,6 +59,7 @@ typedef struct
 {
 	Term term;
 	Action action;
+	char *script[SCRIPT_LEN_MAX]
 } Operation;
 
 extern bool g_ontologyHandling;

@@ -97,6 +97,10 @@ add_executable(bumblestack
         src/vm/lib_slog.c
         src/vm/lib_buffer.h
         src/vm/lib_buffer.c
+        src/vm/lib_wildcardcmp.c
+        src/vm/lib_wildcardcmp.h
+        src/vm/lib_trim.c
+        src/vm/lib_trim.h
         # wren embedded scripting language
         src/vm/wren_common.h
         src/vm/wren_compiler.c
