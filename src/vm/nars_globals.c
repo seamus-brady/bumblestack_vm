@@ -39,15 +39,16 @@ globals_assert(bool b, char *message)
 	}
 }
 
+// returns true if there was an error
 bool
 globals_soft_assert(bool b, char *message)
 {
 	if (!b)
 	{
 		slog_error(message);
-		return false;
+		return true;
 	}
-	return true;
+	return false;
 }
 
 

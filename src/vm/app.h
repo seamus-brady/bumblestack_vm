@@ -17,7 +17,6 @@
 #define H_APP
 #include <stdbool.h>
 #include <stdlib.h>
-#include "app_repl.h"
 #include "nars_nar.h"
 #include "lib_slog.h"
 #include "nars_io.h"
@@ -26,7 +25,12 @@
 void
 system_init();
 
-void
-system_reset();
+// emscripten needs this here :)
+int
+app_repl_main();
+
+// entry point for cli app
+int
+main(int argc, char *argv[]);
 
 #endif

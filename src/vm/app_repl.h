@@ -19,7 +19,10 @@
 #include "repl_repl.h"
 #include "nars_io.h"
 
-repl_session_opts repl_opts;
+repl_session_opts g_repl_opts;
+
+void
+system_reset();
 
 int
 app_repl_main();

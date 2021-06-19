@@ -19,12 +19,6 @@
 bool diagnosticTestOperationRun = false;
 
 int
-io_input_process_init(char *input){
-	fflush(stdout);
-	PRINT_DERIVATIONS = true;
-}
-
-int
 io_process_input(char *input)
 {
 	char *line = trim(input);
@@ -119,7 +113,7 @@ io_process_input(char *input)
 	}
 
 	// handle cycle request
-	if (strspn(line, IO_NUMERIC_VALUES) && strlen(line) == strspn(line, IO_NUMERIC_VALUES))
+	if (wildcardcmp(IO_CYCLE, line))
 	{
 		return io_handle_run_cycle(line);
 	}

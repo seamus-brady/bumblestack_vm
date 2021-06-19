@@ -13,7 +13,6 @@
  * THE SOFTWARE.
  */
 
-#include <app.h>
 #include "app_repl.h"
 
 //Whether the app is in reply mode
@@ -24,18 +23,19 @@ app_repl_main()
 {
 	// repl code
 	int rc;
-	// repl_opts
-	repl_opts.prompt = "bumblestack > ";
-	repl_opts.eval_cb = app_repl_eval;
-	repl_opts.print_cb = app_repl_print;
-	repl_opts.error_cb = app_repl_error;
+	// g_repl_opts
+	g_repl_opts.prompt = REPL_PROMPT;
+	g_repl_opts.eval_cb = app_repl_eval;
+	g_repl_opts.print_cb = app_repl_print;
+	g_repl_opts.error_cb = app_repl_error;
 
 	// initiate
-	repl_session_t *sess = repl_session_new(&repl_opts);
+	repl_session_t *sess = repl_session_new(&g_repl_opts);
 
 	// start
 	rc = repl_session_start(sess);
 
+	QUIT_REPL:
 	// destroy
 	repl_session_destroy(sess);
 
@@ -55,7 +55,7 @@ app_repl_eval (repl_session_t *sess, char *buf) {
 	// pass any input to the NARS engine
 	int io_return = io_process_input(buf);
 	if(io_return == INPUT_EXIT){
-		sess->rc = 0;
+		sess->rc = REPL_EXIT;
 		return repl_session_set_error("System will now exit. Goodbye!");
 	}
 	if(io_return == INPUT_CONTINUE_WITH_ERROR){
@@ -77,8 +77,20 @@ app_repl_print (repl_session_t *sess, char *buf) {
 	repl_loop(sess);
 }
 
+void
+system_reset()
+{
+	// initialise the bumblestack NARS system
+	nar_init();
+}
+
+
 static void
 app_repl_error (repl_session_t *sess, char *err) {
+	if(sess->rc == REPL_EXIT){
+		// exit without error
+		return;
+	}
 	fprintf(sess->repl_stderr, "error: '%s'\n", err);
 	repl_loop(sess);
 }

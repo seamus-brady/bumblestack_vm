@@ -37,9 +37,6 @@ typedef struct repl_session {
 } repl_session_t;
 
 
-
-
-
 typedef struct {
   char *prompt;
   repl_eval_cb eval_cb;
