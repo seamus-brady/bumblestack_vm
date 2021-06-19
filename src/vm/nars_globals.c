@@ -24,7 +24,6 @@
 
 #include "nars_globals.h"
 #include "lib_slog.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 void

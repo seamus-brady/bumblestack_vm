@@ -23,7 +23,6 @@
  */
 
 #include "nars_decision.h"
-#include "app.h"
 
 double CONDITION_THRESHOLD = CONDITION_THRESHOLD_INITIAL;
 double DECISION_THRESHOLD = DECISION_THRESHOLD_INITIAL;

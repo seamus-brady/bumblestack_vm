@@ -19,6 +19,12 @@
 bool diagnosticTestOperationRun = false;
 
 int
+io_input_process_init(char *input){
+	fflush(stdout);
+	PRINT_DERIVATIONS = true;
+}
+
+int
 io_process_input(char *input)
 {
 	char *line = trim(input);

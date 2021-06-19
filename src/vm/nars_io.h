@@ -23,11 +23,11 @@
 #include "lib_slog.h"
 #include "lib_wildcardcmp.h"
 #include "lib_trim.h"
+#include "nars_decision.h"
 
 #define INPUT_CONTINUE 0
 #define INPUT_RESET 1
 #define INPUT_EXIT 2
-
 
 static char *const IO_COMMENT = "//*";
 static char *const IO_VM_RESET = "VM_RESET*";
@@ -86,6 +86,11 @@ io_print_cycling_goal_events();
 void
 io_run_diagnostics();
 
+// init the main shell process
+int
+io_input_process_init();
+
+// main shell process
 int
 io_process_input(char *line);
 

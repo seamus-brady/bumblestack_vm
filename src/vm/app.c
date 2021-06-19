@@ -66,12 +66,18 @@ system_init()
 }
 
 
+
 int
 main(int argc, char *argv[])
 {
+	// boot the system
 	system_init();
+	// set up the shell
+	io_input_process_init();
+	// run a quick system check
 	io_run_diagnostics();
-	start_wren();
-	return 0;
+	// start_wren();
+	// repl now become the main loop
+	return app_repl_main();
 }
 
