@@ -35,13 +35,9 @@ nar_init()
 {
 	ASSERT(pow(TRUTH_PROJECTION_DECAY_INITIAL, EVENT_BELIEF_DISTANCE) >= MIN_CONFIDENCE,
 	       "Bad params, increase projection decay or decrease event belief distance!");
-	slog_info("Initialising memory...");
 	memory_init(); //clear data structures
-	slog_info("Initialising events...");
 	event_init(); //reset g_base id counter
-	slog_info("Initialising parser...");
 	narsese_init();
-	slog_info("Setting internal system time...");
 	g_currentTime = 1; //reset time
 	nar_initialized = true;
 }
@@ -95,6 +91,17 @@ nar_add_operation(Term term, Action procedure, char *wren_source)
 	ASSERT(narsese_operator_index(term_name) <= OPERATIONS_MAX, "Too many operators, increase OPERATIONS_MAX!");
 	g_operations[narsese_operator_index(term_name) - 1] =
 		(Operation) {.term = term, .action = procedure, .script = wren_source};
+}
+
+bool
+nar_validate_input_narsese(char *narsese_sentence)
+{
+	Term term;
+	Truth tv;
+	char punctuation;
+	int tense;
+	bool isUserKnowledge;
+	return narsese_check_sentence_is_valid(narsese_sentence, &punctuation, &tense, &isUserKnowledge);
 }
 
 void

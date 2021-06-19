@@ -10,7 +10,9 @@ project(bumblestack C)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_FLAGS "-lm -mfpmath=sse -msse2 -pthread -lpthread -D_POSIX_C_SOURCE=199506L -pedantic -std=c99 -g3 -O3")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
-set(CMAKE_BUILD_TYPE Debug)
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "release")
+endif()
 
 ######################################################################################################################
 ### include directories
@@ -99,6 +101,22 @@ add_executable(bumblestack
         src/vm/lib_wildcardcmp.h
         src/vm/lib_trim.c
         src/vm/lib_trim.h
+        # repl code
+        src/vm/repl_error.h
+        src/vm/repl_eval.h
+        src/vm/repl_init.h
+        src/vm/repl_loop.h
+        src/vm/repl_print.h
+        src/vm/repl_read.h
+        src/vm/repl_repl.h
+        src/vm/repl_term.h
+        src/vm/repl_eval.c
+        src/vm/repl_init.c
+        src/vm/repl_loop.c
+        src/vm/repl_read.c
+        src/vm/repl_term.c
+        src/vm/repl_error.c
+        src/vm/repl_print.c
         # wren embedded scripting language
         src/vm/wren_common.h
         src/vm/wren_compiler.c
@@ -123,7 +141,9 @@ add_executable(bumblestack
         src/vm/wren_opt_meta.wren.inc
         src/vm/wren_opt_random.c
         src/vm/wren_opt_random.h
-        src/vm/wren_opt_random.wren.inc src/vm/app_script_loader.h src/vm/app_script_loader.c)
+        src/vm/wren_opt_random.wren.inc
+        src/vm/app_script_loader.h
+        src/vm/app_script_loader.c src/vm/app_repl.h src/vm/app_repl.c src/vm/nars_common_structs.h)
 
 set_target_properties(bumblestack PROPERTIES LINKER_LANGUAGE C)
 target_link_libraries(bumblestack m)
@@ -131,8 +151,8 @@ target_link_libraries(bumblestack m)
 ######################################################################################################################
 ### Target for generating ruletable.vm
 ######################################################################################################################
-add_executable(generate
-        src/vm/generate_ruletable/generate.c)
-
-set_target_properties(generate PROPERTIES LINKER_LANGUAGE C)
-target_link_libraries(generate m)
+#add_executable(generate
+#        src/vm/generate_ruletable/generate.c)
+#
+#set_target_properties(generate PROPERTIES LINKER_LANGUAGE C)
+#target_link_libraries(generate m)

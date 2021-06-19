@@ -63,15 +63,20 @@ system_init()
 	// initialise the bumblestack NARS system
 	nar_init();
 	slog_info("System initialised.");
-}
 
+	// set up the shell with feedback
+	PRINT_DERIVATIONS = true;
+}
 
 int
 main(int argc, char *argv[])
 {
+	// boot the system
 	system_init();
-	io_run_diagnostics();
-	start_wren();
-	return 0;
+	// start_wren();
+	// repl now become the main loop
+	app_repl_main();
+	slog_info("Bumblestack terminated.");
+	exit(0);
 }
 

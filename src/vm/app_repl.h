@@ -1,6 +1,6 @@
 /*
  * Copyright 2021 seamus@bumblestack.com, Corvideon Limited.
-
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
  *
@@ -13,24 +13,27 @@
  * THE SOFTWARE.
  */
 
-#ifndef H_APP
-#define H_APP
-#include <stdbool.h>
-#include <stdlib.h>
-#include "nars_nar.h"
-#include "lib_slog.h"
+#ifndef BUMBLESTACK_SRC_VM_APP_REPL_H
+#define BUMBLESTACK_SRC_VM_APP_REPL_H
+
+#include "repl_repl.h"
 #include "nars_io.h"
-#include "app_script_loader.h"
+
+repl_session_opts g_repl_opts;
 
 void
-system_init();
+system_reset();
 
-// emscripten needs this here :)
 int
 app_repl_main();
 
-// entry point for cli app
-int
-main(int argc, char *argv[]);
+static char *
+app_repl_eval (repl_session_t *sess, char *buf);
 
-#endif
+static void
+app_repl_print (repl_session_t *sess, char *buf);
+
+static void
+app_repl_error (repl_session_t *sess, char *err);
+
+#endif //BUMBLESTACK_SRC_VM_APP_REPL_H

@@ -92,6 +92,10 @@ narsese_atomic_term(char *name);
 int
 narsese_atomic_term_index(char *name);
 
+// check input narsese is valid
+bool
+narsese_check_sentence_is_valid(char *narsese, char *punctuation, int *tense, bool *isUserKnowledge);
+
 //Index of operator
 int
 narsese_operator_index(char *name);

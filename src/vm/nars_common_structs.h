@@ -1,4 +1,4 @@
-/* 
+/*
  * The MIT License
  *
  * Copyright 2020 The OpenNARS authors.
@@ -21,54 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+#ifndef BUMBLESTACK_SRC_VM_NARS_COMMON_STRUCTS_H
+#define BUMBLESTACK_SRC_VM_NARS_COMMON_STRUCTS_H
 
-#ifndef H_DECISION
-#define H_DECISION
-
-////////////////////
-//  NAR Decision  //
-////////////////////
-//Realization of goals
-
-//References//
-//----------//
-#include <stdbool.h>
-#include <stdio.h>
-#include "nars_common_structs.h"
+#include "nars_event.h"
 #include "nars_memory.h"
-#include "nars_nar.h"
-#include "nars_config.h"
-#include "nars_io.h"
 
-//Parameters//
-//----------//
-extern double CONDITION_THRESHOLD;
-extern double DECISION_THRESHOLD;
-extern double ANTICIPATION_THRESHOLD;
-extern double ANTICIPATION_CONFIDENCE;
-extern double MOTOR_BABBLING_CHANCE;
-extern int BABBLING_OPS;
+// this needs to live here to stop build errors
 
-//Data structure//
-//--------------//
-// see nars_common_structs.h
+typedef struct
+{
+	double desire;
+	bool execute;
+	int operationID;
+	Operation op;
+	Term arguments;
+	bool specialized;
+	Event *reason;
+} Decision;
 
-//Methods//
-//-------//
-
-//execute decision
-void
-decision_execute(Decision *decision);
-
-//assumption of failure, also works for "do nothing operator"
-void
-decision_anticipate(int operationID, long currentTime);
-
-//NAR decision making rule applying when goal is an operation
-Decision
-decision_suggest(Concept *goalconcept, Event *goal, long currentTime);
-
-void
-decision_print_decision_with_json(Decision decision, Implication bestImp);
-
-#endif
+#endif //BUMBLESTACK_SRC_VM_NARS_COMMON_STRUCTS_H

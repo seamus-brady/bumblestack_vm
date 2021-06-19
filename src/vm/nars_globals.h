@@ -40,6 +40,9 @@
 //Whether debug mode should be on
 #define DEBUG_MODE false
 
+//Whether asserts cause exits
+#define EXIT_ON_ASSERT_FAIL true
+
 //Whether control information should be printed - leave as debug mode for now
 #define PRINT_CONTROL_INFO DEBUG_MODE
 
@@ -52,6 +55,10 @@
 //ASSERT, printing message and exiting if b=false
 void
 globals_assert(bool b, char *message);
+
+// a soft assert for checking input
+bool
+globals_soft_assert(bool b, char *message);
 
 #define ASSERT globals_assert
 

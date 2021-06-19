@@ -113,15 +113,20 @@ io_process_input(char *input)
 	}
 
 	// handle cycle request
-	if (strspn(line, IO_NUMERIC_VALUES) && strlen(line) == strspn(line, IO_NUMERIC_VALUES))
+	if (wildcardcmp(IO_CYCLE, line))
 	{
 		return io_handle_run_cycle(line);
 	}
 
-	// last but not least, add input narsese
-	nar_add_input_narsese(line);
-	fflush(stdout);
-	return INPUT_CONTINUE;
+	if(!nar_validate_input_narsese(line)){
+		fflush(stdout);
+		return INPUT_CONTINUE_WITH_ERROR;
+	} else {
+		// last but not least, add input narsese
+		nar_add_input_narsese(line);
+		fflush(stdout);
+		return INPUT_CONTINUE;
+	}
 }
 
 int
@@ -129,10 +134,10 @@ io_handle_run_cycle(const char *line)
 {
 	unsigned int steps;
 	sscanf(line, "%u", &steps);
-	slog_info("Performing %u inference steps:\n", steps);
+	slog_info("Performing %u inference steps...", steps);
 	fflush(stdout);
 	nar_cycles(steps);
-	slog_info("Completed %u additional inference steps.\n", steps);
+	slog_info("Completed %u additional inference steps.", steps);
 	fflush(stdout);
 	return INPUT_CONTINUE;
 }

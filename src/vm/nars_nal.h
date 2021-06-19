@@ -39,9 +39,11 @@
 
 //Methods//
 //-------//
+
 //Generates inference rule code
 void
 nal_generate_rule_table();
+
 //Method for the derivation of new events as called by the generated rule table
 void
 nal_derived_event(Term conclusionTerm,
@@ -54,6 +56,7 @@ nal_derived_event(Term conclusionTerm,
                   double occurrenceTimeOffset,
                   Concept *validation_concept,
                   long validation_cid);
+
 
 //macro for syntactic representation, increases readability, double premise inference
 #define R2(premise1, premise2, _, conclusion, truthFunction) nal_generate_rule(#premise1, #premise2, #conclusion, #truthFunction, true,false); nal_generate_rule(#premise2, #premise1, #conclusion, #truthFunction, true, true);

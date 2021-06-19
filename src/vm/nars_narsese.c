@@ -50,7 +50,6 @@ VMItem g_hashtableAtomsStorage[ATOMS_MAX];
 VMItem *g_hashtableAtomsHashtable[ATOMS_HASHTABLE_BUCKETS];
 int g_termIndex = 0;
 
-
 //Replace copulas with canonical single-char copulas, including sets and set elements!
 char *
 narsese_replace_with_canonical_copulas(char *narsese, int n)
@@ -406,7 +405,7 @@ void
 narsese_get_sentence(char *narsese, Term *destTerm, char *punctuation, int *tense, bool *isUserKnowledge, Truth *destTv,
                      double *occurrenceTimeOffset)
 {
-	ASSERT(g_narseseInitialized, "Narsese not g_narseseInitialized, call narsese_init first!");
+	ASSERT(g_narseseInitialized, "Narsese not initialised, call narsese_init first!");
 	//Handle optional dt=num ITEM_AT beginning of line
 	*occurrenceTimeOffset = 0.0;
 	char dt[10];
@@ -471,6 +470,31 @@ narsese_get_sentence(char *narsese, Term *destTerm, char *punctuation, int *tens
 	*destTerm = narsese_term(narseseInplace);
 }
 
+bool
+narsese_check_sentence_is_valid(char *narsese, char *punctuation, int *tense, bool *isUserKnowledge)
+{
+	bool has_error = false;
+	bool is_valid = true;
+	has_error = globals_soft_assert(g_narseseInitialized, "Narsese not initialised, call narsese_init first!");
+	if (has_error)
+	{
+		is_valid = false;
+	}
+	int len = strlen(narsese);
+	has_error = globals_soft_assert(len > 1, "Parsing error: Narsese string too short!");
+	if (has_error)
+	{
+		is_valid = false;
+	}
+	has_error = globals_soft_assert(len < NARSESE_LEN_MAX,
+	                                "Parsing error: Narsese string too long!");
+	if (has_error)
+	{
+		is_valid = false;
+	}
+	return is_valid;
+}
+
 Term
 narsese_sequence(Term *a, Term *b, bool *success)
 {
@@ -488,7 +512,6 @@ narsese_atomic_term(char *name)
 	ret.atoms[0] = number;
 	return ret;
 }
-
 
 HASH_TYPE
 narsese_string_hash(char *name)

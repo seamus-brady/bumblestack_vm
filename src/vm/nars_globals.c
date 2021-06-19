@@ -24,7 +24,6 @@
 
 #include "nars_globals.h"
 #include "lib_slog.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 void
@@ -32,11 +31,26 @@ globals_assert(bool b, char *message)
 {
 	if (!b)
 	{
-		slog_error(message);
-		slog_error("Test failed. The system will now exit. Sorry!");
-		exit(1);
+		slog_error("An assert failed! %s", message);
+		if (EXIT_ON_ASSERT_FAIL){
+			slog_error("The system will now exit. Sorry!");
+			exit(1);
+		}
 	}
 }
+
+// returns true if there was an error
+bool
+globals_soft_assert(bool b, char *message)
+{
+	if (!b)
+	{
+		slog_error(message);
+		return true;
+	}
+	return false;
+}
+
 
 HASH_TYPE
 globals_hash(HASH_TYPE *data, int pieces)
