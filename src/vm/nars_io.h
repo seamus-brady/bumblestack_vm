@@ -26,8 +26,9 @@
 #include "nars_decision.h"
 
 #define INPUT_CONTINUE 0
-#define INPUT_RESET 1
-#define INPUT_EXIT 2
+#define INPUT_CONTINUE_WITH_ERROR 1
+#define INPUT_RESET 3
+#define INPUT_EXIT 4
 
 static char *const IO_COMMENT = "//*";
 static char *const IO_VM_RESET = "VM_RESET*";

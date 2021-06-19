@@ -97,6 +97,17 @@ nar_add_operation(Term term, Action procedure, char *wren_source)
 		(Operation) {.term = term, .action = procedure, .script = wren_source};
 }
 
+bool
+nar_validate_input_narsese(char *narsese_sentence)
+{
+	Term term;
+	Truth tv;
+	char punctuation;
+	int tense;
+	bool isUserKnowledge;
+	return narsese_check_sentence_is_valid(narsese_sentence, &punctuation, &tense, &isUserKnowledge);
+}
+
 void
 nar_add_input_narsese(char *narsese_sentence)
 {

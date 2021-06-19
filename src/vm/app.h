@@ -23,4 +23,10 @@
 #include "nars_io.h"
 #include "app_script_loader.h"
 
+void
+system_init();
+
+void
+system_reset();
+
 #endif

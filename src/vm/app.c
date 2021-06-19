@@ -65,6 +65,14 @@ system_init()
 	slog_info("System initialised.");
 }
 
+void
+system_reset()
+{
+	// initialise the bumblestack NARS system
+	nar_init();
+}
+
+
 
 
 int

@@ -73,4 +73,8 @@ nar_add_operation(Term term, Action procedure, char *wren_source);
 void
 nar_add_input_narsese(char *narsese_sentence);
 
+// validate narsese
+bool
+nar_validate_input_narsese(char *narsese_sentence);
+
 #endif

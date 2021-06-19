@@ -50,7 +50,6 @@ VMItem g_hashtableAtomsStorage[ATOMS_MAX];
 VMItem *g_hashtableAtomsHashtable[ATOMS_HASHTABLE_BUCKETS];
 int g_termIndex = 0;
 
-
 //Replace copulas with canonical single-char copulas, including sets and set elements!
 char *
 narsese_replace_with_canonical_copulas(char *narsese, int n)
@@ -406,7 +405,7 @@ void
 narsese_get_sentence(char *narsese, Term *destTerm, char *punctuation, int *tense, bool *isUserKnowledge, Truth *destTv,
                      double *occurrenceTimeOffset)
 {
-	ASSERT(g_narseseInitialized, "Narsese not g_narseseInitialized, call narsese_init first!");
+	ASSERT(g_narseseInitialized, "Narsese not initialised, call narsese_init first!");
 	//Handle optional dt=num ITEM_AT beginning of line
 	*occurrenceTimeOffset = 0.0;
 	char dt[10];
@@ -471,6 +470,77 @@ narsese_get_sentence(char *narsese, Term *destTerm, char *punctuation, int *tens
 	*destTerm = narsese_term(narseseInplace);
 }
 
+bool
+narsese_check_sentence_is_valid(char *narsese, char *punctuation, int *tense, bool *isUserKnowledge)
+{
+	bool has_error = false;
+	bool is_valid = true;
+
+	has_error = globals_soft_assert(g_narseseInitialized, "Narsese not initialised, call narsese_init first!");
+	if (has_error)
+	{
+		is_valid = false;
+	}
+
+	//Handle the rest of the Narsese:
+	char narseseInplace[NARSESE_LEN_MAX] = {0};
+	int len = strlen(narsese);
+	has_error = globals_soft_assert(len > 1, "Parsing error: Narsese string too short!");
+	if (has_error)
+	{
+		is_valid = false;
+	}
+	has_error = globals_soft_assert(len < NARSESE_LEN_MAX,
+	                                "Parsing error: Narsese string too long!"); //< because of '0' terminated strings
+	if (has_error)
+	{
+		is_valid = false;
+	}
+	//tv is present if last letter is '}'
+	if (len >= 2 && narseseInplace[len - 1] == '}')
+	{
+		//scan for opening '{'
+		int openingIdx;
+		for (openingIdx = len - 2; openingIdx >= 0 && narseseInplace[openingIdx] != '{'; openingIdx--);
+		has_error =
+			globals_soft_assert(narseseInplace[openingIdx] == '{', "Parsing error: Truth value opener not found!");
+		if (has_error)
+		{
+			is_valid = false;
+		}
+		has_error = globals_soft_assert(narseseInplace[openingIdx - 1] == ' ',
+		                                "Parsing error: Space before truth value required!");
+		if (has_error)
+		{
+			is_valid = false;
+		}
+		narseseInplace[openingIdx - 1] = 0; //cut it away for further parsing of term
+	}
+	//parse event marker, punctuation, and finally the term:
+	int str_len = strlen(narseseInplace);
+	*tense = 0;
+	if (str_len >= 3 && narseseInplace[str_len - 1] == ':' && narseseInplace[str_len - 2] == '|' &&
+		narseseInplace[str_len - 3] == ':')
+		*tense = 1;
+	if (str_len >= 3 && narseseInplace[str_len - 1] == ':' && narseseInplace[str_len - 2] == '\\' &&
+		narseseInplace[str_len - 3] == ':')
+		*tense = 2;
+	if (str_len >= 3 && narseseInplace[str_len - 1] == ':' && narseseInplace[str_len - 2] == '/' &&
+		narseseInplace[str_len - 3] == ':')
+		*tense = 3;
+	*isUserKnowledge = str_len >= 3 && narseseInplace[str_len - 1] == ':' && narseseInplace[str_len - 2] == '@' &&
+		narseseInplace[str_len - 3] == ':';
+	int punctuation_offset = (*tense || *isUserKnowledge) ? 5 : 1;
+	*punctuation = narseseInplace[str_len - punctuation_offset];
+	has_error = globals_soft_assert(*punctuation == '!' || *punctuation == '?' || *punctuation == '.',
+	                                "Parsing error: Punctuation has to be belief . goal ! or question ?");
+	if (has_error)
+	{
+		is_valid = false;
+	}
+	return is_valid;
+}
+
 Term
 narsese_sequence(Term *a, Term *b, bool *success)
 {
@@ -488,7 +558,6 @@ narsese_atomic_term(char *name)
 	ret.atoms[0] = number;
 	return ret;
 }
-
 
 HASH_TYPE
 narsese_string_hash(char *name)

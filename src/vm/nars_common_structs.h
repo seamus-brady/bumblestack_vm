@@ -27,6 +27,8 @@
 #include "nars_event.h"
 #include "nars_memory.h"
 
+// this needs to live here to stop build errors
+
 typedef struct
 {
 	double desire;

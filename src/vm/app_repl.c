@@ -13,7 +13,11 @@
  * THE SOFTWARE.
  */
 
+#include <app.h>
 #include "app_repl.h"
+
+//Whether the app is in reply mode
+
 
 int
 app_repl_main()
@@ -34,6 +38,7 @@ app_repl_main()
 
 	// destroy
 	repl_session_destroy(sess);
+
 	printf("\n");
 	return (-1 == rc || 0 == rc)? 0 : rc;
 }
@@ -47,19 +52,23 @@ app_repl_eval (repl_session_t *sess, char *buf) {
 		sess->rc = 0;
 		return NULL;
 	}
-
-	char op[1];
-	char *result = NULL;
-	char tmp[4096];
-
-	io_process_input(buf);
-
-	if (NULL == tmp) return NULL;
-
-	result = tmp;
-	result[strlen(tmp)] = '\0';
-
-	return result;
+	// pass any input to the NARS engine
+	int io_return = io_process_input(buf);
+	if(io_return == INPUT_EXIT){
+		sess->rc = 0;
+		return repl_session_set_error("System will now exit. Goodbye!");
+	}
+	if(io_return == INPUT_CONTINUE_WITH_ERROR){
+		sess->rc = 1;
+		return repl_session_set_error("Invalid command or narsese provided.");
+	}
+	if(io_return == INPUT_CONTINUE){
+		return "Done.";
+	}
+	if(io_return == INPUT_RESET){
+		system_reset();
+		return "System has been reset.";
+	}
 }
 
 static void
