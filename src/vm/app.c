@@ -53,6 +53,7 @@ main(int argc, char *argv[])
 	// start_wren();
 	// repl now become the main loop if the arg was passed in
 	if(g_start_repl){
+		slog_info("Starting the BumbleStack repl...");
 		app_repl_main();
 		slog_info("BumbleStack exited.");
 	}
