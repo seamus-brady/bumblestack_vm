@@ -14,41 +14,7 @@
  */
 #include "app.h"
 
-void
-Process_Args(int argc, char *argv[])
-{
-	bool inspectionOnExit = false;
-	long iterations = -1;
-	if (argc >= 4)
-	{
-		if (!strcmp(argv[3], "InspectionOnExit"))
-		{
-			inspectionOnExit = true;
-		}
-	}
-	if (argc >= 3)
-	{
-		if (!strcmp(argv[2], "InspectionOnExit"))
-		{
-			inspectionOnExit = true;
-		}
-	}
-	if (argc >= 2)
-	{
-		nar_init();
-		if (!strcmp(argv[1], "shell"))
-		{
-//			Shell_Start();
-		}
-	}
-	if (inspectionOnExit)
-	{
-//		Shell_ProcessInput("*g_concepts");
-//		Shell_ProcessInput("*g_cyclingBeliefEvents");
-//		Shell_ProcessInput("*g_cyclingGoalEvents");
-//		Shell_ProcessInput("*stats");
-	}
-}
+bool g_start_repl = false;
 
 void
 system_init()
@@ -68,15 +34,28 @@ system_init()
 	PRINT_DERIVATIONS = true;
 }
 
+
+static void
+app_repl_command(command_t *self) {
+	g_start_repl = true;
+}
+
 int
 main(int argc, char *argv[])
 {
+	command_t cmd;
+	command_init(&cmd, argv[0], "0.0.1");
+	command_option(&cmd, "-r", "--repl", "start the BumbleStack repl", app_repl_command);
+	command_parse(&cmd, argc, argv);
+	command_free(&cmd);
 	// boot the system
 	system_init();
 	// start_wren();
-	// repl now become the main loop
-	app_repl_main();
-	slog_info("Bumblestack terminated.");
+	// repl now become the main loop if the arg was passed in
+	if(g_start_repl){
+		app_repl_main();
+		slog_info("BumbleStack exited.");
+	}
 	exit(0);
 }
 

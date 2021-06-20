@@ -101,6 +101,8 @@ add_executable(bumblestack
         src/vm/lib_wildcardcmp.h
         src/vm/lib_trim.c
         src/vm/lib_trim.h
+        src/vm/lib_commander.h
+        src/vm/lib_commander.c
         # repl code
         src/vm/repl_error.h
         src/vm/repl_eval.h

@@ -21,6 +21,7 @@
 #include "lib_slog.h"
 #include "nars_io.h"
 #include "app_script_loader.h"
+#include "lib_commander.h"
 
 void
 system_init();
