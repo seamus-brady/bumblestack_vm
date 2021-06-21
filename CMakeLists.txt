@@ -21,6 +21,7 @@ include_directories(src/vm)
 include_directories(src/vm/system_tests)
 include_directories(src/vm/unit_tests)
 include_directories(src/vm/test)
+include_directories(src/vm/test)
 
 ######################################################################################################################
 ### target for unit tests

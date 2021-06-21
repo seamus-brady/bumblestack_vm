@@ -22,6 +22,7 @@
 #include "nars_io.h"
 #include "app_script_loader.h"
 #include "lib_commander.h"
+#include "lib_fs.h"
 
 void
 app_system_init();

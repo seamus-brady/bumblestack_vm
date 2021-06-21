@@ -13,7 +13,6 @@
  * THE SOFTWARE.
  */
 #include "app.h"
-#include "lib_fs.h"
 
 bool g_start_repl = false;
 bool g_load_file = false;
