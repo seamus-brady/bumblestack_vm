@@ -8,10 +8,10 @@ WASM_BUILD_ROOT=./wasm-build
 cd $EMSDK_ROOT
 . ./emsdk_env.sh
 cd ../..
-pwd
 
 # create the wasm
-emcc $SRC_ROOT/*.c  -s TOTAL_MEMORY=1024MB \
+emcc $SRC_ROOT/*.c  -DWASM_ONLY_FUNCTIONALITY_ENABLED \
+-s TOTAL_MEMORY=1024MB \
 -o $WASM_BUILD_ROOT/bumblestack.html \
 -s ERROR_ON_UNDEFINED_SYMBOLS=0 \
 -s EXPORTED_FUNCTIONS="['_main']" \

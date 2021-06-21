@@ -91,6 +91,7 @@ main(int argc, char *argv[])
 	command_free(&cmd);
 	// boot the system
 	app_system_init();
+	io_run_diagnostics();
 	// start_wren();
 
 	// check flags

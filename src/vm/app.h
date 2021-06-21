@@ -23,6 +23,7 @@
 #include "app_script_loader.h"
 #include "lib_commander.h"
 #include "lib_fs.h"
+#include <emscripten.h>
 
 void
 app_system_init();
