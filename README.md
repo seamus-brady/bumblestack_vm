@@ -1,6 +1,11 @@
 # bumblestack
 BumbleStack MVP
 
+## Setup
+- Install Emscripten SDK into ./lib/emsdk
+
+## Libs
+
 - Based on ONA 0.8.7
 
 - OpenNars for Applications Copyright (c) 2020 The OpenNARS authors.

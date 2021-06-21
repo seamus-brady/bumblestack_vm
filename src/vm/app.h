@@ -21,9 +21,12 @@
 #include "lib_slog.h"
 #include "nars_io.h"
 #include "app_script_loader.h"
+#include "lib_commander.h"
+#include "lib_fs.h"
+#include <emscripten.h>
 
 void
-system_init();
+app_system_init();
 
 // emscripten needs this here :)
 int

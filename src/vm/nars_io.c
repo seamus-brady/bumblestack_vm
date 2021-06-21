@@ -227,7 +227,7 @@ io_run_operation_diagnostic()
 {
 	slog_info("Running operation diagnostic test...");
 	slog_info("Add operation...");
-	nar_add_operation(narsese_atomic_term("^op"), io_diagnostic_test_operation, NULL);
+	nar_add_operation(narsese_atomic_term("^op"), io_diagnostic_test_operation, "alert('hi from an operation!')");
 	slog_info("Add belief...");
 	nar_add_input_Belief(narsese_atomic_term("a"));
 	slog_info("Run 1 inference cycle...");

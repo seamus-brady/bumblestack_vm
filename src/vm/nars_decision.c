@@ -53,15 +53,18 @@ decision_execute(Decision *decision)
 		feedback = operation;
 	}
 	// run an operation or wren script
-	buffer_t *script_buffer = buffer_new_with_string((char *) decision->op.script);
-	if(buffer_length(script_buffer) != 0 ){
-		char *wren_source = buffer_string(script_buffer);
-		// TODO add wren call
-		buffer_free(script_buffer);
-	} else {
-		if(decision->op.action != NULL) {
+	//slog_info(decision->op.script);
+	slog_info("Running operation defined by term: %s", decision->op.term_string);
+	// run the script
+	if(strcmp(decision->op.script, "")){
+		//script_buffer = buffer_new_with_string(script_buffer);
+		slog_info("Operation has a script attached: %s", decision->op.script);
+#ifdef WASM_ONLY_FUNCTIONALITY_ENABLED
+		emscripten_run_script(decision->op.script);
+#endif
+	}
+	if(decision->op.action != NULL) {
 			(*decision->op.action)(decision->arguments);
-		}
 	}
 	nar_add_input_Belief(feedback);
 }

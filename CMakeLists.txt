@@ -21,6 +21,10 @@ include_directories(src/vm)
 include_directories(src/vm/system_tests)
 include_directories(src/vm/unit_tests)
 include_directories(src/vm/test)
+include_directories(src/vm/test)
+include_directories(lib/emsdk/upstream/emscripten/system)
+include_directories(lib/emsdk/upstream/emscripten/system/include)
+include_directories(lib/emsdk/upstream/emscripten/system/lib)
 
 ######################################################################################################################
 ### target for unit tests
@@ -42,7 +46,12 @@ add_executable(bumblestack
         # main bumblevm app
         src/vm/app.c
         src/vm/app.h
+        src/vm/app_script_loader.h
+        src/vm/app_script_loader.c
+        src/vm/app_repl.h
+        src/vm/app_repl.c
         # nars modules
+        src/vm/nars_common_structs.h
         src/vm/nars_concept.h
         src/vm/nars_config.h
         src/vm/nars_cycle.c
@@ -101,6 +110,10 @@ add_executable(bumblestack
         src/vm/lib_wildcardcmp.h
         src/vm/lib_trim.c
         src/vm/lib_trim.h
+        src/vm/lib_commander.h
+        src/vm/lib_commander.c
+        src/vm/lib_fs.c
+        src/vm/lib_fs.h
         # repl code
         src/vm/repl_error.h
         src/vm/repl_eval.h
@@ -141,9 +154,7 @@ add_executable(bumblestack
         src/vm/wren_opt_meta.wren.inc
         src/vm/wren_opt_random.c
         src/vm/wren_opt_random.h
-        src/vm/wren_opt_random.wren.inc
-        src/vm/app_script_loader.h
-        src/vm/app_script_loader.c src/vm/app_repl.h src/vm/app_repl.c src/vm/nars_common_structs.h)
+        src/vm/wren_opt_random.wren.inc)
 
 set_target_properties(bumblestack PROPERTIES LINKER_LANGUAGE C)
 target_link_libraries(bumblestack m)

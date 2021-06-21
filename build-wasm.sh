@@ -1,15 +1,17 @@
 #!/bin/sh
 
-EMSDK_ROOT=~/bin/emsdk
-SRC_ROOT=~/GitHub/bumblestack-repos/bumblestack/src/vm
-WASM_BUILD_ROOT=~/GitHub/bumblestack-repos/bumblestack/wasm-build
+EMSDK_ROOT=lib/emsdk
+SRC_ROOT=src/vm
+WASM_BUILD_ROOT=./wasm-build
 
 # set emscripten env
-cd ~/bin/emsdk
+cd $EMSDK_ROOT
 . ./emsdk_env.sh
+cd ../..
 
 # create the wasm
-emcc $SRC_ROOT/*.c  -s TOTAL_MEMORY=1024MB \
+emcc $SRC_ROOT/*.c  -DWASM_ONLY_FUNCTIONALITY_ENABLED \
+-s TOTAL_MEMORY=1024MB \
 -o $WASM_BUILD_ROOT/bumblestack.html \
 -s ERROR_ON_UNDEFINED_SYMBOLS=0 \
 -s EXPORTED_FUNCTIONS="['_main']" \

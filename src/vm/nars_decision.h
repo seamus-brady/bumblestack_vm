@@ -39,6 +39,7 @@
 #include "nars_nar.h"
 #include "nars_config.h"
 #include "nars_io.h"
+#include <emscripten.h>
 
 //Parameters//
 //----------//

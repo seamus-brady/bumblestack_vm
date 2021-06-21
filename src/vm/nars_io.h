@@ -49,7 +49,6 @@ static char *const IO_ADD_OPERATION_SET = "add-operation ";
 static char *const IO_OP_PREFIX = "^*";
 static char *const IO_OP_CHAR = "^";
 static char *const IO_CYCLE = "cycle*";
-static char *const IO_CYCLE_DO = "cycle ";
 
 int
 io_handle_run_cycle(const char *line);
