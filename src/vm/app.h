@@ -24,7 +24,7 @@
 #include "lib_commander.h"
 
 void
-system_init();
+app_system_init();
 
 // emscripten needs this here :)
 int
