@@ -12,17 +12,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+#ifndef BUMBLESTACK_SRC_VM_APP_SCRIPTS_H
+#define BUMBLESTACK_SRC_VM_APP_SCRIPTS_H
 
-#ifndef BUMBLESTACK_SRC_VM_APP_SCRIPT_LOADER_H
-#define BUMBLESTACK_SRC_VM_APP_SCRIPT_LOADER_H
+#define JAVASCRIPT_ACTION_HANDLER "bumblevm_action_handler"
 
-#include <stdio.h>
-#include "wren.h"
+#include "lib_slog.h"
+#include "lib_buffer.h"
+#include "nars_term.h"
+#include <emscripten.h>
 
 void
-run_script(WrenVM *vm);
+app_handle_operation_action(char *operation_script, char *String);
 
 void
-start_wren();
+app_handle_javascript_operation_action(char *term_string, char *script);
 
-#endif //BUMBLESTACK_SRC_VM_APP_SCRIPT_LOADER_H
+#endif //BUMBLESTACK_SRC_VM_APP_SCRIPTS_H

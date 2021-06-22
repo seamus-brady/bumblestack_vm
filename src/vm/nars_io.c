@@ -129,6 +129,13 @@ io_process_input(char *input)
 	}
 }
 
+void
+io_generic_operation_handler(Term term)
+{
+	// a placeholder
+	slog_info("Generic operation handler invoked.");
+}
+
 int
 io_handle_run_cycle(const char *line)
 {
@@ -145,17 +152,18 @@ io_handle_run_cycle(const char *line)
 int
 io_handle_add_operation(const char *line)
 {
-	char *incoming_term_string[NARSESE_LEN_MAX] = {0};
-	char incoming_operation_name[ATOMIC_TERM_LEN_MAX] = {0};
-	char *incoming_script[NARSESE_LEN_MAX] = {0};
+	// this just adds the new type of script operations
+	char incoming_term_string[NARSESE_LEN_MAX];
+	char incoming_script[NARSESE_LEN_MAX];
 	sscanf(
 		&line[strlen(IO_ADD_OPERATION_SET)],
-		"%s %s %s",
-		(char *) &incoming_term_string,
-		(char *) &incoming_operation_name,
-		(char *) &incoming_script);
+		"%s %s",
+		incoming_term_string,
+		incoming_script);
 	// make sure there is a '^' char at the start
 	char *term_string = NULL;
+	slog_info("Term string supplied is %s", incoming_term_string);
+	slog_info("Action constant string supplied is %s", incoming_script);
 	if (!wildcardcmp(IO_OP_PREFIX, (const char *) incoming_term_string))
 	{
 		buffer_t *buf = buffer_new();
@@ -167,10 +175,14 @@ io_handle_add_operation(const char *line)
 	{
 		term_string = (char *) incoming_term_string;
 	}
+	// TODO add proper validation somewhere :)
+	ASSERT(strlen(term_string) > 0, "Term string supplied is too short.");
+	ASSERT(strlen(incoming_script) > 0, "Script constant supplied is too short.");
 	nar_add_operation(
 		narsese_atomic_term(term_string),
-		(Action) incoming_operation_name,
+		(Action) io_generic_operation_handler, // use a generic action handler
 		(char *) incoming_script);
+	slog_info("Operation added.");
 	return INPUT_CONTINUE;
 }
 

@@ -69,4 +69,6 @@
 #include "../lib_wildcardcmp.c"
 #include "../lib_trim.h"
 #include "../lib_trim.c"
+#include "../app_scripts.h"
+#include "../app_scripts.c"
 

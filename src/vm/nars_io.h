@@ -50,6 +50,9 @@ static char *const IO_OP_PREFIX = "^*";
 static char *const IO_OP_CHAR = "^";
 static char *const IO_CYCLE = "cycle*";
 
+void
+io_generic_operation_handler();
+
 int
 io_handle_run_cycle(const char *line);
 

@@ -52,18 +52,16 @@ decision_execute(Decision *decision)
 		}
 		feedback = operation;
 	}
-	// run an operation or wren script
-	if(decision->op.script != NULL && strcmp(decision->op.script, "")){
-		if (decision->op.term_string != NULL && strcmp(decision->op.term_string, "")){
-			slog_action("Running operation defined by term: %s", decision->op.term_string);
-			// run the script
-			slog_output("Operation has a script attached: %s", decision->op.script);
-#ifdef WASM_ONLY_FUNCTIONALITY_ENABLED
-			// run a script in wasm
-			emscripten_run_script(decision->op.script);
-#endif
+	// run an operation or script
+	if(decision->op.script != NULL && strcmp(decision->op.script, "") != 0){
+		if (decision->op.term_string != NULL && strcmp(decision->op.term_string, "") != 0){
+			// run the script event by outputting the appropriate string
+			app_handle_operation_action(decision->op.term_string, decision->op.script);
+			// call the javascript handler
+			app_handle_javascript_operation_action(decision->op.term_string, decision->op.script);
 		}
 	}
+	// the original action handler, for unit tests now
 	if(decision->op.action != NULL) {
 			(*decision->op.action)(decision->arguments);
 	}

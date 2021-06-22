@@ -46,10 +46,10 @@ add_executable(bumblestack
         # main bumblevm app
         src/vm/app.c
         src/vm/app.h
-        src/vm/app_script_loader.h
-        src/vm/app_script_loader.c
         src/vm/app_repl.h
         src/vm/app_repl.c
+        src/vm/app_scripts.h
+        src/vm/app_scripts.c
         # nars modules
         src/vm/nars_common_structs.h
         src/vm/nars_concept.h
@@ -129,32 +129,7 @@ add_executable(bumblestack
         src/vm/repl_read.c
         src/vm/repl_term.c
         src/vm/repl_error.c
-        src/vm/repl_print.c
-        # wren embedded scripting language
-        src/vm/wren_common.h
-        src/vm/wren_compiler.c
-        src/vm/wren_compiler.h
-        src/vm/wren_core.c
-        src/vm/wren_core.h
-        src/vm/wren_debug.c
-        src/vm/wren_debug.h
-        src/vm/wren_math.h
-        src/vm/wren_opcodes.h
-        src/vm/wren_primitive.c
-        src/vm/wren_primitive.h
-        src/vm/wren_utils.c
-        src/vm/wren_utils.h
-        src/vm/wren_value.c
-        src/vm/wren_value.h
-        src/vm/wren_vm.c
-        src/vm/wren_vm.h
-        src/vm/wren.h
-        src/vm/wren_opt_meta.c
-        src/vm/wren_opt_meta.h
-        src/vm/wren_opt_meta.wren.inc
-        src/vm/wren_opt_random.c
-        src/vm/wren_opt_random.h
-        src/vm/wren_opt_random.wren.inc)
+        src/vm/repl_print.c)
 
 set_target_properties(bumblestack PROPERTIES LINKER_LANGUAGE C)
 target_link_libraries(bumblestack m)

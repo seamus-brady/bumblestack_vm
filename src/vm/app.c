@@ -92,8 +92,6 @@ main(int argc, char *argv[])
 	// boot the system
 	app_system_init();
 	io_run_diagnostics();
-	// start_wren();
-	// don't look for cli args in wasm version
 
 	if (g_start_repl)
 	{

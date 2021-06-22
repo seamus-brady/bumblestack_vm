@@ -20,7 +20,6 @@
 #include "nars_nar.h"
 #include "lib_slog.h"
 #include "nars_io.h"
-#include "app_script_loader.h"
 #include "lib_commander.h"
 #include "lib_fs.h"
 #include <emscripten.h>
