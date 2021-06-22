@@ -86,15 +86,15 @@ main(int argc, char *argv[])
 	command_init(&cmd, argv[0], "0.0.1");
 	command_option(&cmd, "-r", "--repl", "start the BumbleStack repl", app_start_repl_command);
 	command_option(&cmd, "-f", "--file [arg]", "load data from a file path", app_load_file_command);
-	command_option(&cmd, "-g", "--file [arg]", "load from a file, then start the repl", app_load_file_repl_command);
+	command_option(&cmd, "-b", "--background [arg]", "load background setup from a file, then start the repl", app_load_file_repl_command);
 	command_parse(&cmd, argc, argv);
 	command_free(&cmd);
 	// boot the system
 	app_system_init();
 	io_run_diagnostics();
 	// start_wren();
+	// don't look for cli args in wasm version
 
-	// check flags
 	if (g_start_repl)
 	{
 		// repl now become the main loop if the arg was passed in
@@ -117,6 +117,7 @@ main(int argc, char *argv[])
 		app_repl_main();
 		slog_info("BumbleStack exited.");
 	}
+
 	exit(0);
 }
 
