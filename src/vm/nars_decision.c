@@ -55,9 +55,9 @@ decision_execute(Decision *decision)
 	// run an operation or wren script
 	if(decision->op.script != NULL && strcmp(decision->op.script, "")){
 		if (decision->op.term_string != NULL && strcmp(decision->op.term_string, "")){
-			slog_info("Running operation defined by term: %s", decision->op.term_string);
+			slog_action("Running operation defined by term: %s", decision->op.term_string);
 			// run the script
-			slog_info("Operation has a script attached: %s", decision->op.script);
+			slog_output("Operation has a script attached: %s", decision->op.script);
 #ifdef WASM_ONLY_FUNCTIONALITY_ENABLED
 			// run a script in wasm
 			emscripten_run_script(decision->op.script);
