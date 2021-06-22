@@ -53,15 +53,16 @@ decision_execute(Decision *decision)
 		feedback = operation;
 	}
 	// run an operation or wren script
-	//slog_info(decision->op.script);
-	slog_info("Running operation defined by term: %s", decision->op.term_string);
-	// run the script
-	if(strcmp(decision->op.script, "")){
-		//script_buffer = buffer_new_with_string(script_buffer);
-		slog_info("Operation has a script attached: %s", decision->op.script);
+	if(decision->op.script != NULL && strcmp(decision->op.script, "")){
+		if (decision->op.term_string != NULL && strcmp(decision->op.term_string, "")){
+			slog_info("Running operation defined by term: %s", decision->op.term_string);
+			// run the script
+			slog_info("Operation has a script attached: %s", decision->op.script);
 #ifdef WASM_ONLY_FUNCTIONALITY_ENABLED
-		emscripten_run_script(decision->op.script);
+			// run a script in wasm
+			emscripten_run_script(decision->op.script);
 #endif
+		}
 	}
 	if(decision->op.action != NULL) {
 			(*decision->op.action)(decision->arguments);
