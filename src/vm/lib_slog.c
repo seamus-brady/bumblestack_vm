@@ -115,9 +115,9 @@ slog_get_tag(SLOG_FLAGS_E eFlag)
 {
 	switch (eFlag)
 	{
-		case SLOG_NOTE: return "note";
+		case SLOG_ACTION: return "action";
 		case SLOG_INFO: return "info";
-		case SLOG_WARN: return "warn";
+		case SLOG_OUTPUT: return "output";
 		case SLOG_DEBUG: return "debug";
 		case SLOG_ERROR: return "error";
 		case SLOG_TRACE: return "trace";
@@ -133,9 +133,9 @@ slog_get_color(SLOG_FLAGS_E eFlag)
 {
 	switch (eFlag)
 	{
-		case SLOG_NOTE: return SLOG_CLR_NORMAL;
+		case SLOG_ACTION: return SLOG_CLR_GREEN;
 		case SLOG_INFO: return SLOG_CLR_GREEN;
-		case SLOG_WARN: return SLOG_CLR_YELLOW;
+		case SLOG_OUTPUT: return SLOG_CLR_GREEN;
 		case SLOG_DEBUG: return SLOG_CLR_BLUE;
 		case SLOG_ERROR: return SLOG_CLR_RED;
 		case SLOG_TRACE: return SLOG_CLR_CYAN;

@@ -69,9 +69,9 @@ extern "C" {
 typedef enum
 {
 	SLOG_NOTAG = (1 << 0),
-	SLOG_NOTE = (1 << 1),
+	SLOG_ACTION = (1 << 1),
 	SLOG_INFO = (1 << 2),
-	SLOG_WARN = (1 << 3),
+	SLOG_OUTPUT = (1 << 3),
 	SLOG_DEBUG = (1 << 4),
 	SLOG_TRACE = (1 << 5),
 	SLOG_ERROR = (1 << 6),
@@ -99,14 +99,14 @@ typedef enum
 #define slogwn(...) \
     slog_display(SLOG_NOTAG, 0, __VA_ARGS__)
 
-#define slog_note(...) \
-    slog_display(SLOG_NOTE, 1, __VA_ARGS__)
+#define slog_action(...) \
+    slog_display(SLOG_ACTION, 1, __VA_ARGS__)
 
 #define slog_info(...) \
     slog_display(SLOG_INFO, 1, __VA_ARGS__)
 
-#define slog_warn(...) \
-    slog_display(SLOG_WARN, 1, __VA_ARGS__)
+#define slog_output(...) \
+    slog_display(SLOG_OUTPUT, 1, __VA_ARGS__)
 
 #define slog_debug(...) \
     slog_display(SLOG_DEBUG, 1, __VA_ARGS__)
@@ -121,9 +121,9 @@ typedef enum
     slog_display(SLOG_FATAL, 1, SLOG_THROW_LOCATION __VA_ARGS__)
 
 /* Short name definitions */
-#define slogn(...) slog_note(__VA_ARGS__)
+#define sloga(...) slog_action(__VA_ARGS__)
 #define slogi(...) slog_info(__VA_ARGS__)
-#define slogw(...) slog_warn(__VA_ARGS__)
+#define slogo(...) slog_output(__VA_ARGS__)
 #define slogd(...) slog_debug( __VA_ARGS__)
 #define sloge(...) slog_error( __VA_ARGS__)
 #define slogt(...) slog_trace(__VA_ARGS__)
