@@ -131,7 +131,10 @@ add_executable(bumblestack
         src/vm/repl_error.c
         src/vm/repl_print.c)
 
-set_target_properties(bumblestack PROPERTIES LINKER_LANGUAGE C)
+set_target_properties(bumblestack
+        PROPERTIES
+        LINKER_LANGUAGE C
+        RUNTIME_OUTPUT_DIRECTORY "../build/bin/")
 target_link_libraries(bumblestack m)
 
 ######################################################################################################################
