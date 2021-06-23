@@ -18,11 +18,11 @@ emcc $C_SRC_ROOT/*.c  -DWASM_ONLY_FUNCTIONALITY_ENABLED \
 -s ERROR_ON_UNDEFINED_SYMBOLS=0 \
 -s EXPORTED_FUNCTIONS="['_main']" \
 -s EXPORTED_RUNTIME_METHODS=["cwrap"] \
+-Oz --closure 1 \
 -v
-#-Oz --closure 1 \
 
 # copy the files
-cp -R $WEB_SRC_ROOT/assets $DIST_ROOT/assets
+cp -R $WEB_SRC_ROOT/assets $DIST_ROOT/
 cp -R $WEB_SRC_ROOT/index.html $DIST_ROOT
 cp $WASM_BUILD_ROOT/bumblevm.js $DIST_ROOT/assets
 cp $WASM_BUILD_ROOT/bumblevm.wasm $DIST_ROOT/assets
