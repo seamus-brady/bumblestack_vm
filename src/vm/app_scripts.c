@@ -30,9 +30,9 @@ app_handle_javascript_operation_action(char *term_string, char *script)
 	// build a string
 	buffer_t *buf_action = buffer_new();
 	buffer_append(buf_action, JAVASCRIPT_ACTION_HANDLER);
-	buffer_append(buf_action, "(");
+	buffer_append(buf_action, "('");
 	buffer_append(buf_action, script);
-	buffer_append(buf_action, ");");
+	buffer_append(buf_action, "');");
 	slog_info("Calling JavaScript action handler with '%s'", buffer_string(buf_action));
 	// run a script in wasm
 	emscripten_run_script(buffer_string(buf_action));

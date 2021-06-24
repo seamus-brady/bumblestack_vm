@@ -151,6 +151,9 @@ io_truth_print(Truth *truth);
 void
 io_truth_print2(Truth *truth);
 
+void
+io_print_decision(Decision decision, Implication bestImp);
+
 //print usage
 void
 io_usage_print(Usage *usage);

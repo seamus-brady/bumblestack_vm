@@ -239,7 +239,7 @@ io_run_operation_diagnostic()
 {
 	slog_info("Running operation diagnostic test...");
 	slog_info("Add operation...");
-	nar_add_operation(narsese_atomic_term("^op"), io_diagnostic_test_operation, "alert('hi from an operation!')");
+	nar_add_operation(narsese_atomic_term("^op"), io_diagnostic_test_operation, "TEST_ACTION");
 	slog_info("Add belief...");
 	nar_add_input_Belief(narsese_atomic_term("a"));
 	slog_info("Run 1 inference cycle...");
@@ -310,6 +310,8 @@ io_setup_logging()
 
 	// Enable date + time in output
 	slgCfg.eDateControl = SLOG_DATE_FULL;
+	// disable color output - looks weird in browser
+	slgCfg.eColorFormat = SLOG_COLOR_DISABLE;
 	slog_config_set(&slgCfg);
 }
 
@@ -421,9 +423,26 @@ io_print_cycling_goal_events()
 }
 
 void
+io_print_decision(Decision decision, Implication bestImp)
+{
+	printf("Decision expectation=(%f) implication: ", decision.desire);
+	io_narsese_print_term(&bestImp.term);
+	printf(". truth=(frequency=%f confidence=%f) occurrenceTimeOffset=(%f)",
+	       bestImp.truth.frequency,
+	       bestImp.truth.confidence,
+	       bestImp.occurrenceTimeOffset);
+	fputs(" precondition: ", stdout);
+	io_narsese_print_term(&decision.reason->term);
+	fputs(". :|: ", stdout);
+	printf("truth=(frequency=%f confidence=%f)", decision.reason->truth.frequency, decision.reason->truth.confidence);
+	printf(" occurrenceTime=(%ld)\n", decision.reason->occurrenceTime);
+}
+
+void
 io_print_decision_with_json(Decision decision, Implication bestImp)
 {
 	printf("{\"output\": {");
+	// TODO - should be on one line
 	printf("\"decision\": {");
 	printf("\"expectation\": \"%f\", ", decision.desire);
 	printf("\"implication\": { \"narsese_term\": \"");

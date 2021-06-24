@@ -237,7 +237,8 @@ decision_best_candidate(Concept *goalconcept, Event *goal, long currentTime)
 		return (Decision) {0};
 	}
 	//set execute and return execution
-	io_print_decision_with_json(decision, bestImp);
+	slog_output("Decision made:");
+	io_print_decision(decision, bestImp);
 	decision.execute = true;
 	return decision;
 }

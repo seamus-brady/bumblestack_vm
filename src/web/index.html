@@ -5,20 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <title>BumbleStack Demo</title>
-    <link href="./assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/jpg" href="assets/favicon/favicon.ico"/>
+    <link href="./assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        html { font-size: 14px }
         #input {
-            width: 85%;
-            height: 32px;
+            width: 100%;
+            height: 100px;
             font-family: 'Lucida Console', Monaco, monospace;
-            background-color: black !important;
-            color: lightgreen;
+            font-size: 12px;
+            background: url(assets/code_bg.png);
+            background-attachment: local;
+            background-repeat: no-repeat;
+            padding-left: 35px;
+            padding-top: 10px;
+            border-color:#ccc;
         }
 
         #output {
-            width: 85%;
+            width: 100%;
             height: 150px;
             font-family: 'Lucida Console', Monaco, monospace;
+            font-size: 12px;
+            background-color: black !important;
+            color: lightgreen
+        }
+
+        #actions {
+            width: 100%;
+            height: 30px;
+            font-family: 'Lucida Console', Monaco, monospace;
+            font-size: 12px;
             background-color: black !important;
             color: lightgreen
         }
@@ -26,39 +43,44 @@
     <link href="./assets/main.css" rel="stylesheet">
 </head>
 <body>
-<div class="col-lg-8 mx-auto p-3 py-md-5">
-    <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
-        <img src="assets/logo.png">
-    </header>
-    <main>
-
-        <div class="spinner" id='spinner'></div>
-        <div class="emscripten" id="status">Downloading...</div>
-
-        <div class="emscripten">
-            <progress value="0" max="100" id="progress" hidden=1></progress>
+<div class="container-fluid">
+    <div class="row p-2">
+        <div class="col-md-12">
+            <div class="page-header">
+                <img src="assets/logo.png"/>
+                <hr/>
+            </div>
+            <p>Console v0.8</p>
+            <div class="emscripten" id="status">Downloading...</div>
         </div>
-
-
-
-        <div class="emscripten_border">
-            <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+    </div>
+    <div class="row p-4">
+        <div class="col-md-12">
+            <h4>Input</h4>
+            <textarea id="input">Left</textarea>
+            <p><input id="btnRun" type="button" value="Run"></p>
         </div>
-        <h2>Input</h2>
-        <textarea id="input">Left</textarea>
-        <p><input id="btnRun" type="button" value="Run"></p>
-        <h2>Console</h2>
-        <textarea id="output">Left</textarea>
-
-
-    </main>
-    <footer class="pt-5 my-5 text-muted border-top">
+        <div class="col-md-12">
+            <h4>Console</h4>
+            <textarea id="output">Left</textarea>
+        </div>
+        <div class="col-md-12">
+            <h4>Actions</h4>
+            <textarea id="actions">Actions will be output here.</textarea>
+        </div>
+    </div>
+    <div class="row p-4">
+        <hr/>
         BumbleStack &copy; 2021
-    </footer>
-
+    </div>
+    <div class="spinner" id='spinner'></div>
+    <div class="emscripten">
+        <progress value="0" max="100" id="progress" hidden=1></progress>
+    </div>
+    <div class="emscripten_border">
+        <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+    </div>
 </div>
-
-
 <script type='text/javascript'>
     var statusElement = document.getElementById('status');
     var progressElement = document.getElementById('progress');
@@ -135,6 +157,10 @@
             if (text) Module.printErr('[post-exception status] ' + text);
         };
     };
+    // the BumbleVM event handling function
+    function bumblevm_action_handler(action_name) {
+        document.getElementById('actions').value = "BumbleVM has invoked the action: " + action_name
+    }
 </script>
 <script async type="text/javascript" src="./assets/bumblevm.js"></script>
 <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>

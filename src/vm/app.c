@@ -34,7 +34,8 @@ app_system_init()
 	slog_info("System initialised.");
 
 	// set up the shell with feedback
-	PRINT_DERIVATIONS = true;
+	//TODO - is this a correct default?
+	PRINT_DERIVATIONS = false;
 }
 
 static void
