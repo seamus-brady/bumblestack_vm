@@ -103,19 +103,16 @@ main(int argc, char *argv[])
 	{
 		slog_info("Loading data from file...");
 		char *mainSource = app_get_source_from_file(buffer_string(g_start_file));
-		// Returns first token
-		char *token = strtok(mainSource, "\n");
-		// Keep printing tokens while one of the delimiters present in mainSource
-		while (token != NULL)
-		{
-			io_process_input(token);
-			token = strtok(NULL, "\n");
+		char *lines[200];
+		size_t size = strsplit(mainSource, lines, "\n");
+		int i = 0;
+		for (; i < size; ++i) {
+			io_process_input( lines[i]);
 		}
 	}
 	if (g_load_file_start_repl)
 	{
 		slog_info("Loading data from file...");
-		char *mainSource = app_get_source_from_file(g_start_file);
 		// TODO impl data load
 		slog_info("Starting the BumbleStack repl...");
 		app_repl_main();

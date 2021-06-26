@@ -123,6 +123,7 @@ io_process_input(char *input)
 		return INPUT_CONTINUE_WITH_ERROR;
 	} else {
 		// last but not least, add input narsese
+		slog_info("Processing input narsese line: %s", line);
 		nar_add_input_narsese(line);
 		fflush(stdout);
 		return INPUT_CONTINUE;
@@ -140,7 +141,6 @@ int
 io_handle_run_cycle(const char *line)
 {
 	unsigned int steps;
-	slog_output(line);
 	sscanf(&line[strlen(IO_CYCLE_SET)], "%u", &steps);
 	slog_info("Performing %u inference steps...", steps);
 	fflush(stdout);
@@ -214,8 +214,7 @@ io_handle_babble_ops(const char *line)
 int
 io_handle_comments(const char *line)
 {
-	slog_info("Comment from input: ", stdout);
-	puts(&line[2]);
+	slog_info("// %s", &line[2]);
 	fflush(stdout);
 	return INPUT_CONTINUE;
 }

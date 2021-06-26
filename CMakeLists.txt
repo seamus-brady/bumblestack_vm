@@ -114,6 +114,8 @@ add_executable(bumblestack
         src/vm/lib_commander.c
         src/vm/lib_fs.c
         src/vm/lib_fs.h
+        src/vm/lib_strsplit.c
+        src/vm/lib_strsplit.h
         # repl code
         src/vm/repl_error.h
         src/vm/repl_eval.h
