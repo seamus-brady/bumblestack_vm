@@ -200,10 +200,13 @@ nar_add_input_narsese(char *narsese_sentence)
 			}
 			Continue:;
 		}
+
 		fputs("Answer: ", stdout);
+		buffer_t *buf_output = buffer_new();
 		if (best_truth.confidence == 1.0)
 		{
 			puts("None.");
+			buffer_append(buf_output, "None.");
 		}
 		else
 		{
@@ -211,13 +214,22 @@ nar_add_input_narsese(char *narsese_sentence)
 			if (answerOccurrenceTime == OCCURRENCE_ETERNAL)
 			{
 				printf(". creationTime=%ld ", answerCreationTime);
+				char *s;
+				sprintf(s, ". creationTime=%ld ", answerCreationTime);
+				buffer_append(buf_output, s);
 			}
 			else
 			{
 				printf(". :|: occurrenceTime=%ld creationTime=%ld ", answerOccurrenceTime, answerCreationTime);
+				char *s;
+				sprintf(s, ". :|: occurrenceTime=%ld creationTime=%ld ", answerOccurrenceTime, answerCreationTime);
+				buffer_append(buf_output, s);
 			}
 			io_truth_print(&best_truth);
+			buffer_append(buf_output, io_truth_as_string(&best_truth));
 		}
+		app_handle_javascript_output(buffer_string(buf_output));
+		buffer_free(buf_output);
 		fflush(stdout);
 	}
 	else

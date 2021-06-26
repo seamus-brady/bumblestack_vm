@@ -31,9 +31,9 @@
             color: lightgreen
         }
 
-        #actions {
+        #actions, #outputs {
             width: 100%;
-            height: 30px;
+            height: 60px;
             font-family: 'Lucida Console', Monaco, monospace;
             font-size: 12px;
             background-color: black !important;
@@ -56,17 +56,19 @@
     </div>
     <div class="row p-4">
         <div class="col-md-12">
-            <h4>Input</h4>
+            <h5>Input</h5>
             <textarea id="input">Left</textarea>
             <p><input id="btnRun" type="button" value="Run"></p>
         </div>
         <div class="col-md-12">
-            <h4>Console</h4>
+            <h5>Console</h5>
             <textarea id="output">Left</textarea>
         </div>
-        <div class="col-md-12">
-            <h4>Actions</h4>
-            <textarea id="actions">Actions will be output here.</textarea>
+        <div class="col-md-6">
+            <textarea id="outputs">--- BumbleVM Outputs ---</textarea>
+        </div>
+        <div class="col-md-6">
+            <textarea id="actions">--- BumbleVM Actions ---</textarea>
         </div>
     </div>
     <div class="row p-4">
@@ -157,10 +159,15 @@
             if (text) Module.printErr('[post-exception status] ' + text);
         };
     };
-    // the BumbleVM event handling function
+    // the BumbleVM action handling function
     function bumblevm_action_handler(action_name) {
-        document.getElementById('actions').value = "BumbleVM has invoked the action: " + action_name
+        document.getElementById('actions').value =  document.getElementById('actions').value + "\n" + action_name
     }
+    // the BumbleVM output handling function
+    function bumblevm_output_handler(output) {
+        document.getElementById('outputs').value =  document.getElementById('outputs').value + "\n" + output
+    }
+
 </script>
 <script async type="text/javascript" src="./assets/bumblevm.js"></script>
 <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>

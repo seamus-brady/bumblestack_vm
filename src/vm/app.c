@@ -63,8 +63,7 @@ app_load_file_repl_command(command_t *self)
 bool
 app_file_exists(char *filename)
 {
-	struct stat buffer;
-	return (stat(filename, &buffer) == 0);
+	return (fs_stat(filename) != NULL);
 }
 
 char *
@@ -92,8 +91,7 @@ main(int argc, char *argv[])
 	command_free(&cmd);
 	// boot the system
 	app_system_init();
-	io_run_diagnostics();
-
+	// process the args
 	if (g_start_repl)
 	{
 		// repl now become the main loop if the arg was passed in
@@ -104,8 +102,15 @@ main(int argc, char *argv[])
 	if (g_load_file)
 	{
 		slog_info("Loading data from file...");
-		char *mainSource = app_get_source_from_file(g_start_file);
-		// TODO impl data load
+		char *mainSource = app_get_source_from_file(buffer_string(g_start_file));
+		// Returns first token
+		char *token = strtok(mainSource, "\n");
+		// Keep printing tokens while one of the delimiters present in mainSource
+		while (token != NULL)
+		{
+			io_process_input(token);
+			token = strtok(NULL, "\n");
+		}
 	}
 	if (g_load_file_start_repl)
 	{

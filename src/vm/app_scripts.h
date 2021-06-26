@@ -16,6 +16,7 @@
 #define BUMBLESTACK_SRC_VM_APP_SCRIPTS_H
 
 #define JAVASCRIPT_ACTION_HANDLER "bumblevm_action_handler"
+#define JAVASCRIPT_OUTPUT_HANDLER "bumblevm_output_handler"
 
 #include "lib_slog.h"
 #include "lib_buffer.h"
@@ -27,5 +28,8 @@ app_handle_operation_action(char *operation_script, char *String);
 
 void
 app_handle_javascript_operation_action(char *term_string, char *script);
+
+void
+app_handle_javascript_output(char *output);
 
 #endif //BUMBLESTACK_SRC_VM_APP_SCRIPTS_H

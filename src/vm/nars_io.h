@@ -49,6 +49,7 @@ static char *const IO_ADD_OPERATION_SET = "add-operation ";
 static char *const IO_OP_PREFIX = "^*";
 static char *const IO_OP_CHAR = "^";
 static char *const IO_CYCLE = "cycle*";
+static char *const IO_CYCLE_SET = "cycle ";
 
 void
 io_generic_operation_handler();
@@ -150,6 +151,9 @@ io_truth_print(Truth *truth);
 
 void
 io_truth_print2(Truth *truth);
+
+char *
+io_truth_as_string(Truth *truth);
 
 void
 io_print_decision(Decision decision, Implication bestImp);

@@ -140,7 +140,8 @@ int
 io_handle_run_cycle(const char *line)
 {
 	unsigned int steps;
-	sscanf(line, "%u", &steps);
+	slog_output(line);
+	sscanf(&line[strlen(IO_CYCLE_SET)], "%u", &steps);
 	slog_info("Performing %u inference steps...", steps);
 	fflush(stdout);
 	nar_cycles(steps);
@@ -288,6 +289,7 @@ io_run_diagnostics(void)
 	io_run_ruletable_diagnostic();
 	io_run_operation_diagnostic();
 	slog_info("Completed diagnostic tests...");
+	app_handle_javascript_output("Completed diagnostic tests...");
 }
 
 void
@@ -805,6 +807,14 @@ void
 io_truth_print(Truth *truth)
 {
 	printf(" truth=(frequency=%f, confidence=%f) \n", truth->frequency, truth->confidence);
+}
+
+char *
+io_truth_as_string(Truth *truth)
+{
+	char *s;
+	sprintf(s, " truth=(frequency=%f, confidence=%f) \n", truth->frequency, truth->confidence);
+	return s;
 }
 
 void
