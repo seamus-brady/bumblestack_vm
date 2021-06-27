@@ -19,7 +19,7 @@
  */
 
 int
-vasprintf (char **, const char *, va_list);
+vasprintf(char **, const char *, va_list);
 
 /**
  * Sets `char **' pointer to be a buffer
@@ -29,7 +29,7 @@ vasprintf (char **, const char *, va_list);
  */
 
 int
-asprintf (char **, const char *, ...);
+asprintf(char **, const char *, ...);
 
 #endif
 #endif

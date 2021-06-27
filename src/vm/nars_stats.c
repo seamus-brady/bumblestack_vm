@@ -69,7 +69,9 @@ stats_print(long currentTime)
 	printf("\tCurrent goal events count:\t%d\n", g_cyclingGoalEvents.itemsAmount);
 	printf("\tCurrent average belief event priority:\t%f\n", Stats_averageBeliefEventPriority);
 	printf("\tCurrent average goal event priority:\t%f\n", Stats_averageGoalEventPriority);
-	printf("\tMaximum chain length in concept hashtable:\t%d\n", hashtable_maximum_chain_length(&g_hashtableConceptsStruct));
-	printf("\tMaximum chain length in atoms hashtable: \t%d\n", hashtable_maximum_chain_length(&g_hashtableAtomsStruct));
+	printf("\tMaximum chain length in concept hashtable:\t%d\n",
+	       hashtable_maximum_chain_length(&g_hashtableConceptsStruct));
+	printf("\tMaximum chain length in atoms hashtable: \t%d\n",
+	       hashtable_maximum_chain_length(&g_hashtableAtomsStruct));
 	fflush(stdout);
 }

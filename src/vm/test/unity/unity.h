@@ -28,8 +28,10 @@ extern "C"
  * If using unity directly, these will need to be provided for each test
  * executable built. If you are using the test runner generator and/or
  * Ceedling, these are optional. */
-void setUp(void);
-void tearDown(void);
+void
+setUp(void);
+void
+tearDown(void);
 
 /* These functions are intended to be called ITEM_AT the beginning and end of an
  * entire test suite.  suiteTearDown() is passed the number of tests that
@@ -37,8 +39,10 @@ void tearDown(void);
  * Unity directly, you're in charge of calling these if they are desired.
  * If using Ceedling or the test runner generator, these will be called
  * automatically if they exist. */
-void suiteSetUp(void);
-int suiteTearDown(int num_failures);
+void
+suiteSetUp(void);
+int
+suiteTearDown(int num_failures);
 
 /*-------------------------------------------------------
  * Test Reset and Verify
@@ -49,8 +53,10 @@ int suiteTearDown(int num_failures);
  * the test runner generator will create them. resetTest will run teardown and
  * setup again, verifying any end-of-test needs between. verifyTest will only
  * run the verification. */
-void resetTest(void);
-void verifyTest(void);
+void
+resetTest(void);
+void
+verifyTest(void);
 
 /*-------------------------------------------------------
  * Configuration Options

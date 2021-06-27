@@ -228,9 +228,10 @@ variable_normalize(Term *term)
 	for (int j = 0; j < COMPOUND_TERM_SIZE_MAX; j++)
 	{
 		Atom atom = term->atoms[j];
-		char varType = variable_is_independent_variable(atom) ? '$' : (variable_is_dependent_variable(atom) ? '#' : '?');
+		char
+			varType = variable_is_independent_variable(atom) ? '$' : (variable_is_dependent_variable(atom) ? '#' : '?');
 		int *varIndex = variable_is_independent_variable(atom) ? &independent_i : (variable_is_dependent_variable(atom)
-		                                                                         ? &dependent_i : &query_i);
+		                                                                           ? &dependent_i : &query_i);
 		if (!normalized[j] && variable_is_variable(atom))
 		{
 			ASSERT(*varIndex <= 9, "Variable overflow in variable normalization!");

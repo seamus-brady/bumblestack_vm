@@ -141,6 +141,4 @@
 //Priority threshold for printing derivations  - leave as debug mode for now
 #define PRINT_DERIVATIONS_PRIORITY_THRESHOLD 0.0
 
-
-
 #endif

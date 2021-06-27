@@ -29,8 +29,7 @@ typedef struct stat fs_stats;
  */
 
 void
-fs_error (const char *prefix);
-
+fs_error(const char *prefix);
 
 /**
  * Opens a file with given flags
@@ -38,24 +37,21 @@ fs_error (const char *prefix);
  */
 
 FILE *
-fs_open (const char *path, const char *flags);
-
+fs_open(const char *path, const char *flags);
 
 /**
  * Closes a given file descriptor
  */
 
 int
-fs_close (FILE *file);
-
+fs_close(FILE *file);
 
 /**
  * Moves a path to a new destination
  */
 
 int
-fs_rename (const char *from, const char *to);
-
+fs_rename(const char *from, const char *to);
 
 /**
  * Stats a given path and returns
@@ -63,24 +59,21 @@ fs_rename (const char *from, const char *to);
  */
 
 fs_stats *
-fs_stat (const char *path);
-
+fs_stat(const char *path);
 
 /**
  * Stats a given file descriptor
  */
 
 fs_stats *
-fs_fstat (FILE *file);
-
+fs_fstat(FILE *file);
 
 /**
  * Stats a given link path
  */
 
 fs_stats *
-fs_lstat (const char *path);
-
+fs_lstat(const char *path);
 
 /**
  * Truncates a file to a specified
@@ -88,8 +81,7 @@ fs_lstat (const char *path);
  */
 
 int
-fs_ftruncate (FILE *file, int len);
-
+fs_ftruncate(FILE *file, int len);
 
 /**
  * Truncates a file to a specified
@@ -97,8 +89,7 @@ fs_ftruncate (FILE *file, int len);
  */
 
 int
-fs_truncate (const char *path, int len);
-
+fs_truncate(const char *path, int len);
 
 /**
  * Changes ownership of a given
@@ -107,8 +98,7 @@ fs_truncate (const char *path, int len);
  */
 
 int
-fs_chown (const char *path, int uid, int gid);
-
+fs_chown(const char *path, int uid, int gid);
 
 /**
  * Change ownership of a given
@@ -117,8 +107,7 @@ fs_chown (const char *path, int uid, int gid);
  */
 
 int
-fs_fchown (FILE *file, int uid, int gid);
-
+fs_fchown(FILE *file, int uid, int gid);
 
 /**
  * Returns the size of a file from
@@ -126,8 +115,7 @@ fs_fchown (FILE *file, int uid, int gid);
  */
 
 size_t
-fs_size (const char *path);
-
+fs_size(const char *path);
 
 /**
  * Returns the size of a file
@@ -135,8 +123,7 @@ fs_size (const char *path);
  */
 
 size_t
-fs_fsize (FILE *file);
-
+fs_fsize(FILE *file);
 
 /**
  * Change ownership of a given
@@ -145,8 +132,7 @@ fs_fsize (FILE *file);
  */
 
 int
-fs_lchown (const char *path, int uid, int gid);
-
+fs_lchown(const char *path, int uid, int gid);
 
 /**
  * Reads a file by a given file
@@ -154,8 +140,7 @@ fs_lchown (const char *path, int uid, int gid);
  */
 
 char *
-fs_read (const char *path);
-
+fs_read(const char *path);
 
 /**
  * Reads a file by a given
@@ -164,8 +149,7 @@ fs_read (const char *path);
  */
 
 char *
-fs_nread (const char *path, int len);
-
+fs_nread(const char *path, int len);
 
 /**
  * Reads a file by a given
@@ -173,8 +157,7 @@ fs_nread (const char *path, int len);
  */
 
 char *
-fs_fread (FILE *file);
-
+fs_fread(FILE *file);
 
 /**
  * Reads a file by a given
@@ -183,8 +166,7 @@ fs_fread (FILE *file);
  */
 
 char *
-fs_fnread (FILE *file, int len);
-
+fs_fnread(FILE *file, int len);
 
 /**
  * Writes a buffer
@@ -192,8 +174,7 @@ fs_fnread (FILE *file, int len);
  */
 
 int
-fs_write (const char *path, const char *buffer);
-
+fs_write(const char *path, const char *buffer);
 
 /**
  * Writes `n` bytes of a buffer to a given
@@ -201,8 +182,7 @@ fs_write (const char *path, const char *buffer);
  */
 
 int
-fs_nwrite (const char *path, const char *buffer, int len);
-
+fs_nwrite(const char *path, const char *buffer, int len);
 
 /**
  * Writes a buffer to a given
@@ -210,8 +190,7 @@ fs_nwrite (const char *path, const char *buffer, int len);
  */
 
 int
-fs_fwrite (FILE *file, const char *buffer);
-
+fs_fwrite(FILE *file, const char *buffer);
 
 /**
  * Writes `n` bytes of a buffer
@@ -219,8 +198,7 @@ fs_fwrite (FILE *file, const char *buffer);
  */
 
 int
-fs_fnwrite (FILE *file, const char *buffer, int len);
-
+fs_fnwrite(FILE *file, const char *buffer, int len);
 
 /**
  * Makes a directory and returns 0
@@ -228,8 +206,7 @@ fs_fnwrite (FILE *file, const char *buffer, int len);
  */
 
 int
-fs_mkdir (const char *path, int mode);
-
+fs_mkdir(const char *path, int mode);
 
 /**
  * Removes a directory and returns
@@ -237,14 +214,13 @@ fs_mkdir (const char *path, int mode);
  */
 
 int
-fs_rmdir (const char *path);
+fs_rmdir(const char *path);
 
 /**
  * Check if the given `path` exists
  */
 
 int
-fs_exists (const char *path);
-
+fs_exists(const char *path);
 
 #endif

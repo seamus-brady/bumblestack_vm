@@ -63,7 +63,6 @@ app_file_exists(char *filename)
 	return (fs_stat(filename) != NULL);
 }
 
-
 char *
 app_get_source_from_file(char *scriptFile)
 {
@@ -86,8 +85,9 @@ app_run_script_file(buffer_t *start_file_buf)
 	size_t size = strsplit(mainSource, lines, "\n");
 	int i = 0;
 	// run the script file line by line
-	for (; i < size; ++i) {
-		io_process_input( lines[i]);
+	for (; i < size; ++i)
+	{
+		io_process_input(lines[i]);
 	}
 	slog_info("Completed processing supplied file.");
 }

@@ -33,7 +33,8 @@ globals_assert(bool b, char *message)
 	if (!b)
 	{
 		slog_error("An assert failed! %s", message);
-		if (EXIT_ON_ASSERT_FAIL){
+		if (EXIT_ON_ASSERT_FAIL)
+		{
 			slog_error("The system will now exit. Sorry!");
 			exit(1);
 		}
@@ -51,7 +52,6 @@ globals_soft_assert(bool b, char *message)
 	}
 	return false;
 }
-
 
 HASH_TYPE
 globals_hash(HASH_TYPE *data, int pieces)

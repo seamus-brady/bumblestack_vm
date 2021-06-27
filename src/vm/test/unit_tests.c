@@ -220,8 +220,9 @@ test_inverted_atom_index(void)
 	                         "There was no concept reference added for key b! (2)");
 	TEST_ASSERT_TRUE_MESSAGE(g_invertedAtomIndex[narsese_atomic_term_index("vm")]->c == &c,
 	                         "There was no concept reference added for key vm! (2)");
-	TEST_ASSERT_TRUE_MESSAGE(((ConceptChainElement *) g_invertedAtomIndex[narsese_atomic_term_index("b")]->next)->c == &c2,
-	                         "There was no concept2 reference added for key b! (2)");
+	TEST_ASSERT_TRUE_MESSAGE(
+		((ConceptChainElement *) g_invertedAtomIndex[narsese_atomic_term_index("b")]->next)->c == &c2,
+		"There was no concept2 reference added for key b! (2)");
 	TEST_ASSERT_TRUE_MESSAGE(g_invertedAtomIndex[narsese_atomic_term_index("d")]->c == &c2,
 	                         "There was no concept2 reference added for key d! (2)");
 	inverted_atom_index_remove_concept(term, &c);

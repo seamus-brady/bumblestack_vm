@@ -58,5 +58,4 @@ stamp_make(Stamp *stamp1, Stamp *stamp2);
 bool
 stamp_check_overlap(Stamp *a, Stamp *b);
 
-
 #endif

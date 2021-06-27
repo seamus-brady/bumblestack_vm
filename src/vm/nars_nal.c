@@ -59,7 +59,10 @@ nal_generate_conclusion_substitution(int i, Atom atom)
 		if (g_narsese_atomNames[atom - 1][0] >= 'A' && g_narsese_atomNames[atom - 1][0] <= 'Z')
 		{
 			//conclusion term gets variables substituted
-			printf("if(!term_override_subterm(&conclusion,%d,&substitutions[%d])){ goto RULE_%d; }\n", i, atom, g_ruleID);
+			printf("if(!term_override_subterm(&conclusion,%d,&substitutions[%d])){ goto RULE_%d; }\n",
+			       i,
+			       atom,
+			       g_ruleID);
 		}
 		else
 		{

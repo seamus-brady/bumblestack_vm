@@ -251,7 +251,8 @@ cycle_goal_sequence_decomposition(Event *selectedGoal, double selectedGoalPriori
 		{
 			bool goalsubs_success;
 			componentGoalsTerm[u] = variable_apply_substitute(componentGoalsTerm[u], best_subs, &goalsubs_success);
-			ASSERT(goalsubs_success, "cycle_goal_sequence_decomposition: The subsitution succeeded before but not now!");
+			ASSERT(goalsubs_success,
+			       "cycle_goal_sequence_decomposition: The subsitution succeeded before but not now!");
 		}
 		//build component subgoal according to {(a, b)!, a} |- b! truth_deduction
 		lastComponentOccurrenceTime = best_c->belief_spike.occurrenceTime;

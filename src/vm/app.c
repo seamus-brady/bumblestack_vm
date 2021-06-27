@@ -67,7 +67,11 @@ main(int argc, char *argv[])
 	command_init(&cmd, argv[0], "0.0.1");
 	command_option(&cmd, "-r", "--repl", "start the BumbleStack repl", app_start_repl_command);
 	command_option(&cmd, "-f", "--file [arg]", "load data from a file path", app_load_file_command);
-	command_option(&cmd, "-b", "--background [arg]", "load background setup from a file, then start the repl", app_load_file_repl_command);
+	command_option(&cmd,
+	               "-b",
+	               "--background [arg]",
+	               "load background setup from a file, then start the repl",
+	               app_load_file_repl_command);
 	command_parse(&cmd, argc, argv);
 	command_free(&cmd);
 	// boot the system

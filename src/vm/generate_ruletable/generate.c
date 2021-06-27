@@ -16,8 +16,10 @@
 
 #include "generate.h"
 
-int main(int argc, char *argv[]) {
+int
+main(int argc, char *argv[])
+{
 	nar_init();
 	nal_generate_rule_table();
-    exit(0);
+	exit(0);
 }

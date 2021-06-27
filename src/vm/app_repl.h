@@ -28,12 +28,12 @@ int
 app_repl_main();
 
 static char *
-app_repl_eval (repl_session_t *sess, char *buf);
+app_repl_eval(repl_session_t *sess, char *buf);
 
 static void
-app_repl_print (repl_session_t *sess, char *buf);
+app_repl_print(repl_session_t *sess, char *buf);
 
 static void
-app_repl_error (repl_session_t *sess, char *err);
+app_repl_error(repl_session_t *sess, char *err);
 
 #endif //BUMBLESTACK_SRC_VM_APP_REPL_H

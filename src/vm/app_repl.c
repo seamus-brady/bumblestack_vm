@@ -40,39 +40,44 @@ app_repl_main()
 	repl_session_destroy(sess);
 
 	printf("\n");
-	return (-1 == rc || 0 == rc)? 0 : rc;
+	return (-1 == rc || 0 == rc) ? 0 : rc;
 }
 
-
-
 static char *
-app_repl_eval (repl_session_t *sess, char *buf) {
+app_repl_eval(repl_session_t *sess, char *buf)
+{
 	// got nothing
-	if (feof(sess->repl_stdin)) {
+	if (feof(sess->repl_stdin))
+	{
 		sess->rc = 0;
 		return NULL;
 	}
 	// pass any input to the NARS engine
 	int io_return = io_process_input(buf);
-	if(io_return == INPUT_EXIT){
+	if (io_return == INPUT_EXIT)
+	{
 		sess->rc = REPL_EXIT;
 		return repl_session_set_error("System will now exit. Goodbye!");
 	}
-	if(io_return == INPUT_CONTINUE_WITH_ERROR){
+	if (io_return == INPUT_CONTINUE_WITH_ERROR)
+	{
 		sess->rc = 1;
 		return repl_session_set_error("Invalid command or narsese provided.");
 	}
-	if(io_return == INPUT_CONTINUE){
+	if (io_return == INPUT_CONTINUE)
+	{
 		return "Done.";
 	}
-	if(io_return == INPUT_RESET){
+	if (io_return == INPUT_RESET)
+	{
 		system_reset();
 		return "System has been reset.";
 	}
 }
 
 static void
-app_repl_print (repl_session_t *sess, char *buf) {
+app_repl_print(repl_session_t *sess, char *buf)
+{
 	fprintf(sess->repl_stdout, "%s\n", buf);
 	repl_loop(sess);
 }
@@ -84,10 +89,11 @@ system_reset()
 	nar_init();
 }
 
-
 static void
-app_repl_error (repl_session_t *sess, char *err) {
-	if(sess->rc == REPL_EXIT){
+app_repl_error(repl_session_t *sess, char *err)
+{
+	if (sess->rc == REPL_EXIT)
+	{
 		// exit without error
 		return;
 	}

@@ -55,5 +55,4 @@ usage_usefulness(Usage usage, long currentTime);
 Usage
 usage_use(Usage usage, long currentTime, bool eternalInput);
 
-
 #endif

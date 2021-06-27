@@ -4,49 +4,53 @@
 #include "lib_strsplit.h"
 
 // a local copy as we are not using posix necessarily
-char * strdup(const char * s)
+char *
+strdup(const char *s)
 {
-	size_t len = 1+strlen(s);
+	size_t len = 1 + strlen(s);
 	char *p = malloc(len);
 
 	return p ? memcpy(p, s, len) : NULL;
 }
 
 int
-strsplit (const char *str, char *parts[], const char *delimiter) {
-  char *pch;
-  int i = 0;
-  char *copy = NULL, *tmp = NULL;
+strsplit(const char *str, char *parts[], const char *delimiter)
+{
+	char *pch;
+	int i = 0;
+	char *copy = NULL, *tmp = NULL;
 
-  copy = strdup(str);
-  if (! copy)
-    goto bad;
+	copy = strdup(str);
+	if (!copy)
+		goto bad;
 
-  pch = strtok(copy, delimiter);
+	pch = strtok(copy, delimiter);
 
-  tmp = strdup(pch);
-  if (! tmp)
-    goto bad;
+	tmp = strdup(pch);
+	if (!tmp)
+		goto bad;
 
-  parts[i++] = tmp;
+	parts[i++] = tmp;
 
-  while (pch) {
-    pch = strtok(NULL, delimiter);
-    if (NULL == pch) break;
+	while (pch)
+	{
+		pch = strtok(NULL, delimiter);
+		if (NULL == pch)
+			break;
 
-    tmp = strdup(pch);
-    if (! tmp)
-      goto bad;
+		tmp = strdup(pch);
+		if (!tmp)
+			goto bad;
 
-    parts[i++] = tmp;
-  }
+		parts[i++] = tmp;
+	}
 
-  free(copy);
-  return i;
+	free(copy);
+	return i;
 
- bad:
-  free(copy);
-  for (int j = 0; j < i; j++)
-    free(parts[j]);
-  return -1;
+	bad:
+	free(copy);
+	for (int j = 0; j < i; j++)
+		free(parts[j]);
+	return -1;
 }

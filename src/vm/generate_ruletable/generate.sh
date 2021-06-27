@@ -4,5 +4,5 @@
 # cmake CMakeLists.txt
 
 echo "Outputting ruletable.c"
-cmake-build-debug/bin/generate > ./src/vm/ruletable.vm
+cmake-build-debug/bin/generate >./src/vm/ruletable.vm
 echo "Done!"

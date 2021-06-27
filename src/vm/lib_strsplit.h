@@ -3,6 +3,6 @@
 #define STRSPLIT_H 1
 
 int
-strsplit (const char *, char *[], const char *);
+strsplit(const char *, char *[], const char *);
 
 #endif

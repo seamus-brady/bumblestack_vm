@@ -169,7 +169,8 @@ memory_conceptualise(Term *term, long currentTime)
 			g_conceptId++;
 			//also add added concept to HashMap:
 			IS_SYSTEM_IN_DEBUG_MODE(
-				ASSERT(hashtable_get(&g_hashtableConceptsStruct, &recycleConcept->term) == NULL, "VMItem to add already exists!");)
+				ASSERT(hashtable_get(&g_hashtableConceptsStruct, &recycleConcept->term) == NULL,
+				       "VMItem to add already exists!");)
 			hashtable_set(&g_hashtableConceptsStruct, &recycleConcept->term, recycleConcept);
 			IS_SYSTEM_IN_DEBUG_MODE(ASSERT(hashtable_get(&g_hashtableConceptsStruct, &recycleConcept->term) != NULL,
 			                               "VMItem to add was not added!");)
@@ -239,10 +240,14 @@ memory_add_cycling_event(Event *e, double priority, long currentTime)
 	return false;
 }
 
-
 void
-memory_process_new_belief_event(Event *event, long currentTime, double priority, double occurrenceTimeOffset, bool input,
-                                bool predicted, bool isImplication)
+memory_process_new_belief_event(Event *event,
+                                long currentTime,
+                                double priority,
+                                double occurrenceTimeOffset,
+                                bool input,
+                                bool predicted,
+                                bool isImplication)
 {
 	bool eternalInput = input && event->occurrenceTime == OCCURRENCE_ETERNAL;
 	Event eternal_event = *event;

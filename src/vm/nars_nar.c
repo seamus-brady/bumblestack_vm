@@ -215,14 +215,16 @@ nar_add_input_narsese(char *narsese_sentence)
 			{
 				printf(". creationTime=%ld ", answerCreationTime);
 				buffer_append(buf_output,
-				  io_answer_time_as_string(". creationTime=%ld ", answerCreationTime));
+				              io_answer_time_as_string(". creationTime=%ld ", answerCreationTime));
 			}
 			else
 			{
 				printf(". :|: occurrenceTime=%ld creationTime=%ld ", answerOccurrenceTime, answerCreationTime);
 				buffer_append(buf_output,
-				  io_answer_time_alt_as_string(
-				  	". :|: occurrenceTime=%ld creationTime=%ld ", answerOccurrenceTime, answerCreationTime));
+				              io_answer_time_alt_as_string(
+					              ". :|: occurrenceTime=%ld creationTime=%ld ",
+					              answerOccurrenceTime,
+					              answerCreationTime));
 			}
 			io_truth_print(&best_truth);
 			buffer_append(buf_output, io_truth_as_string(&best_truth));

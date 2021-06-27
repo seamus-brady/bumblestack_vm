@@ -119,10 +119,13 @@ io_process_input(char *input)
 		return io_handle_run_cycle(line);
 	}
 
-	if(!nar_validate_input_narsese(line)){
+	if (!nar_validate_input_narsese(line))
+	{
 		fflush(stdout);
 		return INPUT_CONTINUE_WITH_ERROR;
-	} else {
+	}
+	else
+	{
 		// last but not least, add input narsese
 		slog_info("Processing input narsese line: %s", line);
 		nar_add_input_narsese(line);
@@ -820,9 +823,9 @@ io_answer_time_as_string(char *fmt, long answerCreationTime)
 char *
 io_answer_time_alt_as_string(char *fmt, long answerOccurrenceTime, long answerCreationTime)
 {
-char *str = NULL;
-asprintf(&str, fmt, answerOccurrenceTime, answerCreationTime);
-return str;
+	char *str = NULL;
+	asprintf(&str, fmt, answerOccurrenceTime, answerCreationTime);
+	return str;
 }
 
 char *
