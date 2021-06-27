@@ -203,6 +203,7 @@ nar_add_input_narsese(char *narsese_sentence)
 
 		fputs("Answer: ", stdout);
 		buffer_t *buf_output = buffer_new();
+		buffer_append(buf_output, "Answer: ");
 		if (best_truth.confidence == 1.0)
 		{
 			puts("None.");
@@ -211,6 +212,7 @@ nar_add_input_narsese(char *narsese_sentence)
 		else
 		{
 			io_narsese_print_term(&best_term);
+			io_narsese_print_term_with_buffer(&best_term, buf_output);
 			if (answerOccurrenceTime == OCCURRENCE_ETERNAL)
 			{
 				printf(". creationTime=%ld ", answerCreationTime);

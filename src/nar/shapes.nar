@@ -1,0 +1,27 @@
+// Shape example
+verbose-mode off
+// SHAPE_1 is a RECTANGLE
+<{SHAPE_1} --> RECTANGLE>. :|:
+// SHAPE_1 is FILLED
+<{SHAPE_1} --> [FILLED]>. :|:
+// SHAPE_1 is left of SHAPE_2
+<({SHAPE_1} * {SHAPE_2}) --> LEFT_OF>. :|:
+//SHAPE_1 is above of SHAPE_3
+<({SHAPE_1} * {SHAPE_3}) --> ABOVE>. :|:
+// SHAPE_2 is a CIRCLE
+<{SHAPE_2} --> CIRCLE>. :|:
+// SHAPE_2 is UNFILLED
+<{SHAPE_2} --> [UNFILLED]>. :|:
+// SHAPE_2 is above SHAPE_3
+<({SHAPE_2} * {SHAPE_3}) --> ABOVE>. :|:
+// SHAPE_3 is a TRIANGLE
+<{SHAPE_3} --> TRIANGLE>. :|:
+// SHAPE_3 is UNFILLED
+<{SHAPE_3} --> [UNFILLED]>. :|:
+// SHAPE_3 is left of SHAPE_2
+<({SHAPE_3} * {SHAPE_2}) --> LEFT_OF>. :|:
+cycle 50
+// the FILLED RECTANGLE is left of what?
+<([FILLED] & RECTANGLE) --> (LEFT_OF /1 {?1})>? :|:
+
+//expected: Answer: <([FILLED] & RECTANGLE) --> (LEFT_OF /1 {SHAPE_2})>. :|:
