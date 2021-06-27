@@ -809,11 +809,28 @@ io_truth_print(Truth *truth)
 }
 
 char *
+io_answer_time_as_string(char *fmt, long answerCreationTime)
+{
+	char *str = NULL;
+	asprintf(&str, fmt, answerCreationTime);
+	return str;
+}
+
+char *
+io_answer_time_alt_as_string(char *fmt, long answerOccurrenceTime, long answerCreationTime)
+{
+char *str = NULL;
+asprintf(&str, fmt, answerOccurrenceTime, answerCreationTime);
+return str;
+}
+
+char *
 io_truth_as_string(Truth *truth)
 {
-	char *s;
-	sprintf(s, " truth=(frequency=%f, confidence=%f) \n", truth->frequency, truth->confidence);
-	return s;
+	char *str = NULL;
+	char *fmt = " truth=(frequency=%f, confidence=%f) \n";
+	asprintf(&str, fmt, truth->frequency, truth->confidence);
+	return str;
 }
 
 void

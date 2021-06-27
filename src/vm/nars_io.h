@@ -24,6 +24,7 @@
 #include "lib_wildcardcmp.h"
 #include "lib_trim.h"
 #include "nars_decision.h"
+#include "lib_asprintf.h"
 
 #define INPUT_CONTINUE 0
 #define INPUT_CONTINUE_WITH_ERROR 1
@@ -161,5 +162,11 @@ io_print_decision(Decision decision, Implication bestImp);
 //print usage
 void
 io_usage_print(Usage *usage);
+
+char *
+io_answer_time_as_string(char *fmt, long answerCreationTime);
+
+char *
+io_answer_time_alt_as_string(char *fmt, long answerOccurrenceTime, long answerCreationTime);
 
 #endif
