@@ -34,7 +34,7 @@
 //----------//
 #include <stdbool.h>
 #include <stdio.h>
-#include "nars_config.h"
+#include "app_config.h"
 
 //Data structure//
 //--------------//

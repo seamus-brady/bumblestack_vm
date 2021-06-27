@@ -21,6 +21,9 @@
 /* Anticipation parameters */
 /*-------------------------*/
 //Truth expectation needed for anticipation
+#include <stdbool.h>
+#include <string.h>
+#include <ctype.h>
 #define ANTICIPATION_THRESHOLD_INITIAL 0.501
 //Confidence of anticipation failures
 #define ANTICIPATION_CONFIDENCE_INITIAL 0.005
@@ -100,6 +103,8 @@
 #define NARSESE_LEN_MAX 256
 //Maximum size of script input in terms of characters
 #define SCRIPT_LEN_MAX 256
+// max number of lines in a provided script
+#define MAX_SCRIPT_FILE_LINES 600
 
 /*------------------*/
 /* Truth parameters */
@@ -118,8 +123,24 @@
 #define MAX_CONFIDENCE 0.99
 
 /*------------------*/
-/* Misc parameters */
+/* Runtime parameters */
 /*------------------*/
+
+// random seed
 #define SEED 42
+
+//Whether debug mode should be on
+#define DEBUG_MODE false
+
+//Whether asserts cause exits
+#define EXIT_ON_ASSERT_FAIL true
+
+//Whether control information should be printed - leave as debug mode for now
+#define PRINT_CONTROL_INFO DEBUG_MODE
+
+//Priority threshold for printing derivations  - leave as debug mode for now
+#define PRINT_DERIVATIONS_PRIORITY_THRESHOLD 0.0
+
+
 
 #endif

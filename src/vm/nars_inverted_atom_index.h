@@ -34,7 +34,7 @@
 //////////////
 #include "nars_concept.h"
 #include "nars_stack.h"
-#include "nars_config.h"
+#include "app_config.h"
 
 //Data structure//
 //--------------//

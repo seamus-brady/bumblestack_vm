@@ -37,7 +37,7 @@
 #include <stdio.h>
 #include "nars_term.h"
 #include "nars_globals.h"
-#include "nars_config.h"
+#include "app_config.h"
 #include "lib_buffer.h"
 
 //Data structure//

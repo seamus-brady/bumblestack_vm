@@ -24,6 +24,7 @@
 
 #include "nars_cycle.h"
 #include "nars_io.h"
+#include "app_config.h"
 
 static long conceptProcessID = 0; //avoids duplicate concept processing
 

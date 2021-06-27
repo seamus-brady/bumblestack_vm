@@ -21,8 +21,6 @@
 #include "lib_slog.h"
 #include "nars_io.h"
 #include "lib_commander.h"
-#include "lib_fs.h"
-#include "lib_strsplit.h"
 #include <emscripten.h>
 
 void

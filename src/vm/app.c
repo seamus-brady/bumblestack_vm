@@ -17,7 +17,7 @@
 bool g_start_repl = false;
 bool g_load_file = false;
 bool g_load_file_start_repl = false;
-buffer_t *g_start_file = NULL;
+buffer_t *g_start_file_buf = NULL;
 
 void
 app_system_init()
@@ -48,35 +48,16 @@ static void
 app_load_file_command(command_t *self)
 {
 	g_load_file = true;
-	g_start_file = buffer_new();
-	buffer_append(g_start_file, self->arg);
+	g_start_file_buf = buffer_new();
+	buffer_append(g_start_file_buf, self->arg);
 }
 
 static void
 app_load_file_repl_command(command_t *self)
 {
 	g_load_file_start_repl = true;
-	g_start_file = buffer_new();
-	buffer_append(g_start_file, self->arg);
-}
-
-bool
-app_file_exists(char *filename)
-{
-	return (fs_stat(filename) != NULL);
-}
-
-char *
-app_get_source_from_file(char *scriptFile)
-{
-	if (app_file_exists(scriptFile))
-	{
-		return fs_read(scriptFile);
-	}
-	else
-	{
-		slog_error("Bad file path provided!");
-	}
+	g_start_file_buf = buffer_new();
+	buffer_append(g_start_file_buf, self->arg);
 }
 
 int
@@ -101,24 +82,15 @@ main(int argc, char *argv[])
 	}
 	if (g_load_file)
 	{
-		slog_info("Loading data from file...");
-		char *mainSource = app_get_source_from_file(buffer_string(g_start_file));
-		char *lines[200];
-		size_t size = strsplit(mainSource, lines, "\n");
-		int i = 0;
-		for (; i < size; ++i) {
-			io_process_input( lines[i]);
-		}
+		app_run_script_file(g_start_file_buf);
 	}
 	if (g_load_file_start_repl)
 	{
-		slog_info("Loading data from file...");
-		// TODO impl data load
+		app_run_script_file(g_start_file_buf);
 		slog_info("Starting the BumbleStack repl...");
 		app_repl_main();
 		slog_info("BumbleStack exited.");
 	}
-
 	exit(0);
 }
 

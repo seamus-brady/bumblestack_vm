@@ -20,6 +20,9 @@
 
 #include "lib_slog.h"
 #include "lib_buffer.h"
+#include "lib_fs.h"
+#include "lib_strsplit.h"
+#include "nars_io.h"
 #include "nars_term.h"
 #include <emscripten.h>
 
@@ -31,5 +34,14 @@ app_handle_javascript_operation_action(char *term_string, char *script);
 
 void
 app_handle_javascript_output(char *output);
+
+bool
+app_file_exists(char *filename);
+
+char *
+app_get_source_from_file(char *scriptFile);
+
+void
+app_run_script_file(buffer_t *start_file_buf);
 
 #endif //BUMBLESTACK_SRC_VM_APP_SCRIPTS_H

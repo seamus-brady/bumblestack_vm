@@ -15,6 +15,7 @@
  */
 
 #include "nars_io.h"
+#include "app_config.h"
 
 bool diagnosticTestOperationRun = false;
 

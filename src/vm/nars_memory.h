@@ -36,7 +36,7 @@
 #include "nars_concept.h"
 #include "nars_inverted_atom_index.h"
 #include "nars_priority_queue.h"
-#include "nars_config.h"
+#include "app_config.h"
 #include "nars_hashtable.h"
 #include "nars_variable.h"
 

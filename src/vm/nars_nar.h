@@ -33,7 +33,7 @@
 //-----------//
 #include "nars_cycle.h"
 #include "nars_narsese.h"
-#include "nars_config.h"
+#include "app_config.h"
 
 //Parameters//
 //----------//

@@ -53,7 +53,7 @@ add_executable(bumblestack
         # nars modules
         src/vm/nars_common_structs.h
         src/vm/nars_concept.h
-        src/vm/nars_config.h
+        src/vm/app_config.h
         src/vm/nars_cycle.c
         src/vm/nars_cycle.h
         src/vm/nars_decision.c

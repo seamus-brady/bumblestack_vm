@@ -35,7 +35,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "nars_globals.h"
-#include "nars_config.h"
+#include "app_config.h"
 
 //Data structure//
 //--------------//

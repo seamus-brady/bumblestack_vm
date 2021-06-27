@@ -37,17 +37,6 @@
 
 //Macros//
 //////////
-//Whether debug mode should be on
-#define DEBUG_MODE false
-
-//Whether asserts cause exits
-#define EXIT_ON_ASSERT_FAIL true
-
-//Whether control information should be printed - leave as debug mode for now
-#define PRINT_CONTROL_INFO DEBUG_MODE
-
-//Priority threshold for printing derivations  - leave as debug mode for now
-#define PRINT_DERIVATIONS_PRIORITY_THRESHOLD 0.0
 
 //Debug macros, debug printing, ASSERT:
 #define IS_SYSTEM_IN_DEBUG_MODE(x) {if(DEBUG_MODE){ x } }

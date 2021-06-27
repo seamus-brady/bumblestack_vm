@@ -15,6 +15,7 @@
  */
 
 #include "unit_tests.h"
+#include "app_config.h"
 
 void
 setup_test_logging()

@@ -24,6 +24,7 @@
 
 #include "nars_memory.h"
 #include "nars_io.h"
+#include "app_config.h"
 
 //Concepts in main memory:
 PriorityQueue g_concepts;

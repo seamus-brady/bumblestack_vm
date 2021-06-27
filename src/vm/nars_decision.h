@@ -37,7 +37,7 @@
 #include "nars_common_structs.h"
 #include "nars_memory.h"
 #include "nars_nar.h"
-#include "nars_config.h"
+#include "app_config.h"
 #include "nars_io.h"
 #include "app_scripts.h"
 

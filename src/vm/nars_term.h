@@ -41,7 +41,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include "nars_truth.h"
-#include "nars_config.h"
+#include "app_config.h"
 #include <string.h>
 
 //Data structure//
