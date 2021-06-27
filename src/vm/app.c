@@ -61,6 +61,11 @@ app_load_file_repl_command(command_t *self)
 }
 
 int
+app_input(char *input){
+	return io_process_input(input);
+}
+
+int
 main(int argc, char *argv[])
 {
 	command_t cmd;

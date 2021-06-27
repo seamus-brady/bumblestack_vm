@@ -34,4 +34,8 @@ app_repl_main();
 int
 main(int argc, char *argv[]);
 
+// main input function
+int
+app_input(char *input);
+
 #endif

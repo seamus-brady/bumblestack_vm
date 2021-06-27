@@ -12,11 +12,11 @@ cd $EMSDK_ROOT
 cd ../..
 
 # create the wasm
-emcc $C_SRC_ROOT/*.c  -DWASM_ONLY_FUNCTIONALITY_ENABLED \
+emcc $C_SRC_ROOT/*.c  -DWASM_ONLY_FUNCTIONALITY_ENABLED -lidbfs.js \
 -s TOTAL_MEMORY=1024MB \
 -o $WASM_BUILD_ROOT/bumblevm.html \
 -s ERROR_ON_UNDEFINED_SYMBOLS=0 \
--s EXPORTED_FUNCTIONS="['_main']" \
+-s EXPORTED_FUNCTIONS="['_main', '_app_input']" \
 -s EXPORTED_RUNTIME_METHODS=["cwrap"] \
 -Oz --closure 1 \
 -v
