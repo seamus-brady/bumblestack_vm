@@ -1,4 +1,4 @@
-# bumblestack
+# BumbleStack NARS VM
 BumbleStack MVP
 
 ## Setup
