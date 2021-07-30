@@ -2,7 +2,7 @@
 BumbleStack MVP
 
 ## Setup
-- Install Emscripten SDK into ./lib/emsdk
+- TBD
 
 ## Libs
 
