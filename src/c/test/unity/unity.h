@@ -1,6 +1,6 @@
 /* ==========================================
     Unity Project - A Test Framework for C
-    Copyright (vm) 2007-21 Mike Karlesky, Mark VanderVoord, Greg Williams
+    Copyright (c) 2007-21 Mike Karlesky, Mark VanderVoord, Greg Williams
     [Released under MIT License. Please refer to license.txt for details]
 ========================================== */
 
@@ -120,7 +120,7 @@ verifyTest(void);
 #define TEST_PASS_MESSAGE(message)                                                                 do { UnityMessage((message), __LINE__); TEST_ABORT(); } while(0)
 
 /* This macro does nothing, but it is useful for build tools (like Ceedling) to make use of this to figure out
- * which files should be linked to in order to perform a test. Use it like TEST_FILE("sandwiches.vm") */
+ * which files should be linked to in order to perform a test. Use it like TEST_FILE("sandwiches.c") */
 #define TEST_FILE(a)
 
 /*-------------------------------------------------------

@@ -56,7 +56,7 @@ hashtable_set(HashTable *hashtable, void *key, void *value)
 			}
 		}
 	}
-	//Retrieve recycled VMItem from the stack and set its value to vm
+	//Retrieve recycled VMItem from the stack and set its value to c
 	VMItem *popped = stack_pop(&hashtable->VMStack);
 	popped->value = value;
 	popped->key = key;

@@ -192,15 +192,15 @@ test_memory(void)
 void
 test_inverted_atom_index(void)
 {
-	Term term = narsese_term("<a --> (b & vm)>");
+	Term term = narsese_term("<a --> (b & c)>");
 	Concept c = {.term = term};
 	inverted_atom_index_add_concept(term, &c);
 	TEST_ASSERT_TRUE_MESSAGE(g_invertedAtomIndex[narsese_atomic_term_index("a")]->c == &c,
 	                         "There was no concept reference added for key a!");
 	TEST_ASSERT_TRUE_MESSAGE(g_invertedAtomIndex[narsese_atomic_term_index("b")]->c == &c,
 	                         "There was no concept reference added for key b!");
-	TEST_ASSERT_TRUE_MESSAGE(g_invertedAtomIndex[narsese_atomic_term_index("vm")]->c == &c,
-	                         "There was no concept reference added for key vm!");
+	TEST_ASSERT_TRUE_MESSAGE(g_invertedAtomIndex[narsese_atomic_term_index("c")]->c == &c,
+	                         "There was no concept reference added for key c!");
 	TEST_ASSERT_TRUE_MESSAGE(g_invertedAtomIndex[narsese_atomic_term_index(":")] == NULL,
 	                         "There was a concept reference added for key inheritance!");
 	inverted_atom_index_remove_concept(term, &c);
@@ -208,8 +208,8 @@ test_inverted_atom_index(void)
 	                         "Concept reference was not removed for key a!");
 	TEST_ASSERT_TRUE_MESSAGE(g_invertedAtomIndex[narsese_atomic_term_index("b")] == NULL,
 	                         "Concept reference was not removed for key b!");
-	TEST_ASSERT_TRUE_MESSAGE(g_invertedAtomIndex[narsese_atomic_term_index("vm")] == NULL,
-	                         "Concept reference was not removed for key vm!");
+	TEST_ASSERT_TRUE_MESSAGE(g_invertedAtomIndex[narsese_atomic_term_index("c")] == NULL,
+	                         "Concept reference was not removed for key c!");
 	inverted_atom_index_add_concept(term, &c);
 	Term term2 = narsese_term("<b --> d>");
 	Concept c2 = {.term = term2};
@@ -218,8 +218,8 @@ test_inverted_atom_index(void)
 	                         "There was no concept reference added for key a! (2)");
 	TEST_ASSERT_TRUE_MESSAGE(g_invertedAtomIndex[narsese_atomic_term_index("b")]->c == &c,
 	                         "There was no concept reference added for key b! (2)");
-	TEST_ASSERT_TRUE_MESSAGE(g_invertedAtomIndex[narsese_atomic_term_index("vm")]->c == &c,
-	                         "There was no concept reference added for key vm! (2)");
+	TEST_ASSERT_TRUE_MESSAGE(g_invertedAtomIndex[narsese_atomic_term_index("c")]->c == &c,
+	                         "There was no concept reference added for key c! (2)");
 	TEST_ASSERT_TRUE_MESSAGE(
 		((ConceptChainElement *) g_invertedAtomIndex[narsese_atomic_term_index("b")]->next)->c == &c2,
 		"There was no concept2 reference added for key b! (2)");
@@ -232,15 +232,15 @@ test_inverted_atom_index(void)
 	                         "There was no concept2 reference remaining for key d! (3)");
 	TEST_ASSERT_TRUE_MESSAGE(g_invertedAtomIndex[narsese_atomic_term_index("a")] == NULL,
 	                         "Concept reference was not removed for key a! (3)");
-	TEST_ASSERT_TRUE_MESSAGE(g_invertedAtomIndex[narsese_atomic_term_index("vm")] == NULL,
-	                         "Concept reference was not removed for key vm! (3)");
+	TEST_ASSERT_TRUE_MESSAGE(g_invertedAtomIndex[narsese_atomic_term_index("c")] == NULL,
+	                         "Concept reference was not removed for key c! (3)");
 	inverted_atom_index_remove_concept(term2, &c2);
 	TEST_ASSERT_TRUE_MESSAGE(g_invertedAtomIndex[narsese_atomic_term_index("a")] == NULL,
 	                         "Concept reference was not removed for key a! (4)");
 	TEST_ASSERT_TRUE_MESSAGE(g_invertedAtomIndex[narsese_atomic_term_index("b")] == NULL,
 	                         "Concept reference was not removed for key b! (4)");
-	TEST_ASSERT_TRUE_MESSAGE(g_invertedAtomIndex[narsese_atomic_term_index("vm")] == NULL,
-	                         "Concept reference was not removed for key vm! (4)");
+	TEST_ASSERT_TRUE_MESSAGE(g_invertedAtomIndex[narsese_atomic_term_index("c")] == NULL,
+	                         "Concept reference was not removed for key c! (4)");
 	TEST_ASSERT_TRUE_MESSAGE(g_invertedAtomIndex[narsese_atomic_term_index("d")] == NULL,
 	                         "Concept reference was not removed for key d! (4)");
 }
@@ -331,7 +331,7 @@ test_hashtable()
 	TEST_ASSERT_TRUE_MESSAGE(term_equal(&c1.term, &c1_returned->term),
 	                         "Hashtable Get led to different term than we put into (1)");
 	//insert another with the same hash:
-	Term term2 = narsese_term("<vm --> d>");
+	Term term2 = narsese_term("<c --> d>");
 	term2.hash = c1.term.hash;
 	Concept c2 = {.id = 2, .term = term2}; //use different term but same hash, hash collision!
 	hashtable_set(&HTtest, &term2, &c2);

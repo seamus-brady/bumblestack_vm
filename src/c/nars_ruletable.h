@@ -28,7 +28,7 @@
 /////////////////
 //  RuleTable  //
 /////////////////
-//The rule table which .vm is generated ITEM_AT compile time
+//The rule table which .c is generated ITEM_AT compile time
 //by nal_generate_rule_table
 
 //References//

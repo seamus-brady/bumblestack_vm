@@ -16,7 +16,7 @@
 
 #include <stdlib.h>
 #include "../nars_ruletable.h"
-// the old 'ruletable.vm' file is included to stop build errors
+// the old 'ruletable.c' file is included to stop build errors
 #include "../nars_ruletable.c"
 #include "../nars_fifo.h"
 #include "../nars_fifo.c"

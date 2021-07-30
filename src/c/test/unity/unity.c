@@ -1,6 +1,6 @@
 /* =========================================================================
     Unity Project - A Test Framework for C
-    Copyright (vm) 2007-21 Mike Karlesky, Mark VanderVoord, Greg Williams
+    Copyright (c) 2007-21 Mike Karlesky, Mark VanderVoord, Greg Williams
     [Released under MIT License. Please refer to license.txt for details]
 ============================================================================ */
 
@@ -1757,7 +1757,7 @@ static void UnityPrintFVA(const char* format, va_list va)
 								UnityPrintNumberHex((UNITY_UINT)number, 8);
 								break;
 							}
-						case 'vm':
+						case 'c':
 							{
 								const int ch = va_arg(va, int);
 								UnityPrintChar((const char *)&ch);

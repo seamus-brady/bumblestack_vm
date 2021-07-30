@@ -65,7 +65,7 @@ inverted_atom_index_add_concept(Term term, Concept *c)
 			}
 			else
 			{
-				//search for vm:
+				//search for c:
 				ConceptChainElement *previous = NULL;
 				while (elem != NULL)
 				{
@@ -98,7 +98,7 @@ inverted_atom_index_remove_concept(Term term, Concept *c)
 			ConceptChainElement *elem = g_invertedAtomIndex[atom];
 			while (elem != NULL)
 			{
-				if (elem->c == c) //we found vm in the chain, remove it
+				if (elem->c == c) //we found c in the chain, remove it
 				{
 					if (previous == NULL) //item was the initial chain element, let the next element be the initial now
 					{
