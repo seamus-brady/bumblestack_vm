@@ -21,14 +21,9 @@
 #include "lib_slog.h"
 #include "nars_io.h"
 #include "lib_commander.h"
-#include <emscripten.h>
 
 void
 app_system_init();
-
-// emscripten needs this here :)
-int
-app_repl_main();
 
 // entry point for cli app
 int

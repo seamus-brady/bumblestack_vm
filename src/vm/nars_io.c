@@ -292,7 +292,6 @@ io_run_diagnostics(void)
 	io_run_ruletable_diagnostic();
 	io_run_operation_diagnostic();
 	slog_info("Completed diagnostic tests...");
-	app_handle_javascript_output("Completed diagnostic tests...");
 }
 
 void

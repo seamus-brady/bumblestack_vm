@@ -24,16 +24,9 @@
 #include "lib_strsplit.h"
 #include "nars_io.h"
 #include "nars_term.h"
-#include <emscripten.h>
 
 void
 app_handle_operation_action(char *operation_script, char *String);
-
-void
-app_handle_javascript_operation_action(char *term_string, char *script);
-
-void
-app_handle_javascript_output(char *output);
 
 bool
 app_file_exists(char *filename);

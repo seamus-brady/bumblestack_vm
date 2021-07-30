@@ -22,9 +22,6 @@ include_directories(src/vm/system_tests)
 include_directories(src/vm/unit_tests)
 include_directories(src/vm/test)
 include_directories(src/vm/test)
-include_directories(lib/emsdk/upstream/emscripten/system)
-include_directories(lib/emsdk/upstream/emscripten/system/include)
-include_directories(lib/emsdk/upstream/emscripten/system/lib)
 
 ######################################################################################################################
 ### target for unit tests

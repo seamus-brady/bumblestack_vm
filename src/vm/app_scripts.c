@@ -30,41 +30,6 @@ app_handle_operation_action(char *term_string, char *script)
 	slog_action(script);
 }
 
-void
-app_handle_javascript_operation_action(char *term_string, char *script)
-{
-#ifdef WASM_ONLY_FUNCTIONALITY_ENABLED
-	// build a string
-	buffer_t *buf_action = buffer_new();
-	buffer_append(buf_action, JAVASCRIPT_ACTION_HANDLER);
-	buffer_append(buf_action, "('");
-	buffer_append(buf_action, script);
-	buffer_append(buf_action, "');");
-	slog_info("Calling JavaScript action handler with '%s'", buffer_string(buf_action));
-	// run a script in wasm
-	emscripten_run_script(buffer_string(buf_action));
-	buffer_free(buf_action);
-#endif
-}
-
-void
-app_handle_javascript_output(char *output)
-{
-#ifdef WASM_ONLY_FUNCTIONALITY_ENABLED
-	// get rid of newlines!
-	chomp(output);
-	// build a string
-	buffer_t *buf_output = buffer_new();
-	buffer_append(buf_output, JAVASCRIPT_OUTPUT_HANDLER);
-	buffer_append(buf_output, "(\"");
-	buffer_append(buf_output, output);
-	buffer_append(buf_output, "\");");
-	slog_info("Calling JavaScript output handler with '%s'", buffer_string(buf_output));
-	// run a script in wasm
-	emscripten_run_script(buffer_string(buf_output));
-	buffer_free(buf_output);
-#endif
-}
 
 bool
 app_file_exists(char *filename)

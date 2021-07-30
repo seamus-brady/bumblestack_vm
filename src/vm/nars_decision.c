@@ -59,8 +59,6 @@ decision_execute(Decision *decision)
 		{
 			// run the script event by outputting the appropriate string
 			app_handle_operation_action(decision->op.term_string, decision->op.script);
-			// call the javascript handler
-			app_handle_javascript_operation_action(decision->op.term_string, decision->op.script);
 		}
 	}
 	// the original action handler, for unit tests now
