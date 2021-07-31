@@ -33,12 +33,12 @@
 
 //References//
 //----------//
-#include <string.h>
-#include <stdio.h>
-#include "nars_term.h"
-#include "nars_globals.h"
 #include "app_config.h"
-#include "lib_buffer.h"
+#include "lib/lib_buffer.h"
+#include "nars_globals.h"
+#include "nars_term.h"
+#include <stdio.h>
+#include <string.h>
 
 //Data structure//
 //--------------//

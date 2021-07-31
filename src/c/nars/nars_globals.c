@@ -23,8 +23,8 @@
  */
 
 #include "nars_globals.h"
-#include "lib_slog.h"
 #include "app_config.h"
+#include "lib/lib_slog.h"
 #include <stdlib.h>
 
 void

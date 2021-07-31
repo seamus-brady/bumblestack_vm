@@ -23,7 +23,7 @@
  */
 
 #include "nars_nar.h"
-#include "lib_slog.h"
+#include "lib/lib_slog.h"
 #include "nars_io.h"
 
 long g_currentTime = 1;

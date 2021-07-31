@@ -15,26 +15,14 @@
 #ifndef BUMBLESTACK_SRC_VM_APP_SCRIPTS_H
 #define BUMBLESTACK_SRC_VM_APP_SCRIPTS_H
 
-#define JAVASCRIPT_ACTION_HANDLER "bumblevm_action_handler"
-#define JAVASCRIPT_OUTPUT_HANDLER "bumblevm_output_handler"
-
-#include "lib_slog.h"
-#include "lib_buffer.h"
-#include "lib_fs.h"
-#include "lib_strsplit.h"
-#include "nars_io.h"
-#include "nars_term.h"
+#include "lib/lib_buffer.h"
+#include "lib/lib_fs.h"
+#include "lib/lib_slog.h"
+#include "lib/lib_strsplit.h"
+#include "nars/nars_io.h"
+#include "nars/nars_term.h"
 
 void
 app_handle_operation_action(char *operation_script, char *String);
-
-bool
-app_file_exists(char *filename);
-
-char *
-app_get_source_from_file(char *scriptFile);
-
-void
-app_run_script_file(buffer_t *start_file_buf);
 
 #endif //BUMBLESTACK_SRC_VM_APP_SCRIPTS_H

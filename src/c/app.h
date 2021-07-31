@@ -15,23 +15,25 @@
 
 #ifndef H_APP
 #define H_APP
+#include "lib/lib_slog.h"
+#include "nars/nars_io.h"
+#include "nars/nars_nar.h"
 #include <stdbool.h>
 #include <stdlib.h>
-#include "nars_nar.h"
-#include "lib_slog.h"
-#include "nars_io.h"
-#include "lib_commander.h"
-#include "app_repl.h"
 
 void
 app_system_init();
 
-// entry point for cli app
+// entry point for lib
+void
+initialise_bumble();
+
+// exit point for lib
 int
-main(int argc, char *argv[]);
+quit_bumble();
 
 // main input function
 int
-app_input(char *input);
+app_input(char *input, void (*ptr)());
 
 #endif
