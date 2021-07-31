@@ -291,6 +291,8 @@ slog_display_heap(SLOG_FLAGS_E eFlag, uint8_t nNewLine, const char *pMsg, va_lis
 	slog_create_output(pOutput, nBytes, pInput, eFlag);
 	slog_display_output(pOutput, nNewLine);
 
+	// pass the callback
+
 	free(pOutput);
 	free(pInput);
 }

@@ -20,13 +20,14 @@
 #include "nars/nars_nar.h"
 #include <stdbool.h>
 #include <stdlib.h>
+#include "nars/nars_globals.h"
 
 void
 app_system_init();
 
 // entry point for lib
 void
-initialise_bumble();
+initialise_bumble(void (*callback)(), int max_concepts, int max_atoms);
 
 // exit point for lib
 int
@@ -34,6 +35,6 @@ quit_bumble();
 
 // main input function
 int
-app_input(char *input, void (*ptr)());
+app_input(char *input);
 
 #endif

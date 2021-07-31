@@ -22,7 +22,7 @@ void chomp(char *s) {
 }
 
 void
-app_handle_operation_action(char *term_string, char *script)
+app_handle_operation_action(char *term_string, Term arguments, char *script)
 {
 	slog_info("Running operation defined by term: %s", term_string);
 	slog_info("Operation has a script attached: %s", script);

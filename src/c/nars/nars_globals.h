@@ -35,6 +35,20 @@
 #include <string.h>
 #include <ctype.h>
 
+
+// global callback function
+typedef void (*Callback)(char *output);
+// global context struct
+typedef struct
+{
+	int max_concepts;
+	int max_atoms;
+	Callback callback;
+} Context;
+
+// global app context
+Context g_context;
+
 //Macros//
 //////////
 

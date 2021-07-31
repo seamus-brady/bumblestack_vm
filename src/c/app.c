@@ -14,7 +14,6 @@
  */
 #include "app.h"
 
-
 void
 app_system_init()
 {
@@ -36,14 +35,17 @@ app_system_init()
 
 
 int
-app_input(char *input, void (*ptr)()){
-	(*ptr)();   //calling the callback function
+app_input(char *input){
+	g_context.callback(input);
 	return io_process_input(input);
 }
 
 void
-initialise_bumble()
+initialise_bumble(void (*callback)(), int max_concepts, int max_atoms)
 {
+	g_context.callback = callback;
+	g_context.max_concepts = max_concepts;
+	g_context.max_atoms = max_atoms;
 	// boot the system
 	app_system_init();
 }

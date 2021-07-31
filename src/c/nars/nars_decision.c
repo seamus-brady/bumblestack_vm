@@ -58,7 +58,7 @@ decision_execute(Decision *decision)
 		if (decision->op.term_string != NULL && strcmp(decision->op.term_string, "") != 0)
 		{
 			// run the script event by outputting the appropriate string
-			app_handle_operation_action(decision->op.term_string, decision->op.script);
+			app_handle_operation_action(decision->op.term_string, decision->arguments, decision->op.script);
 		}
 	}
 	// the original action handler, for unit tests now

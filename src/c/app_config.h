@@ -101,10 +101,6 @@
 #define ATOMIC_TERM_LEN_MAX 32
 //Maximum size of Narsese input in terms of characters
 #define NARSESE_LEN_MAX 256
-//Maximum size of script input in terms of characters
-#define SCRIPT_LEN_MAX 256
-// max number of lines in a provided script
-#define MAX_SCRIPT_FILE_LINES 600
 
 /*------------------*/
 /* Truth parameters */
