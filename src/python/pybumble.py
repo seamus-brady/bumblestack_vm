@@ -46,10 +46,11 @@ class PyBumble:
             MAX_ATOMS)
 
     def run_bumble(self):
-        input_string = ctypes.create_string_buffer(str.encode("verbose-mode on"))
-        self.bumble.app_input(input_string)
-        input_string = ctypes.create_string_buffer(str.encode("<{SHAPE_1} --> RECTANGLE>. :|:"))
-        self.bumble.app_input(input_string)
+        nar_file = open('/home/seamus/GitHub/bumblestack-repos/bumblestack_vm/src/nar/marshmallow.nar', 'r')
+        lines = nar_file.readlines()
+        for line in lines:
+            input_string = ctypes.create_string_buffer(str.encode(line.strip()))
+            self.bumble.app_input(input_string)
         self.bumble.quit_bumble()
 
 
