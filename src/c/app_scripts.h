@@ -23,6 +23,6 @@
 #include "nars/nars_term.h"
 
 void
-app_handle_operation_action(char *operation_script, Term arguments, char *String);
+app_handle_operation_action(char *op, Term arguments);
 
 #endif //BUMBLESTACK_SRC_VM_APP_SCRIPTS_H

@@ -32,13 +32,20 @@ def logging_callback(returned_c_str):
 
 @ctypes.CFUNCTYPE(None, ctypes.c_char_p)
 def action_callback(returned_c_str):
-    print("ACTION: " + returned_c_str.decode("utf-8"))
+    try:
+        returned_str = str(returned_c_str.decode("utf-8")).strip()
+        print("ACTION: " + returned_str)
+    except:
+        pass
 
 
 @ctypes.CFUNCTYPE(None, ctypes.c_char_p)
 def answer_callback(returned_c_str):
-    print("ANSWER: " + returned_c_str.decode("utf-8"))
-
+    try:
+        returned_str = str(returned_c_str.decode("utf-8")).strip()
+        print("ANSWER: " + returned_str)
+    except:
+        pass
 
 class PyBumble:
 

@@ -67,7 +67,7 @@ nar_add_input_goal(Term term);
 
 //Add an operation
 void
-nar_add_operation(Term term, Action procedure, char *script_source);
+nar_add_operation(Term term, Action procedure, char *name);
 
 //Add an Narsese sentence:
 void

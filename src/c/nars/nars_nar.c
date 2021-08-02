@@ -83,14 +83,14 @@ nar_add_input_goal(Term term)
 }
 
 void
-nar_add_operation(Term term, Action procedure, char *script_source)
+nar_add_operation(Term term, Action procedure, char *name)
 {
 	ASSERT(nar_initialized, "NAR g_narseseInitialized is false, call nar_init first!");
 	char *term_name = g_narsese_atomNames[(int) term.atoms[0] - 1];
 	ASSERT(term_name[0] == '^', "This atom does not belong to an operator!");
 	ASSERT(narsese_operator_index(term_name) <= OPERATIONS_MAX, "Too many operators, increase OPERATIONS_MAX!");
 	g_operations[narsese_operator_index(term_name) - 1] =
-		(Operation) {.term = term, .term_string = term_name, .action = procedure, .script = script_source};
+		(Operation) {.term = term, .action = procedure, .name = name};
 }
 
 bool
@@ -232,7 +232,9 @@ nar_add_input_narsese(char *narsese_sentence)
 			buffer_append(buf_output, io_truth_as_string(&best_truth));
 		}
 		// call answer callback function
-		g_context.answer_callback(buffer_string(buf_output));
+		if(g_context.answer_callback != NULL){
+			g_context.answer_callback(buffer_string(buf_output));
+		}
 		buffer_free(buf_output);
 		fflush(stdout);
 	}

@@ -1,4 +1,5 @@
 add-operation ^say SAY
+add-operation ^go GO
 <corridor --> in>. :|:
 <({SELF} * kitchen) --> ^go>. :|:
 <({cat} * kitchen) --> in>. :|:

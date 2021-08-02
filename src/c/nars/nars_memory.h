@@ -58,9 +58,8 @@ typedef void (*Action)(Term);
 typedef struct
 {
 	Term term;
-	char *term_string;
 	Action action;
-	char *script;
+	char *name;
 } Operation;
 
 extern bool g_ontologyHandling;

@@ -22,14 +22,19 @@ void chomp(char *s) {
 }
 
 void
-app_handle_operation_action(char *op, Term arguments)
+app_handle_operation_action(char *op_name, Term arguments)
 {
-	slog_info("Running operation defined by op: %s", op);
+	if(op_name == NULL){
+		op_name = "";
+	}
+	slog_info("Running operation defined by op: %s", op_name);
 	// call action callback function
 	buffer_t *buf = buffer_new();
-	buffer_append(buf, op);
+	buffer_append(buf, op_name);
 	buffer_append(buf, "; ");
 	io_narsese_print_term_with_buffer(&arguments, buf);
-	g_context.action_callback(buffer_string(buf));
+	if(g_context.action_callback != NULL){
+		g_context.action_callback(buffer_string(buf));
+	}
 }
 

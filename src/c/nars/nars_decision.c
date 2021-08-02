@@ -52,15 +52,8 @@ decision_execute(Decision *decision)
 		}
 		feedback = operation;
 	}
-	// run an operation or script
-	if (decision->op.script != NULL && strcmp(decision->op.script, "") != 0)
-	{
-		if (decision->op.term_string != NULL && strcmp(decision->op.term_string, "") != 0)
-		{
-			// run the script event by outputting the appropriate string
-			app_handle_operation_action(decision->op.term_string, decision->arguments, decision->op.script);
-		}
-	}
+	// callback handler for actions
+	app_handle_operation_action((char *) decision->op.name, decision->arguments);
 	// the original action handler, for unit tests now
 	if (decision->op.action != NULL)
 	{

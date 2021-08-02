@@ -260,7 +260,9 @@ slog_create_output(char *pOut, size_t nSize, const char *pStr, SLOG_FLAGS_E eFla
 		snprintf(pOut, nSize, "%s%s%s%s%s%s", pColor, sTid, sDate, sTag, pStr, SLOG_CLR_RESET);
 
 	// call logging callback function
-	g_context.logging_callback(pOut);
+	if(g_context.logging_callback != NULL){
+		g_context.logging_callback(pOut);
+	}
 }
 
 static void
