@@ -37,11 +37,29 @@ setup_test_logging()
 }
 
 void
+logging_callback(char *incoming_str){
+	printf("%s", incoming_str);
+}
+
+void
+action_callback(char *incoming_str){
+	printf("%s", incoming_str);
+}
+
+void
+answer_callback(char *incoming_str){
+	printf("%s", incoming_str);
+}
+
+void
 setUp(void)
 {
 	// set stuff up here
 	setup_test_logging();
 	globals_sys_rand(42);
+	g_context.logging_callback = logging_callback;
+	g_context.action_callback = action_callback;
+	g_context.answer_callback = answer_callback;
 	nar_init();
 }
 
@@ -532,9 +550,9 @@ test_sequences()
 {
 	nar_init();
 	MOTOR_BABBLING_CHANCE = 0;
-	nar_add_operation(narsese_atomic_term("^1"), op_1, NULL);
-	nar_add_operation(narsese_atomic_term("^2"), op_2, NULL);
-	nar_add_operation(narsese_atomic_term("^3"), op_3, NULL);
+	nar_add_operation(narsese_atomic_term("^1"), op_1, "op1");
+	nar_add_operation(narsese_atomic_term("^2"), op_2, "op2");
+	nar_add_operation(narsese_atomic_term("^3"), op_3, "op3");
 	for (int i = 0; i < 5; i++)
 	{
 		nar_add_input_Belief(narsese_atomic_term("a")); //0 2 4 5
