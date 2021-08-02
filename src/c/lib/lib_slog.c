@@ -40,6 +40,7 @@
 #if !defined(DARWIN) && !defined(WIN32)
 #include <syscall.h>
 #endif
+#include <nars/nars_globals.h>
 #include <sys/time.h>
 
 #ifndef PTHREAD_MUTEX_RECURSIVE
@@ -257,6 +258,9 @@ slog_create_output(char *pOut, size_t nSize, const char *pStr, SLOG_FLAGS_E eFla
 		snprintf(pOut, nSize, "%s%s%s%s", sTid, sDate, sTag, pStr);
 	else
 		snprintf(pOut, nSize, "%s%s%s%s%s%s", pColor, sTid, sDate, sTag, pStr, SLOG_CLR_RESET);
+
+	// call logging callback function
+	g_context.logging_callback(pOut);
 }
 
 static void

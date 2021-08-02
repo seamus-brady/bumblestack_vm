@@ -231,6 +231,8 @@ nar_add_input_narsese(char *narsese_sentence)
 			io_truth_print(&best_truth);
 			buffer_append(buf_output, io_truth_as_string(&best_truth));
 		}
+		// call answer callback function
+		g_context.answer_callback(buffer_string(buf_output));
 		buffer_free(buf_output);
 		fflush(stdout);
 	}

@@ -13,6 +13,7 @@
 
 
 import ctypes
+import itertools
 
 MAX_CONCEPTS = 65536
 MAX_ATOMS = 16384
@@ -21,7 +22,12 @@ LIB_BUMBLESTACK = './libbumblestack.so'
 
 @ctypes.CFUNCTYPE(None, ctypes.c_char_p)
 def logging_callback(returned_c_str):
-    print("LOG: " + returned_c_str.decode("utf-8"))
+    # try printing in utf-8, otherwise latin-1
+    try:
+        returned_str = str(returned_c_str.decode("utf-8")).strip()
+        print("LOG: " + returned_str)
+    except:
+       pass
 
 
 @ctypes.CFUNCTYPE(None, ctypes.c_char_p)
@@ -46,7 +52,7 @@ class PyBumble:
             MAX_ATOMS)
 
     def run_bumble(self):
-        nar_file = open('/home/seamus/GitHub/bumblestack-repos/bumblestack_vm/src/nar/marshmallow.nar', 'r')
+        nar_file = open('/home/seamus/GitHub/bumblestack-repos/bumblestack_vm/src/nal/cat.nal', 'r')
         lines = nar_file.readlines()
         for line in lines:
             input_string = ctypes.create_string_buffer(str.encode(line.strip()))

@@ -22,11 +22,14 @@ void chomp(char *s) {
 }
 
 void
-app_handle_operation_action(char *term_string, Term arguments, char *script)
+app_handle_operation_action(char *op, Term arguments)
 {
-	slog_info("Running operation defined by term: %s", term_string);
-	slog_info("Operation has a script attached: %s", script);
-	// the output below can be picked up by an external script
-	slog_action(script);
+	slog_info("Running operation defined by op: %s", op);
+	// call action callback function
+	buffer_t *buf = buffer_new();
+	buffer_append(buf, op);
+	buffer_append(buf, "; ");
+	io_narsese_print_term_with_buffer(&arguments, buf);
+	g_context.action_callback(buffer_string(buf));
 }
 

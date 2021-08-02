@@ -37,7 +37,7 @@
 
 
 // global callback function
-typedef void (*Callback)(char *output);
+typedef void (*Callback)(char *output[250]);
 // global context struct
 typedef struct
 {

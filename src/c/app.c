@@ -36,9 +36,6 @@ app_system_init()
 
 int
 app_input(char *input){
-	g_context.logging_callback(input);
-	g_context.action_callback(input);
-	g_context.answer_callback(input);
 	return io_process_input(input);
 }
 
