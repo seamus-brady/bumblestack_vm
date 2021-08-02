@@ -27,7 +27,12 @@ app_system_init();
 
 // entry point for lib
 void
-initialise_bumble(void (*callback)(), int max_concepts, int max_atoms);
+initialise_bumble(
+    void (*logging_callback)(),
+    void (*action_callback)(),
+    void (*answer_callback)(),
+    int max_concepts,
+    int max_atoms);
 
 // exit point for lib
 int

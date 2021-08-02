@@ -36,14 +36,23 @@ app_system_init()
 
 int
 app_input(char *input){
-	g_context.callback(input);
+	g_context.logging_callback(input);
+	g_context.action_callback(input);
+	g_context.answer_callback(input);
 	return io_process_input(input);
 }
 
 void
-initialise_bumble(void (*callback)(), int max_concepts, int max_atoms)
+initialise_bumble(
+    void (*logging_callback)(),
+    void (*action_callback)(),
+    void (*answer_callback)(),
+    int max_concepts,
+    int max_atoms)
 {
-	g_context.callback = callback;
+	g_context.logging_callback = logging_callback;
+	g_context.action_callback = action_callback;
+	g_context.answer_callback = answer_callback;
 	g_context.max_concepts = max_concepts;
 	g_context.max_atoms = max_atoms;
 	// boot the system

@@ -16,19 +16,34 @@ import ctypes
 
 MAX_CONCEPTS = 65536
 MAX_ATOMS = 16384
-LIB_BUMBLESTACK = "/home/seamus/GitHub/bumblestack-repos/bumblestack_vm/cmake-build-debug/libbumblestack.so"
+LIB_BUMBLESTACK = './libbumblestack.so'
 
 
 @ctypes.CFUNCTYPE(None, ctypes.c_char_p)
-def callback(returned_c_str):
-    print(returned_c_str.decode("utf-8"))
+def logging_callback(returned_c_str):
+    print("LOG: " + returned_c_str.decode("utf-8"))
+
+
+@ctypes.CFUNCTYPE(None, ctypes.c_char_p)
+def action_callback(returned_c_str):
+    print("ACTION: " + returned_c_str.decode("utf-8"))
+
+
+@ctypes.CFUNCTYPE(None, ctypes.c_char_p)
+def answer_callback(returned_c_str):
+    print("ANSWER: " + returned_c_str.decode("utf-8"))
 
 
 class PyBumble:
 
     def __init__(self):
         self.bumble = ctypes.CDLL(LIB_BUMBLESTACK)
-        self.bumble.initialise_bumble(callback, MAX_CONCEPTS, MAX_ATOMS)
+        self.bumble.initialise_bumble(
+            logging_callback,
+            action_callback,
+            answer_callback,
+            MAX_CONCEPTS,
+            MAX_ATOMS)
 
     def run_bumble(self):
         input_string = ctypes.create_string_buffer(str.encode("verbose-mode on"))

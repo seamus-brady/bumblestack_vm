@@ -43,7 +43,9 @@ typedef struct
 {
 	int max_concepts;
 	int max_atoms;
-	Callback callback;
+	Callback logging_callback;
+	Callback action_callback;
+	Callback answer_callback;
 } Context;
 
 // global app context
