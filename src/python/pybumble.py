@@ -59,7 +59,7 @@ class PyBumble:
             MAX_ATOMS)
 
     def run_bumble(self):
-        nar_file = open('/home/seamus/GitHub/bumblestack-repos/bumblestack_vm/src/nal/cat.nal', 'r')
+        nar_file = open('/home/seamus/GitHub/bumblestack-repos/bumblestack_vm/src/nal/marshmallow.nal', 'r')
         lines = nar_file.readlines()
         for line in lines:
             input_string = ctypes.create_string_buffer(str.encode(line.strip()))
