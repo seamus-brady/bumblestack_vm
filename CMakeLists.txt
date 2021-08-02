@@ -115,6 +115,7 @@ add_library(bumblestack SHARED
 set_target_properties(bumblestack
         PROPERTIES
         LINKER_LANGUAGE C)
+
 target_link_libraries(bumblestack m)
 
 ######################################################################################################################
