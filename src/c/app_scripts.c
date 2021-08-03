@@ -15,26 +15,18 @@
 #include "app_scripts.h"
 
 // gets rid of newlines
-void chomp(char *s) {
-	int len = strlen(s);
-	if( s[len-1] == '\n' )
-		s[len-1] = 0;
-}
 
 void
-app_handle_operation_action(char *op_name, Term arguments)
+app_handle_operation_action(Decision *decision)
 {
-	if(op_name == NULL){
-		op_name = "";
-	}
-	slog_info("Running operation defined by op: %s", op_name);
-	// call action callback function
-	buffer_t *buf = buffer_new();
-	buffer_append(buf, op_name);
-	buffer_append(buf, "; ");
-	io_narsese_print_term_with_buffer(&arguments, buf);
-	if(g_context.action_callback != NULL){
-		g_context.action_callback(buffer_string(buf));
+	if (decision != NULL) {
+		slog_info("Running operation");
+		// call action callback function
+		buffer_t *buf = buffer_new();
+		io_narsese_print_term_with_buffer(&decision->arguments, buf);
+		if (decision->op.action != NULL) {
+			decision->op.action(buffer_string(buf));
+		}
 	}
 }
 

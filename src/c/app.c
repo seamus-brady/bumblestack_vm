@@ -35,20 +35,18 @@ app_system_init()
 
 
 int
-app_input(char *input){
+app_add_input(char *input){
 	return io_process_input(input);
 }
 
 void
-initialise_bumble(
+app_init_bumble(
     void (*logging_callback)(),
-    void (*action_callback)(),
     void (*answer_callback)(),
     int max_concepts,
     int max_atoms)
 {
 	g_context.logging_callback = logging_callback;
-	g_context.action_callback = action_callback;
 	g_context.answer_callback = answer_callback;
 	g_context.max_concepts = max_concepts;
 	g_context.max_atoms = max_atoms;
@@ -57,11 +55,15 @@ initialise_bumble(
 }
 
 int
-quit_bumble()
+app_quit_bumble()
 {
 	slog_info("System exiting.");
 	exit(0);
 }
 
+void
+app_add_operation(char *term_string, Action *action){
+	io_handle_add_operation(term_string, (Action) action);
+}
 
 

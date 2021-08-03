@@ -83,14 +83,14 @@ nar_add_input_goal(Term term)
 }
 
 void
-nar_add_operation(Term term, Action procedure, char *name)
+nar_add_operation(Term term, Action procedure)
 {
 	ASSERT(nar_initialized, "NAR g_narseseInitialized is false, call nar_init first!");
 	char *term_name = g_narsese_atomNames[(int) term.atoms[0] - 1];
 	ASSERT(term_name[0] == '^', "This atom does not belong to an operator!");
 	ASSERT(narsese_operator_index(term_name) <= OPERATIONS_MAX, "Too many operators, increase OPERATIONS_MAX!");
 	g_operations[narsese_operator_index(term_name) - 1] =
-		(Operation) {.term = term, .action = procedure, .name = name};
+		(Operation) {.term = term, .action = procedure};
 }
 
 bool

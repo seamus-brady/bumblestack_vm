@@ -27,19 +27,22 @@ app_system_init();
 
 // entry point for lib
 void
-initialise_bumble(
+app_init_bumble(
     void (*logging_callback)(),
-    void (*action_callback)(),
     void (*answer_callback)(),
     int max_concepts,
     int max_atoms);
 
 // exit point for lib
 int
-quit_bumble();
+app_quit_bumble();
 
 // main input function
 int
-app_input(char *input);
+app_add_input(char *input);
+
+// main add operation function
+void
+app_add_operation(char *term_string, Action *action);
 
 #endif

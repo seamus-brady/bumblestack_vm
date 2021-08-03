@@ -1,8 +1,6 @@
 // marshmallow example
 motorbabble off
 verbose-mode off
-add-operation ^eat EAT
-add-operation ^leave LEAVE
 
 // Training example1: System getting a bit of immediate repletion from eating the marshmallow
 marshmallow1. :|:

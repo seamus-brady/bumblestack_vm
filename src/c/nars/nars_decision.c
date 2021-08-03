@@ -53,11 +53,11 @@ decision_execute(Decision *decision)
 		feedback = operation;
 	}
 	// callback handler for actions
-	app_handle_operation_action((char *) decision->op.name, decision->arguments);
+	app_handle_operation_action(decision);
 	// the original action handler, for unit tests now
 	if (decision->op.action != NULL)
 	{
-		(*decision->op.action)(decision->arguments);
+		(*decision->op.action)(NULL);
 	}
 	nar_add_input_Belief(feedback);
 }

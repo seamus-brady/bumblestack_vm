@@ -59,7 +59,7 @@ int
 io_handle_run_cycle(const char *line);
 
 int
-io_handle_add_operation(const char *line);
+io_handle_add_operation(char *term_string, Action action);
 
 int
 io_handle_run_cycle(const char *line);

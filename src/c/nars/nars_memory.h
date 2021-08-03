@@ -54,12 +54,11 @@ extern double g_conceptPriorityThreshold;
 
 //Data structure//
 //--------------//
-typedef void (*Action)(Term);
+typedef void (*Action)(char *term_string);
 typedef struct
 {
 	Term term;
 	Action action;
-	char *name;
 } Operation;
 
 extern bool g_ontologyHandling;

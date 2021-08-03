@@ -31,10 +31,18 @@ def logging_callback(returned_c_str):
 
 
 @ctypes.CFUNCTYPE(None, ctypes.c_char_p)
-def action_callback(returned_c_str):
+def eat(returned_c_str):
     try:
         returned_str = str(returned_c_str.decode("utf-8")).strip()
-        print("ACTION: " + returned_str)
+        print("LEAVE ACTION: " + returned_str)
+    except:
+        pass
+
+@ctypes.CFUNCTYPE(None, ctypes.c_char_p)
+def leave(returned_c_str):
+    try:
+        returned_str = str(returned_c_str.decode("utf-8")).strip()
+        print("LEAVE ACTION: " + returned_str)
     except:
         pass
 
@@ -51,20 +59,23 @@ class PyBumble:
 
     def __init__(self):
         self.bumble = ctypes.CDLL(LIB_BUMBLESTACK)
-        self.bumble.initialise_bumble(
+        self.bumble.app_init_bumble(
             logging_callback,
-            action_callback,
             answer_callback,
             MAX_CONCEPTS,
             MAX_ATOMS)
 
     def run_bumble(self):
+        op_name = ctypes.create_string_buffer(str.encode("^eat".strip()))
+        self.bumble.app_add_operation(op_name, eat)
+        op_name = ctypes.create_string_buffer(str.encode("^leave".strip()))
+        self.bumble.app_add_operation(op_name, leave)
         nar_file = open('/home/seamus/GitHub/bumblestack-repos/bumblestack_vm/src/nal/marshmallow.nal', 'r')
         lines = nar_file.readlines()
         for line in lines:
             input_string = ctypes.create_string_buffer(str.encode(line.strip()))
-            self.bumble.app_input(input_string)
-        self.bumble.quit_bumble()
+            self.bumble.app_add_input(input_string)
+        self.bumble.app_quit_bumble()
 
 
 if __name__ == '__main__':

@@ -107,12 +107,6 @@ io_process_input(char *input)
 		return io_handle_set_motorbabbble(line);
 	}
 
-	// handle add operation
-	if (wildcardcmp(IO_ADD_OPERATION, line))
-	{
-		return io_handle_add_operation(line);
-	}
-
 	// handle cycle request
 	if (wildcardcmp(IO_CYCLE, line))
 	{
@@ -155,38 +149,14 @@ io_handle_run_cycle(const char *line)
 }
 
 int
-io_handle_add_operation(const char *line)
+io_handle_add_operation(char *incoming_term_string, Action action)
 {
-	// this just adds the new type of script operations
-	char incoming_term_string[NARSESE_LEN_MAX];
-	char incoming_script[NARSESE_LEN_MAX];
-	sscanf(
-		&line[strlen(IO_ADD_OPERATION_SET)],
-		"%s %s",
-		incoming_term_string,
-		incoming_script);
-	// make sure there is a '^' char at the start
-	char *term_string = NULL;
-	slog_info("Op supplied is %s", incoming_term_string);
-	slog_info("Op name supplied is %s", incoming_script);
-	if (!wildcardcmp(IO_OP_PREFIX, (const char *) incoming_term_string))
-	{
-		buffer_t *buf = buffer_new();
-		buffer_prepend(buf, IO_OP_CHAR);
-		term_string = buffer_string(buf);
-		buffer_free(buf);
-	}
-	else
-	{
-		term_string = (char *) incoming_term_string;
-	}
+	slog_info("Operation supplied is %s", incoming_term_string);
 	// TODO add proper validation somewhere :)
-	ASSERT(strlen(term_string) > 0, "Op supplied is too short.");
-	ASSERT(strlen(incoming_script) > 0, "Op name supplied is too short.");
+	ASSERT(strlen(incoming_term_string) > 0, "Operation supplied is too short.");
 	nar_add_operation(
-		narsese_atomic_term(term_string),
-		(Action) io_generic_operation_handler,
-	    incoming_script);
+		narsese_atomic_term(incoming_term_string),
+		action);
 	slog_info("Operation added.");
 	return INPUT_CONTINUE;
 }
@@ -243,7 +213,7 @@ io_run_operation_diagnostic()
 {
 	slog_info("Running operation diagnostic test...");
 	slog_info("Add operation...");
-	nar_add_operation(narsese_atomic_term("^op"), "op", NULL);
+	nar_add_operation(narsese_atomic_term("^op"), "op");
 	slog_info("Add belief...");
 	nar_add_input_Belief(narsese_atomic_term("a"));
 	slog_info("Run 1 inference cycle...");

@@ -58,7 +58,6 @@ setUp(void)
 	setup_test_logging();
 	globals_sys_rand(42);
 	g_context.logging_callback = logging_callback;
-	g_context.action_callback = action_callback;
 	g_context.answer_callback = answer_callback;
 	nar_init();
 }
@@ -428,8 +427,8 @@ test_multiple_steps()
 {
 	MOTOR_BABBLING_CHANCE = 0;
 	nar_init();
-	nar_add_operation(narsese_atomic_term("^goto_switch"), NAR_Lightswitch_GotoSwitch, NULL);
-	nar_add_operation(narsese_atomic_term("^activate_switch"), NAR_Lightswitch_ActivateSwitch, NULL);
+	nar_add_operation(narsese_atomic_term("^goto_switch"), NAR_Lightswitch_GotoSwitch);
+	nar_add_operation(narsese_atomic_term("^activate_switch"), NAR_Lightswitch_ActivateSwitch);
 	for (int i = 0; i < 5; i++)
 	{
 		nar_add_input_Belief(narsese_atomic_term("start_at"));
@@ -461,8 +460,8 @@ test_multiple_steps2()
 	NAR_Lightswitch_ActivateSwitch_executed = false;
 	MOTOR_BABBLING_CHANCE = 0;
 	nar_init();
-	nar_add_operation(narsese_atomic_term("^goto_switch"), NAR_Lightswitch_GotoSwitch, NULL);
-	nar_add_operation(narsese_atomic_term("^activate_switch"), NAR_Lightswitch_ActivateSwitch, NULL);
+	nar_add_operation(narsese_atomic_term("^goto_switch"), NAR_Lightswitch_GotoSwitch);
+	nar_add_operation(narsese_atomic_term("^activate_switch"), NAR_Lightswitch_ActivateSwitch);
 	for (int i = 0; i < 5; i++)
 	{
 		nar_add_input_Belief(narsese_atomic_term("start_at"));
@@ -508,7 +507,7 @@ void
 test_operation_execution()
 {
 	nar_init();
-	nar_add_operation(narsese_atomic_term("^op"), NAR_Procedure_Test_Op, NULL);
+	nar_add_operation(narsese_atomic_term("^op"), NAR_Procedure_Test_Op);
 	nar_add_input_Belief(narsese_atomic_term("a"));
 	nar_cycles(1);
 	nar_add_input_Belief(narsese_atomic_term("^op"));
@@ -550,9 +549,9 @@ test_sequences()
 {
 	nar_init();
 	MOTOR_BABBLING_CHANCE = 0;
-	nar_add_operation(narsese_atomic_term("^1"), op_1, "op1");
-	nar_add_operation(narsese_atomic_term("^2"), op_2, "op2");
-	nar_add_operation(narsese_atomic_term("^3"), op_3, "op3");
+	nar_add_operation(narsese_atomic_term("^1"), op_1);
+	nar_add_operation(narsese_atomic_term("^2"), op_2);
+	nar_add_operation(narsese_atomic_term("^3"), op_3);
 	for (int i = 0; i < 5; i++)
 	{
 		nar_add_input_Belief(narsese_atomic_term("a")); //0 2 4 5
