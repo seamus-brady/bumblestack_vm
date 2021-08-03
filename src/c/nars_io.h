@@ -17,10 +17,10 @@
 #ifndef H_IO
 #define H_IO
 
-#include "lib/lib_asprintf.h"
-#include "lib/lib_slog.h"
-#include "lib/lib_trim.h"
-#include "lib/lib_wildcardcmp.h"
+#include "lib_asprintf.h"
+#include "lib_slog.h"
+#include "lib_trim.h"
+#include "lib_wildcardcmp.h"
 #include "nars_decision.h"
 #include "nars_nar.h"
 #include <stdbool.h>

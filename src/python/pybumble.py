@@ -13,7 +13,6 @@
 
 
 import ctypes
-import itertools
 
 MAX_CONCEPTS = 65536
 MAX_ATOMS = 16384

@@ -23,7 +23,7 @@
  */
 
 #include "nars_inverted_atom_index.h"
-#include "lib/lib_slog.h"
+#include "lib_slog.h"
 #include "nars_io.h"
 
 ConceptChainElement *g_conceptChainElementStoragePointers[UNIFICATION_DEPTH * CONCEPTS_MAX];

@@ -15,12 +15,12 @@
 
 #ifndef H_APP
 #define H_APP
-#include "lib/lib_slog.h"
-#include "nars/nars_io.h"
-#include "nars/nars_nar.h"
+#include "lib_slog.h"
+#include "nars_globals.h"
+#include "nars_io.h"
+#include "nars_nar.h"
 #include <stdbool.h>
 #include <stdlib.h>
-#include "nars/nars_globals.h"
 
 void
 app_system_init();

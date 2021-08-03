@@ -24,7 +24,7 @@
 
 #include "nars_globals.h"
 #include "app_config.h"
-#include "lib/lib_slog.h"
+#include "lib_slog.h"
 #include <stdlib.h>
 
 void

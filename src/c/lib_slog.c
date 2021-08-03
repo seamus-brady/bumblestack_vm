@@ -40,7 +40,7 @@
 #if !defined(DARWIN) && !defined(WIN32)
 #include <syscall.h>
 #endif
-#include <nars/nars_globals.h>
+#include <nars_globals.h>
 #include <sys/time.h>
 
 #ifndef PTHREAD_MUTEX_RECURSIVE

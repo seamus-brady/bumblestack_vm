@@ -23,7 +23,7 @@
  */
 
 #include "nars_stats.h"
-#include "lib/lib_slog.h"
+#include "lib_slog.h"
 
 long g_statsCountConceptsMatchedTotal = 0;
 long g_statsCountConceptsMatchedMax = 0;

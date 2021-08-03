@@ -15,12 +15,12 @@
 #ifndef BUMBLESTACK_SRC_VM_APP_SCRIPTS_H
 #define BUMBLESTACK_SRC_VM_APP_SCRIPTS_H
 
-#include "lib/lib_buffer.h"
-#include "lib/lib_fs.h"
-#include "lib/lib_slog.h"
-#include "lib/lib_strsplit.h"
-#include "nars/nars_io.h"
-#include "nars/nars_term.h"
+#include "lib_buffer.h"
+#include "lib_fs.h"
+#include "lib_slog.h"
+#include "lib_strsplit.h"
+#include "nars_io.h"
+#include "nars_term.h"
 
 void
 app_handle_operation_action(Decision *decision);

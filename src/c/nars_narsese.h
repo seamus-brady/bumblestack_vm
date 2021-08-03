@@ -34,7 +34,7 @@
 //References//
 //----------//
 #include "app_config.h"
-#include "lib/lib_buffer.h"
+#include "lib_buffer.h"
 #include "nars_globals.h"
 #include "nars_term.h"
 #include <stdio.h>
