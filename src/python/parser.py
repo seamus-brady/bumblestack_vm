@@ -11,27 +11,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-from parsimonious import Grammar
+from lark import Lark
 
-grammar = Grammar(
-    """
-    task ::= sentence
-    sentence ::= belief | question | goal 
-    belief ::= statement '. [tense] [truth]
-    goal ::= statement '! [tense] [desire] 
-    question ::= statement '? [tense]
-    statement ::= compound-statement [ copula compound-statement ]
-    copula ::== '--> | '<-> | '==> | '=/> | '=|>
-    compound-statement ::=   ['!] compound-term [ statement-operator compound-term ] | ['!] statement-operator compound-term compound-term  // Infix vs Prefix
-    statement-operator ::= '&& | '&/ | '&|
-    compound-term ::=   term [ term-operator term ]  | term-operator term term	    // Infix vs Prefix
-    term-operator ::== '& | '| | '- | '~ | '* | '/1 | '/2 | '\1 | '\2
-    term ::= ['^] word | set | var | ( statement ) | < statement >
-    set ::= '{ term [term] '} | '[ term [term] ']
-    var ::= '$ word | '# word | '? word
-    word ::= { letter | digit | _ | ” | ' }+
-    truth ::= '{ float float '}
-    desire ::= '{ float float '}
-    tense ::= ':|: //indicating "current time
-    """)
-print(grammar.parse('((bold stuff))'))
+nal = """
+< { shape1 } --> rectangle > . :|:
+"""
+
+def parse():
+    terms = []
+    nal_grammar = open("nal.lark").read()
+    #print(nal_grammar)
+    parser = Lark(nal_grammar, lexer_callbacks={'term': terms.append})
+    parser.parse(nal)
+    print(terms)
+
+
+if __name__ == '__main__':
+    parse()
