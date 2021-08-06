@@ -1,0 +1,27 @@
+start: task+
+task : sentence
+sentence : belief | question | goal
+belief : statement "." [tense] [truth]
+goal : statement "!" [tense] [desire]
+question : statement "?" [tense]
+truth : "{" NUMBER NUMBER "}"
+desire : "{" NUMBER NUMBER "}"
+statement : compound_statement [ copula compound_statement ]
+tense : ":|:" //indicating "current time"
+compound_statement :   ["!"] compound_term [ statement_operator compound_term ]   // Infix
+                       | ["!"] statement_operator compound_term compound_term       // Prefix
+copula : "-->" | "<->" | "==>" | "=/>" | "=|>"
+statement_operator : "&&" | "&/" | "&|"
+compound_term :  term [ term_operator term ]     // Infix
+                  | term_operator term term        // Prefix
+term : ["^"] word | set | var | ( statement ) | "<" statement ">"
+term_operator : "&" | "|" | "-" | "~" | "*" | "/1" | "/2" | "\1" | "\2"
+set : "{" term [term] "}" | "[" term [term] "]"
+word: ( DIGIT | LETTER | "_" | "\"" | "|" | "'" )+
+var : "$" word | "#" word | "?" word
+
+%import common.SIGNED_NUMBER   -> NUMBER
+%import common.LETTER
+%import common.DIGIT
+%import common.WS
+%ignore WS
