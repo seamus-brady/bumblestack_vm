@@ -17,11 +17,12 @@ compound_term :  term [ term_operator term ]     // Infix
 term : ["^"] word | set | var | ( statement ) | "<" statement ">"
 term_operator : "&" | "|" | "-" | "~" | "*" | "/1" | "/2" | "\1" | "\2"
 set : "{" term [term] "}" | "[" term [term] "]"
-word: ( DIGIT | LETTER | "_" | "\"" | "|" | "'" )+
+word:  WORD +
 var : "$" word | "#" word | "?" word
 
 %import common.SIGNED_NUMBER   -> NUMBER
 %import common.LETTER
 %import common.DIGIT
+%import common.WORD
 %import common.WS
 %ignore WS

@@ -13,17 +13,14 @@
 
 from lark import Lark
 
-nal = """
-< { shape1 } --> rectangle > . :|:
-"""
+nal = "<{SHAPE} --> RECTANGLE>. :|:"
 
 def parse():
     terms = []
     nal_grammar = open("nal.lark").read()
     #print(nal_grammar)
-    parser = Lark(nal_grammar, lexer_callbacks={'term': terms.append})
-    parser.parse(nal)
-    print(terms)
+    parser = Lark(nal_grammar)
+    print( parser.parse(nal))
 
 
 if __name__ == '__main__':
