@@ -108,8 +108,6 @@ add_library(bumblestack SHARED
         src/c/lib_fs.h
         src/c/lib_strsplit.c
         src/c/lib_strsplit.h
-        src/c/lib_asprintf.c
-        src/c/lib_asprintf.h
         )
 
 set_target_properties(bumblestack

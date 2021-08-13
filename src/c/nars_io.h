@@ -17,7 +17,6 @@
 #ifndef H_IO
 #define H_IO
 
-#include "lib_asprintf.h"
 #include "lib_slog.h"
 #include "lib_trim.h"
 #include "lib_wildcardcmp.h"

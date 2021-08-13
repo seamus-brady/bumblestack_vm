@@ -16,8 +16,6 @@
 
 #include "../app_scripts.c"
 #include "../app_scripts.h"
-#include "lib_asprintf.c"
-#include "lib_asprintf.h"
 #include "lib_buffer.c"
 #include "lib_buffer.h"
 #include "lib_fs.c"
