@@ -41,9 +41,13 @@ app_add_input(char *input){
 
 void
 app_init_bumble(
+    void (*logging_callback)(),
+    void (*answer_callback)(),
     int max_concepts,
     int max_atoms)
 {
+	g_context.logging_callback = logging_callback;
+	g_context.answer_callback = answer_callback;
 	g_context.max_concepts = max_concepts;
 	g_context.max_atoms = max_atoms;
 	// boot the system

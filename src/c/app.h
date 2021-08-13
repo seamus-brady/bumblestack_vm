@@ -28,6 +28,8 @@ app_system_init();
 // entry point for lib
 void
 app_init_bumble(
+    void (*logging_callback)(),
+    void (*answer_callback)(),
     int max_concepts,
     int max_atoms);
 
@@ -42,6 +44,5 @@ app_add_input(char *input);
 // main add operation function
 void
 app_add_operation(char *term_string, Action *action);
-
 
 #endif
