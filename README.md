@@ -2,7 +2,7 @@
 
 Bumblestack VM is a modular, C-based virtual machine and reasoning engine, designed for experimentation with symbolic AI, NARS (Non-Axiomatic Reasoning System), and related cognitive architectures. **This project is a fork of [ONA (OpenNARS for Applications)](https://github.com/opennars/ONA) and incorporates code and ideas from ONA 0.8.7, as well as other open-source projects.**
 
-The project includes a core C implementation, a Python interface, and a collection of scripts and utilities for building, testing, and extending the system. See the Libs and Credits section for full attributions.
+The project includes a core C implementation, a Web Assembly (WASM) build, a Python interface, and a collection of scripts and utilities for building, testing, and extending the system. See the Libs and Credits section for full attributions.
 
 
 ## Table of Contents
