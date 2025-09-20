@@ -1,0 +1,4 @@
+/home/runner/work/bumblestack_vm/bumblestack_vm/build/CMakeFiles/unit_tests.dir
+/home/runner/work/bumblestack_vm/bumblestack_vm/build/CMakeFiles/bumblestack.dir
+/home/runner/work/bumblestack_vm/bumblestack_vm/build/CMakeFiles/edit_cache.dir
+/home/runner/work/bumblestack_vm/bumblestack_vm/build/CMakeFiles/rebuild_cache.dir
