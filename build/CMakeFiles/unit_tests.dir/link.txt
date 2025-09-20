@@ -1,1 +1,0 @@
-/usr/bin/cc -lm -mfpmath=sse -msse2 -pthread -lpthread -D_POSIX_C_SOURCE=199506L -pedantic -std=c99 -g3 -O3 -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/unit_tests.dir/link.d CMakeFiles/unit_tests.dir/src/c/test/unit_tests.c.o CMakeFiles/unit_tests.dir/src/c/test/unity/unity.c.o -o unit_tests  -lm
